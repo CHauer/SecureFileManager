@@ -4,7 +4,7 @@
  * File: index.php
  * Purpose: landing page which handles all requests
  * Author: Nathan Davison
- * /
+ */
 
 //load the required classes
 require("classes/basecontroller.php");  
