@@ -3,7 +3,7 @@
  * Project: SecureFileManager
  * File: index.php
  * Purpose: landing page which handles all requests
- * Author: Nathan Davison
+ * Author: Haller, Hauer, Leeb
  */
 
 //load the required classes
