@@ -10,7 +10,7 @@
         <!-- Topbar -->
         <div class="topbar">
             <ul class="loginbar pull-right">
-                <li class="hoverSelector">
+                <!--<li class="hoverSelector">
                     <i class="fa fa-globe"></i>
                     <a>Languages</a>
                     <ul class="languages hoverSelectorBlock">
@@ -21,7 +21,7 @@
                         <li><a href="#">Russian</a></li>
                         <li><a href="#">German</a></li>
                     </ul>
-                </li>
+                </li>-->
                 <li class="topbar-devider"></li>
                 <li><a href="page_faq.html">Help</a></li>
                 <li class="topbar-devider"></li>
@@ -71,7 +71,7 @@
 
                 <!-- Portfolio -->
                 <li class="">
-                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                    <a href="account/login">
                         Anmelden
                     </a>
 
@@ -80,7 +80,7 @@
 
                 <!-- Features -->
                 <li class="">
-                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                    <a href="account/register" >
                         Register
                     </a>
 
