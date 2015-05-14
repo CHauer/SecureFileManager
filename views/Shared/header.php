@@ -71,7 +71,7 @@
 
                 <!-- Portfolio -->
                 <li class="">
-                    <a href="account/login">
+                    <a href="/account/login">
                         Anmelden
                     </a>
 
@@ -80,7 +80,7 @@
 
                 <!-- Features -->
                 <li class="">
-                    <a href="account/register" >
+                    <a href="/account/register" >
                         Register
                     </a>
 
