@@ -1,5 +1,5 @@
 <?php
-
+/*
     function setupDatabase ()
     {
         global $databaseConnection;
@@ -67,4 +67,6 @@
             $statement_add_admin_to_role->close();
         }
     }
+
+*/
 ?>

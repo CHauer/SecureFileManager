@@ -12,6 +12,7 @@ require("classes/basemodel.php");
 require("classes/view.php");
 require("classes/viewmodel.php");
 require("classes/loader.php");
+require("dataAccess/initDataAccess.php");
 
 $loader = new Loader(); //create the loader object
 $controller = $loader->createController(); //creates the requested controller object based on the 'controller' URL value
