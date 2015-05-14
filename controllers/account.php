@@ -6,8 +6,6 @@
  * Time: 13:56
  */
 
-require("../Includes/redirect.php");
-
 class AccountController extends BaseController
 {
     //add to the parent constructor
