@@ -1,71 +1,107 @@
-<?php require_once ("Includes/session.php"); ?>
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>My Site's Title</title>
-        <link href="/Styles/Site.css" rel="stylesheet" type="text/css" />
-        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+<!--=== Header ===-->
+<div class="header">
+    <div class="container">
+        <!-- Logo -->
+        <a class="logo" href="index.html">
+            <img src="/assets/img/logo1-default.png" alt="Logo">
+        </a>
+        <!-- End Logo -->
 
+        <!-- Topbar -->
+        <div class="topbar">
+            <ul class="loginbar pull-right">
+                <li class="hoverSelector">
+                    <i class="fa fa-globe"></i>
+                    <a>Languages</a>
+                    <ul class="languages hoverSelectorBlock">
+                        <li class="active">
+                            <a href="#">English <i class="fa fa-check"></i></a>
+                        </li>
+                        <li><a href="#">Spanish</a></li>
+                        <li><a href="#">Russian</a></li>
+                        <li><a href="#">German</a></li>
+                    </ul>
+                </li>
+                <li class="topbar-devider"></li>
+                <li><a href="page_faq.html">Help</a></li>
+                <li class="topbar-devider"></li>
+                <li><a href="page_login.html">Login</a></li>
+            </ul>
+        </div>
+        <!-- End Topbar -->
 
-    </head>
-    <body>
-        <div class="outer-wrapper">
-        <header>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p class="site-title"><a href="/index.php">My Site</a></p>
-                </div>
-                <div class="float-right">
-                    <section id="login">
-                        <ul id="login">
-                        <?php
-                        if (logged_on())
-                        {
-                            echo '<li><a href="/logoff.php">Sign out</a></li>' . "\n";
-                            if (is_admin())
-                            {
-                                echo '<li><a href="/addpage.php">Add</a></li>' . "\n";
-                                echo '<li><a href="/selectpagetoedit.php">Edit</a></li>' . "\n";
-                                echo '<li><a href="/deletepage.php">Delete</a></li>' . "\n";
-                            }
-                        }
-                        else
-                        {
-                            echo '<li><a href="/logon.php">Login</a></li>' . "\n";
-                            echo '<li><a href="/register.php">Register</a></li>' . "\n";
-                        }
-                        ?>
-                        </ul>
-                        <?php if (logged_on()) {
-                            echo "<div class=\"welcomeMessage\">Welcome, <strong>{$_SESSION['username']}</strong></div>\n";
-                        } ?>
-                    </section>
-                </div>
+        <!-- Toggle get grouped for better mobile display -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="fa fa-bars"></span>
+        </button>
+        <!-- End Toggle -->
+    </div><!--/end container-->
 
-                <div class="clear-fix"></div>
-            </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse mega-menu navbar-responsive-collapse">
+        <div class="container">
+            <ul class="nav navbar-nav">
+                <!-- Home -->
+                <li class="active">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                        Home
+                    </a>
 
-                <section class="navigation" data-role="navbar">
-                    <nav>
-                        <ul id="menu">
-                            <li><a href="/index.php">Home</a></li>
-                            <?php
-                                $statement = $databaseConnection->prepare("SELECT id, menulabel FROM pages");
-                                $statement->execute();
+                </li>
+                <!-- End Home -->
 
-                                if($statement->error)
-                                {
-                                    die("Database query failed: " . $statement->error);
-                                }
+                <!-- Pages -->
+                <li class="">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                        Files
+                    </a>
 
-                                $statement->bind_result($id, $menulabel);
-                                while($statement->fetch())
-                                {
-                                    echo "<li><a href=\"/page.php?pageid=$id\">$menulabel</a></li>\n";
-                                }
-                            ?>
-                        </ul>
-                    </nav>
-            </section>
-        </header>
+                </li>
+                <!-- End Pages -->
+
+                <!-- Blog -->
+                <li class="">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                        Forum
+                    </a>
+
+                </li>
+                <!-- End Blog -->
+
+                <!-- Portfolio -->
+                <li class="">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                        Anmelden
+                    </a>
+
+                </li>
+                <!-- End Portfolio -->
+
+                <!-- Features -->
+                <li class="">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                        Register
+                    </a>
+
+                </li>
+                <!-- End Features -->
+
+                <!-- Search Block -->
+                <li>
+                    <i class="search fa fa-search search-btn"></i>
+                    <div class="search-open">
+                        <div class="input-group animated fadeInDown">
+                            <input type="text" class="form-control" placeholder="Search">
+                                <span class="input-group-btn">
+                                    <button class="btn-u" type="button">Go</button>
+                                </span>
+                        </div>
+                    </div>
+                </li>
+                <!-- End Search Block -->
+            </ul>
+        </div><!--/end container-->
+    </div><!--/navbar-collapse-->
+</div>
+<!--=== End Header ===-->
