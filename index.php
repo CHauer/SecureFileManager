@@ -1,6 +1,6 @@
 <?php
 /* 
- * Project: SecureFileManager
+ * Project: SecureFileManager - FH WN
  * File: index.php
  * Purpose: landing page which handles all requests
  * Author: Haller, Hauer, Leeb
