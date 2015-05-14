@@ -1,4 +1,4 @@
-<section>
+<div class="container content">
 <h1>Nathan MVC Framework!</h1>
 <p>Welcome to what is probably one of the most basic PHP MVC frameworks you'll find. The current view you're seeing exists in /views/home/index.php.</p>
 <p>The idea of Nathan MVC (I honestly couldn't think of a better name) is for PHP developers not necessarily versed on the basics of the Model View Controller pattern to have a framework clean of clutter and unnecessary addons, so they can focus on exploring the fundamentals of the pattern while having a working example from the very first step.</p>
@@ -20,4 +20,4 @@
 <p>If you intend to expand on this framework, your first step is to probably think about where you'll store images, css files and js files (/content and /js ?), and to modify the maintemplate.php file under /views. From there, you can start creating controllers and models appropriately, making sure to extend from the base classes for each (see the existing home and error controllers and models for examples). Then you'll want to match your controller structure in the views directory, and create a view file for each of your controller's actions/methods (again, home and error can be used as an example).</p>
 <p>With this all done, any controller, action and view setup you create should be viewable via /controller/action.</p>
 <p>If you want to extend the capability of your models, such as including the ability for them to interact with a database, your best bet would be to establish your extensions in the BaseModel class's construct method. Since any model should extend from this class, they would therefore inherit any functionality you add. Other than a database connection, other examples include functionality for generating, validating, and sanitizing.</p>
-</section>
+</div>
