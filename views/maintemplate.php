@@ -18,22 +18,22 @@
     <link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=cyrillic,latin'>
 
     <!-- CSS Global Compulsory -->
-    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="/assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
 
     <!-- CSS Header and Footer -->
-    <link rel="stylesheet" href="assets/css/headers/header-default.css">
-    <link rel="stylesheet" href="assets/css/footers/footer-v1.css">
+    <link rel="stylesheet" href="/assets/css/headers/header-default.css">
+    <link rel="stylesheet" href="/assets/css/footers/footer-v1.css">
 
     <!-- CSS Implementing Plugins -->
-    <link rel="stylesheet" href="assets/plugins/animate.css">
-    <link rel="stylesheet" href="assets/plugins/line-icons/line-icons.css">
-    <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/plugins/owl-carousel/owl-carousel/owl.carousel.css">
-    <link rel="stylesheet" href="assets/plugins/layer-slider/layerslider/css/layerslider.css">
+    <link rel="stylesheet" href="/assets/plugins/animate.css">
+    <link rel="stylesheet" href="/assets/plugins/line-icons/line-icons.css">
+    <link rel="stylesheet" href="/assets/plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/plugins/owl-carousel/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="/assets/plugins/layer-slider/layerslider/css/layerslider.css">
 
     <!-- CSS Customization -->
-    <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
 </head>
 
 <body>
@@ -44,7 +44,7 @@
         <div class="container">
             <!-- Logo -->
             <a class="logo" href="index.html">
-                <img src="assets/img/logo1-default.png" alt="Logo">
+                <img src="/assets/img/logo1-default.png" alt="Logo">
             </a>
             <!-- End Logo -->
 
