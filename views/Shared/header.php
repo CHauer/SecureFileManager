@@ -2,7 +2,7 @@
 <div class="header">
     <div class="container">
         <!-- Logo -->
-        <a class="logo" href="index.html">
+        <a class="logo" href="/home/index">
             <img src="/assets/img/logo1-default.png" alt="Logo">
         </a>
         <!-- End Logo -->
@@ -23,9 +23,9 @@
                     </ul>
                 </li>-->
                 <li class="topbar-devider"></li>
-                <li><a href="page_faq.html">Help</a></li>
+                <li><a href="/home/faq">Help</a></li>
                 <li class="topbar-devider"></li>
-                <li><a href="page_login.html">Login</a></li>
+                <li><a href="/account/login">Login</a></li>
             </ul>
         </div>
         <!-- End Topbar -->
@@ -44,7 +44,7 @@
             <ul class="nav navbar-nav">
                 <!-- Home -->
                 <li class="active">
-                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                    <a href="/home/index">
                         Home
                     </a>
 
@@ -53,7 +53,7 @@
 
                 <!-- Pages -->
                 <li class="">
-                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                    <a href="/files/index" >
                         Files
                     </a>
 
@@ -62,7 +62,7 @@
 
                 <!-- Blog -->
                 <li class="">
-                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                    <a href="forum/index" >
                         Forum
                     </a>
 
@@ -72,7 +72,7 @@
                 <!-- Portfolio -->
                 <li class="">
                     <a href="/account/login">
-                        Anmelden
+                        Login
                     </a>
 
                 </li>
@@ -88,7 +88,7 @@
                 <!-- End Features -->
 
                 <!-- Search Block -->
-                <li>
+                <!-- <li>
                     <i class="search fa fa-search search-btn"></i>
                     <div class="search-open">
                         <div class="input-group animated fadeInDown">
@@ -98,7 +98,7 @@
                                 </span>
                         </div>
                     </div>
-                </li>
+                </li> -->
                 <!-- End Search Block -->
             </ul>
         </div><!--/end container-->

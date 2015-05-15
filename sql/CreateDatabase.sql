@@ -9,15 +9,17 @@ CREATE TABLE [dbo].[AuthToken] (
 CREATE INDEX [IX_AuthTokenId] ON [dbo].[AuthToken]([AuthTokenId])
 CREATE TABLE [dbo].[User] (
     [UserId] [int] NOT NULL IDENTITY,
-    [Username] [nvarchar](250),
+    [Username] [nvarchar](250) NOT NULL,
+    [Firstname] [nvarchar](250),
+	  [Lastname] [nvarchar](250),
     [Password] [nvarchar](300),
     [Birthdate] [datetime],
-    [EMail] [nvarchar](300),
+    [EMail] [nvarchar](300) NOT NULL,
     [Description] [nvarchar](3000),
     [PictureLink] [nvarchar](200),
-    [LockoutEnabled] [bit] NOT NULL,
+    [LockoutEnabled] [bit] DEFAULT(0),
     [LockoutEndDate] [datetime],
-    [AccessFailedCount] [int] NOT NULL,
+    [AccessFailedCount] [int] DEFAULT(0),
     [RoleId] [int] NOT NULL,
     [AuthTokenId] [int],
     CONSTRAINT [PK_dbo.User] PRIMARY KEY ([UserId])
@@ -25,7 +27,7 @@ CREATE TABLE [dbo].[User] (
 CREATE INDEX [IX_RoleId] ON [dbo].[User]([RoleId])
 CREATE TABLE [dbo].[Comment] (
     [CommentId] [int] NOT NULL IDENTITY,
-    [Message] [nvarchar](500),
+    [Message] [nvarchar](500) NOT NULL,
     [Created] [datetime] NOT NULL DEFAULT GETDATE(),
     [UserId] [int] NOT NULL,
     [UserFile_UserFileId] [int],
@@ -35,9 +37,9 @@ CREATE INDEX [IX_UserId] ON [dbo].[Comment]([UserId])
 CREATE INDEX [IX_UserFile_UserFileId] ON [dbo].[Comment]([UserFile_UserFileId])
 CREATE TABLE [dbo].[Entry] (
     [EntryId] [int] NOT NULL IDENTITY,
-    [Message] [nvarchar](max),
+    [Message] [nvarchar](max) NOT NULL,
     [Created] [datetime] NOT NULL DEFAULT GETDATE(),
-    [IsDeleted] [bit] NOT NULL,
+    [IsDeleted] [bit] DEFAULT(0),
     [ForumThreadId] [int] NOT NULL,
     [UserId] [int] NOT NULL,
     CONSTRAINT [PK_dbo.Entry] PRIMARY KEY ([EntryId])
@@ -46,7 +48,7 @@ CREATE INDEX [IX_ForumThreadId] ON [dbo].[Entry]([ForumThreadId])
 CREATE INDEX [IX_UserId] ON [dbo].[Entry]([UserId])
 CREATE TABLE [dbo].[ForumThread] (
     [ForumThreadId] [int] NOT NULL IDENTITY,
-    [Title] [nvarchar](500),
+    [Title] [nvarchar](500) NOT NULL,
     [Description] [nvarchar](2000),
     [IsDeleted] [bit] NOT NULL,
     [Created] [datetime] NOT NULL DEFAULT GETDATE(),
@@ -56,10 +58,10 @@ CREATE TABLE [dbo].[ForumThread] (
 CREATE INDEX [IX_UserId] ON [dbo].[ForumThread]([UserId])
 CREATE TABLE [dbo].[UserFile] (
     [UserFileId] [int] NOT NULL IDENTITY,
-    [Name] [nvarchar](200),
-    [FileLink] [nvarchar](250),
+    [Name] [nvarchar](200) NOT NULL,
+    [FileLink] [nvarchar](250) NOT NULL,
     [Description] [nvarchar](3000),
-    [IsPrivate] [bit] NOT NULL,
+    [IsPrivate] [bit] DEFAULT (1),
     [UserId] [int] NOT NULL,
     [Uploaded] [datetime] NOT NULL DEFAULT GETDATE(),
     CONSTRAINT [PK_dbo.UserFile] PRIMARY KEY ([UserFileId])

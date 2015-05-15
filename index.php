@@ -6,14 +6,25 @@
  * Author: Haller, Hauer, Leeb
  */
 
-//load the required classes
+//start session
+require("Includes/session.php");
+
+// init database
+require("Includes/config.php");
+require("Includes/connectDB.php");
+require("Includes/rightsManagement.php");
+
+//helper functions
+require("includes/redirectLogic.php");
+require("includes/fileUpload.php");
+
+//load the required classes mvc
 require("classes/basecontroller.php");  
 require("classes/basemodel.php");
 require("classes/view.php");
 require("classes/viewmodel.php");
 require("classes/loader.php");
 require("dataAccess/initDataAccess.php");
-require("includes/redirectLogic.php");
 
 $loader = new Loader(); //create the loader object
 $controller = $loader->createController(); //creates the requested controller object based on the 'controller' URL value

@@ -1,5 +1,5 @@
 <?php
-    require_once ("/Includes/config.php");
+
 
     /* Connect*/
     try

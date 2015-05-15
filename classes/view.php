@@ -1,9 +1,9 @@
 <?php
 /* 
- * Project: Nathan MVC
+ * Project: SecureFileManager
  * File: /classes/view.php
  * Purpose: class for the view object.
- * Author: Nathan Davison
+ * Author: Christoph Hauer
  */
 
 class View {    

@@ -8,6 +8,36 @@
 
 class User
 {
-    public $userId;
+    public $UserId;
+
+    public $Username;
+
+    public $Firstname;
+
+    public $Lastname;
+
+    public $Password;
+
+    public $BirthDate;
+
+    public $EMail;
+
+    public $Description;
+
+    public $PictureLink;
+
+    public $LockoutEnabled;
+
+    public $LockoutEndDate;
+
+    public $AccessFailedCount;
+
+    public $Role;
+
+    public $RoleId;
+
+    public $AuthToken;
+
+    public $AuthTokenId;
 
 }

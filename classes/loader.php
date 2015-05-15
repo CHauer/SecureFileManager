@@ -1,9 +1,9 @@
 <?php
 /* 
- * Project: Nathan MVC
+ * Project: SecureFileManager
  * File: /classes/loader.php
  * Purpose: class which maps URL requests to controller object creation
- * Author: Nathan Davison
+ * Author: Christoph Hauer
  */
 
 class Loader {

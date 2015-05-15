@@ -6,7 +6,18 @@
  * Time: 14:16
  */
 
-function Redirect($url, $permanent = false)
+function RedirectAction($controller, $action, $id = NULL)
+{
+    if (headers_sent() === false)
+    {
+        header('Location: ' . $controller. '/' . $action . '/'. $id);
+    }
+
+    exit();
+}
+
+
+function RedirectUrl($url, $permanent = false)
 {
     if (headers_sent() === false)
     {

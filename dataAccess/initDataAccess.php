@@ -6,7 +6,17 @@
  * Time: 04:07
  */
 
-require("models/user.php");
-require("userRepository.php");
+//load model class
+require("models/User.php");
+require("models/AuthToken.php");
+require("models/Comment.php");
+require("models/Entry.php");
+require("models/ForumThread.php");
+require("models/LogEntry.php");
+require("models/Role.php");
+require("models/UserFile.php");
+
+//load repositories
+require("UserRepository.php");
 
 ?>

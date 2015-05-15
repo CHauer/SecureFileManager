@@ -1,9 +1,9 @@
 <?php
 /* 
- * Project: Nathan MVC
+ * Project: SecureFileManager
  * File: /classes/viewmodel.php
  * Purpose: class for the optional data object returned by model methods which the controller sends to the view.
- * Author: Nathan Davison
+ * Author: Christoph Hauer
  */
 
 class ViewModel {    
@@ -21,6 +21,11 @@ class ViewModel {
             return null;
         }
     }
+
+    public function exists($name){
+        return isset($this->{$name});
+    }
+
 }
 
 ?>

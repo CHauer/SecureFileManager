@@ -6,14 +6,14 @@
                 <!-- About -->
                 <div class="col-md-3 md-margin-bottom-40">
                     <a href="/home/index"><img id="logo-footer" class="footer-logo" src="/assets/img/logo2-default.png" alt=""></a>
-                    <p>About Unify dolor sit amet, consectetur adipiscing elit. Maecenas eget nisl id libero tincidunt sodales.</p>
-                    <p>Duis eleifend fermentum ante ut aliquam. Cras mi risus, dignissim sed adipiscing ut, placerat non arcu.</p>
+                    <p>Secure File Manager - FH Wiener Neustadt</p>
+                    <p>Project for SecureWebDevelopment.</p>
                 </div><!--/col-md-3-->
                 <!-- End About -->
 
                 <!-- Latest -->
                 <div class="col-md-3 md-margin-bottom-40">
-                    <div class="posts">
+                    <!-- <div class="posts">
                         <div class="headline"><h2>Latest Posts</h2></div>
                         <ul class="list-unstyled latest-list">
                             <li>
@@ -29,7 +29,7 @@
                                 <small>September 15, 2014</small>
                             </li>
                         </ul>
-                    </div>
+                    </div> -->
                 </div><!--/col-md-3-->
                 <!-- End Latest -->
 
@@ -37,11 +37,11 @@
                 <div class="col-md-3 md-margin-bottom-40">
                     <div class="headline"><h2>Useful Links</h2></div>
                     <ul class="list-unstyled link-list">
-                        <li><a href="#">About us</a><i class="fa fa-angle-right"></i></li>
-                        <li><a href="#">Portfolio</a><i class="fa fa-angle-right"></i></li>
-                        <li><a href="#">Latest jobs</a><i class="fa fa-angle-right"></i></li>
-                        <li><a href="#">Community</a><i class="fa fa-angle-right"></i></li>
-                        <li><a href="#">Contact us</a><i class="fa fa-angle-right"></i></li>
+                        <li><a href="/home/index">Home</a><i class="fa fa-angle-right"></i></li>
+                        <li><a href="/files/index">Files</a><i class="fa fa-angle-right"></i></li>
+                        <li><a href="/forum/index">Forum</a><i class="fa fa-angle-right"></i></li>
+                        <li><a href="/account/login">Login</a><i class="fa fa-angle-right"></i></li>
+                        <li><a href="/account/register" >Register</a><i class="fa fa-angle-right"></i></li>
                     </ul>
                 </div><!--/col-md-3-->
                 <!-- End Link List -->
@@ -50,11 +50,11 @@
                 <div class="col-md-3 map-img md-margin-bottom-40">
                     <div class="headline"><h2>Contact Us</h2></div>
                     <address class="md-margin-bottom-40">
-                        25, Lorem Lis Street, Orange <br />
-                        California, US <br />
-                        Phone: 800 123 3456 <br />
-                        Fax: 800 123 3456 <br />
-                        Email: <a href="mailto:info@anybiz.com" class="">info@anybiz.com</a>
+                        FH Wiener Neustadt<br />
+                        Team:<br />
+                        M. Haller<br />
+                        C. Hauer<br />
+                        D. Leeb<br />
                     </address>
                 </div><!--/col-md-3-->
                 <!-- End Address -->

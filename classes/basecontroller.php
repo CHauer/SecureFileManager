@@ -1,9 +1,9 @@
 <?php
 /* 
- * Project: Nathan MVC
+ * Project: SecureFileManager
  * File: /classes/basecontroller.php
  * Purpose: abstract class from which controllers extend
- * Author: Nathan Davison
+ * Author: Christoph Hauer
  */
 
 abstract class BaseController {

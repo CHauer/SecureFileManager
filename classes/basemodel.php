@@ -1,9 +1,9 @@
 <?php
 /* 
- * Project: Nathan MVC
+ * Project: SecureFileManager
  * File: /classes/basemodel.php
  * Purpose: abstract class from which models extend.
- * Author: Nathan Davison
+ * Author: Christoph Hauer
  */
 
 class BaseModel {

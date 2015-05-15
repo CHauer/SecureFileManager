@@ -17,17 +17,49 @@ class AccountController extends BaseController
         $this->model = new AccountModel();
     }
 
-    //default method
     protected function register()
     {
-        if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
+        $viewModel = $this->model->register();
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST')
         {
-            Redirect("home/index");
+            if(!$_POST["Password"] == $_POST["PasswordConfirm"]) {
+                $viewModel->set("error", "Password and Password Confirm are not equal!");
+            }
+            if(!$_POST["CheckTerms"] == true) {
+                $viewModel->set("error", "Pleae accept the terms!");
+            }
+
+            $filelink = HandleFileUpload("Picture", "/upload/UserPictures");
+
+            $user = new User();
+            $user->Username = $_POST["Username"];
+            $user->BirthDate = $_POST["Birthdate"];
+
+            $user->Description = $_POST["Description"];
+            $user->EMail = $_POST["EMail"];
+
+            $user->Firstname = $_POST["Firstname"];
+            $user->Lastname = $_POST["Lastname"];
+
+            $user->Password = md5($_POST["Password"]);
+            $user->PictureLink = $filelink;
+
+            try {
+                $userrepo = new UserRepository();
+                $userrepo->InsertUser($user);
+            }catch(Exception $e){
+                $viewModel->set("error", $e->getMessage());
+            }
+
+            if(!$viewModel->exists(("error"))) {
+                RedirectAction("home", "index");
+                return;
+            }
         }
-        else
-        {
-            $this->view->output($this->model->register());
-        }
+
+        $this->view->output($viewModel);
+
     }
 
     protected function login()
@@ -41,6 +73,12 @@ class AccountController extends BaseController
             $this->view->output($this->model->login());
         }
     }
+
+    protected function logoff()
+    {
+        $this->view->output(NULL);
+    }
+
 }
 
 ?>
