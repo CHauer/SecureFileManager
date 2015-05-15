@@ -13,7 +13,7 @@ error_reporting(E_ALL);
 
 // init database
 require("Includes/config.php");
-//require("Includes/connectDB.php");
+require("Includes/connectDB.php");
 require("Includes/rightsManagement.php");
 
 //helper functions
@@ -26,7 +26,7 @@ require("classes/basemodel.php");
 require("classes/view.php");
 require("classes/viewmodel.php");
 require("classes/loader.php");
-//require("dataAccess/initDataAccess.php");
+require("dataAccess/initDataAccess.php");
 
 $loader = new Loader(); //create the loader object
 $controller = $loader->createController(); //creates the requested controller object based on the 'controller' URL value
