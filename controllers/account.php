@@ -25,9 +25,25 @@ class AccountController extends BaseController
         {
             if(!$_POST["Password"] == $_POST["PasswordConfirm"]) {
                 $viewModel->set("error", "Password and Password Confirm are not equal!");
+                $this->view->output($viewModel);
+                return;
             }
             if(!$_POST["CheckTerms"] == true) {
+                $viewModel->set("error", "Please accept the terms!");
+                $this->view->output($viewModel);
+                return;
+            }
+
+            if(!$_POST["CheckTerms"] == true) {
                 $viewModel->set("error", "Pleae accept the terms!");
+                $this->view->output($viewModel);
+                return;
+            }
+
+            if(!($_POST["Role"] == "Standard" || $_POST["Role"] == "Premium")){
+                $viewModel->set("error", "This role is not valid!");
+                $this->view->output($viewModel);
+                return;
             }
 
             $filelink = HandleFileUpload("Picture", "/upload/UserPictures");
@@ -46,6 +62,11 @@ class AccountController extends BaseController
             $user->PictureLink = $filelink;
 
             try {
+                $roleRepo = new RoleRepository();
+                $roleId = $roleRepo->GetRoleId($_POST["Role"]);
+
+                $user->RoleId = $roleId;
+
                 $userrepo = new UserRepository();
                 $userrepo->InsertUser($user);
             }catch(Exception $e){

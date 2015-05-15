@@ -45,6 +45,17 @@
                 <label>Birth date <span class="color-red">*</span></label>
                 <input type="text" name="Birthdate" class="form-control margin-bottom-20">
 
+                <label>Account <span class="color-red">*</span></label>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input type="radio" value="Standard" checked="checked"  name="Role" class="form-control margin-bottom-20"> Standard
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="radio" value="Premium" name="Role" class="form-control margin-bottom-20"> Premium
+                    </div>
+                </div>
+
+
                 <div class="row">
                     <div class="col-sm-6">
                         <label>Password <span class="color-red">*</span></label>

@@ -15,7 +15,7 @@ class UserRepository{
     public function InsertUser(User $user){
         global $db;
 
-        $stmt = $db->prepare("INSERT INTO [dbo].[User]
+        $stmt = $db->prepare('INSERT INTO [dbo].[User]
            ([Username]
            ,[Password]
            ,[Birthdate]
@@ -42,7 +42,7 @@ class UserRepository{
            :RoleId,
            :AuthTokenId,
            :Firstname,
-           :Lastname)");
+           :Lastname)');
         $stmt->bindParam(":Username", $user->Username);
         $stmt->bindParam(":Password", $user->Password);
         $stmt->bindParam(":Birthdate", $user->Birthdate);
