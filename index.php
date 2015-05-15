@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * Project: SecureFileManager - FH WN
  * File: index.php
  * Purpose: landing page which handles all requests
@@ -8,6 +8,8 @@
 
 //start session
 require("Includes/session.php");
+
+error_reporting(E_ALL);
 
 // init database
 require("Includes/config.php");
