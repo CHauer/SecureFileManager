@@ -28,14 +28,9 @@ class AccountController extends BaseController
                 $this->view->output($viewModel);
                 return;
             }
-            if(!$_POST["CheckTerms"] == true) {
-                $viewModel->set("error", "Please accept the terms!");
-                $this->view->output($viewModel);
-                return;
-            }
 
             if(!$_POST["CheckTerms"] == true) {
-                $viewModel->set("error", "Pleae accept the terms!");
+                $viewModel->set("error", "Please accept the terms!");
                 $this->view->output($viewModel);
                 return;
             }

@@ -23,8 +23,6 @@ class RoleRepository {
         if ($stmt->columnCount() == 1) {
             return $result[0]['RoleId'];
         }
-        return NULL;
-
     }
 
 }
