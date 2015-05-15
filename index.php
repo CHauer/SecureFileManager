@@ -13,7 +13,7 @@ error_reporting(E_ALL);
 
 // init database
 require("Includes/config.php");
-require("Includes/connectDB.php");
+//require("Includes/connectDB.php");
 require("Includes/rightsManagement.php");
 
 //helper functions
