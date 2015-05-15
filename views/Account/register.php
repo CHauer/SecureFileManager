@@ -23,11 +23,10 @@
 
                 <?
                 if($viewModel->exists("error")){
-                    ?><h3 class="color-red"><? echo $viewModel->get("error")?></h3><?
+                    echo '<h3 class="color-red">' . $viewModel->get("error") . '</h3>';
                 }
                 ?>
 
-                ?>
                 <label>Username <span class="color-red">*</span></label>
                 <input type="text" name="Username" class="form-control margin-bottom-20">
 
@@ -44,7 +43,7 @@
                 <input type="file" name="Picture" class="form-control margin-bottom-20">
 
                 <label>Birth date <span class="color-red">*</span></label>
-                <input type="file" name="Birthdate" class="form-control margin-bottom-20">
+                <input type="text" name="Birthdate" class="form-control margin-bottom-20">
 
                 <div class="row">
                     <div class="col-sm-6">
