@@ -63,4 +63,19 @@ class FileRepository{
         return true;
     }
 
+    public function GetPublicAllFiles()
+    {
+        global $db;
+        $isprivate = 0;
+
+        $stmt = $db->prepare('Select * from [UserFile] where IsPrivate = :ispriv');
+        $stmt->bindParam(':ispriv', $isprivate);
+
+        $result = $stmt->execute();
+
+        if ($stmt->columnCount() >= 1) {
+            return $result;
+        }
+    }
+
 }
