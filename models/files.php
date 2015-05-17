@@ -6,7 +6,7 @@
  * Author: Nathan Davison
  */
 
-class HomeModel extends BaseModel
+class FilesModel extends BaseModel
 {
     //data passed to the home index view
     public function index()
