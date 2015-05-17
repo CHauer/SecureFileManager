@@ -6,7 +6,7 @@
  * Time: 04:02
  */
 
-class UserRepository{
+class FileRepository{
 
     /**
      * @param UserFile $file
