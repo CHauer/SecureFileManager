@@ -17,6 +17,12 @@ class FilesController extends BaseController
         $this->model = new FilesModel();
     }
 
+    //default method
+    protected function index()
+    {
+        $this->view->output($this->model->index());
+    }
+
     protected function upload()
     {
         $viewModel = $this->model->upload();

@@ -11,7 +11,7 @@ class AccountModel extends BaseModel
     //data passed to the home index view
     public function register()
     {   
-        $this->viewModel->set("pageTitle","Registrieren");
+        $this->viewModel->set("pageTitle","Registration");
         return $this->viewModel;
     }
 
