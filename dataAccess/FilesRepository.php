@@ -68,6 +68,8 @@ class FileRepository{
         global $db;
         $isprivate = 0;
 
+        //TODO: Eigene Files alle anzeigen + USERNAME
+
         $stmt = $db->prepare('Select * from [UserFile] where IsPrivate = :ispriv');
         $stmt->bindParam(':ispriv', $isprivate);
 

@@ -20,7 +20,7 @@ class FilesController extends BaseController
     //default method
     protected function index()
     {
-        /*$fileRepo = new FileRepository();
+       /* $fileRepo = new FileRepository();
         $files = $fileRepo->GetPublicAllFiles();*/
 
         $this->view->output($this->model->index());

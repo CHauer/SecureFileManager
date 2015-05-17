@@ -23,6 +23,9 @@
                 <label>File Name <span class="color-red">*</span></label>
                 <input type="text" name="Name" class="form-control margin-bottom-20">
 
+                <label>File Description</label>
+                <input type="text" name="Description" class="form-control margin-bottom-20" maxlength="3000">
+
                 <hr>
 
                 <div class="row">
@@ -34,6 +37,7 @@
                     <div class="col-lg-6 text-right">
                         <button class="btn-u" type="submit">Upload</button>
                     </div>
+                </div>
             </form>
         </div>
     </div><!--/row-->
