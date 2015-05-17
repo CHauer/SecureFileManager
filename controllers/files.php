@@ -20,7 +20,7 @@ class FilesController extends BaseController
     //default method
     protected function upload()
     {
-        $this->view->output($this->model->index());
+        $this->view->output($this->model->upload());
     }
 }
 
