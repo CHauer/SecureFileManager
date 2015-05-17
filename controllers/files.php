@@ -16,11 +16,17 @@ class FilesController extends BaseController
         require("models/files.php");
         $this->model = new FilesModel();
     }
-    
-    //default method
+
     protected function upload()
     {
-        $this->view->output($this->model->upload());
+        $viewModel = $this->model->upload();
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST')
+        {
+
+        }
+
+        $this->view->output($viewModel);
     }
 }
 
