@@ -9,7 +9,7 @@
 class FilesModel extends BaseModel
 {
     //data passed to the home index view
-    public function index()
+    public function upload()
     {
         $this->viewModel->set("pageTitle","Upload");
         return $this->viewModel;
