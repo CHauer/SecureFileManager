@@ -6,19 +6,23 @@
  * Author: Haller, Hauer, Leeb
  */
 
+//PHP Settings - DEBUG Settings
+ini_set("error_reporting", E_ALL);
+ini_set("display_errors", 1);
+ini_set("log_errors", 1 );
+
 //start session
 require("Includes/session.php");
 
-error_reporting(E_ALL);
-
 // init database
-require("Includes/config.php");
+require("Includes/configDB.php");
 require("Includes/connectDB.php");
 require("Includes/rightsManagement.php");
 
 //helper functions
 require("includes/redirectLogic.php");
 require("includes/fileUpload.php");
+require("includes/antiCrossSiteRequestForgery.php");
 
 //load the required classes mvc
 require("classes/basecontroller.php");  

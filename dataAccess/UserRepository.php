@@ -62,4 +62,22 @@ class UserRepository{
         return $stmt->columnCount() == 1;
     }
 
+    /**
+     * @return bool
+     */
+    public function IsUserInRole($roleName){
+        $roleRepo = new RoleRepository();
+        $roleId = $roleRepo->GetRoleId($roleName);
+
+        global $db;
+
+        $query = "SELECT Top(1) UserId FROM [User] U
+                  WHERE U.RoleId=:roleId AND U.UserId=:id";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':id', $_SESSION['userid']);
+        $statement->bindValue(':roleId', $roleId);
+        $statement->execute();
+        return $statement->num_rows == 1;
+    }
+
 }
