@@ -26,28 +26,21 @@
             <div class="col-sm-4">
                 <button type="button" class="btn-u btn-block btn-u-dark"> Search User</button>
             </div>
+            <div class="col-sm-4">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        20 <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">All</a></li>
+                        <li><a href="#">10</a></li>
+                        <li><a href="#">5</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row md-margin-bottom-20">
-        <dic class="col-md-8"></dic>
-        <dic class="col-md-4">
-            <ul class="list-inline clear-both">
-                <li class="sort-list-btn">
-                    <h3>Show:</h3>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            20 <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">All</a></li>
-                            <li><a href="#">10</a></li>
-                            <li><a href="#">5</a></li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-        </dic>
-    </div>
+
     <div class="row"></div>
 </div><!--/container-->
 <!--=== End Content Part ===-->
