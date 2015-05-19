@@ -14,7 +14,7 @@
 
 <!--=== Content Part ===-->
 <div class="container content">
-    <div class="row md-margin-bottom-10">
+    <div class="row md-margin-bottom-20">
         <div class="job-img-inputs">
             <!-- Serach -->
             <div class="col-sm-4 md-margin-bottom-10">
@@ -23,7 +23,7 @@
                     <input type="text" placeholder="which user you are looking for" class="form-control">
                 </div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <button type="button" class="btn-u btn-block btn-u-dark"> Search User</button>
             </div>
             <div class="col-sm-4">
@@ -32,13 +32,18 @@
                         20 <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">All</a></li>
-                        <li><a href="#">10</a></li>
-                        <li><a href="#">5</a></li>
+                        <li>All</li>
+                        <li>10</li>
+                        <li>5</li>
                     </ul>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="row md-margin-bottom-30">
+        <h4>Upload a file</h4>
+        <p><a class="color-green" href="/files/upload">click here</a> to upload a new file.</p>
     </div>
 
     <div class="row"></div>
