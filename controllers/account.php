@@ -19,6 +19,8 @@ class AccountController extends BaseController
 
     protected function register()
     {
+        CheckAntiCSRFToken();
+
         $viewModel = $this->model->register();
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST')

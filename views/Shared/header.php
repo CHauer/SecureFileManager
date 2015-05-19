@@ -51,41 +51,54 @@
                 </li>
                 <!-- End Home -->
 
-                <!-- Pages -->
+                <? if(IsUserLoggedOn()){ ?>
+
+                <!-- Files -->
                 <li class="">
                     <a href="/files/index" >
                         Files
                     </a>
 
                 </li>
-                <!-- End Pages -->
+                <!-- End Files -->
 
-                <!-- Blog -->
+                <!-- Forum -->
                 <li class="">
                     <a href="forum/index" >
                         Forum
                     </a>
 
                 </li>
-                <!-- End Blog -->
+                <!-- End Forum -->
 
-                <!-- Portfolio -->
+                <? } ?>
+
+                <?
+                if(IsUserLoggedOn())
+                {
+
+                }else{
+                ?>
+
+                <!-- Login -->
                 <li class="">
                     <a href="/account/login">
                         Login
                     </a>
 
                 </li>
-                <!-- End Portfolio -->
+                <!-- End Login -->
 
-                <!-- Features -->
+                <!-- Register -->
                 <li class="">
                     <a href="/account/register" >
                         Register
                     </a>
 
                 </li>
-                <!-- End Features -->
+                <!-- End Register -->
+
+                <? } ?>
 
                 <!-- Search Block -->
                 <!-- <li>

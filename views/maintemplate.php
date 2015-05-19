@@ -5,7 +5,7 @@
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
 <head>
-    <title><?php echo $viewModel->get('pageTitle'); ?></title>
+    <title><?php echo $viewModel->get('pageTitle'); ?> - Secure File Manager</title>
 
     <!-- Meta -->
     <meta charset="utf-8">
