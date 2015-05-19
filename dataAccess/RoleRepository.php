@@ -18,10 +18,12 @@ class RoleRepository {
         $stmt = $db->prepare('Select RoleId from [Role] where Name = :name');
         $stmt->bindParam(':name', $name);
 
-        $result = $stmt->execute();
+        $stmt->execute();
+
+        $results = $stmt->fetchAll();
 
         if ($stmt->columnCount() == 1) {
-            return $result[0]['RoleId'];
+            return $results[0]['RoleId'];
         }
     }
 

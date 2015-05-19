@@ -22,6 +22,11 @@ class ErrorController extends BaseController
     {
         $this->view->output($this->model->badURL());
     }
+
+    protected function unexpectedError()
+    {
+        $this->view->output($this->model->unexpectedError());
+    }
 }
 
 ?>

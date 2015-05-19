@@ -25,5 +25,5 @@ function CheckAntiCSRFToken()
         return true;
     }
 
-    return false;
+    RedirectAction("error", "unexpectedError");
 }

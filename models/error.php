@@ -14,6 +14,12 @@ class ErrorModel extends BaseModel
         $this->viewModel->set("pageTitle","Error - Bad URL");
         return $this->viewModel;
     }
+
+    public function unexpectedError()
+    {
+        $this->viewModel->set("pageTitle","Unexpected Error");
+        return $this->viewModel;
+    }
 }
 
 ?>

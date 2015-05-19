@@ -59,13 +59,71 @@ class UserRepository{
 
         $stmt->execute();
 
-        return $stmt->columnCount() == 1;
+        if ($stmt->columnCount() == 1)
+        {
+            return $db->lastInsertId();
+        }
+
+        return false;
     }
 
     /**
+     * @param int $userid
+     * @return User
+     */
+    public function GetUser(int $userid){
+        global $db;
+
+        $stmt = $db->prepare('select top 1
+            [Username]
+           ,[Birthdate]
+           ,[EMail]
+           ,[Description]
+           ,[PictureLink]
+           ,[LockoutEnabled]
+           ,[LockoutEndDate]
+           ,[AccessFailedCount]
+           ,[RoleId]
+           ,[AuthTokenId]
+           ,[Firstname]
+           ,[Lastname]
+           from [dbo].[User] U
+           where U.UserId==:userid');
+
+        $stmt->bindParam(":userid", $userid);
+        $stmt->execute();
+
+        if($stmt->columnCount() < 1)
+        {
+            throw new InvalidArgumentException("The given userid does not exist!");
+        }
+
+        $result = $stmt->fetchAll()[0];
+
+        $user = new User();
+
+        $user->UserId = $userid;
+        $user->Description = $result["Description"];
+        $user->Firstname = $result["Description"];
+        $user->Lastname = $result["Description"];
+        $user->BirthDate = $result["Description"];
+        $user->AccessFailedCount = $result["Description"];
+        $user->AuthTokenId = $result["Description"];
+        $user->EMail = $result["Description"];
+        $user->Username = $result["Description"];
+        $user->PictureLink = $result["Description"];
+        $user->LockoutEnabled = $result["Description"];
+        $user->LockoutEndDate= $result["Description"];
+        $user->RoleId = $result["Description"];
+
+        return $user;
+    }
+
+    /**
+     * @param string $roleName
      * @return bool
      */
-    public function IsUserInRole($roleName){
+    public function IsUserInRole(string $roleName){
         $roleRepo = new RoleRepository();
         $roleId = $roleRepo->GetRoleId($roleName);
 
