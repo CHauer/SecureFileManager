@@ -29,10 +29,11 @@
         </div>
     </div>
     <div class="row md-margin-bottom-20">
+        <dic class="col-md-8"></dic>
         <dic class="col-md-4">
             <ul class="list-inline clear-both">
                 <li class="sort-list-btn">
-                    <h3>Show :</h3>
+                    <h3>Show:</h3>
                     <div class="btn-group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                             20 <span class="caret"></span>
@@ -47,5 +48,6 @@
             </ul>
         </dic>
     </div>
+    <div class="row"></div>
 </div><!--/container-->
 <!--=== End Content Part ===-->
