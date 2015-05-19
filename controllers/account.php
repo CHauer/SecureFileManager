@@ -19,13 +19,13 @@ class AccountController extends BaseController
 
     protected function register()
     {
-        //redirects to error/unexpectedError if wrong
-        CheckAntiCSRFToken();
-
         $viewModel = $this->model->register();
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST')
         {
+            //redirects to error/unexpectedError if wrong
+            CheckAntiCSRFToken();
+
             if(!$this->validateRegisterData($viewModel)) {
                 $this->view->output($viewModel);
                 return;
