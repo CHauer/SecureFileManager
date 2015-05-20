@@ -147,18 +147,27 @@ class UserRepository{
     {
         global $db;
 
-        $statement = $db -> prepare('SELECT [UserId] FROM [User]
+        try
+        {
+            $statement = $db->prepare('SELECT [UserId] FROM [User]
                                       WHERE [Username]=:username
                                       AND [Password]= HASHBYTES(\'SHA2_256\', :password)');
-        $statement->bindParam(':username', $username);
-        $statement->bindParam(':password', $password);
-        $statement->execute();
+            $statement->bindParam(':username', $username);
+            $statement->bindParam(':password', $password);
+            $statement->execute();
 
-        if($statement->columnCount() <= 0){
+            if ($statement->columnCount() <= 0) {
+                return NULL;
+            }
+
+            $result = $statement->fetchAll()[0];
+            return $result["UserId"];
+
+        }
+        catch(Exception $ex)
+        {
             return NULL;
         }
-
-        return $statement->fetchAll()[0]["UserId"];
     }
 
     /**
