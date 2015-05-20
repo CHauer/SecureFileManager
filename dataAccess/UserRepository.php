@@ -59,7 +59,7 @@ class UserRepository{
 
         $stmt->execute();
 
-        if ($stmt->columnCount() == 1)
+        if ($stmt->rowCount() == 1)
         {
             return $db->lastInsertId();
         }
@@ -93,7 +93,7 @@ class UserRepository{
         $stmt->bindParam(":userid", $userid);
         $stmt->execute();
 
-        if($stmt->columnCount() < 1)
+        if($stmt->rowCount() < 1)
         {
             throw new InvalidArgumentException("The given userid does not exist!");
         }
@@ -135,7 +135,7 @@ class UserRepository{
         $statement->bindValue(':id', $_SESSION['userid']);
         $statement->bindValue(':roleId', $roleId);
         $statement->execute();
-        return $statement->columnCount() == 1;
+        return $statement->rowCount() == 1;
     }
 
     /**
@@ -156,7 +156,7 @@ class UserRepository{
             $statement->bindParam(':password', $password);
             $statement->execute();
 
-            if ($statement->columnCount() <= 0) {
+            if ($statement->rowCount() <= 0) {
                 return NULL;
             }
 
@@ -183,7 +183,7 @@ class UserRepository{
         $statement->bindParam(':username', $username);
         $statement->execute();
 
-        if( $statement->columnCount() == 1)
+        if( $statement->rowCount() == 1)
         {
             $statementsel = $db->prepare('Select [AccessFailedCount] from [User] U
                                           WHERE [Username]=:username');
@@ -221,7 +221,7 @@ class UserRepository{
         $statement->execute();
 
         // if null user is not locked
-        if($statement->columnCount() == 0) {
+        if($statement->rowCount() == 0) {
             return false;
         }
 
@@ -236,7 +236,7 @@ class UserRepository{
         $statementUpdate->execute();
 
         // if 1 updated -> user is no longer locked
-        if($statementUpdate->columnCount() == 1)
+        if($statementUpdate->rowCount() == 1)
         {
             return false;
         }
@@ -259,7 +259,7 @@ class UserRepository{
         $statement->bindParam(':username', $username);
 
         $statement->execute();
-        return $statement->columnCount() == 1;
+        return $statement->rowCount() == 1;
     }
 
     /**
@@ -275,7 +275,7 @@ class UserRepository{
         $statement->bindParam(':userid', $userid);
 
         $statement->execute();
-        return $statement->columnCount() == 1;
+        return $statement->rowCount() == 1;
     }
 
     /**
@@ -291,7 +291,7 @@ class UserRepository{
         $statement->bindParam(':userid', $userid);
 
         $statement->execute();
-        return $statement->columnCount() == 1;
+        return $statement->rowCount() == 1;
     }
 
 }
