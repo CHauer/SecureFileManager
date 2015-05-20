@@ -73,7 +73,7 @@ class AccountController extends BaseController
             }
 
             //no error
-            if(!$viewModel->exists(("error")))
+            if(!$viewModel->exists("error"))
             {
                 //contains inserted userid - user id logged in
                 $_SESSION["userid"] = $userid;
@@ -96,8 +96,8 @@ class AccountController extends BaseController
             $ok = false;
         }
 
-        if(!$_POST["CheckTerms"] == true) {
-            $viewModel->set("error", "Please accept the terms!");
+        if(!isset($_POST["CheckTerms"]) || $_POST["CheckTerms"] == false) {
+            $viewModel->setFieldError("CheckTerms", "Please accept the terms!");
             $ok = false;
         }
 
@@ -165,10 +165,8 @@ class AccountController extends BaseController
 
             Redirect("home/index");
         }
-        else
-        {
-            $this->view->output($this->model->login());
-        }
+
+        $this->view->output($viewModel);
     }
 
     protected function logoff()
