@@ -31,7 +31,7 @@ class UserRepository{
            ,[Lastname])
      VALUES
            (:Username,
-           :Password,
+           HASHBYTES(\'SHA2_256\', :Password),
            :Birthdate,
            :EMail,
            :Description,
@@ -135,7 +135,128 @@ class UserRepository{
         $statement->bindValue(':id', $_SESSION['userid']);
         $statement->bindValue(':roleId', $roleId);
         $statement->execute();
-        return $statement->num_rows == 1;
+        return $statement->columnCount() == 1;
+    }
+
+    public function CheckUserCredentials(string $username, string $password)
+    {
+        global $db;
+
+        $statement = $db -> prepare('SELECT [UserId] FROM [User]
+                                      WHERE [Username]=:username
+                                      AND [Password]= HASHBYTES(\'SHA2_256\', :password)');
+        $statement->bindParam(':username', $username);
+        $statement->bindParam(':password', $username);
+        $statement->execute();
+        if($statement->columnCount() <= 0){
+            return NULL;
+        }
+
+        return $statement->fetchAll()[0]["UserId"];
+    }
+
+    public function UpdateAccessFailedCounter(string $username)
+    {
+        global $db;
+
+        $statement = $db -> prepare('Update [User] U set U.AccessFailedCount = U.AccessFailedCount + 1
+                                      WHERE [Username]=:username');
+        $statement->bindParam(':username', $username);
+        $statement->execute();
+
+        if( $statement->columnCount() == 1)
+        {
+            $statementsel = $db->prepare('Select [AccessFailedCount] from [User] U
+                                          WHERE [Username]=:username');
+            $statementsel->bindParam(':username', $username);
+            $statementsel->execute();
+
+            $result = $statementsel->fetchAll()[0];
+
+            if($result["AccessFailedCount"] >= 3)
+            {
+                if(SetUserLockout($username))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return false;
+    }
+
+    public function CheckUserLocked(string $username)
+    {
+        global $db;
+
+        $statement = $db -> prepare('select [UserId] from [User] U
+                                      WHERE [LockoutEnabled] = 1
+                                      AND [Username]=:username
+                                      AND [LockoutEndDate] is not null
+                                      AND [LockoutEndDate] > GetDate()');
+        $statement->bindParam(':username', $username);
+        $statement->execute();
+
+        // if null user is not locked
+        if($statement->columnCount() == 0) {
+            return false;
+        }
+
+        //if 1 user is locked -> check if unlock needed
+        $statementUpdate = $db -> prepare('UPDATE [User] set LockoutEnabled = 0
+                                          WHERE [Username]=:username
+                                          AND [LockoutEnabled] = 1
+                                          AND [LockoutEndDate] is not null
+                                          AND [LockoutEndDate] < GetDate()');
+
+        $statement->bindParam(':username', $username);
+        $statement->execute();
+
+        // if 1 updated -> user is no longer locked
+        if($statement->columnCount() == 1)
+        {
+            return false;
+        }
+
+        //if here user is locked
+        return true;
+    }
+
+    public function SetUserLockout(string $username)
+    {
+        global $db;
+
+        $statement = $db -> prepare('Update [User] U set U.LockoutEnabled = 1,
+                                      U.LockoutEndDate = DateAdd(Minute, 10, GetDate())
+                                       WHERE [Username]=:username');
+        $statement->bindParam(':username', $username);
+
+        $statement->execute();
+        return $statement->columnCount() == 1;
+    }
+
+    public function ResetUserLockout($userid)
+    {
+        global $db;
+
+        $statement = $db -> prepare('Update [User] U set U.LockoutEnabled = 0, U.LockoutEndDate = NULL
+                                       WHERE [UserId]=:userid');
+        $statement->bindParam(':userid', $userid);
+
+        $statement->execute();
+        return $statement->columnCount() == 1;
+    }
+
+    public function ResetAccessFailedCounter($userid)
+    {
+        global $db;
+
+        $statement = $db -> prepare('Update [User] U set U.AccessFailedCount = 0
+                                      WHERE [UserId]=:userid and U.LockoutEnabled = 0');
+        $statement->bindParam(':userid', $userid);
+
+        $statement->execute();
+        return $statement->columnCount() == 1;
     }
 
 }

@@ -25,9 +25,12 @@ class BaseModel {
             $repo = new UserRepository();
             $currentuser = $repo->GetUser($_SESSION["userid"]);
 
+            $this->viewModel->set("userid", $_SESSION["userid"]);
             $this->viewModel->set("username", $currentuser->Username);
-            $this->viewModel->set("eMail", $currentuser->EMail);
+            $this->viewModel->set("userimage", $currentuser->PictureLink);
+            $this->viewModel->set("email", $currentuser->EMail);
         }
+
         //e.g. $this->viewModel->set("mainMenu",array("Home" => "/home", "Help" => "/help"));
     }
 }

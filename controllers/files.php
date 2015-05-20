@@ -20,6 +20,8 @@ class FilesController extends BaseController
     //default method
     protected function index()
     {
+        ConfirmUserIsLoggedOn();
+
        /* $fileRepo = new FileRepository();
         $files = $fileRepo->GetPublicAllFiles();*/
 

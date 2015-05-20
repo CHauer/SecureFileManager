@@ -3,8 +3,7 @@
     <div class="container">
         <h1 class="pull-left">Login</h1>
         <ul class="pull-right breadcrumb">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="">Pages</a></li>
+            <li><a href="/home/index">Home</a></li>
             <li class="active">Login</li>
         </ul>
     </div><!--/container-->
@@ -15,18 +14,20 @@
 <div class="container content">
     <div class="row">
         <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
-            <form class="reg-page" action="account/login" method="post">
+            <form class="reg-page" action="/account/login" method="post">
+                <? CreateHiddenAntiCSRFTokenField(); ?>
+
                 <div class="reg-header">
                     <h2>Login to your account</h2>
                 </div>
 
                 <div class="input-group margin-bottom-20">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                    <input type="text" placeholder="Username" class="form-control">
+                    <input type="text" name="Username" placeholder="Username" class="form-control">
                 </div>
                 <div class="input-group margin-bottom-20">
                     <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                    <input type="password" placeholder="Password" class="form-control">
+                    <input type="password" name="Password" placeholder="Password" class="form-control">
                 </div>
 
                 <div class="row">
@@ -41,7 +42,7 @@
                 <hr>
 
                 <h4>Forget your Password ?</h4>
-                <p>no worries, <a class="color-green" href="#">click here</a> to reset your password.</p>
+                <p>no worries, <a class="color-green" href="/account/resetPassword">click here</a> to reset your password.</p>
             </form>
         </div>
     </div><!--/row-->

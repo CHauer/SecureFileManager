@@ -21,7 +21,7 @@ class AccountController extends BaseController
     {
         $viewModel = $this->model->register();
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST')
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit']))
         {
             //redirects to error/unexpectedError if wrong
             CheckAntiCSRFToken();
@@ -131,8 +131,38 @@ class AccountController extends BaseController
 
     protected function login()
     {
-        if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
+        $viewModel = $this->model->login();
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit']))
         {
+            //redirects to error/unexpectedError if wrong
+            CheckAntiCSRFToken();
+
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+
+            $userrepo = new UserRepository();
+            $result = $userrepo->CheckUserCredentials($username, $password);
+
+            if($userrepo->CheckUserLocked($username))
+            {
+                $viewModel->set("error", "The Account '" . $username. "' is locked - please try again later!");
+                $this->view->output($viewModel);
+                return;
+            }
+
+            if($result == NULL)
+            {
+                $viewModel->set("error", "Login was not successfully! Username/password combination is incorrect.");
+                if($userrepo->UpdateAccessFailedCounter($username))
+                {
+                    $viewModel->set("error", "The Account '" . $username. "' is locked for 10 minutes - please try again later!");
+                }
+            }
+
+            //$result contains userid
+            $_SESSION["userid"] = $result;
+
             Redirect("home/index");
         }
         else
