@@ -31,36 +31,43 @@
                 <div class="form-group <? ValidationErrorClass("Username", $viewModel) ?> ">
                     <label>Username <span class="color-green">*</span></label>
                     <input type="text" name="Username" class="form-control margin-bottom-20">
+                    <? ValidationErrorMessage("Username", $viewModel) ?>
                 </div>
 
                 <div class="form-group <? ValidationErrorClass("Firstname", $viewModel) ?>">
                     <label>First name<span class="color-green">*</span></label>
                     <input type="text" name="Firstname" class="form-control margin-bottom-20">
+                    <? ValidationErrorMessage("Firstname", $viewModel) ?>
                 </div>
 
                 <div class="form-group <? ValidationErrorClass("Lastname", $viewModel) ?>">
                     <label>Last name <span class="color-green">*</span></label>
                     <input type="text" name="Lastname" class="form-control margin-bottom-20">
+                    <? ValidationErrorMessage("Lastname", $viewModel) ?>
                 </div>
 
                 <div class="form-group <? ValidationErrorClass("EMail", $viewModel) ?>">
                     <label>Email Address <span class="color-green">*</span></label>
                     <input type="text" name="EMail" class="form-control margin-bottom-20">
+                    <? ValidationErrorMessage("EMail", $viewModel) ?>
                 </div>
 
                 <div class="form-group <? ValidationErrorClass("Picture", $viewModel) ?>">
                     <label>Profile Picture <span class="color-green">*</span></label>
                     <input type="file" name="Picture" >
+                    <? ValidationErrorMessage("Picture", $viewModel) ?>
                 </div>
 
                 <div class="form-group <? ValidationErrorClass("Birthdate", $viewModel) ?>">
                     <label>Birth date <span class="color-green">*</span></label>
                     <input type="text" name="Birthdate" class="form-control margin-bottom-20">
+                    <? ValidationErrorMessage("Birthdate", $viewModel) ?>
                 </div>
 
                 <div class="form-group <? ValidationErrorClass("Description", $viewModel) ?>">
                     <label>Description <span class="color-green">*</span></label>
                     <textarea name="Description" class="form-control margin-bottom-20">
+                    <? ValidationErrorMessage("Description", $viewModel) ?>
                 </div>
 
                 <label>Account <span class="color-green">*</span></label>
@@ -77,10 +84,12 @@
                     <div class="form-group  col-sm-6 <? ValidationErrorClass("Password", $viewModel) ?> ">
                         <label>Password <span class="color-green">*</span></label>
                         <input type="Password"  name="Password" class="form-control margin-bottom-20">
+                        <? ValidationErrorMessage("Password", $viewModel) ?>
                     </div>
                     <div class="form-group  col-sm-6 <? ValidationErrorClass("PasswordConfirm", $viewModel) ?> ">
                         <label>Confirm Password <span class="color-green">*</span></label>
                         <input type="Password" name="PasswordConfirm" class="form-control margin-bottom-20">
+                        <? ValidationErrorMessage("PasswordConfirm", $viewModel) ?>
                     </div>
                 </div>
 
