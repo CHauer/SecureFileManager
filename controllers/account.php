@@ -21,7 +21,7 @@ class AccountController extends BaseController
     {
         $viewModel = $this->model->register();
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit']))
+        if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST' && isset($_POST['submit']))
         {
             //redirects to error/unexpectedError if wrong
             CheckAntiCSRFToken();
