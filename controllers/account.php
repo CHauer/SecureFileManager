@@ -171,9 +171,13 @@ class AccountController extends BaseController
 
                 if ($result == NULL) {
                     $viewModel->set("error", "Login was not successfully! Username/password combination is incorrect.");
+
                     if ($userrepo->UpdateAccessFailedCounter($username)) {
                         $viewModel->set("error", "The Account '" . $username . "' is locked for 10 minutes - please try again later!");
                     }
+
+                    $this->view->output($viewModel);
+                    return;
                 }
 
                 //$result contains userid
@@ -187,7 +191,7 @@ class AccountController extends BaseController
                 return;
             }
 
-            Redirect("home/index");
+            RedirectAction("home", "index");
         }
 
         $this->view->output($viewModel);
