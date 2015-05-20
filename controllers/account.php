@@ -91,7 +91,7 @@ class AccountController extends BaseController
     {
         $ok = true;
 
-        if(!$_POST["Password"] == $_POST["PasswordConfirm"]) {
+        if(! ($_POST["Password"] == $_POST["PasswordConfirm"])) {
             $viewModel->set("error", "Password and Password Confirm are not equal!");
             $ok = false;
         }
