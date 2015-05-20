@@ -10,7 +10,7 @@ function RedirectAction($controller, $action, $id = NULL)
 {
     if (headers_sent() === false)
     {
-        header('Location: ' . $controller. '/' . $action . '/'. $id);
+        header('Location: ' . '/' . $controller. '/' . $action . '/'. $id);
     }
 
     exit();

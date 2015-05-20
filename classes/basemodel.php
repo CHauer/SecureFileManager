@@ -14,13 +14,24 @@ class BaseModel {
     public function __construct()
     {
         $this->viewModel = new ViewModel();
-	$this->commonViewData();
+	    $this->commonViewData();
     }
 
     //establish viewModel data that is required for all views in this method (i.e. the main template)
-    protected function commonViewData() {
-	
-    //e.g. $this->viewModel->set("mainMenu",array("Home" => "/home", "Help" => "/help"));
+    protected function commonViewData()
+    {
+        if(IsUserLoggedOn() && isset($_SESSION["userid"]))
+        {
+            $repo = new UserRepository();
+            $currentuser = $repo->GetUser($_SESSION["userid"]);
+
+            $this->viewModel->set("userid", $_SESSION["userid"]);
+            $this->viewModel->set("username", $currentuser->Username);
+            $this->viewModel->set("userimage", $currentuser->PictureLink);
+            $this->viewModel->set("email", $currentuser->EMail);
+        }
+
+        //e.g. $this->viewModel->set("mainMenu",array("Home" => "/home", "Help" => "/help"));
     }
 }
 

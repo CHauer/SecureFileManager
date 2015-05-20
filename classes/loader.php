@@ -68,6 +68,17 @@ class Loader {
             return new ErrorController("badurl",$this->urlValues);
         }
     }
+
+    public function getCurrentController()
+    {
+        return $this->controllerName;
+    }
+
+    public function getCurrentAction()
+    {
+        return $this->action;
+    }
+
 }
 
 ?>

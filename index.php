@@ -32,6 +32,10 @@ require("classes/viewmodel.php");
 require("classes/loader.php");
 require("dataAccess/initDataAccess.php");
 
+//validation/html helper
+require("includes/validationHelper.php");
+require("includes/currentRequestHelper.php");
+
 GenerateAntiCSRFToken();
 
 $loader = new Loader(); //create the loader object
