@@ -151,8 +151,9 @@ class UserRepository{
                                       WHERE [Username]=:username
                                       AND [Password]= HASHBYTES(\'SHA2_256\', :password)');
         $statement->bindParam(':username', $username);
-        $statement->bindParam(':password', $username);
+        $statement->bindParam(':password', $password);
         $statement->execute();
+
         if($statement->columnCount() <= 0){
             return NULL;
         }

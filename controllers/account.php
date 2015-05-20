@@ -141,7 +141,7 @@ class AccountController extends BaseController
             $username = NULL;
             $password = NULL;
 
-            if(!isset($_POST['Username']))
+            if(!isset($_POST['Username']) || $_POST['Username'] == '')
             {
                 $viewModel->set("error", "Please provide your credentials.");
                 $this->view->output($viewModel);

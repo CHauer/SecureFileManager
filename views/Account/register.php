@@ -100,7 +100,7 @@
                         <label>
                             <input type="checkbox" name="CheckTerms">
                             I read <a href="/home/terms" class="color-green">Terms and Conditions</a>
-                            <? ValidationErrorMessage("EMail", $viewModel) ?>
+                            <? ValidationErrorMessage("CheckTerms", $viewModel) ?>
                         </label>
                     </div>
                     <div class="col-lg-6 text-right">
