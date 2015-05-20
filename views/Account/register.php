@@ -35,13 +35,13 @@
                 </div>
 
                 <div class="form-group <? ValidationErrorClass("Firstname", $viewModel) ?>">
-                    <label>First name<span class="color-green">*</span></label>
+                    <label>First name</label>
                     <input type="text" name="Firstname" class="form-control margin-bottom-20">
                     <? ValidationErrorMessage("Firstname", $viewModel) ?>
                 </div>
 
                 <div class="form-group <? ValidationErrorClass("Lastname", $viewModel) ?>">
-                    <label>Last name <span class="color-green">*</span></label>
+                    <label>Last name</label>
                     <input type="text" name="Lastname" class="form-control margin-bottom-20">
                     <? ValidationErrorMessage("Lastname", $viewModel) ?>
                 </div>
@@ -53,7 +53,7 @@
                 </div>
 
                 <div class="form-group <? ValidationErrorClass("Picture", $viewModel) ?>">
-                    <label>Profile Picture <span class="color-green">*</span></label>
+                    <label>Profile Picture</label>
                     <input type="file" name="Picture" >
                     <? ValidationErrorMessage("Picture", $viewModel) ?>
                 </div>
@@ -65,7 +65,7 @@
                 </div>
 
                 <div class="form-group <? ValidationErrorClass("Description", $viewModel) ?>">
-                    <label>Description <span class="color-green">*</span></label>
+                    <label>Description</label>
                     <textarea name="Description" class="form-control margin-bottom-20"> </textarea>
                     <? ValidationErrorMessage("Description", $viewModel) ?>
                 </div>

@@ -18,5 +18,8 @@ require("models/UserFile.php");
 
 //load repositories
 require("UserRepository.php");
+require("RoleRepository.php");
+require("FilesRepository.php");
+require("ForumRepository.php");
 
 ?>

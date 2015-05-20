@@ -222,11 +222,11 @@ class UserRepository{
                                           AND [LockoutEndDate] is not null
                                           AND [LockoutEndDate] < GetDate()');
 
-        $statement->bindParam(':username', $username);
-        $statement->execute();
+        $statementUpdate->bindParam(':username', $username);
+        $statementUpdate->execute();
 
         // if 1 updated -> user is no longer locked
-        if($statement->columnCount() == 1)
+        if($statementUpdate->columnCount() == 1)
         {
             return false;
         }
