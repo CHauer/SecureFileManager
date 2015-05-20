@@ -19,7 +19,7 @@ class ViewModel {
      * @param string $fieldName
      * @param string $errorMessage
      */
-    public function setFieldError($fieldName, string $errorMessage)
+    public function setFieldError($fieldName, $errorMessage)
     {
         $this->validationErrors[$fieldName] = $errorMessage;
     }
