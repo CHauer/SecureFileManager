@@ -28,7 +28,7 @@
                 }
                 ?>
 
-                <div class="form-group <? ValidationErrorClass("Username", $viewModel) ?> ">
+                <div class="form-group ">
                     <label>Username <span class="color-green">*</span></label>
                     <input type="text" name="Username" class="form-control margin-bottom-20">
                     <? ValidationErrorMessage("Username", $viewModel) ?>
