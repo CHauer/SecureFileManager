@@ -21,6 +21,13 @@
                     <h2>Login to your account</h2>
                 </div>
 
+                <?
+                if($viewModel->exists("error"))
+                {
+                    echo '<h3 class="color-red">' . $viewModel->get("error") . '</h3>';
+                }
+                ?>
+
                 <div class="input-group margin-bottom-20">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
                     <input type="text" name="Username" placeholder="Username" class="form-control">
