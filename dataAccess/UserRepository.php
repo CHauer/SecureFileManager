@@ -123,7 +123,7 @@ class UserRepository{
      * @param string $roleName
      * @return bool
      */
-    public function IsUserInRole(string $roleName){
+    public function IsUserInRole($roleName){
         $roleRepo = new RoleRepository();
         $roleId = $roleRepo->GetRoleId($roleName);
 
@@ -138,7 +138,12 @@ class UserRepository{
         return $statement->columnCount() == 1;
     }
 
-    public function CheckUserCredentials(string $username, string $password)
+    /**
+     * @param $username
+     * @param $password
+     * @return null
+     */
+    public function CheckUserCredentials($username,  $password)
     {
         global $db;
 
@@ -155,7 +160,11 @@ class UserRepository{
         return $statement->fetchAll()[0]["UserId"];
     }
 
-    public function UpdateAccessFailedCounter(string $username)
+    /**
+     * @param $username
+     * @return bool
+     */
+    public function UpdateAccessFailedCounter($username)
     {
         global $db;
 
@@ -185,7 +194,11 @@ class UserRepository{
         return false;
     }
 
-    public function CheckUserLocked(string $username)
+    /**
+     * @param $username
+     * @return bool
+     */
+    public function CheckUserLocked($username)
     {
         global $db;
 
@@ -222,7 +235,11 @@ class UserRepository{
         return true;
     }
 
-    public function SetUserLockout(string $username)
+    /**
+     * @param $username
+     * @return bool
+     */
+    public function SetUserLockout($username)
     {
         global $db;
 
@@ -235,6 +252,10 @@ class UserRepository{
         return $statement->columnCount() == 1;
     }
 
+    /**
+     * @param $userid
+     * @return bool
+     */
     public function ResetUserLockout($userid)
     {
         global $db;
@@ -247,6 +268,10 @@ class UserRepository{
         return $statement->columnCount() == 1;
     }
 
+    /**
+     * @param $userid
+     * @return bool
+     */
     public function ResetAccessFailedCounter($userid)
     {
         global $db;

@@ -138,30 +138,54 @@ class AccountController extends BaseController
             //redirects to error/unexpectedError if wrong
             CheckAntiCSRFToken();
 
-            $username = $_POST['username'];
-            $password = $_POST['password'];
+            $username = NULL;
+            $password = NULL;
 
-            $userrepo = new UserRepository();
-            $result = $userrepo->CheckUserCredentials($username, $password);
-
-            if($userrepo->CheckUserLocked($username))
+            if(!isset($_POST['Username']))
             {
-                $viewModel->set("error", "The Account '" . $username. "' is locked - please try again later!");
+                $viewModel->set("error", "Please provide your credentials.");
                 $this->view->output($viewModel);
                 return;
             }
 
-            if($result == NULL)
+            if(isset($_POST['Username']))
             {
-                $viewModel->set("error", "Login was not successfully! Username/password combination is incorrect.");
-                if($userrepo->UpdateAccessFailedCounter($username))
-                {
-                    $viewModel->set("error", "The Account '" . $username. "' is locked for 10 minutes - please try again later!");
-                }
+                $username = $_POST['Username'];
             }
 
-            //$result contains userid
-            $_SESSION["userid"] = $result;
+            if(isset($_POST['Password']))
+            {
+                $password = $_POST['Password'];
+            }
+
+            $userrepo = new UserRepository();
+
+            try {
+                $result = $userrepo->CheckUserCredentials($username, $password);
+
+                if ($userrepo->CheckUserLocked($username)) {
+                    $viewModel->set("error", "The Account '" . $username . "' is locked - please try again later!");
+                    $this->view->output($viewModel);
+                    return;
+                }
+
+                if ($result == NULL) {
+                    $viewModel->set("error", "Login was not successfully! Username/password combination is incorrect.");
+                    if ($userrepo->UpdateAccessFailedCounter($username)) {
+                        $viewModel->set("error", "The Account '" . $username . "' is locked for 10 minutes - please try again later!");
+                    }
+                }
+
+                //$result contains userid
+                $_SESSION["userid"] = $result;
+
+            }
+            catch (Exception $ex)
+            {
+                $viewModel->set("error",$ex->getMessage());
+                $this->view->output($viewModel);
+                return;
+            }
 
             Redirect("home/index");
         }
