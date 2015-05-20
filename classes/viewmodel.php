@@ -51,7 +51,7 @@ class ViewModel {
      */
     public function isErrorSet()
     {
-        return (exists("error") || count($this->validationErrors) > 0);
+        return ($this->exists("error") || count($this->validationErrors) > 0);
     }
 
     //dynamically adds a property or method to the ViewModel instance
