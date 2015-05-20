@@ -6,14 +6,14 @@
  * Time: 20:53
  */
 
-function ValidationErrorClass (string $field, ViewModel $viewModel)
+function ValidationErrorClass ($field, ViewModel $viewModel)
 {
     if($viewModel->isFieldError($field)) {
         echo " has-errors ";
     }
 }
 
-function ValidationErrorMessage(string $field, ViewModel $viewModel)
+function ValidationErrorMessage($field, ViewModel $viewModel)
 {
     if($viewModel->IsErrorSet() || $viewModel->isFieldError($field)) {
         $msg = $viewModel->getFieldError($field);
