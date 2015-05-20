@@ -98,7 +98,7 @@
                 <div class="row">
                     <div class="col-lg-6 checkbox">
                         <label>
-                            <input type="checkbox" Name="CheckTerms">
+                            <input type="checkbox" name="CheckTerms">
                             I read <a href="/home/terms" class="color-green">Terms and Conditions</a>
                         </label>
                     </div>
