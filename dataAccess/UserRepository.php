@@ -178,14 +178,14 @@ class UserRepository{
     {
         global $db;
 
-        $statement = $db -> prepare('Update [User] U set U.AccessFailedCount = U.AccessFailedCount + 1
-                                      WHERE [Username]=:username');
         $statement->bindParam(':username', $username);
+        $statement = $db -> prepare('Update [User] set [AccessFailedCount] = [AccessFailedCount] + 1
+                                      WHERE [Username]=:username');
         $statement->execute();
 
         if( $statement->rowCount() == 1)
         {
-            $statementsel = $db->prepare('Select [AccessFailedCount] from [User] U
+            $statementsel = $db->prepare('Select [AccessFailedCount] from [User]
                                           WHERE [Username]=:username');
             $statementsel->bindParam(':username', $username);
             $statementsel->execute();
@@ -212,7 +212,7 @@ class UserRepository{
     {
         global $db;
 
-        $statement = $db -> prepare('select [UserId] from [User] U
+        $statement = $db -> prepare('Select [UserId] from [User]
                                       WHERE [LockoutEnabled] = 1
                                       AND [Username]=:username
                                       AND [LockoutEndDate] is not null
@@ -253,8 +253,8 @@ class UserRepository{
     {
         global $db;
 
-        $statement = $db -> prepare('Update [User] U set U.LockoutEnabled = 1,
-                                      U.LockoutEndDate = DateAdd(Minute, 10, GetDate())
+        $statement = $db -> prepare('Update [User] set [LockoutEnabled] = 1,
+                                      [LockoutEndDate] = DateAdd(Minute, 10, GetDate())
                                        WHERE [Username]=:username');
         $statement->bindParam(':username', $username);
 
@@ -270,7 +270,7 @@ class UserRepository{
     {
         global $db;
 
-        $statement = $db -> prepare('Update [User] U set U.LockoutEnabled = 0, U.LockoutEndDate = NULL
+        $statement = $db -> prepare('Update [User] set [LockoutEnabled] = 0, [LockoutEndDate] = NULL
                                        WHERE [UserId]=:userid');
         $statement->bindParam(':userid', $userid);
 
@@ -286,8 +286,8 @@ class UserRepository{
     {
         global $db;
 
-        $statement = $db -> prepare('Update [User] U set U.AccessFailedCount = 0
-                                      WHERE [UserId]=:userid and U.LockoutEnabled = 0');
+        $statement = $db -> prepare('Update [User] set [AccessFailedCount] = 0
+                                      WHERE [UserId]=:userid AND [LockoutEnabled] = 0');
         $statement->bindParam(':userid', $userid);
 
         $statement->execute();
