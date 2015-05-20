@@ -20,7 +20,7 @@ function CreateHiddenAntiCSRFTokenField()
 
 function CheckAntiCSRFToken()
 {
-    if (isset($_POST["CSRFToken"]) && $_POST["CSRFToken"] == $_SESSION["token"])
+    if (isset($_POST["CSRFToken"]) && $_POST["CSRFToken"] == $_SESSION["CSRFToken"])
     {
         return true;
     }
