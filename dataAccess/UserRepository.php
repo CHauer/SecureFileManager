@@ -178,9 +178,9 @@ class UserRepository{
     {
         global $db;
 
-        $statement->bindParam(':username', $username);
         $statement = $db -> prepare('Update [User] set [AccessFailedCount] = [AccessFailedCount] + 1
                                       WHERE [Username]=:username');
+        $statement->bindParam(':username', $username);
         $statement->execute();
 
         if( $statement->rowCount() == 1)
