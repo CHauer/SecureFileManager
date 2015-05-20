@@ -23,12 +23,12 @@ function ValidationErrorMessage($field, ViewModel $viewModel)
     }
 }
 
-function ParseDate(string $date)
+function ParseDate($date)
 {
     return DateTime::createFromFormat('j.m.Y', $date);
 }
 
-function VerifyDate(string $date)
+function VerifyDate($date)
 {
     return (DateTime::createFromFormat('j.m.Y', $date) !== false);
 }
