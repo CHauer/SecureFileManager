@@ -98,8 +98,8 @@
                 <div class="row">
                     <div class="col-lg-6 checkbox">
                         <label>
-                            <input type="checkbox" Name="CheckTerms">-->
-                            I read <a href="/home/terms" class="color-green">Terms and Conditions</a>-->
+                            <input type="checkbox" Name="CheckTerms">
+                            I read <a href="/home/terms" class="color-green">Terms and Conditions</a>
                         </label>
                     </div>
                     <div class="col-lg-6 text-right">
