@@ -34,6 +34,7 @@ require("dataAccess/initDataAccess.php");
 
 //validation/html helper
 require("includes/validationHelper.php");
+require("includes/currentRequestHelper.php");
 
 GenerateAntiCSRFToken();
 

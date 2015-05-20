@@ -43,7 +43,7 @@
         <div class="container">
             <ul class="nav navbar-nav">
                 <!-- Home -->
-                <li class="active">
+                <li class="<? CurrentActive("home", "index") ?> ">
                     <a href="/home/index">
                         Home
                     </a>
@@ -54,7 +54,7 @@
                 <? if(IsUserLoggedOn()){ ?>
 
                 <!-- Files -->
-                <li class="">
+                <li class="<? CurrentActive("files", "index") ?>">
                     <a href="/files/index" >
                         Files
                     </a>
@@ -63,8 +63,8 @@
                 <!-- End Files -->
 
                 <!-- Forum -->
-                <li class="">
-                    <a href="forum/index" >
+                <li class="<? CurrentActive("forum", "index") ?>">
+                    <a href="/forum/index" >
                         Forum
                     </a>
 
@@ -81,7 +81,7 @@
                 ?>
 
                 <!-- Login -->
-                <li class="">
+                <li class="<? CurrentActive("account", "login") ?>">
                     <a href="/account/login">
                         Login
                     </a>
@@ -90,7 +90,7 @@
                 <!-- End Login -->
 
                 <!-- Register -->
-                <li class="">
+                <li class="<? CurrentActive("account", "register") ?>">
                     <a href="/account/register" >
                         Register
                     </a>
