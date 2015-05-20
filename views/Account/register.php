@@ -29,43 +29,43 @@
                 ?>
 
                 <div class="form-group <? ValidationErrorClass("Username", $viewModel) ?> ">
-                    <label>Username <span class="color-green">*</span></label>
+                    <label class="control-label" >Username <span class="color-green">*</span></label>
                     <input type="text" name="Username" class="form-control margin-bottom-20">
                     <? ValidationErrorMessage("Username", $viewModel) ?>
                 </div>
 
                 <div class="form-group <? ValidationErrorClass("Firstname", $viewModel) ?>">
-                    <label>First name</label>
+                    <label class="control-label" >First name</label>
                     <input type="text" name="Firstname" class="form-control margin-bottom-20">
                     <? ValidationErrorMessage("Firstname", $viewModel) ?>
                 </div>
 
                 <div class="form-group <? ValidationErrorClass("Lastname", $viewModel) ?>">
-                    <label>Last name</label>
+                    <label class="control-label" >Last name</label>
                     <input type="text" name="Lastname" class="form-control margin-bottom-20">
                     <? ValidationErrorMessage("Lastname", $viewModel) ?>
                 </div>
 
                 <div class="form-group <? ValidationErrorClass("EMail", $viewModel) ?>">
-                    <label>Email Address <span class="color-green">*</span></label>
+                    <label class="control-label" >Email Address <span class="color-green">*</span></label>
                     <input type="text" name="EMail" class="form-control margin-bottom-20">
                     <? ValidationErrorMessage("EMail", $viewModel) ?>
                 </div>
 
                 <div class="form-group <? ValidationErrorClass("Picture", $viewModel) ?>">
-                    <label>Profile Picture</label>
+                    <label class="control-label" >Profile Picture</label>
                     <input type="file" name="Picture" >
                     <? ValidationErrorMessage("Picture", $viewModel) ?>
                 </div>
 
                 <div class="form-group <? ValidationErrorClass("Birthdate", $viewModel) ?>">
-                    <label>Birth date <span class="color-green">*</span></label>
+                    <label class="control-label" >Birth date <span class="color-green">*</span></label>
                     <input type="text" name="Birthdate" class="form-control margin-bottom-20">
                     <? ValidationErrorMessage("Birthdate", $viewModel) ?>
                 </div>
 
                 <div class="form-group <? ValidationErrorClass("Description", $viewModel) ?>">
-                    <label>Description</label>
+                    <label class="control-label" >Description</label>
                     <textarea name="Description" class="form-control margin-bottom-20"> </textarea>
                     <? ValidationErrorMessage("Description", $viewModel) ?>
                 </div>
@@ -82,12 +82,12 @@
 
                 <div class="row">
                     <div class="form-group  col-sm-6 <? ValidationErrorClass("Password", $viewModel) ?> ">
-                        <label>Password <span class="color-green">*</span></label>
+                        <label class="control-label" >Password <span class="color-green">*</span></label>
                         <input type="Password"  name="Password" class="form-control margin-bottom-20">
                         <? ValidationErrorMessage("Password", $viewModel) ?>
                     </div>
                     <div class="form-group  col-sm-6 <? ValidationErrorClass("PasswordConfirm", $viewModel) ?> ">
-                        <label>Confirm Password <span class="color-green">*</span></label>
+                        <label class="control-label" >Confirm Password <span class="color-green">*</span></label>
                         <input type="Password" name="PasswordConfirm" class="form-control margin-bottom-20">
                         <? ValidationErrorMessage("PasswordConfirm", $viewModel) ?>
                     </div>
@@ -100,6 +100,7 @@
                         <label>
                             <input type="checkbox" name="CheckTerms">
                             I read <a href="/home/terms" class="color-green">Terms and Conditions</a>
+                            <? ValidationErrorMessage("EMail", $viewModel) ?>
                         </label>
                     </div>
                     <div class="col-lg-6 text-right">

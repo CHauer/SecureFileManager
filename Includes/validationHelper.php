@@ -9,7 +9,7 @@
 function ValidationErrorClass ($field, ViewModel $viewModel)
 {
     if($viewModel->isFieldError($field)) {
-        echo " has-errors ";
+        echo " has-error ";
     }
 }
 
