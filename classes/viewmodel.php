@@ -25,10 +25,10 @@ class ViewModel {
     }
 
     /**
-     * @param string $fieldName
+     * @param $fieldName
      * @return null
      */
-    public function getFieldError(string $fieldName)
+    public function getFieldError($fieldName)
     {
         if(array_key_exists($fieldName, $this->validationErrors))
         {
@@ -38,10 +38,10 @@ class ViewModel {
     }
 
     /**
-     * @param string $fieldName
+     * @param $fieldName
      * @return bool
      */
-    public function isFieldError(string $fieldName)
+    public function isFieldError($fieldName)
     {
         return array_key_exists($fieldName, $this->validationErrors);
     }
