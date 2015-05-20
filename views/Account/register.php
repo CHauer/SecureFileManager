@@ -66,7 +66,7 @@
 
                 <div class="form-group <? ValidationErrorClass("Description", $viewModel) ?>">
                     <label>Description <span class="color-green">*</span></label>
-                    <textarea name="Description" class="form-control margin-bottom-20">
+                    <textarea name="Description" class="form-control margin-bottom-20"> </textarea>
                     <? ValidationErrorMessage("Description", $viewModel) ?>
                 </div>
 
