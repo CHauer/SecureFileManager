@@ -21,5 +21,6 @@ require("UserRepository.php");
 require("RoleRepository.php");
 require("FilesRepository.php");
 require("ForumRepository.php");
+require("LogEntryRepository.php");
 
 ?>

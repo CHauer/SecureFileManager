@@ -9,6 +9,14 @@
     </div><!--/container-->
 </div><!--/breadcrumbs-->
 <!--=== End Breadcrumbs ===-->
+<?
+$username = '';
+
+if($viewModel->exists("model"))
+{
+    $username = $viewModel->get("model");
+}
+?>
 
 <!--=== Content Part ===-->
 <div class="container content">
@@ -30,7 +38,7 @@
 
                 <div class="input-group margin-bottom-20">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                    <input type="text" name="Username" placeholder="Username" class="form-control">
+                    <input type="text" name="Username" placeholder="Username" class="form-control" <?  echo ' value="' . $username . '" ' ?>>
                 </div>
                 <div class="input-group margin-bottom-20">
                     <span class="input-group-addon"><i class="fa fa-lock"></i></span>

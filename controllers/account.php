@@ -27,13 +27,13 @@ class AccountController extends BaseController
             CheckAntiCSRFToken();
 
             #region # Create User obj
-
             try
             {
                 $user = new User();
+                $viewModel->set("model", $user);
+
                 $user->Username = $_POST["Username"];
 
-                $user->BirthDate = ParseDate($_POST["Birthdate"]);
                 $user->Description = $_POST["Description"];
                 $user->EMail = $_POST["EMail"];
 
@@ -43,7 +43,14 @@ class AccountController extends BaseController
                 $user->Description = ($_POST["Description"]);
                 $user->Password = md5($_POST["Password"]);
 
-                $viewModel->set("user", $user);
+                try
+                {
+                    $user->BirthDate = ParseDate($_POST["Birthdate"]);
+                }
+                catch (Exception $iex){
+
+                }
+
             }
             catch (Exception $ex){;}
 
@@ -137,6 +144,8 @@ class AccountController extends BaseController
 
     protected function login()
     {
+        global $log;
+
         $viewModel = $this->model->login();
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
@@ -164,13 +173,20 @@ class AccountController extends BaseController
                 $password = $_POST['Password'];
             }
 
+            $viewModel->set("model", $username);
+
             $userrepo = new UserRepository();
 
             try {
                 $result = $userrepo->CheckUserCredentials($username, $password);
 
                 if ($userrepo->CheckUserLocked($username)) {
-                    $viewModel->set("error", "The Account '" . $username . "' is locked - please try again later!");
+                    $errorMessage = "The Account '" . $username . "' is locked - please try again later!";
+
+                    $viewModel->set("error", $errorMessage);
+
+                    $log->LogMessage($errorMessage, LOGGER_INFO);
+
                     $this->view->output($viewModel);
                     return;
                 }

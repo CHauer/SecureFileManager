@@ -25,5 +25,13 @@ function CheckAntiCSRFToken()
         return true;
     }
 
+    global $log;
+    global $loader;
+
+    $con = $loader->getCurrentController();
+    $act = $loader->getCurrentAction();
+
+    $log->LogMessage("CRSF Error on call to " . $con . " - " . $act. ".", LOGGER_WARNING);
+
     RedirectAction("error", "unexpectedError");
 }

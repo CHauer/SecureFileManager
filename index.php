@@ -22,7 +22,6 @@ require("Includes/rightsManagement.php");
 //helper functions
 require("includes/redirectLogic.php");
 require("includes/fileUpload.php");
-require("includes/antiCrossSiteRequestForgery.php");
 
 //load the required classes mvc
 require("classes/basecontroller.php");  
@@ -31,10 +30,15 @@ require("classes/view.php");
 require("classes/viewmodel.php");
 require("classes/loader.php");
 require("dataAccess/initDataAccess.php");
+require("classes/logger.php");
 
 //validation/html helper
 require("includes/validationHelper.php");
 require("includes/currentRequestHelper.php");
+require("includes/initLogger.php");
+
+// CSRF
+require("includes/antiCrossSiteRequestForgery.php");
 
 GenerateAntiCSRFToken();
 
