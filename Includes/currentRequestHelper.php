@@ -17,3 +17,12 @@ function CurrentActive ($controller, $action)
         echo ' active ';
     }
 }
+
+
+function ModelValue($model, $field)
+{
+    if($model != NULL && isset($model))
+    {
+        echo ' value="' . $model->{$field} . '" ';
+    }
+}

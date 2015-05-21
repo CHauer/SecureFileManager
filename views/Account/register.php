@@ -10,6 +10,13 @@
 </div><!--/breadcrumbs-->
 <!--=== End Breadcrumbs ===-->
 
+<?
+if($viewModel->exists("model"))
+{
+    $model = $viewModel->get("model");
+}
+?>
+
 <!--=== Content Part ===-->
 <div class="container content">
     <div class="row">
@@ -30,25 +37,25 @@
 
                 <div class="form-group <? ValidationErrorClass("Username", $viewModel) ?> ">
                     <label class="control-label" >Username <span class="color-green">*</span></label>
-                    <input type="text" name="Username" class="form-control margin-bottom-20">
+                    <input type="text" name="Username" class="form-control margin-bottom-20" <? ModelValue($model, 'Username')?> >
                     <? ValidationErrorMessage("Username", $viewModel) ?>
                 </div>
 
                 <div class="form-group <? ValidationErrorClass("Firstname", $viewModel) ?>">
                     <label class="control-label" >First name</label>
-                    <input type="text" name="Firstname" class="form-control margin-bottom-20">
+                    <input type="text" name="Firstname" class="form-control margin-bottom-20"  <? ModelValue($model, 'Firstname')?> >
                     <? ValidationErrorMessage("Firstname", $viewModel) ?>
                 </div>
 
                 <div class="form-group <? ValidationErrorClass("Lastname", $viewModel) ?>">
                     <label class="control-label" >Last name</label>
-                    <input type="text" name="Lastname" class="form-control margin-bottom-20">
+                    <input type="text" name="Lastname" class="form-control margin-bottom-20"  <? ModelValue($model, 'Lastname')?> >
                     <? ValidationErrorMessage("Lastname", $viewModel) ?>
                 </div>
 
                 <div class="form-group <? ValidationErrorClass("EMail", $viewModel) ?>">
                     <label class="control-label" >Email Address <span class="color-green">*</span></label>
-                    <input type="text" name="EMail" class="form-control margin-bottom-20">
+                    <input type="text" name="EMail" class="form-control margin-bottom-20"  <? ModelValue($model, 'EMail')?> >
                     <? ValidationErrorMessage("EMail", $viewModel) ?>
                 </div>
 
@@ -60,13 +67,13 @@
 
                 <div class="form-group <? ValidationErrorClass("Birthdate", $viewModel) ?>">
                     <label class="control-label" >Birth date <span class="color-green">*</span></label>
-                    <input type="text" name="Birthdate" class="form-control margin-bottom-20">
+                    <input type="text" name="Birthdate" class="form-control margin-bottom-20"  <? ModelValue($model, 'Birthdate')?> >
                     <? ValidationErrorMessage("Birthdate", $viewModel) ?>
                 </div>
 
                 <div class="form-group <? ValidationErrorClass("Description", $viewModel) ?>">
                     <label class="control-label" >Description</label>
-                    <textarea name="Description" class="form-control margin-bottom-20"> </textarea>
+                    <textarea name="Description" class="form-control margin-bottom-20"  <? ModelValue($model, 'Description')?> > </textarea>
                     <? ValidationErrorMessage("Description", $viewModel) ?>
                 </div>
 

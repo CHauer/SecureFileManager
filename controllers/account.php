@@ -26,27 +26,33 @@ class AccountController extends BaseController
             //redirects to error/unexpectedError if wrong
             CheckAntiCSRFToken();
 
+            #region # Create User obj
+
+            try
+            {
+                $user = new User();
+                $user->Username = $_POST["Username"];
+
+                $user->BirthDate = ParseDate($_POST["Birthdate"]);
+                $user->Description = $_POST["Description"];
+                $user->EMail = $_POST["EMail"];
+
+                $user->Firstname = $_POST["Firstname"];
+                $user->Lastname = $_POST["Lastname"];
+
+                $user->Description = ($_POST["Description"]);
+                $user->Password = md5($_POST["Password"]);
+
+                $viewModel->set("user", $user);
+            }
+            catch (Exception $ex){;}
+
+            #endregion
+
             if(!$this->validateRegisterData($viewModel)) {
                 $this->view->output($viewModel);
                 return;
             }
-
-            #region # Create User obj
-
-            $user = new User();
-            $user->Username = $_POST["Username"];
-            $user->BirthDate = ParseDate($_POST["Birthdate"]);
-
-            $user->Description = $_POST["Description"];
-            $user->EMail = $_POST["EMail"];
-
-            $user->Firstname = $_POST["Firstname"];
-            $user->Lastname = $_POST["Lastname"];
-
-            $user->Description = ($_POST["Description"]);
-            $user->Password = md5($_POST["Password"]);
-
-            #endregion
 
             try
             {
