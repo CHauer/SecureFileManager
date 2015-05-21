@@ -47,9 +47,7 @@ class AccountController extends BaseController
                 {
                     $user->BirthDate = ParseDate($_POST["Birthdate"]);
                 }
-                catch (Exception $iex){
-
-                }
+                catch (Exception $iex){}
 
             }
             catch (Exception $ex){;}
