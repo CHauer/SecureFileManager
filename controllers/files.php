@@ -32,12 +32,62 @@ class FilesController extends BaseController
     {
         $viewModel = $this->model->upload();
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST')
+        if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
         {
+            if(!$this->validateRegisterData($viewModel)) {
+                $this->view->output($viewModel);
+                return;
+            }
 
+            #region # Create File
+            $file = new UserFile();
+            $file->Name = $_POST["Name"];
+            $file->Description = $_POST["Description"];
+            $file->IsPrivate = $_POST["IsPrivate"];
+            $file->UserId  = $_SESSION["userid"];
+            #endregion
+
+            #region # Insert File
+            try
+            {
+                $filelink = HandleFileUpload("FileLink", "/upload/?");
+                $file->FileLink = $filelink;
+
+                $filesrepo = new FileRepository();
+                $fileid = $filesrepo->InsertFile($file);
+
+                if($fileid == false)
+                {
+                    $viewModel->set("error", "Something went wrong during upload a file - please try again!");
+                }
+            }
+            catch(Exception $e)
+            {
+                $viewModel->set("error", $e->getMessage());
+            }
+            #endregion
+
+            //no error
+            if(!$viewModel->exists("error"))
+            {
+                RedirectAction("files", "index");
+                return;
+            }
         }
 
         $this->view->output($viewModel);
+    }
+
+    private function validateRegisterData(ViewModel &$viewModel)
+    {
+        $ok = true;
+
+        if(!isset($_POST["Name"]) || $_POST["Name"] == ''){
+            $viewModel->setFieldError("Name", "Name has to be entered!");
+            $ok = false;
+        }
+
+        return $ok;
     }
 }
 

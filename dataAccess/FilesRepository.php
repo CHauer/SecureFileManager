@@ -14,56 +14,35 @@ class FileRepository{
      */
     public function InsertFile(UserFile $file){
         global $db;
-       /* $stmt = $db->prepare('INSERT INTO [dbo].[User]
-           ([Username]
-           ,[Password]
-           ,[Birthdate]
-           ,[EMail]
-           ,[Description]
-           ,[PictureLink]
-           ,[LockoutEnabled]
-           ,[LockoutEndDate]
-           ,[AccessFailedCount]
-           ,[RoleId]
-           ,[AuthTokenId]
-           ,[Firstname]
-           ,[Lastname])
+        $stmt = $db->prepare('INSERT INTO [dbo].[UserFile]
+          ([Name],
+          [FileLink],
+          [Description],
+          [IsPrivate],
+          [UserId])
      VALUES
-           (:Username,
-           :Password,
-           :Birthdate,
-           :EMail,
-           :Description,
-           :PictureLink,
-           :LockoutEnabled,
-           :LockoutEndDate,
-           :AccessFailedCount,
-           :RoleId,
-           :AuthTokenId,
-           :Firstname,
-           :Lastname)');
-        $stmt->bindParam(":Username", $user->Username);
-        $stmt->bindParam(":Password", $user->Password);
-        $stmt->bindParam(":Birthdate", $user->Birthdate);
-        $stmt->bindParam(":EMail", $user->EMail);
-        $stmt->bindParam(":Description", $user->Description);
-        $stmt->bindParam(":PictureLink", $user->PictureLink);
-        $stmt->bindParam(":LockoutEnabled", $user->LockoutEnabled);
-        $stmt->bindParam(":LockoutEndDate", $user->LockoutEndDate);
-        $stmt->bindParam(":AccessFailedCount", $user->AccessFailedCount);
-        $stmt->bindParam(":RoleId", $user->RoleId);
-        $stmt->bindParam(":AuthTokenId", $user->AuthTokenId);
-        $stmt->bindParam(":Firstname", $user->Firstname);
-        $stmt->bindParam(":Lastname", $user->Lastname);
+           (:Name,
+            :FileLink,
+            :Description,
+            :IsPrivate,
+            :UserId');
+        $stmt->bindParam(":Name", $file->Name);
+        $stmt->bindParam(":FileLink", $file->FileLink);
+        $stmt->bindParam(":Description", $file->Description);
+        $stmt->bindParam(":IsPrivate", $file->IsPrivate);
+        $stmt->bindParam(":UserId", $file->UserId);
 
         $stmt->execute();
 
-        return $stmt->columnCount() == 1;*/
+        if ($stmt->rowCount() == 1)
+        {
+            return $db->lastInsertId();
+        }
 
-        return true;
+        return false;
     }
 
-    public function GetPublicAllFiles()
+    public function GetPublicFiles()
     {
         global $db;
         $isprivate = 0;

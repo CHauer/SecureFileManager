@@ -20,10 +20,19 @@
                     <h2>Upload a new file</h2>
                 </div>
 
-                <label>File Name <span class="color-red">*</span></label>
-                <input type="text" name="Name" class="form-control margin-bottom-20">
+                <div class="form-group <? ValidationErrorClass("Name", $viewModel) ?> ">
+                    <label>File Name <span class="color-red">*</span></label>
+                    <input type="text" name="Name" class="form-control margin-bottom-20" maxlength="200">
+                    <? ValidationErrorMessage("Name", $viewModel) ?>
+                </div>
 
-                <label>File Description</label>
+                <div class="form-group <? ValidationErrorClass("FileLink", $viewModel) ?>">
+                    <label class="control-label" >File Link  <span class="color-red">*</span></label>
+                    <input type="file" name="FileLink" >
+                    <? ValidationErrorMessage("FileLink", $viewModel) ?>
+                </div>
+
+                <label>File Description </label>
                 <input type="text" name="Description" class="form-control margin-bottom-20" maxlength="3000">
 
                 <hr>
