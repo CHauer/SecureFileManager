@@ -61,7 +61,7 @@ class AccountController extends BaseController
                 $user->PictureLink = $filelink;
 
                 $roleRepo = new RoleRepository();
-                $roleId = $roleRepo->GetRoleId("Standard");//($_POST["Role"]);
+                $roleId = $roleRepo->GetRoleId($_POST["Role"]);
 
                 $user->RoleId = $roleId;
 
