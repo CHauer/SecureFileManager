@@ -30,7 +30,7 @@ require("classes/view.php");
 require("classes/viewmodel.php");
 require("classes/loader.php");
 require("dataAccess/initDataAccess.php");
-require("classes/logger.php");
+require("classes/Logger.php");
 
 //validation/html helper
 require("includes/validationHelper.php");
