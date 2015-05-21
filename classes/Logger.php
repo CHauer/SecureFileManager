@@ -39,7 +39,7 @@ class Logger
 
     public function __construct()
     {
-        $this->$logRepository = new LogEntryRepository();
+        $this->logRepository = new LogEntryRepository();
     }
 
     public function LogDebugMessage($message)
