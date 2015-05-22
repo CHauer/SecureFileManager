@@ -28,6 +28,17 @@ class BaseModel {
             $this->viewModel->set("userid", $_SESSION["userid"]);
             $this->viewModel->set("username", $currentuser->Username);
 
+            $fullname = $currentuser->Firstname . ' ' . $currentuser->Lastname;
+
+            if($fullname != NULL && $fullname != ' ')
+            {
+                $this->viewModel->set("fullname", $fullname );
+            }
+            else
+            {
+                $this->viewModel->set("fullname", $currentuser->Username );
+            }
+
             if($currentuser->PictureLink == NULL || $currentuser->PictureLink == '')
             {
                 $this->viewModel->set("userimage", '/assets/img/user.jpg');

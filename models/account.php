@@ -34,6 +34,13 @@ class AccountModel extends BaseModel
         $this->viewModel->set("model", $user);
         return $this->viewModel;
     }
+
+    public function manage()
+    {
+        $this->viewModel->set("pageTitle","Account Management");
+        return $this->viewModel;
+    }
+
 }
 
 ?>

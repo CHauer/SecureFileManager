@@ -1,9 +1,10 @@
 <!--=== Breadcrumbs ===-->
 <div class="breadcrumbs">
     <div class="container">
-        <h1 class="pull-left">Registration</h1>
+        <h1 class="pull-left">Account Management</h1>
         <ul class="pull-right breadcrumb">
-            <li><a href="/home/index">Profile</a></li>
+            <li><a href="/home/index">Account</a></li>
+            <li><a href="/account/manage">Manage</a></li>
             <li class="active">Edit</li>
         </ul>
     </div><!--/container-->
@@ -72,7 +73,7 @@ if($viewModel->exists("model"))
 
                 <div class="form-group <? ValidationErrorClass("Description", $viewModel) ?>">
                     <label class="control-label" >Description</label>
-                    <textarea name="Description" class="form-control margin-bottom-20"  <? ModelValue($model, 'Description')?> > </textarea>
+                    <textarea name="Description" class="form-control margin-bottom-20" ><? echo $model != null ? $model->Description : '' ?></textarea>
                     <? ValidationErrorMessage("Description", $viewModel) ?>
                 </div>
 

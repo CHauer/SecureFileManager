@@ -106,7 +106,7 @@ class UserRepository{
         $user->Description = $result["Description"];
         $user->Firstname = $result["Firstname"];
         $user->Lastname = $result["Lastname"];
-        $user->BirthDate = $result["BirthDate"];
+        $user->BirthDate = $result["Birthdate"];
         $user->AccessFailedCount = $result["AccessFailedCount"];
         $user->AuthTokenId = $result["AuthTokenId"];
         $user->EMail = $result["EMail"];
@@ -114,7 +114,7 @@ class UserRepository{
         $user->PictureLink = $result["PictureLink"];
         $user->LockoutEnabled = $result["LockoutEnabled"];
         $user->LockoutEndDate= $result["LockoutEndDate"];
-        $user->RoleId = $result["RoleId"];
+        $user->RoleId = intval($result["RoleId"]);
 
         return $user;
     }

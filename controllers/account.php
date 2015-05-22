@@ -286,6 +286,12 @@ class AccountController extends BaseController
 
     }
 
+    protected function manage()
+    {
+        $this->view->output($this->model->manage());
+    }
+
+
     private function validateRegisterData(ViewModel &$viewModel, $checkTerms = true)
     {
         $ok = true;
