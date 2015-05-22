@@ -87,7 +87,7 @@ CREATE TABLE [dbo].[LogEntry] (
     [Typ] [nvarchar](max),
     CONSTRAINT [PK_dbo.LogEntry] PRIMARY KEY ([LogEntryId])
 )
-ALTER TABLE [dbo].[AuthToken] ADD CONSTRAINT [FK_dbo.AuthToken_dbo.User_AuthTokenId] FOREIGN KEY ([AuthTokenId]) REFERENCES [dbo].[User] ([UserId])
+ALTER TABLE [dbo].[User] ADD CONSTRAINT [FK_dbo.AuthToken_dbo.User_AuthTokenId] FOREIGN KEY ([AuthTokenId]) REFERENCES [dbo].[AuthToken] ([AuthTokenId])
 ALTER TABLE [dbo].[User] ADD CONSTRAINT [FK_dbo.User_dbo.Role_RoleId] FOREIGN KEY ([RoleId]) REFERENCES [dbo].[Role] ([RoleId])
 ALTER TABLE [dbo].[Comment] ADD CONSTRAINT [FK_dbo.Comment_dbo.User_UserId] FOREIGN KEY ([UserId]) REFERENCES [dbo].[User] ([UserId])
 ALTER TABLE [dbo].[Comment] ADD CONSTRAINT [FK_dbo.Comment_dbo.UserFile_UserFile_UserFileId] FOREIGN KEY ([UserFile_UserFileId]) REFERENCES [dbo].[UserFile] ([UserFileId])

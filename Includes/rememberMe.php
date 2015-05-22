@@ -12,7 +12,7 @@ function CheckRememberMeLogin()
     {
         $selectorToken = $_COOKIE['SecureRememberMe'];
 
-        $parts = explode(':', $selectorToken);
+        $parts = explode(':', urldecode($selectorToken));
 
         if(count($parts)== 2)
         {
@@ -27,8 +27,10 @@ function CheckRememberMeLogin()
         {
             $_SESSION["userid"] = $authToken->UserId;
 
-            //Create new token
-            $authToken = $authRepo->CreateAuthToken(intval($authToken->UserId));
+            $userid = $_SESSION["userid"];
+
+            //TODO renew token expire time
+            //$authToken = $authRepo->CreateAuthToken(intval($userid));
 
             $month = time() + 3600 * 24 * 31; // a month
             setcookie('SecureRememberMe', $authToken->Selector . ':' . $authToken->Token , $month);
