@@ -27,7 +27,7 @@ class ForumController extends BaseController
 
     protected function newThread()
     {
-        //ConfirmUserIsLoggedOn();
+        ConfirmUserIsLoggedOn();
 
         $viewModel = $this->model->newThread();
 
@@ -43,8 +43,7 @@ class ForumController extends BaseController
             $thread->Title = $_POST["Title"];
             $thread->Description = $_POST["Description"];
             $thread->IsDeleted = 0;
-            //$thread->UserId = $_SESSION['userid'];
-            $thread->UserId = 1;
+            $thread->UserId = $_SESSION['userid'];
             #endregion
 
             #region # Insert File
@@ -60,7 +59,7 @@ class ForumController extends BaseController
             }
             catch(Exception $e)
             {
-                $viewModel->set("error", $e->getMessage() . "\n" . $e->getTraceAsString());
+                $viewModel->set("error", $e->getMessage());
             }
             #endregion
 

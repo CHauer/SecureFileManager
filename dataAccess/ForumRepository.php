@@ -23,7 +23,7 @@ class ForumRepository {
            (:Title,
             :Description,
             :IsDeleted,
-            :UserId');
+            :UserId)');
         $stmt->bindParam(":Title", $thread->Title);
         $stmt->bindParam(":Description", $thread->Description);
         $stmt->bindParam(":IsDeleted", $thread->IsDeleted);
