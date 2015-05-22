@@ -41,7 +41,7 @@ class AccountController extends BaseController
                 $user->Lastname = $_POST["Lastname"];
 
                 $user->Description = ($_POST["Description"]);
-                $user->Password = md5($_POST["Password"]);
+                $user->Password = $_POST["Password"];
 
                 try
                 {
