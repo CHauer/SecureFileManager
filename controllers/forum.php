@@ -60,7 +60,7 @@ class ForumController extends BaseController
             }
             catch(Exception $e)
             {
-                $viewModel->set("error", $e->getMessage());
+                $viewModel->set("error", $e->getMessage() + "\n" + $e->getTraceAsString());
             }
             #endregion
 
