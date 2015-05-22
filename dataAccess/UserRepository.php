@@ -88,7 +88,7 @@ class UserRepository{
            ,[Firstname]
            ,[Lastname]
            from [dbo].[User] U
-           where U.UserId==:userid');
+           where U.UserId=:userid');
 
         $stmt->bindParam(":userid", $userid);
         $stmt->execute();
