@@ -20,6 +20,20 @@ class AccountModel extends BaseModel
         $this->viewModel->set("pageTitle","Login");
         return $this->viewModel;
     }
+
+    public function editprofile()
+    {
+        $this->viewModel->set("pageTitle","Edit Profile");
+
+        $userrepo = new UserRepository();
+        $rolerepo = new RoleRepository();
+
+        $user = $userrepo->GetUser(intval($_SESSION['userid']));
+        $user->Role = $rolerepo->GetRole($user->RoleId);
+
+        $this->viewModel->set("model", $user);
+        return $this->viewModel;
+    }
 }
 
 ?>

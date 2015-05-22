@@ -106,7 +106,7 @@ class UserRepository{
         $user->Description = $result["Description"];
         $user->Firstname = $result["Firstname"];
         $user->Lastname = $result["Lastname"];
-        $user->BirthDate = date_format($result["BirthDate"], 'd.m.Y');
+        $user->BirthDate = $result["BirthDate"];
         $user->AccessFailedCount = $result["AccessFailedCount"];
         $user->AuthTokenId = $result["AuthTokenId"];
         $user->EMail = $result["EMail"];
