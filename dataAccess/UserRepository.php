@@ -68,10 +68,10 @@ class UserRepository{
     }
 
     /**
-     * @param int $userid
+     * @param $userid
      * @return User
      */
-    public function GetUser(int $userid){
+    public function GetUser($userid){
         global $db;
 
         $stmt = $db->prepare('select top 1
