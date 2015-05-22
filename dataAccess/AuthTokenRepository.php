@@ -26,7 +26,7 @@ class AuthTokenRepository
         $stmt = $db->prepare("INSERT INTO [dbo].[AuthToken] ([UserId],[Expires],[Selector],[Token])
                              VALUES (:userid, DateAdd(Month, 1, GETDATE()),
                               :selector, CONVERT(nvarchar,HASHBYTES('SHA2_256', :token),2))");
-        $stmt->bindParam(":userid", $userid);
+        $stmt->bindParam(":userid", intval($userid));
         $stmt->bindParam(":selector", $selector );
         $stmt->bindParam(":token", $token);
 
@@ -92,7 +92,7 @@ class AuthTokenRepository
         $stmt = $db->prepare("DELETE FROM [dbo].[AuthToken]
                                    WHERE [UserId]=:userid");
 
-        $stmt->bindParam(":userid", $userid);
+        $stmt->bindParam(":userid", intval($userid));
         $stmt->execute();
     }
 
