@@ -67,7 +67,7 @@ if($viewModel->exists("model"))
 
                 <div class="form-group <? ValidationErrorClass("BirthDate", $viewModel) ?>">
                     <label class="control-label" >Birth date <span class="color-green">*</span></label>
-                    <input type="text" name="BirthDate" class="form-control margin-bottom-20"  <? ModelValue($model, 'BirthDate')?> >
+                    <input type="text" name="BirthDate" class="form-control margin-bottom-20"  <? ModelDateValue($model, 'BirthDate')?> >
                     <? ValidationErrorMessage("BirthDate", $viewModel) ?>
                 </div>
 
