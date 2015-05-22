@@ -21,11 +21,13 @@
                         <li><a href="#">Russian</a></li>
                         <li><a href="#">German</a></li>
                     </ul>
-                </li>-->
-                <li class="topbar-devider"></li>
+                </li>
+                <li class="topbar-devider"></li>-->
                 <li><a href="/home/faq">Help</a></li>
+                <? if(!IsUserLoggedOn()){ ?>
                 <li class="topbar-devider"></li>
                 <li><a href="/account/login">Login</a></li>
+                <? } ?>
             </ul>
         </div>
         <!-- End Topbar -->
@@ -70,14 +72,35 @@
 
                 </li>
                 <!-- End Forum -->
+                <?
 
-                <? } ?>
+                    if(IsUserAdministrator()) {
+                    ?>
+
+                    <li class="<? CurrentActive("admin", "index") ?>">
+                        <a href="/admin/index" >
+                            Administrator
+                        </a>
+
+                    </li>
+
+                <?
+                    }
+                } ?>
 
                 <?
                 if(IsUserLoggedOn())
-                {
+                {?>
 
-                }else{
+                    <li class="<? CurrentActive("account", "logoff") ?>" style="back">
+                        <a href="/account/logoff">
+                            Logoff
+                        </a>
+                    </li>
+                <?
+                }
+                else
+                {
                 ?>
 
                 <!-- Login -->
@@ -100,19 +123,25 @@
 
                 <? } ?>
 
-                <!-- Search Block -->
-                <!-- <li>
-                    <i class="search fa fa-search search-btn"></i>
+                <!-- user Block -->
+                <?
+                if(IsUserLoggedOn())
+                {?>
+                <li>
+                    <i class="search fa fa-user search-btn"></i>
                     <div class="search-open">
                         <div class="input-group animated fadeInDown">
-                            <input type="text" class="form-control" placeholder="Search">
-                                <span class="input-group-btn">
-                                    <button class="btn-u" type="button">Go</button>
-                                </span>
+                            <img src="<? echo $viewModel->get('userimage') ?>" style="width: 100px; height: 100px;" />
+                            <li class="<? CurrentActive("account", "manage") ?>">
+                                <a href="/account/manage" >
+                                    <? echo $viewModel->get('username') ?>
+                                </a>
+                            </li>
                         </div>
                     </div>
-                </li> -->
-                <!-- End Search Block -->
+                </li>
+                <? } ?>
+                <!-- End user Block -->
             </ul>
         </div><!--/end container-->
     </div><!--/navbar-collapse-->

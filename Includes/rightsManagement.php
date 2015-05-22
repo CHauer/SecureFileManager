@@ -34,19 +34,19 @@ function ConfirmUserIsAdmin() {
 function IsUserAdministrator()
 {
     $userRepo = new UserRepository();
-    return $userRepo->IsUserInRole("Administrator");
+    return $userRepo->IsUserInRole("Administrator", intval($_SESSION['userid']));
 }
 
 function IsStandardUser()
 {
     $userRepo = new UserRepository();
-    return $userRepo->IsUserInRole("Standard");
+    return $userRepo->IsUserInRole("Standard", intval($_SESSION['userid']));
 }
 
 function IsPremiumUser()
 {
     $userRepo = new UserRepository();
-    return $userRepo->IsUserInRole("Premium");
+    return $userRepo->IsUserInRole("Premium", intval($_SESSION['userid']));
 }
 
 ?>

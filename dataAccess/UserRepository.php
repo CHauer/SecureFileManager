@@ -125,7 +125,7 @@ class UserRepository{
      * @param string $roleName
      * @return bool
      */
-    public function IsUserInRole($roleName){
+    public function IsUserInRole($roleName, $userid){
         $roleRepo = new RoleRepository();
         $roleId = $roleRepo->GetRoleId($roleName);
 
@@ -134,7 +134,7 @@ class UserRepository{
         $query = "SELECT Top(1) UserId FROM [User] U
                   WHERE U.RoleId=:roleId AND U.UserId=:id";
         $statement = $db->prepare($query);
-        $statement->bindValue(':id', $_SESSION['userid']);
+        $statement->bindValue(':id', $userid);
         $statement->bindValue(':roleId', $roleId);
         $statement->execute();
 

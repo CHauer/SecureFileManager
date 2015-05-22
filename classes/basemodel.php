@@ -27,7 +27,11 @@ class BaseModel {
 
             $this->viewModel->set("userid", $_SESSION["userid"]);
             $this->viewModel->set("username", $currentuser->Username);
-            $this->viewModel->set("userimage", $currentuser->PictureLink);
+            if($currentuser->PictureLink == NULL || $currentuser->PictureLink == ''){
+                $this->viewModel->set("userimage", '/assets/img/user.jpg');
+            }else {
+                $this->viewModel->set("userimage", $currentuser->PictureLink);
+            }
             $this->viewModel->set("email", $currentuser->EMail);
         }
 
