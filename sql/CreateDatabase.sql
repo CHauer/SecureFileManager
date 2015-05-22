@@ -2,7 +2,7 @@ CREATE TABLE [dbo].[AuthToken] (
     [AuthTokenId] [int] NOT NULL,
     [UserId] [int] NOT NULL,
     [Expires] [datetime],
-    [Selector] [int] NOT NULL,
+    [Selector] [nvarchar](300) NOT NULL,
     [Token] [nvarchar](max),
     CONSTRAINT [PK_dbo.AuthToken] PRIMARY KEY ([AuthTokenId])
 )

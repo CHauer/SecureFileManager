@@ -47,7 +47,7 @@ if($viewModel->exists("model"))
 
                 <div class="row">
                     <div class="col-md-6 checkbox">
-                        <label><input type="checkbox"> Stay signed in</label>
+                        <label><input type="checkbox" name="RememberMe"> Stay signed in</label>
                     </div>
                     <div class="col-md-6">
                         <button class="btn-u pull-right" type="submit">Login</button>

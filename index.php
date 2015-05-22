@@ -37,8 +37,13 @@ require("includes/validationHelper.php");
 require("includes/currentRequestHelper.php");
 require("includes/initLogger.php");
 
-// CSRF
+// CSRF helper functions
 require("includes/antiCrossSiteRequestForgery.php");
+
+//remember me
+require("includes/rememberMe.php");
+
+CheckRememberMeLogin();
 
 GenerateAntiCSRFToken();
 

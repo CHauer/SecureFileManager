@@ -15,7 +15,7 @@ class UserRepository{
     public function InsertUser(User $user){
         global $db;
 
-        $stmt = $db->prepare('INSERT INTO [dbo].[User]
+        $stmt = $db->prepare("INSERT INTO [dbo].[User]
            ([Username]
            ,[Password]
            ,[Birthdate]
@@ -31,7 +31,7 @@ class UserRepository{
            ,[Lastname])
      VALUES
            (:Username,
-           HASHBYTES(\'SHA2_256\', :Password),
+           HASHBYTES('SHA2_256', :Password),
            :Birthdate,
            :EMail,
            :Description,
@@ -42,10 +42,10 @@ class UserRepository{
            :RoleId,
            :AuthTokenId,
            :Firstname,
-           :Lastname)');
+           :Lastname)");
         $stmt->bindParam(":Username", $user->Username);
         $stmt->bindParam(":Password", $user->Password);
-        $stmt->bindParam(":Birthdate", $user->Birthdate);
+        $stmt->bindParam(":Birthdate", $user->BirthDate);
         $stmt->bindParam(":EMail", $user->EMail);
         $stmt->bindParam(":Description", $user->Description);
         $stmt->bindParam(":PictureLink", $user->PictureLink);

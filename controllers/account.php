@@ -226,6 +226,22 @@ class AccountController extends BaseController
                 //$result contains userid
                 $_SESSION["userid"] = $result;
 
+                if($_POST['RememberMe'])
+                {
+                    $authRepo = new AuthTokenRepository();
+                    $authToken = $authRepo->GenerateAuthToken($_SESSION["userid"]);
+
+                    $month = time() + 3600 * 24 * 31; // a month
+                    setcookie('SecureRememberMe', $authToken->Selector . ':' . $authToken->Token , $month);
+                }
+                else
+                {
+                    if(isset($_COOKIE['SecureRememberMe']))
+                    {
+                        setcookie('SecureRememberMe', 'gone', time()-100);
+                    }
+                }
+
             }
             catch (Exception $ex)
             {
