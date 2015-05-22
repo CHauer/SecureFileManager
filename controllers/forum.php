@@ -29,7 +29,67 @@ class ForumController extends BaseController
     {
         //ConfirmUserIsLoggedOn();
 
-        $this->view->output($this->model->newThread());
+        $viewModel = $this->model->newThread();
+
+        if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
+        {
+            if(!$this->validateThreadData($viewModel)) {
+                $this->view->output($viewModel);
+                return;
+            }
+
+            #region # Create Thread
+            $thread = new ForumThread();
+            $thread->Title = $_POST["Title"];
+            $thread->Description = $_POST["Description"];
+            $thread->IsDeleted = 0;
+            //$thread->UserId = $_SESSION['userid'];
+            $thread->UserId = 1;
+            #endregion
+
+            #region # Insert File
+            try
+            {
+                $forumRepository = new ForumRepository();
+                $threadId = $forumRepository->InsertThread($thread);
+
+                if($threadId == false)
+                {
+                    $viewModel->set("error", "Something went wrong - please try again!");
+                }
+            }
+            catch(Exception $e)
+            {
+                $viewModel->set("error", $e->getMessage() . "\n" . $e->getTraceAsString());
+            }
+            #endregion
+
+            //no error
+            if(!$viewModel->exists("error"))
+            {
+                RedirectAction("forum", "index");
+                return;
+            }
+        }
+
+        $this->view->output($viewModel);
+    }
+
+    private function validateThreadData(ViewModel &$viewModel)
+    {
+        $ok = true;
+
+        if(!isset($_POST["Title"]) || $_POST["Title"] == ''){
+            $viewModel->setFieldError("Title", "Title has to be entered!");
+            $ok = false;
+        }
+
+        if(!isset($_POST["Description"]) || $_POST["Description"] == ''){
+            $viewModel->setFieldError("Description", "Description has to be entered!");
+            $ok = false;
+        }
+
+        return $ok;
     }
 }
 
