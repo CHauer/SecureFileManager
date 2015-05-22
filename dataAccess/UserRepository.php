@@ -76,7 +76,7 @@ class UserRepository{
 
         $stmt = $db->prepare('select top 1
             [Username]
-           ,convert(varchar, [Birthdate], 104)
+           ,convert(varchar, [Birthdate], 104) as [BirthDate]
            ,[EMail]
            ,[Description]
            ,[PictureLink]
