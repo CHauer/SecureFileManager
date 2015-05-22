@@ -25,7 +25,7 @@ class FileRepository{
             :FileLink,
             :Description,
             :IsPrivate,
-            :UserId");
+            :UserId)");
         $stmt->bindParam(":Name", $file->Name);
         $stmt->bindParam(":FileLink", $file->FileLink);
         $stmt->bindParam(":Description", $file->Description);
