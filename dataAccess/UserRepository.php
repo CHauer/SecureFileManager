@@ -93,14 +93,12 @@ class UserRepository{
         $stmt->bindParam(":userid", $userid);
         $stmt->execute();
 
-        $results = $stmt->fetchAll();
+        $result = $stmt->fetch();
 
-        if(count($results) == 0)
+        if($result == false)
         {
             throw new InvalidArgumentException("The given userid does not exist!");
         }
-
-        $result = $results[0];
 
         $user = new User();
 
@@ -164,20 +162,20 @@ class UserRepository{
 
         try
         {
-            $statement = $db->prepare('SELECT [UserId] FROM [User]
+            $statement = $db->prepare('SELECT Top 1 [UserId] FROM [User]
                                       WHERE [Username]=:username
                                       AND [Password]= HASHBYTES(\'SHA2_256\', :password)');
             $statement->bindParam(':username', $username);
             $statement->bindParam(':password', $password);
             $statement->execute();
 
-            $results = $statement->fetchAll();
+            $result = $statement->fetch();
 
-            if (count($results) == 0) {
+            if ($result == false)
+            {
                 return NULL;
             }
 
-            $result = $results[0];
             return $result["UserId"];
 
         }
@@ -200,14 +198,14 @@ class UserRepository{
         $statement->bindParam(':username', $username);
         $statement->execute();
 
-        if(count($statement->fetchAll()) == 1)
+        if($statement->fetch() !== false)
         {
             $statementsel = $db->prepare('Select [AccessFailedCount] from [User]
                                           WHERE [Username]=:username');
             $statementsel->bindParam(':username', $username);
             $statementsel->execute();
 
-            $result = $statementsel->fetchAll()[0];
+            $result = $statementsel->fetch();
 
             if($result["AccessFailedCount"] >= 3)
             {
@@ -229,7 +227,7 @@ class UserRepository{
     {
         global $db;
 
-        $statement = $db -> prepare('Select [UserId] from [User]
+        $statement = $db -> prepare('Select Top 1 [UserId] from [User]
                                       WHERE [LockoutEnabled] = 1
                                       AND [Username]=:username
                                       AND [LockoutEndDate] is not null
@@ -238,7 +236,7 @@ class UserRepository{
         $statement->execute();
 
         // if null user is not locked
-        if(count($statement->columnCount() == 0 || $statement->fetchAll()) == 0)
+        if($statement->fetch() == false)
         {
             return false;
         }
@@ -254,7 +252,7 @@ class UserRepository{
         $statementUpdate->execute();
 
         // if 1 updated -> user is no longer locked
-        if(count($statementUpdate->fetchAll()) == 1)
+        if($statementUpdate->rowCount() == 1)
         {
             return false;
         }
@@ -277,7 +275,7 @@ class UserRepository{
         $statement->bindParam(':username', $username);
 
         $statement->execute();
-        return count($statement->fetchAll()) == 1;
+        return $statement->rowCount()== 1;
     }
 
     /**
@@ -293,7 +291,7 @@ class UserRepository{
         $statement->bindParam(':userid', $userid);
 
         $statement->execute();
-        return count($statement->fetchAll()) == 1;
+        return $statement->rowCount()== 1;
     }
 
     /**
@@ -309,7 +307,7 @@ class UserRepository{
         $statement->bindParam(':userid', $userid);
 
         $statement->execute();
-        return count($statement->fetchAll()) == 1;
+        return $statement->rowCount()== 1;
     }
 
 }
