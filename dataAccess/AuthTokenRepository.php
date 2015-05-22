@@ -110,7 +110,7 @@ class AuthTokenRepository
 
         $stmt->execute();
 
-        $result = $stmt->fetch;
+        $result = $stmt->fetch();
 
         if($result == false){
             return NULL;
