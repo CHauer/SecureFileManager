@@ -25,10 +25,29 @@ function ValidationErrorMessage($field, ViewModel $viewModel)
 
 function ParseDate($date)
 {
-    return DateTime::createFromFormat('j.m.Y', $date);
+    $value = NULL;
+    try {
+        $value = DateTime::createFromFormat('j.m.Y', $date);
+    }catch(Exception $ex){
+        $value = NULL;
+    }
+
+    try {
+        $value = DateTime::createFromFormat('d.m.Y', $date);
+    }catch(Exception $ex){
+        $value = NULL;
+    }
+
+    if($value == NULL) {
+        throw new Exception('The given Date has a invalid format! Please try 01.01.1900!');
+    }
+
+    return $value;
+
 }
 
 function VerifyDate($date)
 {
-    return (DateTime::createFromFormat('j.m.Y', $date) !== false);
+    return ((DateTime::createFromFormat('j.m.Y', $date) !== false) ||
+        (DateTime::createFromFormat('d.m.Y', $date) !== false));
 }
