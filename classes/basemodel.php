@@ -9,13 +9,11 @@
 class BaseModel {
     
     protected $viewModel;
-    protected $userViewModel;
 
     //create the base and utility objects available to all models on model creation
     public function __construct()
     {
         $this->viewModel = new ViewModel();
-        $this->userViewModel = new ViewModel();
 	    $this->commonViewData();
     }
 
@@ -27,19 +25,19 @@ class BaseModel {
             $repo = new UserRepository();
             $currentuser = $repo->GetUser(intval($_SESSION["userid"]));
 
-            $this->userViewModel->set("userid", $_SESSION["userid"]);
-            $this->userViewModel->set("username", $currentuser->Username);
+            $this->viewModel->set("userid", $_SESSION["userid"]);
+            $this->viewModel->set("username", $currentuser->Username);
 
             if($currentuser->PictureLink == NULL || $currentuser->PictureLink == '')
             {
-                $this->userViewModel->set("userimage", '/assets/img/user.jpg');
+                $this->viewModel->set("userimage", '/assets/img/user.jpg');
             }
             else
             {
-                $this->userViewModel->set("userimage", $currentuser->PictureLink);
+                $this->viewModel->set("userimage", $currentuser->PictureLink);
             }
 
-            $this->userViewModel->set("email", $currentuser->EMail);
+            $this->viewModel->set("email", $currentuser->EMail);
         }
 
         //e.g. $this->viewModel->set("mainMenu",array("Home" => "/home", "Help" => "/help"));

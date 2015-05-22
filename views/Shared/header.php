@@ -24,7 +24,9 @@
                 </li>
                 <li class="topbar-devider"></li>-->
                 <li><a href="/home/faq">Help</a></li>
-                <? if(!IsUserLoggedOn()){ ?>
+                <?
+                if(!IsUserLoggedOn())
+                { ?>
                 <li class="topbar-devider"></li>
                 <li><a href="/account/login">Login</a></li>
                 <? } ?>
@@ -84,13 +86,7 @@
 
                     </li>
 
-                <?
-                    }
-                } ?>
-
-                <?
-                if(IsUserLoggedOn())
-                {?>
+                    <?}?>
 
                     <li class="<? CurrentActive("account", "logoff") ?>" style="back">
                         <a href="/account/logoff">
@@ -123,7 +119,7 @@
 
                 <? } ?>
 
-                <!-- user Block -->
+                <!-- User Block -->
                 <?
                 if(IsUserLoggedOn())
                 {?>
@@ -131,10 +127,10 @@
                     <i class="search fa fa-user search-btn"></i>
                     <div class="search-open">
                         <div class="input-group animated fadeInDown">
-                            <img src="<? echo $userViewModel->get('userimage') ?>" style="width: 100px; height: 100px;" />
+                            <img src="<? echo $viewModel->get('userimage') ?>" style="width: 100px; height: 100px;" />
                             <li class="<? CurrentActive("account", "manage") ?>">
                                 <a href="/account/manage" >
-                                    <? echo $userViewModel->get('username') ?>
+                                    <? echo $viewModel->get('username') ?>
                                 </a>
                             </li>
                         </div>
