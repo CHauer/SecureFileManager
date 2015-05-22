@@ -129,8 +129,11 @@
                         <div class="input-group animated fadeInDown row " style="width: 300px">
                                 <img class="col-md-4" src="<? echo $viewModel->get('userimage') ?>" />
                                 <div class="col-md-8">
-                                    <a href="/account/manage" >
-                                        <? echo $viewModel->get('username') ?>
+                                    <p><? echo $viewModel->get('username') ?><br/>
+                                    <? echo $viewModel->get('fullname') ?><br/>
+                                    <? echo $viewModel->get('email') ?></p>
+                                    <a href="/account/manage" class="btn-u" >
+                                        Account Management
                                     </a>
                                 </div>
                         </div>

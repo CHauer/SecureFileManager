@@ -12,8 +12,8 @@
 
 <!--=== Content Part ===-->
 <div class="container content">
-    <div class="row">
-        <div class="col-md-7">
+    <div class="row" style="height: 500px;">
+        <div class="col-md-8">
 
             <div class="reg-header">
                 <h2>Welcome <? echo $viewModel->get("fullname") ?> to your Account Management Portal!</h2>

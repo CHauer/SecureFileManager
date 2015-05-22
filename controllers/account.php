@@ -203,6 +203,8 @@ class AccountController extends BaseController
 
     protected function editprofile()
     {
+        ConfirmUserIsLoggedOn();
+
         $viewModel = $this->model->editprofile();
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
@@ -288,11 +290,15 @@ class AccountController extends BaseController
 
     protected function manage()
     {
+        ConfirmUserIsLoggedOn();
+
         $this->view->output($this->model->manage());
     }
 
     protected function deactivate()
     {
+        ConfirmUserIsLoggedOn();
+
         $userrepo = new UserRepository();
 
         $userrepo->SetUserLockout(intval($_SESSION['userid']));

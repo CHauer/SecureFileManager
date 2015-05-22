@@ -40,8 +40,11 @@
                         <li><a href="/home/index">Home</a><i class="fa fa-angle-right"></i></li>
                         <li><a href="/files/index">Files</a><i class="fa fa-angle-right"></i></li>
                         <li><a href="/forum/index">Forum</a><i class="fa fa-angle-right"></i></li>
+                        <? If(!IsUserLoggedOn()){
+                            ?>
                         <li><a href="/account/login">Login</a><i class="fa fa-angle-right"></i></li>
                         <li><a href="/account/register" >Register</a><i class="fa fa-angle-right"></i></li>
+                        <?  } ?>
                     </ul>
                 </div><!--/col-md-3-->
                 <!-- End Link List -->
