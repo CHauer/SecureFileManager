@@ -136,7 +136,7 @@ class UserRepository{
         $statement->bindValue(':roleId', $roleId);
         $statement->execute();
 
-        return count($statement->fetchAll()) == 1;
+        return ($statement->fetch() !== false);
     }
 
     public function IsUsernameUsed($username){
@@ -147,7 +147,7 @@ class UserRepository{
         $statement = $db->prepare($query);
         $statement->bindValue(':username', $username);
         $statement->execute();
-        return count($statement->fetchAll()) == 1;
+        return ($statement->fetch() !== false);
     }
 
 
@@ -198,7 +198,7 @@ class UserRepository{
         $statement->bindParam(':username', $username);
         $statement->execute();
 
-        if($statement->fetch() !== false)
+        if($statement->rowCount() == 1)
         {
             $statementsel = $db->prepare('Select [AccessFailedCount] from [User]
                                           WHERE [Username]=:username');
