@@ -138,6 +138,18 @@ class UserRepository{
         return $statement->rowCount() == 1;
     }
 
+    public function IsUsernameUsed($username){
+        global $db;
+
+        $query = "SELECT Top(1) [UserId] FROM [User]
+                  WHERE [Username]=:username";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':username', $username);
+        $statement->execute();
+        return $statement->rowCount() == 1;
+    }
+
+
     /**
      * @param $username
      * @param $password

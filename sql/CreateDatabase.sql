@@ -24,6 +24,8 @@ CREATE TABLE [dbo].[User] (
     [AuthTokenId] [int],
     CONSTRAINT [PK_dbo.User] PRIMARY KEY ([UserId])
 )
+
+
 CREATE INDEX [IX_RoleId] ON [dbo].[User]([RoleId])
 CREATE TABLE [dbo].[Comment] (
     [CommentId] [int] NOT NULL IDENTITY,
@@ -93,3 +95,4 @@ ALTER TABLE [dbo].[Entry] ADD CONSTRAINT [FK_dbo.Entry_dbo.ForumThread_ForumThre
 ALTER TABLE [dbo].[Entry] ADD CONSTRAINT [FK_dbo.Entry_dbo.User_UserId] FOREIGN KEY ([UserId]) REFERENCES [dbo].[User] ([UserId])
 ALTER TABLE [dbo].[ForumThread] ADD CONSTRAINT [FK_dbo.ForumThread_dbo.User_UserId] FOREIGN KEY ([UserId]) REFERENCES [dbo].[User] ([UserId])
 ALTER TABLE [dbo].[UserFile] ADD CONSTRAINT [FK_dbo.UserFile_dbo.User_UserId] FOREIGN KEY ([UserId]) REFERENCES [dbo].[User] ([UserId])
+ALTER TABLE [dbo].[USER] ADD CONSTRAINT [username_unique] UNIQUE ([Username])
