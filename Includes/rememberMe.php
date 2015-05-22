@@ -27,13 +27,11 @@ function CheckRememberMeLogin()
         {
             $_SESSION["userid"] = $authToken->UserId;
 
-            $userid = $_SESSION["userid"];
-
             //TODO renew token expire time
             //$authToken = $authRepo->CreateAuthToken(intval($userid));
 
             $month = time() + 3600 * 24 * 31; // a month
-            setcookie('SecureRememberMe', $authToken->Selector . ':' . $authToken->Token , $month);
+            setcookie('SecureRememberMe', urldecode($selectorToken), $month);
         }
     }
 }
