@@ -280,23 +280,6 @@ class UserRepository{
             return false;
         }
 
-        //if 1 user is locked -> check if unlock needed
-        $statementUpdate = $db -> prepare('UPDATE [User] set LockoutEnabled = 0
-                                          WHERE [Username]=:username
-                                          AND [LockoutEnabled] = 1
-                                          AND [LockoutEndDate] is not null
-                                          AND [LockoutEndDate] < GetDate()');
-
-        $statementUpdate->bindParam(':username', $username);
-        $statementUpdate->execute();
-
-        // if 1 updated -> user is no longer locked
-        if($statementUpdate->rowCount() == 1)
-        {
-            return false;
-        }
-
-        //if here user is locked
         return true;
     }
 
@@ -342,8 +325,11 @@ class UserRepository{
     {
         global $db;
 
-        $statement = $db -> prepare('Update [User] set [LockoutEnabled] = 0, [LockoutEndDate] = NULL
-                                       WHERE [UserId]=:userid');
+        $statement = $db -> prepare('UPDATE [User] SET [LockoutEnabled] = 0, [LockEndDate] = null
+                                          WHERE [Username]=:userid
+                                          AND [LockoutEnabled] = 1
+                                          AND [LockoutEndDate] is not null
+                                          AND [LockoutEndDate] < GetDate()');
         $statement->bindParam(':userid', $userid);
 
         $statement->execute();

@@ -163,8 +163,15 @@ class AccountController extends BaseController
                     return;
                 }
 
+                //Reset Lockout (if user was locked out)
+                $userrepo->ResetUserLockout($result);
+
                 //$result contains userid
                 $_SESSION["userid"] = $result;
+
+                //reset access failed counter
+                $userrepo->ResetAccessFailedCounter($result);
+
 
                 if($_POST['RememberMe'])
                 {
