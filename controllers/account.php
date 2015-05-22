@@ -229,7 +229,7 @@ class AccountController extends BaseController
                 if($_POST['RememberMe'])
                 {
                     $authRepo = new AuthTokenRepository();
-                    $authToken = $authRepo->GenerateAuthToken($_SESSION["userid"]);
+                    $authToken = $authRepo->CreateAuthToken(intval($_SESSION["userid"]));
 
                     $month = time() + 3600 * 24 * 31; // a month
                     setcookie('SecureRememberMe', $authToken->Selector . ':' . $authToken->Token , $month);

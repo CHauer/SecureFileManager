@@ -28,7 +28,7 @@ function CheckRememberMeLogin()
             $_SESSION["userid"] = $authToken->UserId;
 
             //Create new token
-            $authToken = $authRepo->CreateAuthToken($authToken->UserId);
+            $authToken = $authRepo->CreateAuthToken(intval($authToken->UserId));
 
             $month = time() + 3600 * 24 * 31; // a month
             setcookie('SecureRememberMe', $authToken->Selector . ':' . $authToken->Token , $month);
