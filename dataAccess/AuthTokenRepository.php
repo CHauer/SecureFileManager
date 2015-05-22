@@ -14,7 +14,7 @@ class AuthTokenRepository
 
         $token = bin2hex(openssl_random_pseudo_bytes(16));
 
-        $selector = 'sel' . $userid;
+        $selector = rand(100, 999) . 'sel' . $userid;
 
         //check if token exists
         if($this->CheckAuthTokenExists($userid))
@@ -25,7 +25,7 @@ class AuthTokenRepository
 
         $stmt = $db->prepare("INSERT INTO [dbo].[AuthToken] ([UserId],[Expires],[Selector],[Token])
                              VALUES (:userid, DateAdd(Month, 1, GETDATE()),
-                             HASHBYTES('MD5', :selector), CONVERT(nvarchar,HASHBYTES('SHA2_256', :token),2))");
+                              :selector, CONVERT(nvarchar,HASHBYTES('SHA2_256', :token),2))");
         $stmt->bindParam(":userid", $userid);
         $stmt->bindParam(":selector", $selector );
         $stmt->bindParam(":token", $token);
