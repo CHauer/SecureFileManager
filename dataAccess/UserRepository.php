@@ -93,12 +93,14 @@ class UserRepository{
         $stmt->bindParam(":userid", $userid);
         $stmt->execute();
 
-        if($stmt->rowCount() < 1)
+        $results = $stmt->fetchAll();
+
+        if(count($results) == 0)
         {
             throw new InvalidArgumentException("The given userid does not exist!");
         }
 
-        $result = $stmt->fetchAll()[0];
+        $result = $results[0];
 
         $user = new User();
 
@@ -135,7 +137,8 @@ class UserRepository{
         $statement->bindValue(':id', $_SESSION['userid']);
         $statement->bindValue(':roleId', $roleId);
         $statement->execute();
-        return $statement->rowCount() == 1;
+
+        return count($statement->fetchAll()) == 1;
     }
 
     public function IsUsernameUsed($username){
@@ -146,7 +149,7 @@ class UserRepository{
         $statement = $db->prepare($query);
         $statement->bindValue(':username', $username);
         $statement->execute();
-        return $statement->rowCount() == 1;
+        return count($statement->fetchAll()) == 1;
     }
 
 
@@ -168,11 +171,13 @@ class UserRepository{
             $statement->bindParam(':password', $password);
             $statement->execute();
 
-            if ($statement->rowCount() <= 0) {
+            $results = $statement->fetchAll();
+
+            if (count($results) == 0) {
                 return NULL;
             }
 
-            $result = $statement->fetchAll()[0];
+            $result = $results[0];
             return $result["UserId"];
 
         }
@@ -195,7 +200,7 @@ class UserRepository{
         $statement->bindParam(':username', $username);
         $statement->execute();
 
-        if( $statement->rowCount() == 1)
+        if(count($statement->fetchAll()) == 1)
         {
             $statementsel = $db->prepare('Select [AccessFailedCount] from [User]
                                           WHERE [Username]=:username');
@@ -233,7 +238,8 @@ class UserRepository{
         $statement->execute();
 
         // if null user is not locked
-        if($statement->rowCount() == 0) {
+        if(count($statement->fetchAll()) == 0)
+        {
             return false;
         }
 
@@ -248,7 +254,7 @@ class UserRepository{
         $statementUpdate->execute();
 
         // if 1 updated -> user is no longer locked
-        if($statementUpdate->rowCount() == 1)
+        if(count($statementUpdate->fetchAll()) == 1)
         {
             return false;
         }
@@ -271,7 +277,7 @@ class UserRepository{
         $statement->bindParam(':username', $username);
 
         $statement->execute();
-        return $statement->rowCount() == 1;
+        return count($statement->fetchAll()) == 1;
     }
 
     /**
@@ -287,7 +293,7 @@ class UserRepository{
         $statement->bindParam(':userid', $userid);
 
         $statement->execute();
-        return $statement->rowCount() == 1;
+        return count($statement->fetchAll()) == 1;
     }
 
     /**
@@ -303,7 +309,7 @@ class UserRepository{
         $statement->bindParam(':userid', $userid);
 
         $statement->execute();
-        return $statement->rowCount() == 1;
+        return count($statement->fetchAll()) == 1;
     }
 
 }
