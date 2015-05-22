@@ -31,7 +31,7 @@ class UserRepository{
            ,[Lastname])
      VALUES
            (:Username,
-           HASHBYTES('SHA2_256', :Password),
+           CONVERT(nvarchar,HASHBYTES('SHA2_256', :Password),2) ,
            :Birthdate,
            :EMail,
            :Description,
@@ -162,9 +162,9 @@ class UserRepository{
 
         try
         {
-            $statement = $db->prepare('SELECT Top 1 [UserId] FROM [User]
+            $statement = $db->prepare("SELECT Top 1 [UserId] FROM [User]
                                       WHERE [Username]=:username
-                                      AND [Password]= HASHBYTES(\'SHA2_256\', :password)');
+                                      AND [Password]= CONVERT(nvarchar,HASHBYTES('SHA2_256', :password),2)");
             $statement->bindParam(':username', $username);
             $statement->bindParam(':password', $password);
             $statement->execute();

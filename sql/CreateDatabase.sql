@@ -12,7 +12,7 @@ CREATE TABLE [dbo].[User] (
     [Username] [nvarchar](250) NOT NULL,
     [Firstname] [nvarchar](250),
 	  [Lastname] [nvarchar](250),
-    [Password] [nvarchar](300),
+    [Password] [nvarchar](max),
     [Birthdate] [datetime],
     [EMail] [nvarchar](300) NOT NULL,
     [Description] [nvarchar](3000),
