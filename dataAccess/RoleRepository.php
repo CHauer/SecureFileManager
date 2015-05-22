@@ -9,9 +9,9 @@
 class RoleRepository {
 
     /**
-     * @param string $name
+     * @param $name
      */
-    public function GetRoleId(string $name)
+    public function GetRoleId($name)
     {
         global $db;
 
