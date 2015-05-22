@@ -232,14 +232,14 @@ class UserRepository{
     {
         global $db;
 
-        $statement = $db -> prepare('Update [User] set [AccessFailedCount] = [AccessFailedCount] + 1
+        $statement = $db -> prepare('Update [User] set [AccessFailedCount] = COALESCE([AccessFailedCount],0) + 1
                                       WHERE [Username]=:username');
         $statement->bindParam(':username', $username);
         $statement->execute();
 
         if($statement->rowCount() == 1)
         {
-            $statementsel = $db->prepare('Select [AccessFailedCount] from [User]
+            $statementsel = $db->prepare('Select COALESCE ([AccessFailedCount],0 ) as [AccessFailedCount] from [User]
                                           WHERE [Username]=:username');
             $statementsel->bindParam(':username', $username);
             $statementsel->execute();
