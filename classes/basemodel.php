@@ -23,7 +23,7 @@ class BaseModel {
         if(IsUserLoggedOn() && isset($_SESSION["userid"]))
         {
             $repo = new UserRepository();
-            $currentuser = $repo->GetUser($_SESSION["userid"]);
+            $currentuser = $repo->GetUser(intval($_SESSION["userid"]));
 
             $this->viewModel->set("userid", $_SESSION["userid"]);
             $this->viewModel->set("username", $currentuser->Username);
