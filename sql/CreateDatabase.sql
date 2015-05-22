@@ -17,6 +17,7 @@ CREATE TABLE [dbo].[User] (
     [EMail] [nvarchar](300) NOT NULL,
     [Description] [nvarchar](3000),
     [PictureLink] [nvarchar](200),
+    [Deactivated] [bit] DEFAULT(0),
     [LockoutEnabled] [bit] DEFAULT(0),
     [LockoutEndDate] [datetime],
     [AccessFailedCount] [int] DEFAULT(0),

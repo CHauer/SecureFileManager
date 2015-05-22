@@ -166,6 +166,9 @@ class AccountController extends BaseController
                 //Reset Lockout (if user was locked out)
                 $userrepo->ResetUserLockout($result);
 
+                //Reset Lockout (if user was locked out)
+                $userrepo->ResetUserDeactivated($result);
+
                 //$result contains userid
                 $_SESSION["userid"] = $result;
 
@@ -308,7 +311,7 @@ class AccountController extends BaseController
 
         $userrepo = new UserRepository();
 
-        $userrepo->SetUserLockout(intval($_SESSION['userid']));
+        $userrepo->SetUserDeactivated(intval($_SESSION['userid']));
 
         RedirectAction('account', 'logoff');
     }
