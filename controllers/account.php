@@ -258,7 +258,7 @@ class AccountController extends BaseController
 
     protected function logoff()
     {
-        $this->view->output(NULL);
+        $this->view->output(NULL, '');
     }
 
 }
