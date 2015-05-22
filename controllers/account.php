@@ -45,9 +45,12 @@ class AccountController extends BaseController
 
                 try
                 {
-                    $user->BirthDate = ParseDate($_POST["Birthdate"]);
+                    $user->BirthDate = ParseDate($_POST["BirthDate"]);
                 }
-                catch (Exception $iex){}
+                catch (Exception $iex)
+                {
+                    $viewModel->setFieldError("BirthDate", $iex->getMessage());
+                }
 
             }
             catch (Exception $ex){;}
@@ -132,8 +135,8 @@ class AccountController extends BaseController
             $ok = false;
         }
 
-        if (! VerifyDate($_POST["Birthdate"])) {
-            $viewModel->setFieldError("Birthdate", "Birthdate has the wrong format!");
+        if (! VerifyDate($_POST["BirthDate"])) {
+            $viewModel->setFieldError("BirthDate", "BirthDate has the wrong format!");
             $ok = false;
         }
 

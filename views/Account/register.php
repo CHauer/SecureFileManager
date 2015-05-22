@@ -65,10 +65,10 @@ if($viewModel->exists("model"))
                     <? ValidationErrorMessage("Picture", $viewModel) ?>
                 </div>
 
-                <div class="form-group <? ValidationErrorClass("Birthdate", $viewModel) ?>">
+                <div class="form-group <? ValidationErrorClass("BirthDate", $viewModel) ?>">
                     <label class="control-label" >Birth date <span class="color-green">*</span></label>
-                    <input type="text" name="Birthdate" class="form-control margin-bottom-20"  <? ModelValue($model, 'Birthdate')?> >
-                    <? ValidationErrorMessage("Birthdate", $viewModel) ?>
+                    <input type="text" name="BirthDate" class="form-control margin-bottom-20"  <? ModelValue($model, 'BirthDate')?> >
+                    <? ValidationErrorMessage("BirthDate", $viewModel) ?>
                 </div>
 
                 <div class="form-group <? ValidationErrorClass("Description", $viewModel) ?>">
