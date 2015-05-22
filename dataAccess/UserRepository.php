@@ -204,8 +204,8 @@ class UserRepository{
             $statement = $db->prepare("SELECT Top 1 [UserId] FROM [User]
                                       WHERE [Username]=:username
                                       AND [Password]= CONVERT(nvarchar,HASHBYTES('SHA2_256', :password),2)");
-            $statement->bindParam(':username', htmlspecialchars($username));
-            $statement->bindParam(':password', htmlspecialchars($password));
+            $statement->bindValue(':username', htmlspecialchars($username));
+            $statement->bindValue(':password', htmlspecialchars($password));
             $statement->execute();
 
             $result = $statement->fetch();
