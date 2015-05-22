@@ -34,6 +34,7 @@ class FilesController extends BaseController
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
         {
+            echo('Test1');
             if(!$this->validateRegisterData($viewModel)) {
                 $this->view->output($viewModel);
                 return;
@@ -46,7 +47,7 @@ class FilesController extends BaseController
             $file->IsPrivate = $_POST["IsPrivate"];
             $file->UserId  = $_SESSION["userid"];
             #endregion
-
+            echo('Test2');
             #region # Insert File
             try
             {
