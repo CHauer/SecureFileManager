@@ -278,6 +278,19 @@ class UserRepository{
         return $statement->rowCount()== 1;
     }
 
+    public function SetUserDeactivated($userid)
+    {
+        global $db;
+
+        $statement = $db -> prepare('Update [User] set [LockoutEnabled] = 1,
+                                      [LockoutEndDate] = DateAdd(YEAR , 10, GetDate())
+                                       WHERE [UserId]=:userid');
+        $statement->bindParam(':userid', $userid);
+
+        $statement->execute();
+        return $statement->rowCount()== 1;
+    }
+
     /**
      * @param $userid
      * @return bool

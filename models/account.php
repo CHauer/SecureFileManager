@@ -40,7 +40,6 @@ class AccountModel extends BaseModel
         $this->viewModel->set("pageTitle","Account Management");
         return $this->viewModel;
     }
-
 }
 
 ?>

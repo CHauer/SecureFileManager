@@ -13,19 +13,19 @@
 <!--=== Content Part ===-->
 <div class="container content">
     <div class="row">
-        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div class="col-md-7">
 
             <div class="reg-header">
                 <h2>Welcome <? echo $viewModel->get("fullname") ?> to your Account Management Portal!</h2>
             </div>
 
             <div class="row">
-                <a class="btn btn-default col-md-5">Edit Profile</a>
+                <a class="btn btn-default col-md-5" href="/account/editprofile" >Edit Profile</a>
                 <p class="col-md-7" >Here you can edit your Profile, Username, Password, Role, Description and User Picture.</p>
             </div>
 
             <div class="row">
-                <a class="btn btn-default col-md-5">Deactivate your Acconut</a>
+                <a class="btn btn-danger col-md-5" href="/account/deactivate">Deactivate your Account</a>
                 <p class="col-md-7" >Here you can deactivate your Account. The Account is deactivated until the next login.</p>
             </div>
 

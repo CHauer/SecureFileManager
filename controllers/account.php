@@ -291,6 +291,14 @@ class AccountController extends BaseController
         $this->view->output($this->model->manage());
     }
 
+    protected function deactivate()
+    {
+        $userrepo = new UserRepository();
+
+        $userrepo->SetUserLockout(intval($_SESSION['userid']));
+
+        RedirectAction('account', 'logoff');
+    }
 
     private function validateRegisterData(ViewModel &$viewModel, $checkTerms = true)
     {
