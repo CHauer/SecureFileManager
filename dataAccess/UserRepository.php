@@ -76,7 +76,7 @@ class UserRepository{
 
         $stmt = $db->prepare('select top 1
             [Username]
-           ,[Birthdate]
+           ,convert(varchar, [Birthdate], 104)
            ,[EMail]
            ,[Description]
            ,[PictureLink]
@@ -106,7 +106,7 @@ class UserRepository{
         $user->Description = $result["Description"];
         $user->Firstname = $result["Firstname"];
         $user->Lastname = $result["Lastname"];
-        $user->BirthDate = $result["Birthdate"];
+        $user->BirthDate = ParseDate($result["Birthdate"]);
         $user->AccessFailedCount = $result["AccessFailedCount"];
         $user->AuthTokenId = $result["AuthTokenId"];
         $user->EMail = $result["EMail"];
