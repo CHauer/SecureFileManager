@@ -6,7 +6,7 @@ if(!IsUserLoggedOn()) {
 <?
 }else{
 ?>
-    <h1>Hi <? echo $userViewModel->get("username") ?>! Welcome to Secure File Manager!</h1>
+    <h1>Hi <? echo $viewModel->get("username") ?>! Welcome to Secure File Manager!</h1>
 <?
 }
 ?>

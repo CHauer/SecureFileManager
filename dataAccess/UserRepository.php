@@ -104,17 +104,17 @@ class UserRepository{
 
         $user->UserId = $userid;
         $user->Description = $result["Description"];
-        $user->Firstname = $result["Description"];
-        $user->Lastname = $result["Description"];
-        $user->BirthDate = $result["Description"];
-        $user->AccessFailedCount = $result["Description"];
-        $user->AuthTokenId = $result["Description"];
-        $user->EMail = $result["Description"];
-        $user->Username = $result["Description"];
-        $user->PictureLink = $result["Description"];
-        $user->LockoutEnabled = $result["Description"];
-        $user->LockoutEndDate= $result["Description"];
-        $user->RoleId = $result["Description"];
+        $user->Firstname = $result["Firstname"];
+        $user->Lastname = $result["Lastname"];
+        $user->BirthDate = date_format('d.m.Y', $result["BirthDate"]);
+        $user->AccessFailedCount = $result["AccessFailedCount"];
+        $user->AuthTokenId = $result["AuthTokenId"];
+        $user->EMail = $result["EMail"];
+        $user->Username = $result["Username"];
+        $user->PictureLink = $result["PictureLink"];
+        $user->LockoutEnabled = $result["LockoutEnabled"];
+        $user->LockoutEndDate= $result["LockoutEndDate"];
+        $user->RoleId = $result["RoleId"];
 
         return $user;
     }
