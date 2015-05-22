@@ -248,7 +248,7 @@ class UserRepository{
 
             if($result["AccessFailedCount"] >= 3)
             {
-                if(SetUserLockout($username))
+                if($this->SetUserLockout($username))
                 {
                     return true;
                 }
