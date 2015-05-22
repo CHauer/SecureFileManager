@@ -47,9 +47,9 @@ class FilesController extends BaseController
             $file->Description = $_POST["Description"];
             if (isset($_POST["IsPrivate"]))
             {
-                $file->IsPrivate = true;
+                $file->IsPrivate = '1';
             } else {
-                $file->IsPrivate = false;
+                $file->IsPrivate = '0';
             }
             $file->UserId  = $_SESSION["userid"];
             #endregion
