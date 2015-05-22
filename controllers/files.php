@@ -50,7 +50,12 @@ class FilesController extends BaseController
             #region # Insert File
             try
             {
-                $filelink = HandleFileUpload("FileLink", "/upload/?");
+                $filelink = HandleUpload("FileLink", "/upload/files", $file->Name);
+
+                if (is_null($filelink) || $filelink == '')
+                {
+                    throw new Exception("Something went wrong during handle the link - please try again!");
+                }
                 $file->FileLink = $filelink;
 
                 $filesrepo = new FileRepository();
@@ -78,12 +83,35 @@ class FilesController extends BaseController
         $this->view->output($viewModel);
     }
 
+    function HandleUpload($postFileName, $directory, $filename){
+
+        if(isset($_FILES[$postFileName]))
+        {
+            if ($_FILES[$postFileName]["size"] > 0)
+            {
+                $filename = $filename . '.' . time();
+                $filepath = $directory . '/' . $_SESSION["userid"] . '/' . $filename;
+
+                copy($_FILES[$postFileName]["tmp_name"], $filepath);
+
+                return $filepath;
+            }
+        }
+
+        return NULL;
+    }
+
     private function validateRegisterData(ViewModel &$viewModel)
     {
         $ok = true;
 
         if(!isset($_POST["Name"]) || $_POST["Name"] == ''){
             $viewModel->setFieldError("Name", "Name has to be entered!");
+            $ok = false;
+        }
+
+        if(!isset($_POST["FileLink"]) || $_POST["FileLink"] == '') {
+            $viewModel->setFieldError("FileLink", "FileLink has to be entered!");
             $ok = false;
         }
 

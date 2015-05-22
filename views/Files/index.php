@@ -13,6 +13,12 @@
 
 <!--=== Content Part ===-->
 <div class="container content">
+
+    <div class="row md-margin-bottom-20">
+        <h4>Upload a file</h4>
+        <p><a class="color-green" href="/files/upload">click here</a> to upload a new file.</p>
+    </div>
+
     <div class="row md-margin-bottom-20">
         <div class="job-img-inputs">
             <!-- Serach -->
@@ -40,10 +46,6 @@
         </div>
     </div>
 
-    <div class="row md-margin-bottom-30">
-        <h4>Upload a file</h4>
-        <p><a class="color-green" href="/files/upload">click here</a> to upload a new file.</p>
-    </div>
 
     <div class="row"></div>
 </div><!--/container-->
