@@ -57,7 +57,7 @@ class FilesController extends BaseController
             #region # Insert File
             try
             {
-                $filelink = HandleUpload("FileLink", "/upload/files", $file->Name);
+                $filelink = $this->HandleUpload("FileLink", "/upload/files", $file->Name);
 
                 if (is_null($filelink) || $filelink == '')
                 {
@@ -90,7 +90,7 @@ class FilesController extends BaseController
         $this->view->output($viewModel);
     }
 
-    private function HandleUpload($postFileName, $directory, $filename){
+    private function HandleUpload(string $postFileName, string $directory, string $filename){
 
         if(isset($_FILES[$postFileName]))
         {
