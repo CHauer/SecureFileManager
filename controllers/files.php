@@ -34,7 +34,7 @@ class FilesController extends BaseController
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
         {
-            echo('Test1');
+
             if(!$this->validateRegisterData($viewModel)) {
                 $this->view->output($viewModel);
                 return;
@@ -42,12 +42,13 @@ class FilesController extends BaseController
 
             #region # Create File
             $file = new UserFile();
+            $viewModel->set("model", $file);
             $file->Name = $_POST["Name"];
             $file->Description = $_POST["Description"];
             $file->IsPrivate = $_POST["IsPrivate"];
             $file->UserId  = $_SESSION["userid"];
             #endregion
-            echo('Test2');
+
             #region # Insert File
             try
             {
@@ -111,7 +112,7 @@ class FilesController extends BaseController
             $ok = false;
         }
 
-        if(!isset($_POST["FileLink"]) || $_POST["FileLink"] == '') {
+        if(!isset($_FILES["FileLink"]) || $_FILES["FileLink"] == '') {
             $viewModel->setFieldError("FileLink", "FileLink has to be entered!");
             $ok = false;
         }
