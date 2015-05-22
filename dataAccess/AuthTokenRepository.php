@@ -16,7 +16,7 @@ class AuthTokenRepository
     public function CreateAuthToken($userid){
         global $db;
 
-        $token = base64_encode(bin2hex(openssl_random_pseudo_bytes(32)));
+        $token = bin2hex(openssl_random_pseudo_bytes(16));
 
         $selector = rand(100, 999) . 'sel' . $userid;
 
@@ -32,7 +32,7 @@ class AuthTokenRepository
                               :selector, CONVERT(nvarchar,HASHBYTES('SHA2_256', :token),2))");
         $stmt->bindParam(":userid", intval($userid));
         $stmt->bindParam(":selector", $selector );
-        $stmt->bindParam(":token", $token);
+        $stmt->bindParam(":token", $token, PDO::PARAM_STR);
 
         $stmt->execute();
 
@@ -110,7 +110,7 @@ class AuthTokenRepository
                               AND [Expires] > GETDATE()
                               AND [Token]=CONVERT(nvarchar,HASHBYTES('SHA2_256', :token),2) ");
         $stmt->bindParam(":selector", $selector);
-        $stmt->bindParam(":token", $token);
+        $stmt->bindParam(":token", $token, PDO::PARAM_STR);
 
         $stmt->execute();
 
