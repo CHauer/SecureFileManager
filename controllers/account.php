@@ -74,6 +74,7 @@ class AccountController extends BaseController
                 $user->RoleId = $roleId;
 
                 $userrepo = new UserRepository();
+
                 $userid = $userrepo->InsertUser($user);
 
                 if($userid == false)
@@ -137,6 +138,14 @@ class AccountController extends BaseController
 
         if (! VerifyDate($_POST["BirthDate"])) {
             $viewModel->setFieldError("BirthDate", "BirthDate has the wrong format!");
+            $ok = false;
+        }
+
+        $userrepo = new UserRepository();
+
+        if($userrepo->IsUsernameUsed($_POST["Username"]))
+        {
+            $viewModel->setFieldError("Username", "Username is already used!");
             $ok = false;
         }
 
