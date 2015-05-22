@@ -238,7 +238,7 @@ class UserRepository{
         $statement->execute();
 
         // if null user is not locked
-        if(count($statement->fetchAll()) == 0)
+        if(count($statement->columnCount() == 0 || $statement->fetchAll()) == 0)
         {
             return false;
         }

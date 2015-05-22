@@ -9,9 +9,8 @@ if(!IsUserLoggedOn()) {
     <h1>Hi <? echo $userViewModel->get("username") ?>! Welcome to Secure File Manager!</h1>
 <?
 }
-
 ?>
-<p><strong>TODO - Change Text<strong><br/> Welcome to what is probably one of the most basic PHP MVC frameworks you'll find. The current view you're seeing exists in /views/home/index.php.</p>
+<p><strong>TODO - Change Text</strong><br/> Welcome to what is probably one of the most basic PHP MVC frameworks you'll find. The current view you're seeing exists in /views/home/index.php.</p>
 <p>The idea of Nathan MVC (I honestly couldn't think of a better name) is for PHP developers not necessarily versed on the basics of the Model View Controller pattern to have a framework clean of clutter and unnecessary addons, so they can focus on exploring the fundamentals of the pattern while having a working example from the very first step.</p>
 <p>Nathan MVC comes with a .htaccess file built to allow /controller/action/id style URL requests, error and home controller and model classes which act as examples, and a basic main template file. There are also four classes and index.php, which form the underlying structure of the framework.</p>
 <p>This framework is based on a series of articles I wrote for my portfolio website <a href="http://www.nathandavison.com">www.nathandavison.com</a>.</p>

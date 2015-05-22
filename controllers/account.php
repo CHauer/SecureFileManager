@@ -212,7 +212,8 @@ class AccountController extends BaseController
                     return;
                 }
 
-                if ($result == NULL) {
+                if ($result == NULL)
+                {
                     $viewModel->set("error", "Login was not successfully! Username/password combination is incorrect.");
 
                     if ($userrepo->UpdateAccessFailedCounter($username)) {
