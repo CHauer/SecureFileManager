@@ -34,7 +34,7 @@ class AccountController extends BaseController
 
                 $user->Username = $_POST["Username"];
 
-                $user->Description = $_POST["Description"];
+                $user->Description = PrepareHtml($_POST["Description"]);
                 $user->EMail = $_POST["EMail"];
 
                 $user->Firstname = $_POST["Firstname"];
@@ -230,7 +230,7 @@ class AccountController extends BaseController
 
                 $user->Username = $_POST["Username"];
 
-                $user->Description = $_POST["Description"];
+                $user->Description = PrepareHtml($_POST["Description"]);
                 $user->EMail = $_POST["EMail"];
 
                 $user->Firstname = $_POST["Firstname"];

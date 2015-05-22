@@ -84,13 +84,13 @@ class UserRepository{
                                ,[Lastname]=:Lastname
                                 WHERE [UserId]=:userid");
 
-        $stmt->bindParam(":Username", $user->Username);
+        $stmt->bindParam(":Username", htmlspecialchars($user->Username));
         $stmt->bindParam(":Birthdate", date_format($user->BirthDate, 'm.d.Y'));
-        $stmt->bindParam(":EMail", $user->EMail);
+        $stmt->bindParam(":EMail", htmlspecialchars($user->EMail));
         $stmt->bindParam(":Description", $user->Description);
         $stmt->bindParam(":RoleId", $user->RoleId);
-        $stmt->bindParam(":Firstname", $user->Firstname);
-        $stmt->bindParam(":Lastname", $user->Lastname);
+        $stmt->bindParam(":Firstname", htmlspecialchars($user->Firstname));
+        $stmt->bindParam(":Lastname", htmlspecialchars($user->Lastname));
         $stmt->bindParam(":userid", $user->UserId);
 
         $stmt->execute();
@@ -185,7 +185,7 @@ class UserRepository{
         $query = "SELECT Top(1) [UserId] FROM [User]
                   WHERE [Username]=:username";
         $statement = $db->prepare($query);
-        $statement->bindValue(':username', $username);
+        $statement->bindValue(':username', htmlspecialchars($username));
         $statement->execute();
         return ($statement->fetch() !== false);
     }
@@ -204,8 +204,8 @@ class UserRepository{
             $statement = $db->prepare("SELECT Top 1 [UserId] FROM [User]
                                       WHERE [Username]=:username
                                       AND [Password]= CONVERT(nvarchar,HASHBYTES('SHA2_256', :password),2)");
-            $statement->bindParam(':username', $username);
-            $statement->bindParam(':password', $password);
+            $statement->bindParam(':username', htmlspecialchars($username));
+            $statement->bindParam(':password', htmlspecialchars($password));
             $statement->execute();
 
             $result = $statement->fetch();

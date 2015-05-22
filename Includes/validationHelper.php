@@ -51,3 +51,11 @@ function VerifyDate($date)
     return ((DateTime::createFromFormat('j.m.Y', $date) !== false) ||
         (DateTime::createFromFormat('d.m.Y', $date) !== false));
 }
+
+function PrepareHtml($htmlText)
+{
+    $allowedTags = "<br/><br><a><span><strong><b><p><i><u><strike><h2><h3><h4><h5>";
+    $htmlText = strip_tags($htmlText, $allowedTags);
+
+    return $htmlText;
+}

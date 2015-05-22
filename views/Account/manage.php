@@ -21,7 +21,18 @@
 
             <div class="row">
                 <a class="btn btn-default col-md-5" href="/account/editprofile" >Edit Profile</a>
-                <p class="col-md-7" >Here you can edit your Profile, Username, Password, Role, Description and User Picture.</p>
+                <p class="col-md-7" >Here you can edit your Profile, Username, Password, Role and Description.</p>
+            </div>
+
+            <div class="row">
+                <a class="btn btn-default col-md-5" href="/account/changepassword" >Change User Picture</a>
+                <p class="col-md-7" >Here you can edit your Profile Picture.</p>
+            </div>
+
+
+            <div class="row">
+                <a class="btn btn-default col-md-5" href="/account/changepassword" >Change Password</a>
+                <p class="col-md-7" >Here you can edit your Password.</p>
             </div>
 
             <div class="row">
