@@ -120,7 +120,7 @@ class AuthTokenRepository
         $authToken->UserId = $result['UserId'];
         $authToken->Expires = $result['Expires'];
         $authToken->Selector = $result['Selector'];
-        $authToken->Token = $result['Token'];
+        $authToken->Token = $token;
 
         return $authToken;
     }
