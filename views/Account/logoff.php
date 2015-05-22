@@ -10,7 +10,7 @@ session_destroy();
 
 if(isset($_COOKIE['SecureRememberMe']))
 {
-    setcookie('SecureRememberMe', 'gone', time() - 100);
+    setcookie('SecureRememberMe', 'gone', time() - 100, '/');
 }
 
 header ("Location: /home/index");
