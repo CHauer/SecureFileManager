@@ -16,7 +16,7 @@ class AuthTokenRepository
     public function CreateAuthToken($userid){
         global $db;
 
-        $token = bin2hex(openssl_random_pseudo_bytes(16));
+        $token = strtoupper(bin2hex(openssl_random_pseudo_bytes(16)));
 
         $selector = rand(100, 999) . 'sel' . $userid;
 

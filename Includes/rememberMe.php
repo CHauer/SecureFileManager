@@ -31,7 +31,7 @@ function CheckRememberMeLogin()
             //$authToken = $authRepo->CreateAuthToken(intval($userid));
 
             $month = time() + 3600 * 24 * 31; // a month
-            setcookie('SecureRememberMe', urldecode($selectorToken), $month);
+            setcookie('SecureRememberMe', urldecode($selectorToken), $month, '/');
         }
     }
 }

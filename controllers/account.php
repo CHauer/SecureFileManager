@@ -182,13 +182,13 @@ class AccountController extends BaseController
                     $authToken = $authRepo->CreateAuthToken(intval($_SESSION["userid"]));
 
                     $month = time() + 3600 * 24 * 31; // a month
-                    setcookie('SecureRememberMe', $authToken->Selector . ':' . $authToken->Token , $month);
+                    setcookie('SecureRememberMe', $authToken->Selector . ':' . $authToken->Token , $month, '/');
                 }
                 else
                 {
                     if(isset($_COOKIE['SecureRememberMe']))
                     {
-                        setcookie('SecureRememberMe', 'gone', time()-100);
+                        setcookie('SecureRememberMe', 'gone', time()-100, '/');
                     }
                 }
 
