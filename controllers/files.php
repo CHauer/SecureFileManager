@@ -45,7 +45,12 @@ class FilesController extends BaseController
             $viewModel->set("model", $file);
             $file->Name = $_POST["Name"];
             $file->Description = $_POST["Description"];
-            $file->IsPrivate = $_POST["IsPrivate"];
+            if (isset($_POST["IsPrivate"]))
+            {
+                $file->IsPrivate = true;
+            } else {
+                $file->IsPrivate = false;
+            }
             $file->UserId  = $_SESSION["userid"];
             #endregion
 
@@ -85,7 +90,7 @@ class FilesController extends BaseController
         $this->view->output($viewModel);
     }
 
-    function HandleUpload($postFileName, $directory, $filename){
+    private function HandleUpload($postFileName, $directory, $filename){
 
         if(isset($_FILES[$postFileName]))
         {
