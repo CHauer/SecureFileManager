@@ -20,9 +20,16 @@ class ForumController extends BaseController
     //default method
     protected function index()
     {
-        ConfirmUserIsLoggedOn();
+        //ConfirmUserIsLoggedOn();
 
         $this->view->output($this->model->index());
+    }
+
+    protected function newThread()
+    {
+        ConfirmUserIsLoggedOn();
+
+        $this->view->output($this->model->newThread());
     }
 }
 
