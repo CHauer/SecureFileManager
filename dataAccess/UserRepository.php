@@ -326,7 +326,7 @@ class UserRepository{
         global $db;
 
         $statement = $db -> prepare('UPDATE [User] SET [LockoutEnabled] = 0, [LockoutEndDate] = null
-                                          WHERE [Username]=:userid
+                                          WHERE [UserId]=:userid
                                           AND [LockoutEnabled] = 1
                                           AND [LockoutEndDate] is not null
                                           AND [LockoutEndDate] < GetDate()');
