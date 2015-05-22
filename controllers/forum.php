@@ -43,11 +43,12 @@ class ForumController extends BaseController
             $thread->Title = $_POST["Title"];
             $thread->Description = $_POST["Description"];
             $thread->IsDeleted = 0;
-            $thread->UserId = $_SESSION['userid'];
+            //$thread->UserId = $_SESSION['userid'];
+            $thread->UserId = 1;
             #endregion
 
             #region # Insert File
-            $statement = "";
+            $statement = "test";
             try
             {
                 $forumRepository = new ForumRepository();
