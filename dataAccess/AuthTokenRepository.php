@@ -9,10 +9,14 @@
 class AuthTokenRepository
 {
 
+    /**
+     * @param $userid
+     * @return AuthToken|null
+     */
     public function CreateAuthToken($userid){
         global $db;
 
-        $token = ''.bin2hex(openssl_random_pseudo_bytes(16));
+        $token = base64_encode(bin2hex(openssl_random_pseudo_bytes(32)));
 
         $selector = rand(100, 999) . 'sel' . $userid;
 
