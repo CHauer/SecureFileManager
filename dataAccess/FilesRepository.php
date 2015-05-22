@@ -14,7 +14,7 @@ class FileRepository{
      */
     public function InsertFile(UserFile $file){
         global $db;
-        $stmt = $db->prepare('INSERT INTO [dbo].[UserFile]
+        $stmt = $db->prepare("INSERT INTO [dbo].[UserFile]
           ([Name],
           [FileLink],
           [Description],
@@ -25,7 +25,7 @@ class FileRepository{
             :FileLink,
             :Description,
             :IsPrivate,
-            :UserId');
+            :UserId");
         $stmt->bindParam(":Name", $file->Name);
         $stmt->bindParam(":FileLink", $file->FileLink);
         $stmt->bindParam(":Description", $file->Description);
