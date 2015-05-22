@@ -79,10 +79,10 @@ if($viewModel->exists("model"))
 
                 <label>Account <span class="color-green">*</span></label>
                 <div class="row margin-bottom-20">
-                    <div class="col-sm-6">
+                    <div class="col-sm-3">
                         <span><input type="radio" value="Standard" checked="checked" name="Role" > Standard</span>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-3">
                         <span><input type="radio" value="Premium" name="Role" > Premium</span>
                     </div>
                 </div>
