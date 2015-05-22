@@ -45,7 +45,7 @@ class UserRepository{
            :Lastname)");
         $stmt->bindParam(":Username", $user->Username);
         $stmt->bindParam(":Password", $user->Password);
-        $stmt->bindParam(":Birthdate", $user->BirthDate);
+        $stmt->bindParam(":Birthdate", date_format($user->BirthDate, 'd.m.Y'));
         $stmt->bindParam(":EMail", $user->EMail);
         $stmt->bindParam(":Description", $user->Description);
         $stmt->bindParam(":PictureLink", $user->PictureLink);

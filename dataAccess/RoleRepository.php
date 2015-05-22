@@ -22,9 +22,51 @@ class RoleRepository {
 
         $results = $stmt->fetchAll();
 
-        if ($stmt->columnCount() == 1) {
+        if ($stmt->rowCount() == 1) {
             return $results[0]['RoleId'];
         }
     }
 
+    /**
+     * @param $roleid
+     * @return null|Role
+     */
+    public function GetRole($roleid)
+    {
+        global $db;
+
+        $stmt = $db->prepare('SELECT [RoleId]
+                              ,[Name]
+                              ,[FileDownload]
+                              ,[ReadForum]
+                              ,[ReadComments]
+                              ,[FileUpload]
+                              ,[WriteForum]
+                              ,[WriteComments]
+                              FROM [dbo].[Role]
+                              WHERE [RoleId] = :roleid');
+        $stmt->bindParam(':roleid', $roleid);
+
+        $stmt->execute();
+
+        if ($stmt->rowCount() !== 1)
+        {
+            return NULL;
+        }
+
+        $result = $stmt->fetchAll()[0];
+
+        $role = new Role();
+
+        $role->RoleId = $result["RoleId"];
+        $role->FileDownload = $result["FileDownload"];
+        $role->FileUpload = $result["FileUpload"];
+        $role->Name = $result["Name"];
+        $role->ReadComments= $result["ReadComments"];
+        $role->ReadForum = $result["ReadForum"];
+        $role->WriteComments = $result["WriteComments"];
+        $role->WriteForum= $result["WriteForum"];
+
+        return $role;
+    }
 }
