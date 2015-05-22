@@ -10,10 +10,9 @@ class ForumRepository {
 
     /**
      * @param ForumThread $thread
-     * @param $statement by reference
      * @return bool
      */
-    public function InsertThread(ForumThread $thread, &$statement){
+    public function InsertThread(ForumThread $thread){
         global $db;
         $stmt = $db->prepare('INSERT INTO [dbo].[ForumThread]
           ([Title],
@@ -24,13 +23,11 @@ class ForumRepository {
            (:Title,
             :Description,
             :IsDeleted,
-            :UserId');
+            :UserId)');
         $stmt->bindParam(":Title", $thread->Title);
         $stmt->bindParam(":Description", $thread->Description);
         $stmt->bindParam(":IsDeleted", $thread->IsDeleted);
         $stmt->bindParam(":UserId", $thread->UserId);
-
-        $statement = $stmt->queryString;
 
         $stmt->execute();
 
