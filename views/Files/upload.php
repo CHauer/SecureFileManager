@@ -21,7 +21,7 @@ if($viewModel->exists("model"))
 <div class="container content">
     <div class="row">
         <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
-            <form class="reg-page" action="files/upload" method="post">
+            <form class="reg-page" action="files/upload" method="post" enctype="multipart/form-data">
                 <div class="reg-header">
                     <h2>Upload a new file</h2>
                 </div>
