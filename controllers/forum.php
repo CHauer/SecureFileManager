@@ -48,11 +48,10 @@ class ForumController extends BaseController
             #endregion
 
             #region # Insert File
-            $statement = "test";
             try
             {
                 $forumRepository = new ForumRepository();
-                $threadId = $forumRepository->InsertThread($thread, $statement);
+                $threadId = $forumRepository->InsertThread($thread);
 
                 if($threadId == false)
                 {
@@ -61,7 +60,7 @@ class ForumController extends BaseController
             }
             catch(Exception $e)
             {
-                $viewModel->set("error", $e->getMessage() + "\n" + $statement);
+                $viewModel->set("error", $e->getMessage());
             }
             #endregion
 
