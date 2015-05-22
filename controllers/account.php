@@ -106,8 +106,19 @@ class AccountController extends BaseController
     {
         $ok = true;
 
+        if(!isset($_POST["Password"])) {
+            $viewModel->setFieldError("Password", "Password has to be entered!");
+            $ok = false;
+        }
+
+        if(strlen($_POST["Password"]) < 5 || preg_match('/[A-Z]+[a-z]+[0-9]+/', $_POST["Password"]) == false)
+        {
+            $viewModel->setFieldError("Password", "Password has to consist of at least 5 letters and has to contain uppercase letter and digits.");
+            $ok = false;
+        }
+
         if(! ($_POST["Password"] == $_POST["PasswordConfirm"])) {
-            $viewModel->set("error", "Password and Password Confirm are not equal!");
+            $viewModel->setFieldError("Password", "Password and Password Confirm are not equal!");
             $ok = false;
         }
 
