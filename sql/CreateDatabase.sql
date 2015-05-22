@@ -1,5 +1,5 @@
 CREATE TABLE [dbo].[AuthToken] (
-    [AuthTokenId] [int] NOT NULL,
+    [AuthTokenId] [int] NOT NULL IDENTITY,
     [UserId] [int] NOT NULL,
     [Expires] [datetime],
     [Selector] [nvarchar](300) NOT NULL,

@@ -25,19 +25,32 @@ class AuthTokenRepository
 
         $stmt = $db->prepare("INSERT INTO [dbo].[AuthToken] ([UserId],[Expires],[Selector],[Token])
                              VALUES (:userid, DateAdd(Month, 1, GETDATE()),
-                             HASHBYTES('MD5', :selector), HASHBYTES('SHA2_256', :token))");
+                             HASHBYTES('MD5', :selector), CONVERT(nvarchar,HASHBYTES('SHA2_256', :token),2))");
         $stmt->bindParam(":userid", $userid);
         $stmt->bindParam(":selector", $selector );
         $stmt->bindParam(":token", $token);
 
         $stmt->execute();
 
-        if ($stmt->rowCount() == 1)
+        if ($stmt->rowCount() == 0)
         {
-            return true;
+            return NULL;
+        }
+
+        $authTokenId =  $db->lastInsertId();
+
+        $stmtUptUser = $db->prepare("UPDATE [dbo].[User] SET [AuthTokenId]=:authTokenId WHERE [UserId]=:userid");
+        $stmtUptUser->bindParam(":authTokenId", intval($authTokenId));
+        $stmtUptUser->bindParam(":userid", intval($userid));
+
+        $stmtUptUser->execute();
+
+        if($stmtUptUser->rowCount() == 0) {
+            return NULL;
         }
 
         $authToken = new AuthToken();
+        $authToken->AuthTokenId = $authTokenId;
         $authToken->Token = $token;
         $authToken->Selector = $selector;
         $authToken->UserId = $userid;
@@ -55,15 +68,26 @@ class AuthTokenRepository
         $stmt->bindParam(":userid", $userid);
         $stmt->execute();
 
-        if ($stmt->rowCount() == 1)
+        if ($stmt->fetch() !== false)
         {
             return true;
         }
+        return false;
     }
 
     public function DeleteAuthToken($userid)
     {
         global $db;
+
+        $stmtUptUser = $db->prepare("UPDATE [dbo].[User] SET [AuthTokenId]=null WHERE [UserId]=:userid");
+        $stmtUptUser->bindParam(":userid", intval($userid));
+
+        $stmtUptUser->execute();
+
+        if($stmtUptUser->rowCount() == 0)
+        {
+            return;
+        }
 
         $stmt = $db->prepare("DELETE FROM [dbo].[AuthToken]
                                    WHERE [UserId]=:userid");
@@ -80,16 +104,17 @@ class AuthTokenRepository
                               FROM [dbo].[AuthToken]
                               WHERE [Selector]=:selector
                               AND [Expires] > GETDATE()
-                              AND [Token]=HASHBYTES('SHA2_256', :token) ");
+                              AND [Token]=CONVERT(nvarchar,HASHBYTES('SHA2_256', :token),2) ");
         $stmt->bindParam(":selector", $selector);
+        $stmt->bindParam(":token", $token);
 
         $stmt->execute();
 
-        if($stmt->rowCount() !== 1){
+        $result = $stmt->fetch;
+
+        if($result == false){
             return NULL;
         }
-
-        $result = $stmt->fetchAll[0];
 
         $authToken = new AuthToken();
         $authToken->UserId = $result['UserId'];

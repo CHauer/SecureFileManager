@@ -68,6 +68,42 @@ class UserRepository{
     }
 
     /**
+     * @param User $user
+     * @return bool
+     */
+    public function UpdateUser(User $user){
+        global $db;
+
+        $stmt = $db->prepare("UPDATE [dbo].[User]
+                               SET [Username]=:Username
+                               ,[Birthdate]=:Birthdate
+                               ,[EMail]=:EMail
+                               ,[Description]=:Description
+                               ,[RoleId]=:RoleId
+                               ,[Firstname]=:Firstname
+                               ,[Lastname]=:Lastname
+                                WHERE [UserId]=:userid");
+
+        $stmt->bindParam(":Username", $user->Username);
+        $stmt->bindParam(":Birthdate", date_format($user->BirthDate, 'm.d.Y'));
+        $stmt->bindParam(":EMail", $user->EMail);
+        $stmt->bindParam(":Description", $user->Description);
+        $stmt->bindParam(":RoleId", $user->RoleId);
+        $stmt->bindParam(":Firstname", $user->Firstname);
+        $stmt->bindParam(":Lastname", $user->Lastname);
+        $stmt->bindParam(":userid", $user->UserId);
+
+        $stmt->execute();
+
+        if ($stmt->rowCount() == 1)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * @param $userid
      * @return User
      */
@@ -139,6 +175,10 @@ class UserRepository{
         return ($statement->fetch() !== false);
     }
 
+    /**
+     * @param $username
+     * @return bool
+     */
     public function IsUsernameUsed($username){
         global $db;
 
@@ -149,7 +189,6 @@ class UserRepository{
         $statement->execute();
         return ($statement->fetch() !== false);
     }
-
 
     /**
      * @param $username
@@ -278,6 +317,10 @@ class UserRepository{
         return $statement->rowCount()== 1;
     }
 
+    /**
+     * @param $userid
+     * @return bool
+     */
     public function SetUserDeactivated($userid)
     {
         global $db;
