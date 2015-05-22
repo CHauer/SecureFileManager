@@ -111,7 +111,7 @@ class AccountController extends BaseController
             $ok = false;
         }
 
-        if(strlen($_POST["Password"]) < 5 || preg_match('/([A-Z]+|[a-z]+|[0-9]+)/', $_POST["Password"]) == false)
+        if(strlen($_POST["Password"]) < 5 || preg_match('/([A-Z]+|[a-z]+|[0-9]+|?)/', $_POST["Password"]) == false)
         {
             $viewModel->setFieldError("Password", "Password has to consist of at least 5 letters and has to contain uppercase letter and digits.");
             $ok = false;
