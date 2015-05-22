@@ -26,3 +26,11 @@ function ModelValue($model, $field)
         echo ' value="' . $model->{$field} . '" ';
     }
 }
+
+function ModelDateValue($model, $field)
+{
+    if($model != NULL && isset($model))
+    {
+        echo ' value="' . date_format($model->{$field}, 'd.m.Y') . '" ';
+    }
+}
