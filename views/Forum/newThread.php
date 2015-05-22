@@ -14,7 +14,7 @@
 <div class="container content">
     <div class="row">
         <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
-            <form class="reg-page" action="forum/newThread" method="post">
+            <form class="reg-page" action="newThread" method="post">
                 <div class="reg-header">
                     <h2>Post a new thread</h2>
                 </div>
