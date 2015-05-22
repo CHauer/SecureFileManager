@@ -90,7 +90,7 @@ class FilesController extends BaseController
         $this->view->output($viewModel);
     }
 
-    private function HandleUpload(string $postFileName, string $directory, string $filename){
+    private function HandleUpload($postFileName, $directory, $filename){
 
         if(isset($_FILES[$postFileName]))
         {
