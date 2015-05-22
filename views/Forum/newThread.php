@@ -30,6 +30,10 @@
                     <input type="text" name="Description" class="form-control margin-bottom-20" maxlength="1000">
                     <? ValidationErrorMessage("Description", $viewModel) ?>
                 </div>
+
+                <div class="col-lg-6 text-right">
+                    <button class="btn-u" type="submit">Post</button>
+                </div>
             </form>
         </div>
     </div><!--/row-->
