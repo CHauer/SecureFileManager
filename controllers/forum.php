@@ -78,8 +78,8 @@ class ForumController extends BaseController
     {
         $ok = true;
 
-        if(!isset($_POST["Name"]) || $_POST["Name"] == ''){
-            $viewModel->setFieldError("Name", "Name has to be entered!");
+        if(!isset($_POST["Title"]) || $_POST["Title"] == ''){
+            $viewModel->setFieldError("Title", "Title has to be entered!");
             $ok = false;
         }
 

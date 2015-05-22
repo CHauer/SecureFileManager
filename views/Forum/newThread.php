@@ -19,6 +19,12 @@
                     <h2>Post a new thread</h2>
                 </div>
 
+                <?
+                if($viewModel->exists("error")){
+                    echo '<h3 class="color-red">' . $viewModel->get("error") . '</h3>';
+                }
+                ?>
+
                 <div class="form-group <? ValidationErrorClass("Title", $viewModel) ?> ">
                     <label>Title <span class="color-red">*</span></label>
                     <input type="text" name="Title" class="form-control margin-bottom-20" maxlength="200">
