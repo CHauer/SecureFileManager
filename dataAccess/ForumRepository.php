@@ -10,10 +10,10 @@ class ForumRepository {
 
     /**
      * @param ForumThread $thread
-     * @param $statement by reference
+     * @param string $statement by reference
      * @return bool
      */
-    public function InsertThread(ForumThread $thread, &$statement){
+    public function InsertThread(ForumThread $thread, string &$statement){
         global $db;
         $stmt = $db->prepare('INSERT INTO [dbo].[ForumThread]
           ([Title],
