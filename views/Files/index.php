@@ -50,13 +50,16 @@ if($viewModel->exists("model"))
                         </div>
                     </div>
                     <div class="col-sm-3">
-                        <button type="button" class="btn-u btn-block btn-u-dark"> Search Files</button>
+                        <button class="btn-u btn-block btn-u-dark" type="submit">Register</button>
                     </div>
                 </div>
             </div>
         </form>
 
     <div class="row">
+        <?
+
+        ?>
     </div>
 </div><!--/container-->
 <!--=== End Content Part ===-->
