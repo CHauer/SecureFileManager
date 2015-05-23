@@ -46,13 +46,13 @@ if($viewModel->exists("model"))
                     <div class="col-sm-4 md-margin-bottom-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                            <input type="text" placeholder="What file are you looking for?" class="form-control" name="Name">
+                            <input type="text" placeholder="What file are you looking for?" class="form-control" name="Name" maxlength="15">
                         </div>
                     </div>
                     <div class="col-sm-4 md-margin-bottom-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                            <input type="text" placeholder="Which user are you looking for?" class="form-control" name="User">
+                            <input type="text" placeholder="Which user are you looking for?" class="form-control" name="User" maxlength="15">
                         </div>
                     </div>
                     <div class="col-sm-3">
