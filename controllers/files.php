@@ -24,16 +24,28 @@ class FilesController extends BaseController
 
         $viewModel = $this->model->index();
 
-        try
-        {
-            $fileRepo = new FileRepository();
-            $files = $fileRepo->GetPublicAndOwnFiles($_POST["User"], $_POST["Name"]);
+        if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST') {
 
-            $viewModel->set("model", $files);
+            try {
+                $fileRepo = new FileRepository();
+                $files = $fileRepo->GetPublicAndOwnFiles($_POST["User"], $_POST["Name"]);
+
+                $viewModel->set("model", $files);
+            } catch (Exception $e) {
+                $viewModel->set("error", $e->getMessage());
+            }
+
         }
-        catch(Exception $e)
+        else
         {
-            $viewModel->set("error", $e->getMessage());
+            try {
+                $fileRepo = new FileRepository();
+                $files = $fileRepo->GetPublicAndOwnFiles('', '');
+
+                $viewModel->set("model", $files);
+            } catch (Exception $e) {
+                $viewModel->set("error", $e->getMessage());
+            }
         }
 
         $this->view->output($viewModel);
