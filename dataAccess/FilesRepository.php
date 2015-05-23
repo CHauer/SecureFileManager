@@ -68,13 +68,12 @@ class FileRepository{
 
         $stmt = $db->prepare('Select [UserFile].*, Username from [UserFile] left join [User] on [UserFile].UserId = [User].UserId
                               where (IsPrivate = :ispriv or [UserFile].UserId = :id)
-                              order by :order DESC, Name');
+                              order by $order DESC, Name');
 
         $stmt->bindParam(':ispriv', $isprivate);
         $stmt->bindParam(':id', $_SESSION["userid"]);
         //$stmt->bindParam(':user', $user, PDO::PARAM_STR);
         //$stmt->bindParam(':file', $file, PDO::PARAM_STR);
-        $stmt->bindParam(':order', $order, PDO::PARAM_STR);
 
         $stmt->execute();
 
