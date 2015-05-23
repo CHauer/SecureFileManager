@@ -72,7 +72,7 @@ class FileRepository{
 
         $stmt->bindParam(':ispriv', $isprivate);
         $stmt->bindParam(':id', $_SESSION["userid"]);
-        //$stmt->bindParam(':user', $user, PDO::PARAM_STR);
+        $stmt->bindParam(':user', $user, PDO::PARAM_STR);
         //$stmt->bindParam(':file', $file, PDO::PARAM_STR);
 
         $stmt->execute();
