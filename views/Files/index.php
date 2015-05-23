@@ -23,7 +23,7 @@ if($viewModel->exists("model"))
         <?
         if(IsPremiumUser()) {
             ?>
-            <div class="row margin-bottom-20">
+            <div class="row margin-bottom-10">
                 <div class="margin-left-5">
                     <h4>Upload a file</h4>
                     <p><a class="color-green" href="/files/upload">click here</a> to upload a new file.</p>
@@ -33,7 +33,7 @@ if($viewModel->exists("model"))
         }
         ?>
 
-        <div class="row margin-bottom-10">
+        <div class="row margin-bottom-20">
             <div class="job-img-inputs">
                 <!-- Serach -->
                 <div class="col-sm-4 md-margin-bottom-10">
@@ -55,8 +55,10 @@ if($viewModel->exists("model"))
         </div>
 
         <div class="row margin-bottom-20">
-            <div>
-                <select name="Count">
+            <div class="col-sm-6">
+                <h3>Show: </h3>
+                <div class="btn-group open"></div>
+                <select name="Count" class="dropdown-menu">
                     <option value="All">All</option>
                     <option value="20">20</option>
                     <option value="10" selected>10</option>
