@@ -74,6 +74,12 @@ if($viewModel->exists("model"))
             </div>
         </div>
 
-    <div class="row"></div>
+    <div class="row">
+        <div class="form-group">
+            <label>Tritra</label>
+            <input type="text" name="Name" class="form-control margin-bottom-20" maxlength="200" <? ModelValue($model, 0)?>>
+            <? ValidationErrorMessage("Name", $viewModel) ?>
+        </div>
+    </div>
 </div><!--/container-->
 <!--=== End Content Part ===-->

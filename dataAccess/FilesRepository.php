@@ -81,7 +81,7 @@ class FileRepository{
 
         if ($stmt->columnCount() >= 1)
         {
-            return $results[0]['Name'];
+            return $stmt->columnCount();
         }
     }
 
