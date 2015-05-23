@@ -30,8 +30,10 @@ class FilesController extends BaseController
 
     protected function upload()
     {
+        ConfirmUserIsLoggedOn();
+
         if(!IsPremiumUser()) {
-            $this->view->output(NULL, '');
+            RedirectAction("home", "index");
         }
 
         $viewModel = $this->model->upload();
