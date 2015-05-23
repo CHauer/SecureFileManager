@@ -67,7 +67,7 @@ if($viewModel->exists("model"))
     <div class="row">
         <p><?php
             if (!is_null($files)) {
-            echo $files; } else {
+            echo $files[0]['Name']; } else {
                 echo 'leeer';
             } ?></p>
 
