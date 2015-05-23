@@ -77,7 +77,7 @@ class FileRepository
         $results = $stmt->fetchAll();
 
         for ($i = 0; $i < count($results); ++$i) {
-            $results[$i]['Uploaded'] = date("d.m.Y H:i", $results[$i]['Uploaded']);
+            $results[$i]['Uploaded'] = date("d.m.Y H:i", strtotime($results[$i]['Uploaded']));
         }
 
         if ($stmt->columnCount() >= 1) {
