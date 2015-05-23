@@ -65,22 +65,28 @@ if($viewModel->exists("model"))
         </form>
 
     <div class="row">
-        <p><?php
-            if (!is_null($files)) {
-            echo $files[0]['Name']; } else {
-                echo 'leeer';
-            } ?></p>
-
         <?php
-/*        foreach($data as $files)
-        {
-            */?><!--
-
-            <p><?php /*echo ModelValue($data, 'Name') */?></p>
-
-        --><?php
-/*        }
-        */?>
+            if (!is_null($files))
+            {
+                foreach($data as $files)
+                {
+                    ?>
+                    <div class="col-md-9">
+                        <div class="col-sm-7 news-v3">
+                            <div class="news-v3-in-sm no-padding">
+                                <ul class="list-inline posted-info">
+                                    <li><?php echo $data['Username']?></li>
+                                    <li>Uploaded <?php echo $data['Uploaded']?></li>
+                                </ul>
+                                <h2><a href="#"><?php echo $data['Name']?></a></h2>
+                                <p><?php echo $data['Description']?></p>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                }
+            }
+        ?>
     </div>
 </div><!--/container-->
 <!--=== End Content Part ===-->

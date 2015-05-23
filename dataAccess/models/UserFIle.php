@@ -6,7 +6,8 @@
  * Time: 02:22
  */
 
-class UserFile {
+class UserFile
+{
     public $UserFileId;
     public $Name;
     public $FileLink;
