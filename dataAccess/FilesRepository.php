@@ -43,6 +43,18 @@ class FileRepository
         return false;
     }
 
+    public function DeleteFile($fileid)
+    {
+        global $db;
+        $stmt = $db->prepare('Delete From [UserFile] where UserFileId = :fileid');
+        $stmt->bindParam(':fileid', $fileid);
+        $stmt->execute();
+        if ($stmt->rowCount() == 1) {
+            return true;
+        }
+        return false;
+    }
+
     public function GetPublicAndOwnFiles($user, $file, $order = 'Uploaded')
     {
         global $db;

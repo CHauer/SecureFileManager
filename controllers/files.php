@@ -9,9 +9,10 @@
 class FilesController extends BaseController
 {
     //add to the parent constructor
-    public function __construct($action, $urlValues) {
+    public function __construct($action, $urlValues)
+    {
         parent::__construct($action, $urlValues);
-        
+
         //create the model object
         require("models/files.php");
         $this->model = new FilesModel();
@@ -36,9 +37,7 @@ class FilesController extends BaseController
                 $viewModel->set("error", $e->getMessage());
             }
 
-        }
-        else
-        {
+        } else {
             try {
                 $fileRepo = new FileRepository();
                 $files = $fileRepo->GetPublicAndOwnFiles('', '');
@@ -57,61 +56,52 @@ class FilesController extends BaseController
     {
         ConfirmUserIsLoggedOn();
 
-        if (!IsPremiumUser())
-        {
+        if (!IsPremiumUser()) {
             RedirectAction("files", "index");
         }
 
         $viewModel = $this->model->upload();
 
-        if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
-        {
+        if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST') {
             #region # Create File
             $file = new UserFile();
             $viewModel->set("model", $file);
 
             $file->Name = $_POST["Name"];
             $file->Description = PrepareHtml($_POST["Description"]);
-            if (isset($_POST["IsPrivate"]))
-            {
+            if (isset($_POST["IsPrivate"])) {
                 $file->IsPrivate = '1';
             } else {
                 $file->IsPrivate = '0';
             }
-            $file->UserId  = $_SESSION["userid"];
+            $file->UserId = $_SESSION["userid"];
             #endregion
 
-            if(!$this->validateRegisterData($viewModel)) {
+            if (!$this->validateRegisterData($viewModel)) {
                 $this->view->output($viewModel);
                 return;
             }
 
             #region # Insert File
-            try
-            {
+            try {
                 $filelink = $this->HandleUpload("FileLink", "/upload/files", $file->Name);
-                if (is_null($filelink) || $filelink == '')
-                {
+                if (is_null($filelink) || $filelink == '') {
                     throw new Exception("Something went wrong during handle the link - please try again!");
                 }
                 $file->FileLink = $filelink;
 
                 $filesrepo = new FileRepository();
                 $fileid = $filesrepo->InsertFile($file);
-                if($fileid == false)
-                {
+                if ($fileid == false) {
                     throw new Exception("Something went wrong during upload a file - please try again!");
                 }
-            }
-            catch(Exception $e)
-            {
+            } catch (Exception $e) {
                 $viewModel->set("error", $e->getMessage());
             }
             #endregion
 
             //no error
-            if(!$viewModel->exists("error"))
-            {
+            if (!$viewModel->exists("error")) {
                 RedirectAction("files", "index");
                 return;
             }
@@ -120,12 +110,11 @@ class FilesController extends BaseController
         $this->view->output($viewModel);
     }
 
-    private function HandleUpload($postFileName, $directory, $filename){
+    private function HandleUpload($postFileName, $directory, $filename)
+    {
 
-        if(isset($_FILES[$postFileName]))
-        {
-            if ($_FILES[$postFileName]["size"] > 0)
-            {
+        if (isset($_FILES[$postFileName])) {
+            if ($_FILES[$postFileName]["size"] > 0) {
                 $filename = $filename . '_' . time();
                 $filepath = $directory . '/' . $_SESSION["userid"] . '/' . $filename;
 
@@ -142,17 +131,38 @@ class FilesController extends BaseController
     {
         $ok = true;
 
-        if(!isset($_POST["Name"]) || $_POST["Name"] == ''){
+        if (!isset($_POST["Name"]) || $_POST["Name"] == '') {
             $viewModel->setFieldError("Name", "Name has to be entered!");
             $ok = false;
         }
 
-        if(empty($_FILES['FileLink']['name'])) {
+        if (empty($_FILES['FileLink']['name'])) {
             $viewModel->setFieldError("FileLink", "File Link has to be entered!");
             $ok = false;
         }
 
         return $ok;
+    }
+
+    protected function delete($fileid)
+    {
+        try {
+            $filesrepo = new FileRepository();
+            if(!$filesrepo->DeleteFile($fileid))
+            {
+                throw new Exception("Something went wrong during upload a file - please try again!");
+            }
+        } catch (Exception $e)
+        {
+            $viewModel->set("error", $e->getMessage());
+        }
+        #endregion
+
+        //no error
+        if (!$viewModel->exists("error")) {
+            RedirectAction("files", "index");
+            return;
+        }
     }
 }
 

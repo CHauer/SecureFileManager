@@ -76,7 +76,9 @@ if($viewModel->exists("model"))
                             <div class="col-sm-7 news-v3">
                                 <div class="news-v3-in-sm no-padding">
                                     <ul class="list-inline posted-info">
+                                        <?php if (!is_null($data['PictureLink'])) {?>}
                                         <img class="rounded-x" src="<?php $data['PictureLink'] ?>" alt="">
+                                        <?php}?>
                                         <li><?php echo $data['Username']?></li>
                                         <li>Uploaded <?php echo $data['Uploaded'] ?></li>
                                     </ul>
