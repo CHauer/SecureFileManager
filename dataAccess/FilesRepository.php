@@ -68,7 +68,7 @@ class FileRepository{
 
         $stmt = $db->prepare('Select [UserFile].*, Username from [UserFile] left join [User] on [UserFile].UserId = [User].UserId
                               where (IsPrivate = :ispriv or [UserFile].UserId = :id)
-                              order by {$order} DESC, Name');
+                              order by Uploaded DESC, Name');
 
         $stmt->bindParam(':ispriv', $isprivate);
         $stmt->bindParam(':id', $_SESSION["userid"]);
