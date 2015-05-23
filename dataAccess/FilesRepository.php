@@ -61,7 +61,7 @@ class FileRepository{
         return false;
     }
 
-    public function GetPublicFiles()
+    public function GetPublicAndOwnFiles()
     {
         global $db;
         $isprivate = 0;

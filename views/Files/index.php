@@ -17,11 +17,12 @@
     <?
     if(IsPremiumUser()) {
         ?>
-        <div class="row md-margin-bottom-20">
-            <h4>Upload a file</h4>
-            <p><a class="color-green" href="/files/upload">click here</a> to upload a new file.</p>
+        <div class="row">
+            <div class="md-margin-bottom-20 margin-left-5">
+                <h4>Upload a file</h4>
+                <p><a class="color-green" href="/files/upload">click here</a> to upload a new file.</p>
+            </div>
         </div>
-        <hr/>
     <?
     }
     ?>
@@ -32,23 +33,17 @@
             <div class="col-sm-4 md-margin-bottom-10">
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                    <input type="text" placeholder="which user you are looking for" class="form-control">
+                    <input type="text" placeholder="What file are you looking for?" class="form-control">
+                </div>
+            </div>
+            <div class="col-sm-4 md-margin-bottom-10">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-tag"></i></span>
+                    <input type="text" placeholder="Which user are you looking for?" class="form-control">
                 </div>
             </div>
             <div class="col-sm-3">
-                <button type="button" class="btn-u btn-block btn-u-dark"> Search User</button>
-            </div>
-            <div class="col-sm-4">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                        20 <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li>All</li>
-                        <li>10</li>
-                        <li>5</li>
-                    </ul>
-                </div>
+                <button type="button" class="btn-u btn-block btn-u-dark"> Search Files</button>
             </div>
         </div>
     </div>

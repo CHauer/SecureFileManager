@@ -22,8 +22,14 @@ class FilesController extends BaseController
     {
         ConfirmUserIsLoggedOn();
 
-       /* $fileRepo = new FileRepository();
-        $files = $fileRepo->GetPublicAllFiles();*/
+        try {
+            $fileRepo = new FileRepository();
+            $files = $fileRepo->GetPublicAndOwnFiles();
+        }
+        catch(Exception $e)
+        {
+            $viewModel->set("error", $e->getMessage());
+        }
 
         $this->view->output($this->model->index());
     }
@@ -31,6 +37,11 @@ class FilesController extends BaseController
     protected function upload()
     {
         ConfirmUserIsLoggedOn();
+
+        if (!IsPremiumUser())
+        {
+            RedirectAction("files", "index");
+        }
 
         $viewModel = $this->model->upload();
 
