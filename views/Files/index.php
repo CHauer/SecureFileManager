@@ -33,52 +33,32 @@ if($viewModel->exists("model"))
         }
         ?>
 
-        <div class="row margin-bottom-20">
-            <div class="job-img-inputs">
-                <!-- Serach -->
-                <div class="col-sm-4 md-margin-bottom-10">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                        <input type="text" placeholder="What file are you looking for?" class="form-control">
+        <form class="reg-page" action="/files/index" method="post">
+            <div class="row margin-bottom-20">
+                <div class="job-img-inputs">
+                    <!-- Serach -->
+                    <div class="col-sm-4 md-margin-bottom-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-tag"></i></span>
+                            <input type="text" placeholder="What file are you looking for?" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-4 md-margin-bottom-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-tag"></i></span>
+                            <input type="text" placeholder="Which user are you looking for?" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <button type="button" class="btn-u btn-block btn-u-dark"> Search Files</button>
                     </div>
                 </div>
-                <div class="col-sm-4 md-margin-bottom-10">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                        <input type="text" placeholder="Which user are you looking for?" class="form-control">
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <button type="button" class="btn-u btn-block btn-u-dark"> Search Files</button>
-                </div>
             </div>
-        </div>
-
-        <div class="row margin-bottom-20">
-            <div class="col-sm-6">
-                <h3>Show: </h3>
-                <div class="btn-group open">
-                    <select name="Count">
-                        <option value="All">All</option>
-                        <option value="20">20</option>
-                        <option value="10" selected>10</option>
-                        <option value="5">5</option>
-                    </select>
-                </div>
-            </div>
-            <div>
-                <select name="Order">
-                    <option value="User">User Name</option>
-                    <option value="Date" selected>Upload Date</option>
-                </select>
-            </div>
-        </div>
+        </form>
 
     <div class="row">
-        <div class="form-group">
-            <label>Tritra</label>
-            <input type="text" name="Name" class="form-control margin-bottom-20" maxlength="200" <? ModelValue($model, 0)?>>
-            <? ValidationErrorMessage("Name", $viewModel) ?>
+        <div class="group">
+
         </div>
     </div>
 </div><!--/container-->
