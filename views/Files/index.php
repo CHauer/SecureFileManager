@@ -97,6 +97,11 @@ if($viewModel->exists("model"))
                                             <span><?php echo $data['CommentCount']?></span>
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="/files/download">
+                                            <i class="rounded-x icon-download"></i>
+                                        </a>
+                                    </li>
                                 </ul>
                                 <?php
                                 if (isFileOwner($data['UserId']))
