@@ -165,6 +165,8 @@ class FilesController extends BaseController
             RedirectAction("files", "index");
             return;
         }
+
+        $this->view->output($viewModel);
     }
 }
 
