@@ -100,6 +100,7 @@ if($viewModel->exists("model"))
                                     <li>
                                         <a href="/files/download">
                                             <i class="rounded-x icon-download"></i>
+                                            <span></span>
                                         </a>
                                     </li>
                                 </ul>
