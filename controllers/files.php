@@ -57,8 +57,8 @@ class FilesController extends BaseController
             #region # Insert File
             try
             {
-                $filelink = $this->HandleUpload("FileLink", "/upload/files", $file->Name);
 
+                $filelink = $this->HandleUpload("FileLink", "/upload/files", $file->Name);
                 if (is_null($filelink) || $filelink == '')
                 {
                     throw new Exception("Something went wrong during handle the link - please try again!");
@@ -67,10 +67,9 @@ class FilesController extends BaseController
 
                 $filesrepo = new FileRepository();
                 $fileid = $filesrepo->InsertFile($file);
-
                 if($fileid == false)
                 {
-                    $viewModel->set("error", "Something went wrong during upload a file - please try again!");
+                    throw new Exception("Something went wrong during upload a file - please try again!");
                 }
             }
             catch(Exception $e)
@@ -96,7 +95,7 @@ class FilesController extends BaseController
         {
             if ($_FILES[$postFileName]["size"] > 0)
             {
-                $filename = $filename . '.' . time();
+                $filename = $filename . '_' . time();
                 $filepath = $directory . '/' . $_SESSION["userid"] . '/' . $filename;
 
                 copy($_FILES[$postFileName]["tmp_name"], $filepath);
@@ -117,7 +116,7 @@ class FilesController extends BaseController
             $ok = false;
         }
 
-        if(!isset($_FILES["FileLink"]) || $_FILES["FileLink"] == '') {
+        if(!isset($_FILES)) {
             $viewModel->setFieldError("FileLink", "FileLink has to be entered!");
             $ok = false;
         }

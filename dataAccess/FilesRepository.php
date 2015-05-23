@@ -42,6 +42,25 @@ class FileRepository{
         return false;
     }
 
+    public function ExistNamebyUser($name)
+    {
+        global $db;
+
+        $stmt = $db->prepare('Select Name from [UserFile] where Name = :name and UserFileId = :id');
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':id', $_SESSION["userid"]);
+
+        $stmt->execute();
+
+        $results = $stmt->fetchAll();
+
+        if ($stmt->rowCount() == 1) {
+           return true;
+        }
+
+        return false;
+    }
+
     public function GetPublicFiles()
     {
         global $db;
