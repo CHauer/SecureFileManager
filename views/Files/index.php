@@ -68,7 +68,7 @@ if($viewModel->exists("model"))
         <?php
             if (!is_null($files))
             {
-                foreach($data as $files)
+                foreach($files as $data)
                 {
                     ?>
                     <div class="col-md-9">
