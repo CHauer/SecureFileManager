@@ -67,8 +67,7 @@ class FileRepository{
         $isprivate = 0;
 
         $stmt = $db->prepare('Select [UserFile].*, Username from [UserFile] left join [User] on [UserFile].UserId = [User].UserId
-                              where (IsPrivate = :ispriv or [UserFile].UserId = :id) and Username LIKE %:user%
-                              and Name LIKE %:file%
+                              where (IsPrivate = :ispriv or [UserFile].UserId = :id)
                               order by :order DESC, Name');
 
         $stmt->bindParam(':ispriv', $isprivate);

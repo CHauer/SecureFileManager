@@ -12,6 +12,8 @@
 <!--=== End Breadcrumbs ===-->
 
 <?
+$files = null;
+
 if($viewModel->exists("model"))
 {
     $files = $viewModel->get("model");
