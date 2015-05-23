@@ -31,6 +31,7 @@ class FilesController extends BaseController
                 $files = $fileRepo->GetPublicAndOwnFiles($_POST["User"], $_POST["Name"]);
 
                 $viewModel->set("model", $files);
+
             } catch (Exception $e) {
                 $viewModel->set("error", $e->getMessage());
             }
@@ -43,6 +44,7 @@ class FilesController extends BaseController
                 $files = $fileRepo->GetPublicAndOwnFiles('', '');
 
                 $viewModel->set("model", $files);
+
             } catch (Exception $e) {
                 $viewModel->set("error", $e->getMessage());
             }

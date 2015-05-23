@@ -14,7 +14,7 @@
 <?
 if($viewModel->exists("model"))
 {
-    $model = $viewModel->get("model");
+    $files = $viewModel->get("model");
 }
 ?>
 
@@ -30,6 +30,12 @@ if($viewModel->exists("model"))
                 </div>
             </div>
         <?
+        }
+        ?>
+
+        <?
+        if($viewModel->exists("error")){
+            echo '<h3 class="color-red">' . $viewModel->get("error") . '</h3>';
         }
         ?>
 
@@ -58,11 +64,11 @@ if($viewModel->exists("model"))
 
     <div class="row">
         <?php
-        foreach($data as $model)
+        foreach($data as $files)
         {
             ?>
 
-            <p><?php echo $data['Name']; ?></p>
+            <p><?php echo ModelValue($data, 'Name') ?></p>
 
         <?php
         }
