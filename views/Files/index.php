@@ -57,13 +57,14 @@ if($viewModel->exists("model"))
         <div class="row margin-bottom-20">
             <div class="col-sm-6">
                 <h3>Show: </h3>
-                <div class="btn-group open"></div>
-                <select name="Count" class="dropdown-menu">
-                    <option value="All">All</option>
-                    <option value="20">20</option>
-                    <option value="10" selected>10</option>
-                    <option value="5">5</option>
-                </select>
+                <div class="btn-group open">
+                    <select name="Count">
+                        <option value="All">All</option>
+                        <option value="20">20</option>
+                        <option value="10" selected>10</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
             </div>
             <div>
                 <select name="Order">

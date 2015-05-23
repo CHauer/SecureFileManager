@@ -22,16 +22,20 @@ class FilesController extends BaseController
     {
         ConfirmUserIsLoggedOn();
 
+        $viewModel = $this->model->index();
+
         try {
             $fileRepo = new FileRepository();
-            $files = $fileRepo->GetPublicAndOwnFiles();
+            $files = $fileRepo->GetPublicAndOwnFiles('2', '');
+
+            $viewModel->set("model", $files);
         }
         catch(Exception $e)
         {
             $viewModel->set("error", $e->getMessage());
         }
 
-        $this->view->output($this->model->index());
+        $this->view->output($viewModel);
     }
 
     protected function upload()

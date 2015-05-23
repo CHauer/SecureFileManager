@@ -61,20 +61,27 @@ class FileRepository{
         return false;
     }
 
-    public function GetPublicAndOwnFiles()
+    public function GetPublicAndOwnFiles($user, $file, $order = 'Uploaded')
     {
         global $db;
         $isprivate = 0;
 
-        //TODO: Eigene Files alle anzeigen + USERNAME
+        $stmt = $db->prepare('Select [UserFile].*, [User].Username from [UserFile] left join [User] on [UserFile].UserId = [User].UserId
+                              where "IsPrivate = :ispriv or ([UserFile].UserId = :id)) and [User].Username LIKE %:user%
+                              order by :order DESC, Name');
 
-        $stmt = $db->prepare('Select * from [UserFile] where IsPrivate = :ispriv');
         $stmt->bindParam(':ispriv', $isprivate);
+        $stmt->bindParam(':id', $_SESSION["userid"]);
+        $stmt->bindParam(':order', $order, PDO::PARAM_STR);
+        $stmt->bindParam(':user', $user, PDO::PARAM_STR);
 
-        $result = $stmt->execute();
+        $stmt->execute();
 
-        if ($stmt->columnCount() >= 1) {
-            return $result;
+        $results = $stmt->fetchAll();
+
+        if ($stmt->columnCount() >= 1)
+        {
+            return $results[0]['Name'];
         }
     }
 

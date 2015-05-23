@@ -14,7 +14,7 @@ class UserFile {
     public $IsPrivate;
 
     public $UserId;
-    public $User;
+    public $UserName;
 
     public $Uploaded;
 
