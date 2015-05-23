@@ -32,10 +32,6 @@ class FilesController extends BaseController
     {
         ConfirmUserIsLoggedOn();
 
-        if(!IsPremiumUser()) {
-            RedirectAction("home", "index");
-        }
-
         $viewModel = $this->model->upload();
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
