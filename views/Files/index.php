@@ -94,7 +94,7 @@ if($viewModel->exists("model"))
                                     <li>
                                         <a href="#">
                                             <i class="rounded-x icon-speech"></i>
-                                            <span>5</span>
+                                            <span><?php echo $data['CommentCount']?></span>
                                         </a>
                                     </li>
                                 </ul>
