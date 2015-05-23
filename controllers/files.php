@@ -146,6 +146,8 @@ class FilesController extends BaseController
 
     protected function delete($fileid)
     {
+        $viewModel = $this->model->index();
+
         try {
             $filesrepo = new FileRepository();
             if(!$filesrepo->DeleteFile($fileid))
