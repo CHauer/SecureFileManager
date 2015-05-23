@@ -24,9 +24,10 @@ class FilesController extends BaseController
 
         $viewModel = $this->model->index();
 
-        try {
+        try
+        {
             $fileRepo = new FileRepository();
-            $files = $fileRepo->GetPublicAndOwnFiles('2', '');
+            $files = $fileRepo->GetPublicAndOwnFiles($_POST["User"], $_POST["Name"]);
 
             $viewModel->set("model", $files);
         }

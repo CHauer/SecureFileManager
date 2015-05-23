@@ -33,20 +33,20 @@ if($viewModel->exists("model"))
         }
         ?>
 
-        <form class="reg-page" action="/files/index" method="post">
+        <form class="page-search-form" action="/files/index" method="post">
             <div class="row margin-bottom-20">
                 <div class="job-img-inputs">
                     <!-- Serach -->
                     <div class="col-sm-4 md-margin-bottom-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                            <input type="text" placeholder="What file are you looking for?" class="form-control">
+                            <input type="text" placeholder="What file are you looking for?" class="form-control" name="Name">
                         </div>
                     </div>
                     <div class="col-sm-4 md-margin-bottom-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                            <input type="text" placeholder="Which user are you looking for?" class="form-control">
+                            <input type="text" placeholder="Which user are you looking for?" class="form-control" name="User">
                         </div>
                     </div>
                     <div class="col-sm-3">
@@ -57,9 +57,6 @@ if($viewModel->exists("model"))
         </form>
 
     <div class="row">
-        <div class="group">
-
-        </div>
     </div>
 </div><!--/container-->
 <!--=== End Content Part ===-->
