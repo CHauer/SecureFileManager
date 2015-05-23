@@ -76,16 +76,30 @@ if($viewModel->exists("model"))
                             <div class="col-sm-7 news-v3">
                                 <div class="news-v3-in-sm no-padding">
                                     <ul class="list-inline posted-info">
+                                        <img class="rounded-x" src="<?php $data['PictureLink'] ?>" alt="">
                                         <li><?php echo $data['Username']?></li>
-                                        <li>Uploaded <?php echo date("d.m.Y H:i", $data['Uploaded']) ?></li>
+                                        <li>Uploaded <?php echo $data['Uploaded'] ?></li>
                                     </ul>
                                     <h2><a href="#"><?php echo $data['Name']?></a></h2>
                                     <p><?php echo $data['Description']?></p>
                                 </div>
+                                <ul class="post-shares">
+                                    <li>
+                                        <a href="#">
+                                            <i class="rounded-x icon-speech"></i>
+                                            <span>5</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <?php
+                                if (isFileOwner($data['UserId']))
+                                {?>
+                                    <a class="btn btn-default col-md-5" href="/files/delete" >Delete File</a>
+                                <?}?>
                             </div>
                         </div>
 
-                        <div class="clearfix margin-bottom-5"><hr></div>
+                        <hr/>
                     <?php
                 }
             }

@@ -6,13 +6,15 @@
  * Time: 04:02
  */
 
-class FileRepository{
+class FileRepository
+{
 
     /**
      * @param UserFile $file
      * @return bool
      */
-    public function InsertFile(UserFile $file){
+    public function InsertFile(UserFile $file)
+    {
         global $db;
         $stmt = $db->prepare("INSERT INTO [dbo].[UserFile]
           ([Name],
@@ -34,28 +36,8 @@ class FileRepository{
 
         $stmt->execute();
 
-        if ($stmt->rowCount() == 1)
-        {
-            return $db->lastInsertId();
-        }
-
-        return false;
-    }
-
-    public function ExistNamebyUser($name)
-    {
-        global $db;
-
-        $stmt = $db->prepare('Select Name from [UserFile] where Name = :name and UserFileId = :id');
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':id', $_SESSION["userid"]);
-
-        $stmt->execute();
-
-        $results = $stmt->fetchAll();
-
         if ($stmt->rowCount() == 1) {
-           return true;
+            return $db->lastInsertId();
         }
 
         return false;
@@ -66,9 +48,9 @@ class FileRepository{
         global $db;
         $isprivate = 0;
 
-        $stmt = $db->prepare('Select [UserFile].*, Username from [UserFile] left join [User] on [UserFile].UserId = [User].UserId
+        $stmt = $db->prepare('Select [UserFile].*, Username, PictureLink from [UserFile] left join [User] on [UserFile].UserId = [User].UserId
                               where (IsPrivate = :ispriv or [UserFile].UserId = :id) and [User].Username LIKE :user
-                              and Name LIKE :file order by '.$order.' DESC, Name');
+                              and Name LIKE :file order by ' . $order . ' DESC, Name');
 
         $user = '%' . $user . '%';
         $file = '%' . $file . '%';
@@ -82,9 +64,12 @@ class FileRepository{
 
         $results = $stmt->fetchAll();
 
+        for ($i = 0; $i < count($results); ++$i) {
+            $results[$i]['Uploaded'] = date("d.m.Y H:i", $results[$i]['Uploaded']);
+        }
+
         if ($stmt->columnCount() >= 1) {
             return $results;
         }
     }
-
 }

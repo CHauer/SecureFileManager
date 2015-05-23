@@ -49,4 +49,12 @@ function IsPremiumUser()
     return $userRepo->IsUserInRole("Premium", intval($_SESSION['userid']));
 }
 
+function isFileOwner($userid)
+{
+    if ($_SESSION['userid'] == $userid)
+    {
+        return true;
+    }
+    return false;
+}
 ?>
