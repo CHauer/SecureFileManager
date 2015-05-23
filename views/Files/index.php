@@ -42,7 +42,7 @@ if($viewModel->exists("model"))
         ?>
 
         <form class="page-search-form" action="/files/index" method="post">
-            <div class="row margin-bottom-20">
+            <div class="row margin-bottom-40">
                 <div class="job-img-inputs">
                     <!-- Serach -->
                     <div class="col-sm-4 md-margin-bottom-10">
@@ -72,12 +72,12 @@ if($viewModel->exists("model"))
                 foreach($files as $data)
                 {
                     ?>
-                        <div class="row margin-bottom-20">
+                        <div class="row margin-bottom-5">
                             <div class="col-sm-7 news-v3">
                                 <div class="news-v3-in-sm no-padding">
                                     <ul class="list-inline posted-info">
                                         <li><?php echo $data['Username']?></li>
-                                        <li>Uploaded <?php echo $data['Uploaded']?></li>
+                                        <li>Uploaded <?php echo date("d.m.Y H:i", $data['Uploaded']) ?></li>
                                     </ul>
                                     <h2><a href="#"><?php echo $data['Name']?></a></h2>
                                     <p><?php echo $data['Description']?></p>
@@ -85,7 +85,7 @@ if($viewModel->exists("model"))
                             </div>
                         </div>
 
-                        <div class="clearfix margin-bottom-20"><hr></div>
+                        <div class="clearfix margin-bottom-5"><hr></div>
                     <?php
                 }
             }
