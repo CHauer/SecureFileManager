@@ -68,7 +68,7 @@ class FileRepository{
 
         $stmt = $db->prepare('Select [UserFile].*, Username from [UserFile] left join [User] on [UserFile].UserId = [User].UserId
                               where (IsPrivate = :ispriv or [UserFile].UserId = :id) and [User].Username LIKE :user
-                              and Name LIKE :file order by Uploaded DESC, Name');
+                              and Name LIKE :file order by '.$order.' DESC, Name');
 
         $user = '%' . $user . '%';
         $file = '%' . $file . '%';
