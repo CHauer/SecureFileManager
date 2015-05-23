@@ -68,14 +68,15 @@ class FileRepository{
 
         $stmt = $db->prepare('Select [UserFile].*, Username from [UserFile] left join [User] on [UserFile].UserId = [User].UserId
                               where (IsPrivate = :ispriv or [UserFile].UserId = :id) and [User].Username LIKE :user
-                              order by Uploaded DESC, Name');
+                              and Name LIKE :file order by Uploaded DESC, Name');
 
         $user = '%' . $user . '%';
+        $file = '%' . $file . '%';
 
         $stmt->bindParam(':ispriv', $isprivate);
         $stmt->bindParam(':id', $_SESSION["userid"]);
         $stmt->bindParam(':user', $user, PDO::PARAM_STR);
-        //$stmt->bindParam(':file', $file, PDO::PARAM_STR);
+        $stmt->bindParam(':file', $file, PDO::PARAM_STR);
 
         $stmt->execute();
 
