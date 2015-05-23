@@ -57,8 +57,15 @@ if($viewModel->exists("model"))
         </form>
 
     <div class="row">
-        <?
+        <?php
+        foreach($data as $model)
+        {
+            ?>
 
+            <p><?php echo $data['Name']; ?></p>
+
+        <?php
+        }
         ?>
     </div>
 </div><!--/container-->
