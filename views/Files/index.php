@@ -56,23 +56,24 @@ if($viewModel->exists("model"))
                         </div>
                     </div>
                     <div class="col-sm-3">
-                        <button class="btn-u btn-block btn-u-dark" type="submit">Register</button>
+                        <button class="btn-u btn-block btn-u-dark" type="submit">Search Files</button>
                     </div>
                 </div>
             </div>
         </form>
 
     <div class="row">
+        <p><?php echo $files ?></p>
         <?php
-        foreach($data as $files)
+/*        foreach($data as $files)
         {
-            ?>
+            */?><!--
 
-            <p><?php echo ModelValue($data, 'Name') ?></p>
+            <p><?php /*echo ModelValue($data, 'Name') */?></p>
 
-        <?php
-        }
-        ?>
+        --><?php
+/*        }
+        */?>
     </div>
 </div><!--/container-->
 <!--=== End Content Part ===-->
