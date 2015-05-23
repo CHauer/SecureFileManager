@@ -65,7 +65,12 @@ if($viewModel->exists("model"))
         </form>
 
     <div class="row">
-        <p><?php echo $files ?></p>
+        <p><?php
+            if (!is_null($files)) {
+            echo $files ?></p>
+            } else {
+                echo 'leeer'
+            }
         <?php
 /*        foreach($data as $files)
         {
