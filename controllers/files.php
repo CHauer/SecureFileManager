@@ -30,6 +30,10 @@ class FilesController extends BaseController
 
     protected function upload()
     {
+        if(!IsPremiumUser()) {
+            $this->view->output(NULL, '');
+        }
+
         $viewModel = $this->model->upload();
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
