@@ -116,7 +116,7 @@ class FilesController extends BaseController
             $ok = false;
         }
 
-        if(!isset($_FILES)) {
+        if(!empty($_FILES['FileLink']['name'])) {
             $viewModel->setFieldError("FileLink", "FileLink has to be entered!");
             $ok = false;
         }
