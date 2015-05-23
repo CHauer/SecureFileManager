@@ -65,28 +65,32 @@ if($viewModel->exists("model"))
         </form>
 
     <div class="row">
+        <div class="col-md-9">
         <?php
             if (!is_null($files))
             {
                 foreach($files as $data)
                 {
                     ?>
-                    <div class="col-md-9">
-                        <div class="col-sm-7 news-v3">
-                            <div class="news-v3-in-sm no-padding">
-                                <ul class="list-inline posted-info">
-                                    <li><?php echo $data['Username']?></li>
-                                    <li>Uploaded <?php echo $data['Uploaded']?></li>
-                                </ul>
-                                <h2><a href="#"><?php echo $data['Name']?></a></h2>
-                                <p><?php echo $data['Description']?></p>
+                        <div class="row margin-bottom-20">
+                            <div class="col-sm-7 news-v3">
+                                <div class="news-v3-in-sm no-padding">
+                                    <ul class="list-inline posted-info">
+                                        <li><?php echo $data['Username']?></li>
+                                        <li>Uploaded <?php echo $data['Uploaded']?></li>
+                                    </ul>
+                                    <h2><a href="#"><?php echo $data['Name']?></a></h2>
+                                    <p><?php echo $data['Description']?></p>
+                                </div>
                             </div>
                         </div>
-                    </div>
+
+                        <div class="clearfix margin-bottom-20"><hr></div>
                     <?php
                 }
             }
         ?>
+        </div>
     </div>
 </div><!--/container-->
 <!--=== End Content Part ===-->
