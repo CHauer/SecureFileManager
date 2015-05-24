@@ -157,7 +157,7 @@ class FilesController extends BaseController
         }
 
         $id = $_GET['id'];*/
-        $viewModel = $this->model->delete(4);
+        $viewModel = $this->model->delete(5);
 
         /*if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST') {
 
