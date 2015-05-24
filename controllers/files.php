@@ -148,7 +148,9 @@ class FilesController extends BaseController
         }
 
         $urlValues = $_GET;
-        echo $urlValues;
+        foreach ($urlValues as $s) {
+            echo $s;
+        }
 
         $id = 4;
 
