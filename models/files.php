@@ -22,7 +22,7 @@ class FilesModel extends BaseModel
         return $this->viewModel;
     }
 
-    public function delete($fileid)
+    public function delete()
     {
         $this->viewModel->set("pageTitle","Delete File");
 
