@@ -149,7 +149,7 @@ class FilesController extends BaseController
 
         $urlValues = $_GET;
         foreach ($urlValues as $s) {
-            echo $s;
+            echo $s . '/n';
         }
 
         $id = 4;
