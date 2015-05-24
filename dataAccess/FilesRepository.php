@@ -48,7 +48,7 @@ class FileRepository
         global $db;
 
         $stmt = $db->prepare('select top 1
-           ,[Description]
+            [Description]
            ,[Name]
            from [dbo].[UserFile]
            where UserFileId=:fileid');

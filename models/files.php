@@ -26,7 +26,7 @@ class FilesModel extends BaseModel
     {
         $this->viewModel->set("pageTitle","Delete File");
 
-         $fileRepo = new FileRepository();
+        $fileRepo = new FileRepository();
 
         $file = $fileRepo->GetFile($fileid);
 
