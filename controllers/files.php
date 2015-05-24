@@ -147,8 +147,8 @@ class FilesController extends BaseController
             return;
         }
 
-        $this->urlValues = $_GET;
-        echo '.' . urlValues['action'];
+        $urlValues = $_GET;
+        echo '.' . $urlValues['action'];
 
         $id = 4;
 
