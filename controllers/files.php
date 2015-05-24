@@ -156,14 +156,15 @@ class FilesController extends BaseController
             RedirectAction("files", "index");
         }
 
-        $viewModel = $this->model->delete($_POST["UserFileId"]);
+        $id = $_GET['id'];
+        $viewModel = $this->model->delete($id);
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST') {
 
             try {
                 $fileRepo = new FileRepository();
 
-                if (!$fileRepo->DeleteFile($_POST["UserFileId"])) {
+                if (!$fileRepo->DeleteFile($id)) {
                     $viewModel->set("error", "Something went wrong during your registration - please try again!");
                 }
 
