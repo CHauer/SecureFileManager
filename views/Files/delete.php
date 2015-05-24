@@ -35,12 +35,12 @@ if($viewModel->exists("model"))
                 }
                 ?>
 
-                <div class="row">
+                <div class="form-group">
                     <label class="control-label" >File Name: </label>
                     <label class="margin-bottom-20 control-label" ><?php echo $model->Name ?></label>
                 </div>
 
-                <div class="row">
+                <div class="form-group">
                     <label class="control-label" >File Description: </label>
                     <label class="margin-bottom-20 control-label"><?php echo $model->Description ?></label>
                 </div>
