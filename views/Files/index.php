@@ -98,7 +98,7 @@ if($viewModel->exists("model"))
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="/files/download">
+                                        <a href="/files/download&id=<?php echo $data['UserFileId']?>">
                                             <i class="rounded-x icon-cloud-download"></i>
                                         </a>
                                     </li>
