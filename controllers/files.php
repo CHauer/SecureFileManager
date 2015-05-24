@@ -147,9 +147,10 @@ class FilesController extends BaseController
             RedirectAction("files", "index");
             return;
         }
-        echo  $this->urlValues[0];
-        echo  $this->urlValues[1];
-        echo  $this->urlValues[2];
+
+        echo "hallll";
+        echo "." . $this->urlValues[0];
+
         $id = 4;
 
         if (!isset($id))
