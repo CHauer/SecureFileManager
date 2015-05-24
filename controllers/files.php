@@ -157,9 +157,9 @@ class FilesController extends BaseController
         }
 
         $id = $_GET['id'];*/
-        $viewModel = $this->model->delete(5);
+        $viewModel = $this->model->delete(4);
 
-        /*if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST') {
+        if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST') {
 
             try {
                 $fileRepo = new FileRepository();
@@ -179,7 +179,7 @@ class FilesController extends BaseController
                 RedirectAction("files", "index");
                 return;
             }
-        }*/
+        }
 
         $this->view->output($viewModel);
 

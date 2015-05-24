@@ -41,8 +41,8 @@ if($viewModel->exists("model"))
                 </div>
 
                 <div class="row">
-                    <label class="control-label">File Description: </label>
-                    <label class="margin-bottom-20 control-label">djkfjjdsfh</label>
+                    <label class="control-label" >File Description: </label>
+                    <label class="margin-bottom-20 control-label"><?php echo $model->Description ?></label>
                 </div>
                 <hr>
 
