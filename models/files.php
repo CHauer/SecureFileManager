@@ -12,6 +12,17 @@ class FilesModel extends BaseModel
     public function index()
     {
         $this->viewModel->set("pageTitle","Upload List");
+
+        try {
+            $fileRepo = new FileRepository();
+            $files = $fileRepo->GetPublicAndOwnFiles('', '');
+
+            $this->viewModel->set("model", $files);
+
+        } catch (Exception $e) {
+            $this->viewModel->set("error", $e->getMessage());
+        }
+
         return $this->viewModel;
     }
 
@@ -26,11 +37,16 @@ class FilesModel extends BaseModel
     {
         $this->viewModel->set("pageTitle","Delete File");
 
+        try {
         $fileRepo = new FileRepository();
 
         $file = $fileRepo->GetFile($fileid);
 
         $this->viewModel->set("model", $file);
+
+        } catch (Exception $e) {
+            $this->viewModel->set("error", $e->getMessage());
+        }
 
         return $this->viewModel;
     }

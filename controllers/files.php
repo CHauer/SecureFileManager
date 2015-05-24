@@ -37,16 +37,6 @@ class FilesController extends BaseController
                 $viewModel->set("error", $e->getMessage());
             }
 
-        } else {
-            try {
-                $fileRepo = new FileRepository();
-                $files = $fileRepo->GetPublicAndOwnFiles('', '');
-
-                $viewModel->set("model", $files);
-
-            } catch (Exception $e) {
-                $viewModel->set("error", $e->getMessage());
-            }
         }
 
         $this->view->output($viewModel);
