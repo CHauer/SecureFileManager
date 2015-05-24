@@ -148,7 +148,7 @@ class FilesController extends BaseController
             return;
         }
 
-        $id = 4;
+        $id = $this->urlValues[2];
 
         if (!isset($id))
         {

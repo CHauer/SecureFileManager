@@ -41,7 +41,7 @@ if($viewModel->exists("model"))
                 </div>
 
                 <?php
-                if (!is_null($model->Description) && $model->Description != '')
+                if (!is_null($model->Description) || $model->Description != '')
                 {
                     ?>
 
