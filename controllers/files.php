@@ -58,6 +58,7 @@ class FilesController extends BaseController
 
         if (!IsPremiumUser()) {
             RedirectAction("files", "index");
+            return;
         }
 
         $viewModel = $this->model->upload();
@@ -154,6 +155,15 @@ class FilesController extends BaseController
         if (!isFileOwner($_SESSION["userid"]))
         {
             RedirectAction("files", "index");
+            return;
+        }
+
+        if (!isset($_GET['id']))
+        {
+            $viewModel = $this->model->index();
+            $viewModel->set("error", "Something went wrong during your registration - please try again!");
+            $this->view->output($viewModel);
+            return;
         }
 
         $id = $_GET['id'];

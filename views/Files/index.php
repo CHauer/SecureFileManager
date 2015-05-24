@@ -106,7 +106,7 @@ if($viewModel->exists("model"))
                                     if (isFileOwner($data['UserId']))
                                     {?>
                                     <li>
-                                        <a href="/files/delete&id=<? ModelValue($model, 'UserFileId')?>">
+                                        <a href="/files/delete&id=<?php echo $data['UserFileId']?>">
                                             <i class="rounded-x icon-trash"></i>
                                         </a>
                                     </li>
