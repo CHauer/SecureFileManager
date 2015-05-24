@@ -22,7 +22,7 @@ if($viewModel->exists("model"))
 <div class="container content">
     <div class="row">
         <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-            <form class="reg-page" action="/files/delete&id=<?php echo ModelValue($model, 'UserFileId')?>" method="post">
+            <form class="reg-page" action="/files/delete/id=<?php echo ModelValue($model, 'UserFileId')?>" method="post">
                 <? CreateHiddenAntiCSRFTokenField(); ?>
 
                 <div class="reg-header">
@@ -36,7 +36,7 @@ if($viewModel->exists("model"))
                 ?>
 
                 <div class="form-group">
-                    <label>File Name <span class="color-red">*</span></label>
+                    <label>File Name </label>
                     <label name="Name" class="form-control margin-bottom-20" <? ModelValue($model, 'Name')?>>
                 </div>
 

@@ -98,7 +98,7 @@ if($viewModel->exists("model"))
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="/files/download&id=<?php echo $data['UserFileId']?>">
+                                        <a href="/files/download/id=<?php echo $data['UserFileId']?>">
                                             <i class="rounded-x icon-cloud-download"></i>
                                         </a>
                                     </li>
@@ -106,7 +106,7 @@ if($viewModel->exists("model"))
                                     if (isFileOwner($data['UserId']))
                                     {?>
                                     <li>
-                                        <a href="/files/delete&id=<?php echo $data['UserFileId']?>">
+                                        <a href="/files/delete/id=<?php echo $data['UserFileId']?>">
                                             <i class="rounded-x icon-trash"></i>
                                         </a>
                                     </li>
