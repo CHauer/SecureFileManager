@@ -158,7 +158,7 @@ class FilesController extends BaseController
             return;
         }
 
-        if (!isset($_GET['id']))
+        /*if (!isset($_GET['id']))
         {
             $viewModel = $this->model->index();
             $viewModel->set("error", "Something went wrong during your registration - please try again!");
@@ -166,8 +166,8 @@ class FilesController extends BaseController
             return;
         }
 
-        $id = $_GET['id'];
-        $viewModel = $this->model->delete($id);
+        $id = $_GET['id'];*/
+        $viewModel = $this->model->delete(4);
 
         /*if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST') {
 

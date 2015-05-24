@@ -26,11 +26,11 @@ class FilesModel extends BaseModel
     {
         $this->viewModel->set("pageTitle","Delete File");
 
-        $fileRepo = new FileRepository();
+        //$fileRepo = new FileRepository();
 
-        $file = $fileRepo->GetFile($fileid);
+//        $file = $fileRepo->GetFile($fileid);
 
-        $this->viewModel->set("model", $file);
+  //      $this->viewModel->set("model", $file);
 
         return $this->viewModel;
     }
