@@ -86,7 +86,6 @@ if($viewModel->exists("model"))
                                         ?>
                                         <li><?php echo $data['Username']?></li>
                                         <li>Uploaded <?php echo $data['Uploaded'] ?></li>
-                                        <li hidden="true"><?php $data['UserFileId'] ?></li>
                                     </ul>
                                     <h2><a href="#"><?php echo $data['Name']?></a></h2>
                                     <p><?php echo $data['Description']?></p>
@@ -107,7 +106,7 @@ if($viewModel->exists("model"))
                                     if (isFileOwner($data['UserId']))
                                     {?>
                                     <li>
-                                        <a href="/files/delete">
+                                        <a href="/files/delete&id=<? ModelValue($model, 'UserFileId')?>">
                                             <i class="rounded-x icon-trash"></i>
                                         </a>
                                     </li>
@@ -115,7 +114,6 @@ if($viewModel->exists("model"))
                                 </ul>
                             </div>
                         </div>
-
                         <hr/>
                     <?php
                 }
