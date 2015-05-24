@@ -45,8 +45,10 @@ if($viewModel->exists("model"))
                     <? ValidationErrorMessage("FileLink", $viewModel) ?>
                 </div>
 
+                <div class="form-group">
                 <label>File Description </label>
                 <textarea name="Description" class="form-control margin-bottom-20" maxlength="3000"<? ModelValue($model, 'Description')?> > </textarea>
+                </div>
 
                 <div class="row">
                     <div class="col-lg-6 checkbox">

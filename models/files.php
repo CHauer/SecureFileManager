@@ -21,6 +21,19 @@ class FilesModel extends BaseModel
         $this->viewModel->set("pageTitle","Upload");
         return $this->viewModel;
     }
+
+    public function delete($fileid)
+    {
+        $this->viewModel->set("pageTitle","Delete File");
+
+        $fileRepo = new FileRepository();
+
+        $file = $fileRepo->GetFile($fileid);
+
+        $this->viewModel->set("model", $file);
+
+        return $this->viewModel;
+    }
 }
 
 ?>

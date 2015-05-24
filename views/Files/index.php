@@ -107,7 +107,7 @@ if($viewModel->exists("model"))
                                     {?>
                                     <li>
                                         <a href="/files/delete">
-                                            <i class="rounded-x fa-trash"></i>
+                                            <i class="rounded-x icon-trash"></i>
                                         </a>
                                     </li>
                                     <?}?>

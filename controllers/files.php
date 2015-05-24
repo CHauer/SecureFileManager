@@ -63,19 +63,24 @@ class FilesController extends BaseController
         $viewModel = $this->model->upload();
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST') {
-            #region # Create File
-            $file = new UserFile();
-            $viewModel->set("model", $file);
 
-            $file->Name = $_POST["Name"];
-            $file->Description = PrepareHtml($_POST["Description"]);
-            if (isset($_POST["IsPrivate"])) {
-                $file->IsPrivate = '1';
-            } else {
-                $file->IsPrivate = '0';
+            try {
+                #region # Create File
+                $file = new UserFile();
+                $viewModel->set("model", $file);
+
+                $file->Name = $_POST["Name"];
+                $file->Description = PrepareHtml($_POST["Description"]);
+                if (isset($_POST["IsPrivate"])) {
+                    $file->IsPrivate = '1';
+                } else {
+                    $file->IsPrivate = '0';
+                }
+                $file->UserId = $_SESSION["userid"];
+                #endregion
+            } catch (Exception $ex) {
+                ;
             }
-            $file->UserId = $_SESSION["userid"];
-            #endregion
 
             if (!$this->validateRegisterData($viewModel)) {
                 $this->view->output($viewModel);
@@ -144,29 +149,39 @@ class FilesController extends BaseController
         return $ok;
     }
 
-    protected function delete($fileid)
+    protected function delete()
     {
-        $viewModel = $this->model->index();
-
-        try {
-            $filesrepo = new FileRepository();
-            if(!$filesrepo->DeleteFile($fileid))
-            {
-                throw new Exception("Something went wrong during upload a file - please try again!");
-            }
-        } catch (Exception $e)
+        if (!isFileOwner($_SESSION["userid"]))
         {
-            $viewModel->set("error", $e->getMessage());
-        }
-        #endregion
-
-        //no error
-        if (!$viewModel->exists("error")) {
             RedirectAction("files", "index");
-            return;
+        }
+
+        $viewModel = $this->model->delete($_POST["UserFileId"]);
+
+        if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST') {
+
+            try {
+                $fileRepo = new FileRepository();
+
+                if (!$fileRepo->DeleteFile($_POST["UserFileId"])) {
+                    $viewModel->set("error", "Something went wrong during your registration - please try again!");
+                }
+
+            } catch (Exception $e)
+            {
+                $viewModel->set("error", $e->getMessage());
+            }
+
+            //no error
+            if (!$viewModel->exists("error"))
+            {
+                RedirectAction("files", "index");
+                return;
+            }
         }
 
         $this->view->output($viewModel);
+
     }
 }
 

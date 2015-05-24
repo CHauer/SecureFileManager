@@ -43,9 +43,43 @@ class FileRepository
         return false;
     }
 
+    public function GetFile($fileid)
+    {
+        global $db;
+
+        $stmt = $db->prepare('select top 1
+           ,[Description]
+           ,[Name]
+           from [dbo].[UserFile]
+           where UserFileId=:fileid');
+
+        $stmt->bindParam(":fileid", $fileid);
+        $stmt->execute();
+
+        $result = $stmt->fetch();
+
+        if ($result == false)
+        {
+            throw new InvalidArgumentException("The given fileid does not exist!");
+        }
+
+        $file = new File();
+
+        $file->UserFileId = $fileid;
+        $file->Description = $result["Description"];
+        $file->Name = $result["Name"];
+
+        return $file;
+    }
+
     public function DeleteFile($fileid)
     {
         global $db;
+
+        $stmt = $db->prepare('delete from [Comment] where UserFile_UserFileId = :fileid');
+        $stmt->bindParam(':fileid', $fileid);
+        $stmt->execute();
+
         $stmt = $db->prepare('Delete From [UserFile] where UserFileId = :fileid');
         $stmt->bindParam(':fileid', $fileid);
         $stmt->execute();
