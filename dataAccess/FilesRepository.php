@@ -63,7 +63,7 @@ class FileRepository
             throw new InvalidArgumentException("The given fileid does not exist!");
         }
 
-        $file = new File();
+        $file = new UserFile();
 
         $file->UserFileId = $fileid;
         $file->Description = $result["Description"];
