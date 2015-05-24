@@ -151,6 +151,7 @@ class FilesController extends BaseController
         foreach ($urlValues as $s) {
             echo $s . '/n';
         }
+        echo $urlValues[2];
 
         $id = 4;
 
