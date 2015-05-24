@@ -35,7 +35,7 @@ if($viewModel->exists("model"))
                 }
                 ?>
 
-                <label name="UserFileId" <? ModelValue($model, 'UserFileId')?>>
+                <label name="UserFileId" hidden="true" <? ModelValue($model, 'UserFileId')?>>
 
                 <div class="form-group">
                     <label>File Name <span class="color-red">*</span></label>
