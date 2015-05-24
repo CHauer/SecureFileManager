@@ -99,16 +99,19 @@ if($viewModel->exists("model"))
                                     </li>
                                     <li>
                                         <a href="/files/download">
-                                            <i class="rounded-x icon-download"></i>
-                                            <span></span>
+                                            <i class="rounded-x icon-cloud-download"></i>
                                         </a>
                                     </li>
+                                    <?php
+                                    if (isFileOwner($data['UserId']))
+                                    {?>
+                                    <li>
+                                        <a href="/files/delete">
+                                            <i class="rounded-x fa-trash"></i>
+                                        </a>
+                                    </li>
+                                    <?}?>
                                 </ul>
-                                <?php
-                                if (isFileOwner($data['UserId']))
-                                {?>
-                                    <a class="btn btn-default col-md-5" href="/files/delete" >Delete File</a>
-                                <?}?>
                             </div>
                         </div>
 
