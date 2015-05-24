@@ -37,12 +37,13 @@ if($viewModel->exists("model"))
 
                 <div class="row">
                     <label>File Name: </label>
-                    <label name="Name" class="margin-bottom-20 control-label" >hhhhhhhhhhhhhh<?php $model->Name ?></label>
+                    <label class="margin-bottom-20">djkfjjdsfh</label>
+                    <label class="margin-bottom-20 control-label" >hhhhhhhhhhhhhh<?php $model->Name ?></label>
                 </div>
 
                 <div class="row">
-                <label>File Description: </label>
-                <label name="Description" class="margin-bottom-20 control-label"><?php $model->Description ?></label>
+                    <label>File Description: </label>
+                    <label class="margin-bottom-20">djkfjjdsfh</label>
                 </div>
                 <hr>
 
