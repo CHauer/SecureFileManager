@@ -40,10 +40,17 @@ if($viewModel->exists("model"))
                     <label class="margin-bottom-20 control-label" ><?php echo $model->Name ?></label>
                 </div>
 
+                <?php
+                if (!is_null($model->Description) && $model->Description != '')
+                {
+                    ?>
+
                 <div class="form-group">
                     <label class="control-label" >File Description: </label><br/>
                     <label class="margin-bottom-20 control-label"><?php echo $model->Description ?></label>
                 </div>
+
+                <?php } ?>
                 <hr>
 
                 <div class="row">
