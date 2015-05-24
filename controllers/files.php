@@ -153,7 +153,7 @@ class FilesController extends BaseController
         if (!isset($id))
         {
             $viewModel = $this->model->index();
-            $viewModel->set("error", "Something went wrong during your registration - please try again!");
+            $viewModel->set("error", "Something went wrong - please try again!");
             $this->view->output($viewModel);
             return;
         }
@@ -166,7 +166,7 @@ class FilesController extends BaseController
                 $fileRepo = new FileRepository();
 
                 if (!$fileRepo->DeleteFile($id)) {
-                    $viewModel->set("error", "Something went wrong during your registration - please try again!");
+                    $viewModel->set("error", "Something went wrong - please try again!");
                 }
 
             } catch (Exception $e)
