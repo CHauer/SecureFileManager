@@ -99,7 +99,7 @@ if($viewModel->exists("model"))
                                         <li><?php echo $data['Username']?></li>
                                         <li>Uploaded <?php echo $data['Uploaded'] ?></li>
                                     </ul>
-                                    <h2><a href="#"><?php echo $data['Name']?></a></h2>
+                                    <h2><a href="/files/details/<?php echo $data['UserFileId']?>"><?php echo $data['Name']?></a></h2>
                                     <p><?php echo $data['Description']?></p>
                                 </div>
                                 <ul class="post-shares">
