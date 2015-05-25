@@ -80,10 +80,30 @@ class FileRepository
         $stmt->bindParam(':fileid', $fileid);
         $stmt->execute();
 
+        $stmt = $db->prepare('Select FileLink from [UserFile] where UserFileId = :fileid');
+        $stmt->bindParam(':fileid', $fileid);
+        $stmt->execute();
+
+        $result = $stmt->fetch();
+
+        if ($result == false)
+        {
+            throw new InvalidArgumentException("The given fileid does not exist!");
+        }
+
+        $path = $result["FileLink"];
+
+        if (file_exists($path))
+        {
+            unlink($path);
+        }
+
         $stmt = $db->prepare('Delete From [UserFile] where UserFileId = :fileid');
         $stmt->bindParam(':fileid', $fileid);
         $stmt->execute();
-        if ($stmt->rowCount() == 1) {
+
+        if ($stmt->rowCount() == 1)
+        {
             return true;
         }
         return false;
