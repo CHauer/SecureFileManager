@@ -61,7 +61,7 @@ class FilesController extends BaseController
                 $viewModel->set("model", $file);
 
                 $file->Name = $_POST["Name"];
-                $file->Description = PrepareHtml($_POST["Description"]);
+                $file->Description = $_POST["Description"];
                 if (isset($_POST["IsPrivate"])) {
                     $file->IsPrivate = '1';
                 } else {

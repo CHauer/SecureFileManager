@@ -25,7 +25,7 @@ class CommentRepository
             :UserId,
             :UserFileId)");
 
-        $stmt->bindParam(":Message", htmlspecialchars($comment->Name));
+        $stmt->bindParam(":Message", PrepareHtml($comment->Name));
         $stmt->bindParam(":UserId", $comment->UserId);
         $stmt->bindParam(":UserFileId",$comment->UserFile_UserFileId);
 
