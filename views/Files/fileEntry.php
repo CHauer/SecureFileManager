@@ -47,7 +47,7 @@ if($viewModel->exists("model"))
 
                 <div class="form-group">
                     <label class="control-label" >File Description: </label><br/>
-                    <label class="margin-bottom-20 control-label">55555<?php echo $model->Description ?></label>
+                    <label class="margin-bottom-20 control-label"><?php echo $model->Description ?></label>
                 </div>
 
                 <?php } ?>
