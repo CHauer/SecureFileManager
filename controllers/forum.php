@@ -60,7 +60,7 @@ class ForumController extends BaseController
                 $entry = new Entry();
                 // TODO: error handling if entry could not be added
                 // TODO: show success message if entry has been added
-                $entry->Message = $_POST["Message"];
+                $entry->Message = PrepareHtml($_POST["Message"]);
                 $entry->ForumThreadId = $id;
                 $entry->UserId = $_SESSION["userid"];
 
