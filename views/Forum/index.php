@@ -60,9 +60,9 @@
                         <td><? echo $data["EntryCount"] ?></td>
                         <td>
                             <?
-                            echo '<a href="/forum/thread/' . $data["ForumThreadId"] . '"><span class="glyphicon glyphicon-eye-open btn-u-red"> View</span></a>&nbsp;&nbsp;';
+                            echo '<a href="/forum/thread/' . $data["ForumThreadId"] . '"><span class="glyphicon glyphicon-eye-open btn-u-red">View</span></a>&nbsp;&nbsp;&nbsp;';
                             if($_SESSION["userid"] == $data["UserId"]) {
-                                echo '<a href="/forum/delete/' . $data["ForumThreadId"] . '"><span class="glyphicon glyphicon-remove btn-u-red"> Delete</span></a>';
+                                echo '<a href="/forum/delete/' . $data["ForumThreadId"] . '"><span class="glyphicon glyphicon-remove btn-u-red">Delete</span></a>';
                             }
                             ?>
                         </td>

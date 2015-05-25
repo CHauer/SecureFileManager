@@ -89,13 +89,13 @@ class ForumController extends BaseController
 
             #region # Create Thread
             $thread = new ForumThread();
-            $thread->Title = $_POST["Title"];
-            $thread->Description = $_POST["Description"];
+            $thread->Title = PrepareHtml($_POST["Title"]);
+            $thread->Description = PrepareHtml($_POST["Description"]);
             $thread->IsDeleted = 0;
             $thread->UserId = $_SESSION['userid'];
             #endregion
 
-            #region # Insert File
+            #region # Insert Thread
             try
             {
                 $forumRepository = new ForumRepository();
