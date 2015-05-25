@@ -133,7 +133,7 @@ class FilesController extends BaseController
                 $filepath = '/upload/files/' . $_SESSION["userid"] . '/' . $filename;
 
                 if (!move_uploaded_file($_FILES[$postFileName]["tmp_name"],
-                        $filepath))
+                        'securefile.azurewebsites.net' . $filepath))
                 {
                     throw new RuntimeException('Failed to move uploaded file.');
                 }
