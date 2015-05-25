@@ -214,6 +214,25 @@ class FilesController extends BaseController
 
     }
 
+    protected function details()
+    {
+        ConfirmUserIsLoggedOn();
+
+        $id = $this->urlValues['id'];
+
+        if (!isset($id) || empty($id))
+        {
+            $_SESSION['error'] = "Something went wrong - please try again!";
+            RedirectAction("files", "index");
+            return;
+        }
+
+        $viewModel = $this->model->details($id);
+
+        $this->view->output($viewModel);
+
+    }
+
     protected function download()
     {
         ConfirmUserIsLoggedOn();

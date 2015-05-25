@@ -41,7 +41,7 @@ if($viewModel->exists("model"))
 
                 <div class="form-group <? ValidationErrorClass("FileLink", $viewModel) ?>">
                     <label class="control-label" >File Link  <span class="color-red">*</span></label>
-                    <input type="file" name="FileLink" class="margin-bottom-20 file_import">
+                    <input type="file" name="FileLink" class="margin-bottom-20">
                     <? ValidationErrorMessage("FileLink", $viewModel) ?>
                 </div>
 

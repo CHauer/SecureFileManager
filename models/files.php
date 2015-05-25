@@ -50,6 +50,25 @@ class FilesModel extends BaseModel
 
         return $this->viewModel;
     }
+
+    public function details($fileid)
+    {
+        $this->viewModel->set("pageTitle","File Details");
+
+        try
+        {
+            $fileRepo = new FileRepository();
+
+            $file = $fileRepo->GetFile($fileid);
+
+            $this->viewModel->set("model", $file);
+
+        } catch (Exception $e) {
+            $this->viewModel->set("error", $e->getMessage());
+        }
+
+        return $this->viewModel;
+    }
 }
 
 ?>
