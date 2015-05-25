@@ -144,6 +144,8 @@ class FilesController extends BaseController
 
     protected function delete()
     {
+        ConfirmUserIsLoggedOn();
+
         $id = $this->urlValues['id'];
 
         if (!isset($id) || empty($id))
