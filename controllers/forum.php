@@ -139,8 +139,6 @@ class ForumController extends BaseController
 
         $forumrepo = new ForumRepository();
         try {
-            echo $id;
-            echo $_SESSION["userid"];
             if (IsThreadOwner($id, $_SESSION["userid"])) {
                 $success = $forumrepo->DeleteById($id);
 
