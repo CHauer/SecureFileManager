@@ -38,7 +38,7 @@ class ForumController extends BaseController
         } else
         {
             $forumrepo = new ForumRepository();
-            $viewModel->set("thread", $forumrepo->GetForumThreadById($id));
+            $viewModel->set("thread", $forumrepo->GetForumThreadById(intval($id)));
         }
         $this->view->output($viewModel);
     }
@@ -97,7 +97,7 @@ class ForumController extends BaseController
             //no error
             if(!$viewModel->exists("error"))
             {
-                // TODO: redirect to new created forum thread -> create action for existing threads
+                // TODO: show message that thread has been created
                 RedirectAction("forum", "thread", $threadId);
                 return;
             }
