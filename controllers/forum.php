@@ -66,6 +66,8 @@ class ForumController extends BaseController
 
                 $forumrepo->PostEntryToThread($entry);
 
+                $_SESSION["createdEntry"] = "Answer successfully created";
+
                 $thread = $forumrepo->GetForumThreadById($id);
                 $viewModel->set("thread", $thread);
                 $viewModel->set("entries", $forumrepo->GetEntriesForThread($thread->ForumThreadId));
