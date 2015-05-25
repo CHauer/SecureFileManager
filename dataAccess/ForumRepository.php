@@ -40,9 +40,10 @@ class ForumRepository {
     }
 
     /**
-     * @param int $userId
+     * @param int $threadId
+     * @return ForumThread
      */
-    public function GetForumThreadById(int $threadId)
+    public function GetForumThreadById($threadId)
     {
         global $db;
 

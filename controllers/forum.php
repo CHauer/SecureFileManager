@@ -38,7 +38,7 @@ class ForumController extends BaseController
         } else
         {
             $forumrepo = new ForumRepository();
-            $viewModel->set("thread", $forumrepo->GetForumThreadById(intval($id)));
+            $viewModel->set("thread", $forumrepo->GetForumThreadById($id));
         }
         $this->view->output($viewModel);
     }
