@@ -39,9 +39,9 @@ class ForumController extends BaseController
 
 
         if (!$user->Role->WriteForum) {
-            #$_SESSION['redirectError'] = "You don't have permissions to start a new thread.";
-            #RedirectAction("forum", "index");
-            #return;
+            $_SESSION['redirectError'] = "You don't have permissions to start a new thread.";
+            RedirectAction("forum", "index");
+            return;
         }
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
