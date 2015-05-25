@@ -48,69 +48,73 @@
             echo "<p>" . $thread->Description . "</p>";
         }
         ?>
-    <div class="panel panel-light-green margin-bottom-20">
-        <div class="panel-heading
-            <h3 class="panel-title"><i class="fa fa-tasks"></i> Answers</h3>
-    </div>
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th>Message</th>
-            <th>Created</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?
-        if (!is_null($entries)) {
-            foreach ($entries as $data) {
-                ?>
+        <div class="panel panel-light-green margin-bottom-20">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-tasks"></i> Answers</h3>
+            </div>
+            <table class="table table-hover">
+                <thead>
                 <tr>
-                    <td><? echo $data["Message"] ?></td>
-                    <td><? echo $data["Created"] . " by " . $data["Username"] ?></td>
-                    <td>
-
-                    </td>
+                    <th>Message</th>
+                    <th>Created</th>
+                    <th>Actions</th>
                 </tr>
-            <?
-            }
-        }
+                </thead>
+                <tbody>
+                <?
+                if (!is_null($entries)) {
+                    foreach ($entries as $data) {
+                        ?>
+                        <tr>
+                            <td><? echo $data["Message"] ?></td>
+                            <td><? echo $data["Created"] . " by " . $data["Username"] ?></td>
+                            <td>
+
+                            </td>
+                        </tr>
+                    <?
+                    }
+                }
+                ?>
+                </tbody>
+            </table>
+        </div>
+        <?
+        $userrepo = new UserRepository();
+        $rolerepo = new RoleRepository();
+
+        $user = $userrepo->GetUser(intval($_SESSION['userid']));
+        $user->Role = $rolerepo->GetRole($user->RoleId);
+
+
+        if ($user->Role->WriteForum) {
         ?>
-        </tbody>
-    </table>
-
-    <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
-        <form class="reg-page" action="" method="post">
-            <div class="reg-header">
-                <h2>Post a new answer</h2>
+        <div class="panel panel-aqua margin-bottom-20">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-tasks"></i> Answers</h3>
             </div>
+            <form class="reg-page" action="" method="post">
+                <div class="reg-header">
+                    <h2>Post a new answer</h2>
+                </div>
 
-            <?
-            if($viewModel->exists("error")){
-                echo '<h3 class="color-red">' . $viewModel->get("error") . '</h3>';
-            }
-            ?>
+                <div class="form-group <? ValidationErrorClass("Message", $viewModel) ?> ">
+                    <label>Message <span class="color-red">*</span></label>
+                    <input type="text" name="Message" class="form-control margin-bottom-20" maxlength="200">
+                    <? ValidationErrorMessage("Message", $viewModel) ?>
+                </div>
 
-            <div class="form-group <? ValidationErrorClass("Title", $viewModel) ?> ">
-                <label>Message <span class="color-red">*</span></label>
-                <input type="text" name="Message" class="form-control margin-bottom-20" maxlength="200">
-                <? ValidationErrorMessage("Message", $viewModel) ?>
-            </div>
-
-            <div class="col-lg-6 text-right">
-                <button class="btn-u" type="submit">Post answer</button>
-            </div>
-        </form>
-    </div>
-
-
-
+                <div class="col-lg-6 text-right">
+                    <button class="btn-u" type="submit">Post answer</button>
+                </div>
+            </form>
+        </div>
 
     <?
+        }
     }
     ?>
     <div class="col-lg-6 text-right">
         <p><a class="color-green" href="/forum/index">Return to forum.</a></p>
     </div>
-</div>
 </div>
