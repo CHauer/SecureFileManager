@@ -26,62 +26,64 @@ if($viewModel->exists("comments"))
 ?>
 
 <!--=== Content Part ===-->
-<div class="container content">
+<div class="container content profile">
     <div class="row">
-        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-                <? CreateHiddenAntiCSRFTokenField(); ?>
 
-                <div class="reg-header">
-                    <h2>Show File Details</h2>
-                </div>
+        <? CreateHiddenAntiCSRFTokenField(); ?>
 
-                <?
-                if($viewModel->exists("error")){
-                    echo '<h3 class="color-red">' . $viewModel->get("error") . '</h3>';
-                }
-                ?>
+        <!--Left Sidebar-->
+        <div class="col-md-3 md-margin-bottom-40">
 
-                <div class="form-group">
-                    <label class="control-label" >File Name: </label><br/>
-                    <label class="margin-bottom-20 control-label" ><?php echo $model->Name ?></label>
-                </div>
+            <div class="form-group">
+                <label class="control-label" >File Name: </label><br/>
+                <label class="margin-bottom-20 control-label" ><?php echo $model->Name ?></label>
+            </div>
 
-                <div class="form-group">
-                    <label class="control-label" >File Description: </label><br/>
-                    <label class="margin-bottom-20 control-label"><?php echo $model->Description ?></label>
-                </div>
+            <div class="form-group">
+                <label class="control-label" >File Description: </label><br/>
+                <label class="margin-bottom-20 control-label"><?php echo $model->Description ?></label>
+            </div>
+
+        </div>
+        <!--End Left Sidebar-->
+
+        <div class="col-md-9">
+
+            <?
+            if($viewModel->exists("error")){
+                echo '<h3 class="color-red">' . $viewModel->get("error") . '</h3>';
+            }
+            ?>
 
             <?php
-            if (!is_null($comments))
-            {
-                foreach($comments as $data)
-                {
+            if (!is_null($comments)) {
+                foreach ($comments as $data) {
                     ?>
-                    <div class="col-md-9">
-                        <div class="profile-body">
-                            <div class="panel panel-profile">
-                                <div class="panel-heading overflow-h">
-                                    <h2 class="panel-title heading-sm pull-left">
-                                        Users Comments</h2>
+                    <div class="profile-body">
+                        <div class="panel panel-profile">
+                            <div class="panel-heading overflow-h">
+                                <h2 class="panel-title heading-sm pull-left">
+                                    Users Comments</h2>
+                            </div>
+                            <div class="panel-body margin-bottom-10">
+                                <div class="media media-v2">
+                                    <a class="pull-left">
+                                        <img class="media-object rounded-x" src="<?php echo $data['PictureLink'] ?>"
+                                             alt="">
+                                    </a>
+
+                                    <div class="media-body">
+                                        <h4 class="media-heading">
+                                            <strong><?php echo $data['Username'] ?></strong>
+                                            <small><?php echo ModelDateTimeValue($data['Created']) ?></small>
+                                        </h4>
+                                        <p><?php echo $data['Message'] ?></p>
+                                    </div>
                                 </div>
-                                <div class="panel-body margin-bottom-10">
-                                    <div class="media media-v2">
-                                        <a class="pull-left">
-                                            <img class="media-object rounded-x" src="<?php echo $data['PictureLink'] ?>" alt="">
-                                        </a>
-                                        <div class="media-body">
-                                            <h4 class="media-heading">
-                                                <strong><?php echo $data['Username'] ?></strong>
-                                                <small><?php echo ModelDateTimeValue($data['Created']) ?></small>
-                                            </h4>
-                                            <p><?php echo $data['Message'] ?></p>
-                                        </div>
-                                    </div><!--/end media media v2-->
-                                </div>
+                                <!--/end media media v2-->
                             </div>
                         </div>
                     </div>
-
                 <?php
                 }
             }
