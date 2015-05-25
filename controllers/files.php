@@ -73,6 +73,11 @@ class FilesController extends BaseController
                 ;
             }
 
+            if (!$this->validateRegisterData($viewModel)) {
+                $this->view->output($viewModel);
+                return;
+            }
+
             #region # Insert File
             try {
                 $filelink = $this->HandleUpload("FileLink");
@@ -82,11 +87,6 @@ class FilesController extends BaseController
                     throw new Exception("Something went wrong during handle the link - please try again!");
                 }
                 $file->FileLink = $filelink;
-
-                if (!$this->validateRegisterData($viewModel)) {
-                    $this->view->output($viewModel);
-                    return;
-                }
 
                 $filesrepo = new FileRepository();
                 $fileid = $filesrepo->InsertFile($file);
