@@ -34,7 +34,7 @@
         echo '<h3 class="color-red">' . $viewModel->get("error") . '</h3>';
     } else {
         if(isset($_SESSION["redirectError"])) {
-            echo '<h3 class="color-green">' . $_SESSION["redirectError"] . '</h3>';
+            echo '<h3 class="color-red">' . $_SESSION["redirectError"] . '</h3>';
             $_SESSION["redirectError"] = null;
         }
 

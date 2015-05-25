@@ -210,6 +210,7 @@ class ForumRepository {
      */
     public function DeleteEntryById($entryId)
     {
+        // TODO: return error if entry doesn't exist?
         global $db;
 
         $stmt = $db->prepare('UPDATE [Entry] SET [IsDeleted] = 1 where [EntryId] = :entryid');
