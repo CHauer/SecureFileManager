@@ -64,14 +64,10 @@ function IsThreadOwner($forumThreadId, $userId)
 
     $thread = $forumrepo->GetForumThreadById($forumThreadId);
 
-    echo $thread->UserId;
-    echo $userId;
     if($thread->UserId == $userId) {
-        echo "true";
         return true;
     }
 
-    echo "false";
     return false;
 }
 ?>

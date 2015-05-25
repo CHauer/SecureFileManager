@@ -153,7 +153,7 @@ class ForumController extends BaseController
         } catch(InvalidArgumentException $e) {
             $_SESSION["redirectError"] = $e->getMessage();
         }
-        #RedirectAction("forum", "index");
+        RedirectAction("forum", "index");
     }
 
     private function validateThreadData(ViewModel &$viewModel)
