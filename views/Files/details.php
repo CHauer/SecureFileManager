@@ -48,17 +48,18 @@ if($viewModel->exists("comments"))
             if($viewModel->exists("error")){
                 echo '<h3 class="color-red">' . $viewModel->get("error") . '</h3>';
             }
-            ?>
 
-            <?php
             if (!is_null($comments)) {
-                foreach ($comments as $data) {
-                    ?>
-                    <div class="profile-body">
-                        <div class="panel panel-profile">
-                            <div class="reg-header">
-                                <h2>User Comments</h2>
-                            </div>
+                ?>
+
+                <div class="profile-body">
+                    <div class="panel panel-profile">
+                        <div class="reg-header">
+                            <h2>User Comments</h2>
+                        </div>
+                        <?php
+                        foreach ($comments as $data) {
+                            ?>
                             <div class="panel-body margin-bottom-10">
                                 <div class="media media-v2">
                                     <a class="pull-left">
@@ -76,10 +77,12 @@ if($viewModel->exists("comments"))
                                 </div>
                                 <!--/end media media v2-->
                             </div>
-                        </div>
+                        <?php
+                        }
+                        ?>
                     </div>
-                <?php
-                }
+                </div>
+            <?php
             }
             ?>
         </div>
