@@ -57,4 +57,17 @@ function isFileOwner($userid)
     }
     return false;
 }
+
+function IsThreadOwner($forumThreadId, $userId)
+{
+    $forumrepo = new ForumRepository();
+
+    $thread = $forumrepo->GetForumThreadById($forumThreadId);
+
+    if($thread->UserId == $userId) {
+        return true;
+    }
+
+    return false;
+}
 ?>

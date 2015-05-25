@@ -46,7 +46,14 @@ class ForumController extends BaseController
         {
             try {
                 $forumrepo = new ForumRepository();
-                $viewModel->set("thread", $forumrepo->GetForumThreadById($id));
+                $thread = $forumrepo->GetForumThreadById($id);
+                if(!$thread->IsDeleted) {
+                    $viewModel->set("thread", $forumrepo->GetForumThreadById($id));
+                } else {
+                    $_SESSION['redirectError'] = "The requested thread doesn't exist.";
+                    RedirectAction("forum", "index");
+                    return;
+                }
             } catch(InvalidArgumentException $e) {
                 $viewModel->set("error", $e->getMessage());
             }
@@ -132,6 +139,23 @@ class ForumController extends BaseController
         }
 
         return $ok;
+    }
+
+    private function delete() {
+        ConfirmUserIsLoggedOn();
+        $viewModel = $this->model->thread();
+
+        $id = $this->urlValues['id'];
+
+        if (!isset($id) || empty($id))
+        {
+            $_SESSION["redirectError"] = "No thread id specified";
+            RedirectAction("forum", "index");
+            return;
+        }
+
+        $forumrepo = new ForumRepository();
+        $forumrepo->DeleteById($id);
     }
 }
 
