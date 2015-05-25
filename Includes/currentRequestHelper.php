@@ -37,5 +37,5 @@ function ModelDateValue($model, $field)
 
 function ModelDateTimeValue($field)
 {
-   echo 'echo ' . date_format($field, 'd.m.Y H:i');
+   return date_format($field, 'd.m.Y');
 }

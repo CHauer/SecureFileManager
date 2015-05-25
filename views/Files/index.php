@@ -97,7 +97,7 @@ if($viewModel->exists("model"))
                                             }
                                          ?>
                                         <li><?php echo $data['Username']?></li>
-                                        <li>Uploaded <?php ModelDateTimeValue($data['Uploaded']) ?></li>
+                                        <li>Uploaded <?php echo ModelDateTimeValue($data['Uploaded']) ?></li>
                                     </ul>
                                     <h2><a href="/files/details/<?php echo $data['UserFileId']?>"><?php echo $data['Name']?></a></h2>
                                     <p><?php echo $data['Description']?></p>
