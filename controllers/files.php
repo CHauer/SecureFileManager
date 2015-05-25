@@ -130,7 +130,7 @@ class FilesController extends BaseController
             if ($_FILES[$postFileName]["size"] > 0)
             {
                 $filename = uniqid() . '_' . $dname;
-                $filepath = '/upload/files/' . $_SESSION["userid"] . '/' . $filename;
+                $filepath = 'upload/files/' . $_SESSION["userid"] . '/' . $filename;
 
                 if (!move_uploaded_file($_FILES[$postFileName]["tmp_name"],
                         $filepath))
