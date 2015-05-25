@@ -8,7 +8,6 @@
 
 class FileRepository
 {
-
     /**
      * @param UserFile $file
      * @return bool
@@ -39,7 +38,6 @@ class FileRepository
         if ($stmt->rowCount() == 1) {
             return $db->lastInsertId();
         }
-
         return false;
     }
 
