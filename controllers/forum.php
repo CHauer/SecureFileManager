@@ -46,6 +46,12 @@ class ForumController extends BaseController
         {
             if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST') {
                 // Post entry
+
+                if(!$this->validateEntryData($viewModel)) {
+                    $this->view->output($viewModel);
+                    return;
+                }
+
                 $entry = new Entry();
                 // TODO: check if message is not empty
                 // TODO: error handling if entry could not be added
@@ -186,6 +192,18 @@ class ForumController extends BaseController
 
         if (!isset($_POST["Description"]) || $_POST["Description"] == '') {
             $viewModel->setFieldError("Description", "Description has to be entered!");
+            $ok = false;
+        }
+
+        return $ok;
+    }
+
+    private function validateEntryData(ViewModel &$viewModel)
+    {
+        $ok = true;
+
+        if (!isset($_POST["Message"]) || $_POST["Message"] == '') {
+            $viewModel->setFieldError("Message", "Message has to be entered!");
             $ok = false;
         }
 
