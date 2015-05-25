@@ -34,6 +34,7 @@ class ForumController extends BaseController
     protected function thread()
     {
         ConfirmUserIsLoggedOn();
+        $forumrepo = new ForumRepository();
         $viewModel = $this->model->thread();
 
         $id = $this->urlValues['id'];
@@ -48,19 +49,21 @@ class ForumController extends BaseController
                 // Post entry
 
                 if(!$this->validateEntryData($viewModel)) {
+                    $thread = $forumrepo->GetForumThreadById($id);
+                    $viewModel->set("thread", $thread);
+                    $viewModel->set("entries", $forumrepo->GetEntriesForThread($thread->ForumThreadId));
+
                     $this->view->output($viewModel);
                     return;
                 }
 
                 $entry = new Entry();
-                // TODO: check if message is not empty
                 // TODO: error handling if entry could not be added
                 // TODO: show success message if entry has been added
                 $entry->Message = $_POST["Message"];
                 $entry->ForumThreadId = $id;
                 $entry->UserId = $_SESSION["userid"];
 
-                $forumrepo = new ForumRepository();
                 $forumrepo->PostEntryToThread($entry);
 
                 $thread = $forumrepo->GetForumThreadById($id);
@@ -68,7 +71,6 @@ class ForumController extends BaseController
                 $viewModel->set("entries", $forumrepo->GetEntriesForThread($thread->ForumThreadId));
             } else {
                 try {
-                    $forumrepo = new ForumRepository();
                     $thread = $forumrepo->GetForumThreadById($id);
                     if (!$thread->IsDeleted) {
                         $viewModel->set("thread", $thread);
