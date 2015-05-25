@@ -102,7 +102,7 @@ class ForumController extends BaseController
             //no error
             if(!$viewModel->exists("error"))
             {
-                $_SESSION["success"] = "Thread successfully created!";
+                $_SESSION["createdThread"] = "Thread successfully created!";
                 RedirectAction("forum", "thread", $threadId);
                 return;
             }

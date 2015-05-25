@@ -12,8 +12,9 @@
     if($viewModel->exists("error")){
         echo '<h3 class="color-red">' . $viewModel->get("error") . '</h3>';
     } else {
-        if($viewModel->exists("success")) {
-            echo '<h3 class="color-green">' . $viewModel->get("success") . '</h3>';
+        if(isset($_SESSION["createdThread"])) {
+            echo '<h3 class="color-green">' . $_SESSION["createdThread"] . '</h3>';
+            $_SESSION["createdThread"] = null;
         }
 
         if(!is_null($thread)) {
