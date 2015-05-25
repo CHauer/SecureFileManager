@@ -89,8 +89,8 @@ class ForumController extends BaseController
 
             #region # Create Thread
             $thread = new ForumThread();
-            $thread->Title = PrepareHtml($_POST["Title"]);
-            $thread->Description = PrepareHtml($_POST["Description"]);
+            $thread->Title = htmlentities($_POST["Title"]);
+            $thread->Description = htmlentities($_POST["Description"]);
             $thread->IsDeleted = 0;
             $thread->UserId = $_SESSION['userid'];
             #endregion
