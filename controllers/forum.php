@@ -49,6 +49,7 @@ class ForumController extends BaseController
                 $thread = $forumrepo->GetForumThreadById($id);
                 if(!$thread->IsDeleted) {
                     $viewModel->set("thread", $forumrepo->GetForumThreadById($id));
+                    $viewModel->set("entries", $forumrepo->GetEntriesForThread($thread->ForumThreadId));
                 } else {
                     $_SESSION['redirectError'] = "The requested thread doesn't exist.";
                     RedirectAction("forum", "index");

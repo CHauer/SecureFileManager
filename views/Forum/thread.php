@@ -19,6 +19,14 @@
     {
         $thread = $viewModel->get("thread");
     }
+
+    $entries = null;
+
+    if($viewModel->exists("entries"))
+    {
+        $entries = $viewModel->get("entries");
+    }
+    ?>
     ?>
 
     <?
@@ -34,6 +42,39 @@
             echo "<h1>" . $thread->Title ."</h1>";
             echo "<p>" . $thread->Description . "</p>";
         }
+        ?>
+    <div class="panel panel-light-green margin-bottom-20">
+        <div class="panel-heading
+            <h3 class="panel-title"><i class="fa fa-tasks"></i> Answers</h3>
+    </div>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Message</th>
+            <th>Created</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?
+        if (!is_null($entries)) {
+            foreach ($entries as $data) {
+                ?>
+                <tr>
+                    <td><? echo $data["Message"] ?></td>
+                    <td><? echo $data["Created"] . " by " . $data["Username"] ?></td>
+                    <td>
+
+                    </td>
+                </tr>
+            <?
+            }
+        }
+        ?>
+        </tbody>
+    </table>
+</div>
+    <?
     }
     ?>
     <div class="col-lg-6 text-right">

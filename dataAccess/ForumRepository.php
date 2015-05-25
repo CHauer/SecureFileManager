@@ -78,6 +78,30 @@ class ForumRepository {
         return $thread;
     }
 
+    public function GetEntriesForThread($threadId)
+    {
+        global $db;
+
+        $stmt = $db->prepare('SELECT [EntryId], [Message], [Created], [Entry].[UserId], [Username]
+                                FROM [Entry] JOIN [User] ON [Entry].[UserId] = [User].[UserId]
+                                WHERE [IsDeleted] = 0
+                                ORDER BY [Created] DESC');
+
+        $stmt->execute();
+
+        $results = $stmt->fetchAll();
+
+        for ($i = 0; $i < count($results); ++$i) {
+            $results[$i]['Created'] = date("d.m.Y H:i", strtotime($results[$i]['Created']));
+        }
+
+        if ($stmt->columnCount() >= 1) {
+            return $results;
+        } else {
+            return null;
+        }
+    }
+
     public function GetNotDeletedThreads()
     {
         global $db;
