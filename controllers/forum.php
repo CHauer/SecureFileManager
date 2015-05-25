@@ -98,7 +98,7 @@ class ForumController extends BaseController
             if(!$viewModel->exists("error"))
             {
                 // TODO: redirect to new created forum thread -> create action for existing threads
-                RedirectAction("forum", "index");
+                RedirectAction("forum", "thread", $threadId);
                 return;
             }
         }
