@@ -46,6 +46,12 @@ if($viewModel->exists("model"))
             $_SESSION["error"] = null;
         }
         ?>
+        <?
+        if(isset($_SESSION["deleteFile"])){
+            echo '<h3 class="color-red">' . $_SESSION["deleteFile"] . '</h3>';
+            $_SESSION["deleteFile"] = null;
+        }
+        ?>
 
         <form class="page-search-form" action="/files/index" method="post">
             <div class="row margin-bottom-40">

@@ -175,6 +175,7 @@ class FilesController extends BaseController
             //no error
             if (!$viewModel->exists("error"))
             {
+                $_SESSION["deleteFile"] = "File successfully deleted!";
                 RedirectAction("files", "index");
                 return;
             }
