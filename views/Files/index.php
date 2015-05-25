@@ -89,15 +89,15 @@ if($viewModel->exists("model"))
                                 <div class="news-v3-in-sm no-padding">
                                     <ul class="list-inline posted-info">
                                         <?php
-/*                                            if (!is_null($data['PictureLink']))
+                                            if (!is_null($data['PictureLink']))
                                             {
-                                                */?><!--
-                                                <img class="rounded-x" src="<?php /*$data['PictureLink'] */?>" alt="">
-                                                --><?php
-/*                                            }
-                                        */?>
+                                                ?>
+                                                <img class="rounded-x" src="<?php echo $data['PictureLink'] ?>" alt="">
+                                                <?php
+                                            }
+                                         ?>
                                         <li><?php echo $data['Username']?></li>
-                                        <li>Uploaded <?php echo $data['Uploaded'] ?></li>
+                                        <li>Uploaded <?php echo ModelDateTimeValue($data['Uploaded']) ?></li>
                                     </ul>
                                     <h2><a href="/files/details/<?php echo $data['UserFileId']?>"><?php echo $data['Name']?></a></h2>
                                     <p><?php echo $data['Description']?></p>

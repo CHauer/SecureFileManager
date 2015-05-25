@@ -72,6 +72,28 @@ class FileRepository
         return $file;
     }
 
+    public function GetComments($fileid)
+    {
+        global $db;
+        $isprivate = 0;
+
+        $stmt = $db->prepare('Select [Comment].Message, [Comment].Created, Username, PictureLink
+                              From [Comment] left join [User] on [Comment].UserId = [User].UserId
+                              where [Comment].UserFile_UserFileId = :fileid
+                              order by Created DESC');
+
+        $stmt->bindParam(':fileid', $fileid);
+
+        $stmt->execute();
+
+        $results = $stmt->fetchAll();
+
+        if ($stmt->columnCount() >= 1)
+        {
+            return $results;
+        }
+    }
+
     private function GetFileLink($fileid) {
 
         global $db;
@@ -137,10 +159,6 @@ class FileRepository
         $stmt->execute();
 
         $results = $stmt->fetchAll();
-
-        for ($i = 0; $i < count($results); ++$i) {
-            $results[$i]['Uploaded'] = date("d.m.Y H:i", strtotime($results[$i]['Uploaded']));
-        }
 
         if ($stmt->columnCount() >= 1) {
             return $results;
