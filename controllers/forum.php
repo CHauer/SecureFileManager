@@ -38,19 +38,10 @@ class ForumController extends BaseController
         $user->Role = $rolerepo->GetRole($user->RoleId);
 
 
-        try
-        {
-            if (!$user->Role->WriteForum) {
-                $_SESSION['redirectError'] = "You don't have permissions to start a new thread.";
-                RedirectAction("forum", "index");
-                return;
-            }
-        }
-        catch(Exception $e)
-        {
-            $_SESSION['redirectError'] = $e->getMessage();
-            RedirectAction("forum", "index");
-            return;
+        if (!$user->Role->WriteForum) {
+            #$_SESSION['redirectError'] = "You don't have permissions to start a new thread.";
+            #RedirectAction("forum", "index");
+            #return;
         }
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
