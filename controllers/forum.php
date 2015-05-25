@@ -48,6 +48,8 @@ class ForumController extends BaseController
                 // Post entry
                 $entry = new Entry();
                 // TODO: check if message is not empty
+                // TODO: error handling if entry could not be added
+                // TODO: show success message if entry has been added
                 $entry->Message = $_POST["Message"];
                 $entry->ForumThreadId = $id;
                 $entry->UserId = $_SESSION["userid"];
@@ -55,12 +57,15 @@ class ForumController extends BaseController
                 $forumrepo = new ForumRepository();
                 $forumrepo->PostEntryToThread($entry);
 
+                $thread = $forumrepo->GetForumThreadById($id);
+                $viewModel->set("thread", $thread);
+                $viewModel->set("entries", $forumrepo->GetEntriesForThread($thread->ForumThreadId));
             } else {
                 try {
                     $forumrepo = new ForumRepository();
                     $thread = $forumrepo->GetForumThreadById($id);
                     if (!$thread->IsDeleted) {
-                        $viewModel->set("thread", $forumrepo->GetForumThreadById($id));
+                        $viewModel->set("thread", $thread);
                         $viewModel->set("entries", $forumrepo->GetEntriesForThread($thread->ForumThreadId));
                     } else {
                         $_SESSION['redirectError'] = "The requested thread doesn't exist.";
