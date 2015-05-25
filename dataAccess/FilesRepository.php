@@ -142,6 +142,8 @@ class FileRepository
         if ($stmt->columnCount() >= 1) {
             return $results;
         }
+
+        return null;
     }
 
     public function DownloadFile($fileid)

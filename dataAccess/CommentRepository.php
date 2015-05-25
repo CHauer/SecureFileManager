@@ -18,13 +18,14 @@ class CommentRepository
             :UserId,
             :UserFileId)");
 
-        $stmt->bindParam(":Message", PrepareHtml($comment->Name));
+        $stmt->bindParam(":Message", PrepareHtml($comment->Message));
         $stmt->bindParam(":UserId", $comment->UserId);
         $stmt->bindParam(":UserFileId", $comment->UserFile_UserFileId);
 
         $stmt->execute();
 
-        if ($stmt->rowCount() == 1) {
+        if ($stmt->rowCount() == 1)
+        {
             return $db->lastInsertId();
         }
 
@@ -50,5 +51,6 @@ class CommentRepository
         if ($stmt->columnCount() >= 1) {
             return $results;
         }
+        return null;
     }
 }
