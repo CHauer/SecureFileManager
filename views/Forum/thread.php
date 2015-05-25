@@ -17,7 +17,7 @@
     <h1>Showing thread!</h1>
         <?
         if(!is_null($thread)) {
-            echo "<p>" . $thread["Title"] . "</p>";
+            echo "<p>" . $thread->Title . "</p>";
         }
     }
     ?>
