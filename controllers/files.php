@@ -127,10 +127,19 @@ class FilesController extends BaseController
                     throw new RuntimeException('Unknown errors.');
             }
 
+            $path = 'upload/files/' . $_SESSION["userid"];
+
+            if (!file_exists($path))
+            {
+                mkdir($path, 0777, true);
+            } else {
+                throw new RuntimeException('Test da');
+            }
+
             if ($_FILES[$postFileName]["size"] > 0)
             {
                 $filename = uniqid() . '_' . $dname;
-                $filepath = 'upload/files/' . $_SESSION["userid"] . '/' . $filename;
+                $filepath = $path . '/' . $filename;
 
                 if (!move_uploaded_file($_FILES[$postFileName]["tmp_name"],
                         $filepath))
