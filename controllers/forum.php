@@ -44,19 +44,32 @@ class ForumController extends BaseController
         }
         else
         {
-            try {
+            if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST') {
+                // Post entry
+                $entry = new Entry();
+                // TODO: check if message is not empty
+                $entry->Message = $_POST["Message"];
+                $entry->ForumThreadId = $id;
+                $entry->UserId = $_SESSION["userid"];
+
                 $forumrepo = new ForumRepository();
-                $thread = $forumrepo->GetForumThreadById($id);
-                if(!$thread->IsDeleted) {
-                    $viewModel->set("thread", $forumrepo->GetForumThreadById($id));
-                    $viewModel->set("entries", $forumrepo->GetEntriesForThread($thread->ForumThreadId));
-                } else {
-                    $_SESSION['redirectError'] = "The requested thread doesn't exist.";
-                    RedirectAction("forum", "index");
-                    return;
+                $forumrepo->PostEntryToThread($entry);
+
+            } else {
+                try {
+                    $forumrepo = new ForumRepository();
+                    $thread = $forumrepo->GetForumThreadById($id);
+                    if (!$thread->IsDeleted) {
+                        $viewModel->set("thread", $forumrepo->GetForumThreadById($id));
+                        $viewModel->set("entries", $forumrepo->GetEntriesForThread($thread->ForumThreadId));
+                    } else {
+                        $_SESSION['redirectError'] = "The requested thread doesn't exist.";
+                        RedirectAction("forum", "index");
+                        return;
+                    }
+                } catch (InvalidArgumentException $e) {
+                    $viewModel->set("error", $e->getMessage());
                 }
-            } catch(InvalidArgumentException $e) {
-                $viewModel->set("error", $e->getMessage());
             }
         }
         $this->view->output($viewModel);

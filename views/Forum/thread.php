@@ -11,6 +11,7 @@
 </div><!--/breadcrumbs-->
 <!--=== End Breadcrumbs ===-->
 
+<!--=== Content Part ===-->
 <div class="container content">
     <?
     $thread = null;
@@ -27,7 +28,6 @@
         $entries = $viewModel->get("entries");
     }
     ?>
-    ?>
 
     <?
     if($viewModel->exists("error")){
@@ -36,6 +36,11 @@
         if(isset($_SESSION["createdThread"])) {
             echo '<h3 class="color-green">' . $_SESSION["createdThread"] . '</h3>';
             $_SESSION["createdThread"] = null;
+        }
+
+        if(isset($_SESSION["createdEntry"])) {
+            echo '<h3 class="color-green">' . $_SESSION["createdEntry"] . '</h3>';
+            $_SESSION["createdEntry"] = null;
         }
 
         if(!is_null($thread)) {
@@ -73,11 +78,39 @@
         ?>
         </tbody>
     </table>
-</div>
+
+    <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+        <form class="reg-page" action="" method="post">
+            <div class="reg-header">
+                <h2>Post a new answer</h2>
+            </div>
+
+            <?
+            if($viewModel->exists("error")){
+                echo '<h3 class="color-red">' . $viewModel->get("error") . '</h3>';
+            }
+            ?>
+
+            <div class="form-group <? ValidationErrorClass("Title", $viewModel) ?> ">
+                <label>Message <span class="color-red">*</span></label>
+                <input type="text" name="Message" class="form-control margin-bottom-20" maxlength="200">
+                <? ValidationErrorMessage("Message", $viewModel) ?>
+            </div>
+
+            <div class="col-lg-6 text-right">
+                <button class="btn-u" type="submit">Post answer</button>
+            </div>
+        </form>
+    </div>
+
+
+
+
     <?
     }
     ?>
     <div class="col-lg-6 text-right">
         <p><a class="color-green" href="/forum/index">Return to forum.</a></p>
     </div>
+</div>
 </div>

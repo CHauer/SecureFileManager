@@ -124,8 +124,35 @@ class ForumRepository {
         }
     }
 
+    public function PostEntryToThread($entry)
+    {
+        global $db;
+
+        $stmt = $db->prepare("INSERT INTO [dbo].[Entry]
+           ([Message]
+           ,[ForumThreadId]
+           ,[UserId])
+     VALUES
+           (:Message,
+           :ForumThreadId,
+           :UserId)");
+        $stmt->bindParam(":Message", $entry->Message);
+        $stmt->bindParam(":ForumThreadId", $entry->ForumThreadId);
+        $stmt->bindParam(":UserId", $entry->UserId);
+
+        $stmt->execute();
+
+        if ($stmt->rowCount() == 1)
+        {
+            return $db->lastInsertId();
+        }
+
+        return false;
+    }
+
     /**
      * @param int $forumThreadId
+     * @return bool
      */
     public function DeleteById($forumThreadId)
     {
