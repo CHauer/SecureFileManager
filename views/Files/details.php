@@ -61,12 +61,13 @@ if($viewModel->exists("comments"))
                         <div class="profile-body">
                             <div class="panel panel-profile">
                                 <div class="panel-heading overflow-h">
-                                    <h2 class="panel-title heading-sm pull-left"><i class="fa fa-comments"></i>Users Comments</h2>
+                                    <h2 class="panel-title heading-sm pull-left">
+                                        Users Comments</h2>
                                 </div>
-                                <div class="panel-body margin-bottom-50">
+                                <div class="panel-body margin-bottom-10">
                                     <div class="media media-v2">
-                                        <a class="pull-left" href="#">
-                                            <img class="media-object rounded-x" src="assets/img/testimonials/img2.jpg" alt="">
+                                        <a class="pull-left">
+                                            <img class="media-object rounded-x" src="<?php echo $data['PictureLink'] ?>" alt="">
                                         </a>
                                         <div class="media-body">
                                             <h4 class="media-heading">
