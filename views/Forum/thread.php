@@ -1,3 +1,16 @@
+<!--=== Breadcrumbs ===-->
+<div class="breadcrumbs">
+    <div class="container">
+        <h1 class="pull-left">View thread</h1>
+        <ul class="pull-right breadcrumb">
+            <li><a href="/forum/index">Forum</a></li>
+            <li class="active">View thread</li>
+        </ul>
+    </div>
+    <!--/container-->
+</div><!--/breadcrumbs-->
+<!--=== End Breadcrumbs ===-->
+
 <div class="container content">
     <?
     $thread = null;

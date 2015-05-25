@@ -1,7 +1,7 @@
 <!--=== Breadcrumbs ===-->
 <div class="breadcrumbs">
     <div class="container">
-        <h1 class="pull-left">NewThread</h1>
+        <h1 class="pull-left">New thread</h1>
         <ul class="pull-right breadcrumb">
             <li><a href="/forum/index">Forum</a></li>
             <li class="active">New thread</li>
