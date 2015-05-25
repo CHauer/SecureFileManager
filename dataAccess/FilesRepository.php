@@ -98,7 +98,7 @@ class FileRepository
         $stmt->bindParam(':fileid', $fileid);
         $stmt->execute();
 
-        $path = GetFileLink($fileid);
+        $path = $this->GetFileLink($fileid);
 
         if (file_exists($path))
         {
@@ -149,7 +149,7 @@ class FileRepository
 
     public function DownloadFile($fileid)
     {
-        $path = GetFileLink($fileid);
+        $path = $this->GetFileLink($fileid);
 
         if (file_exists($path))
         {
