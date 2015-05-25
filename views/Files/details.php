@@ -23,6 +23,11 @@ if($viewModel->exists("comments"))
 {
     $comments = $viewModel->get("comments");
 }
+
+if($viewModel->exists("comment"))
+{
+    $comment = $viewModel->get("comment");
+}
 ?>
 
 <!--=== Content Part ===-->
@@ -40,7 +45,7 @@ if($viewModel->exists("comments"))
             </div>
 
             <div class="overflow-h">
-                <label class="control-label" >File Name: </label><br/>
+                <label class="control-label" >File Description: </label><br/>
                 <label class="margin-bottom-20" style="word-wrap: break-word"><?php echo $model->Description ?></label>
             </div>
         </div>
@@ -89,29 +94,38 @@ if($viewModel->exists("comments"))
             <?php
             }
             ?>
-        </div>
-        <?
-        if(IsPremiumUser()) {
-            ?>
-            <form class="reg-page" action="/files/comment" method="post">
-                <div class="col-md-9">
-                    <div class="margin-left-5">
 
-                        <div class="reg-header">
-                            <h2>Comment a file</h2>
-                        </div>
+            <?
+            if(IsPremiumUser()) {
+                ?>
+                <form class="reg-page" action="/files/details/<?php echo $model->UserFileId ?>" method="post">
+                    <div class="col-md-9">
+                        <div class="margin-left-5">
 
-                        <div class="form-group <? ValidationErrorClass("Message", $viewModel) ?> ">
-                            <label class="control-label">Message <span class="color-green">*</span></label>
-                            <input type="text" name="Message" class="form-control margin-bottom-20">
-                            <? ValidationErrorMessage("Message", $viewModel) ?>
+                            <div class="reg-header">
+                                <h2>Comment a file</h2>
+                            </div>
+
+                            <div class="form-group <? ValidationErrorClass("Message", $viewModel) ?> ">
+                                <label class="control-label">Message <span class="color-green">*</span></label>
+                                <input type="text" name="Message" class="form-control margin-bottom-20" <? ModelValue($comment, 'Message')?> maxlength="500">
+                                <? ValidationErrorMessage("Message", $viewModel) ?>
+                            </div>
+
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-lg-6 text-right">
+                                    <button class="btn-u" type="submit">Comment</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>
-        <?
-        }
-        ?>
+                </form>
+            <?
+            }
+            ?>
+        </div>
     </div>
 </div><!--/container-->
 <!--=== End Content Part ===-->

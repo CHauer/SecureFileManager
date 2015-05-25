@@ -49,6 +49,7 @@ class FileRepository
 
         $stmt = $db->prepare('select top 1
             [Description]
+            ,[UserFileId]
            ,[Name]
            from [dbo].[UserFile]
            where UserFileId=:fileid');
@@ -70,28 +71,6 @@ class FileRepository
         $file->Name = $result["Name"];
 
         return $file;
-    }
-
-    public function GetComments($fileid)
-    {
-        global $db;
-        $isprivate = 0;
-
-        $stmt = $db->prepare('Select [Comment].Message, [Comment].Created, Username, PictureLink
-                              From [Comment] left join [User] on [Comment].UserId = [User].UserId
-                              where [Comment].UserFile_UserFileId = :fileid
-                              order by Created DESC');
-
-        $stmt->bindParam(':fileid', $fileid);
-
-        $stmt->execute();
-
-        $results = $stmt->fetchAll();
-
-        if ($stmt->columnCount() >= 1)
-        {
-            return $results;
-        }
     }
 
     private function GetFileLink($fileid) {

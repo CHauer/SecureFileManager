@@ -73,7 +73,7 @@ class FilesController extends BaseController
                 ;
             }
 
-            if (!$this->validateRegisterData($viewModel)) {
+            if (!$this->validateFileData($viewModel)) {
                 $this->view->output($viewModel);
                 return;
             }
@@ -152,7 +152,7 @@ class FilesController extends BaseController
         return NULL;
     }
 
-    private function validateRegisterData(ViewModel &$viewModel)
+    private function validateFileData(ViewModel &$viewModel)
     {
         $ok = true;
 
@@ -229,6 +229,51 @@ class FilesController extends BaseController
 
         $viewModel = $this->model->details($id);
 
+        if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
+        {
+            #region # Create Comment
+            try {
+
+                $comment = new Comment();
+
+                $viewModel->set("comment", $comment);
+
+                $comment->UserFile_UserFileId = $id;
+                $comment->Message = $_POST["Message"];
+                $comment->UserId = $_SESSION["userid"];
+
+            } catch (Exception $ex)
+            {
+                ;
+            }
+            #endregion
+
+            if (!$this->validateCommentData($viewModel)) {
+                $this->view->output($viewModel);
+                return;
+            }
+
+            #region # Insert Comment
+            try {
+
+                $commrepo = new CommentRepository();
+                $commid = $commrepo->InsertFile($comment);
+                if ($commid == false)
+                {
+                    throw new Exception("Something went wrong during comment a file - please try again!");
+                }
+            } catch (Exception $e) {
+                $viewModel->set("error", $e->getMessage());
+            }
+            #endregion
+
+            //no error
+            if (!$viewModel->exists("error")) {
+                RedirectAction("files", "details", $id);
+                return;
+            }
+        }
+
         $this->view->output($viewModel);
 
     }
@@ -261,6 +306,20 @@ class FilesController extends BaseController
 
         RedirectAction("files", "index");
     }
+
+    private function validateCommentData(ViewModel &$viewModel)
+    {
+        $ok = true;
+
+        if (!isset($_POST["Message"]) || $_POST["Message"] == '')
+        {
+            $viewModel->setFieldError("Message", "Message has to be entered!");
+            $ok = false;
+        }
+
+        return $ok;
+    }
+
 }
 
 ?>
