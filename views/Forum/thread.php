@@ -33,14 +33,14 @@
     if($viewModel->exists("error")){
         echo '<h3 class="color-red">' . $viewModel->get("error") . '</h3>';
     } else {
-        if(isset($_SESSION["createdThread"])) {
-            echo '<h3 class="color-green">' . $_SESSION["createdThread"] . '</h3>';
-            $_SESSION["createdThread"] = null;
+        if(isset($_SESSION["redirectError"])) {
+            echo '<h3 class="color-red">' . $_SESSION["redirectError"] . '</h3>';
+            $_SESSION["redirectError"] = null;
         }
 
-        if(isset($_SESSION["createdEntry"])) {
-            echo '<h3 class="color-green">' . $_SESSION["createdEntry"] . '</h3>';
-            $_SESSION["createdEntry"] = null;
+        if(isset($_SESSION["redirectSuccess"])) {
+            echo '<h3 class="color-green">' . $_SESSION["redirectSuccess"] . '</h3>';
+            $_SESSION["redirectSuccess"] = null;
         }
 
         if(!is_null($thread)) {
