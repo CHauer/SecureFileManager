@@ -95,6 +95,24 @@ class ForumRepository {
     }
 
     /**
+     * @param int $forumThreadId
+     */
+    public function DeleteById($forumThreadId)
+    {
+        global $db;
+
+        $stmt = $db->prepare('UPDATE [ForumThread] SET [IsDeleted] = 1 where [ForumThreadid] = :threadid');
+        $stmt->bindParam(':threadid', $forumThreadId);
+        $stmt->execute();
+
+        if ($stmt->rowCount() == 1)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * @param int $userId
      */
     public function GetForumThreadForUser(int $userId)

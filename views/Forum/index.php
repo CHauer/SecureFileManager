@@ -40,6 +40,7 @@
                 <th>Description</th>
                 <th>Created</th>
                 <th>Answers</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -52,6 +53,13 @@
                         <td><? echo $data["Description"] ?></td>
                         <td><? echo $data["Created"] . " by " . $data["Username"] ?></td>
                         <td><? echo $data["EntryCount"] ?></td>
+                        <td>
+                            <?
+                            if($_SESSION["userid"] == $data["UserId"]) {
+                                echo '<a href="/forum/delete/' . $data["ForumThreadId"] . '"><span class="glyphicon glyphicon-remove btn-u-red">Delete</span></a>';
+                            }
+                            ?>
+                        </td>
                     </tr>
                 <?
                 }
