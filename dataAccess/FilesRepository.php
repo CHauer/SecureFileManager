@@ -151,6 +151,8 @@ class FileRepository
     {
         $path = $this->GetFileLink($fileid);
 
+        echo $path;
+
         if (file_exists($path))
         {
             header('Content-Description: File Transfer');
@@ -164,5 +166,10 @@ class FileRepository
             flush();
             readfile($path);
         }
+        else
+        {
+            return false;
+        }
+        return true;
     }
 }

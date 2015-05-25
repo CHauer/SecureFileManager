@@ -197,10 +197,14 @@ class FilesController extends BaseController
             return;
         }
 
-        try {
+        try
+        {
             $fileRepo = new FileRepository();
 
-            $fileRepo->DownloadFile($id);
+            if (!$fileRepo->DownloadFile($id))
+            {
+                $_SESSION['error'] = "File couldn't be downloaded - please try again!";
+            }
 
         } catch (Exception $e)
         {
