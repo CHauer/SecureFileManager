@@ -11,6 +11,7 @@ class CommentRepository {
     public function InsertComment(Comment $comment)
     {
         global $db;
+
         $stmt = $db->prepare("INSERT INTO [dbo].[Comment]
           ([Message],
           [UserId],
