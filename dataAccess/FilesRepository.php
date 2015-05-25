@@ -72,6 +72,28 @@ class FileRepository
         return $file;
     }
 
+    public function GetComments($fileid)
+    {
+        global $db;
+        $isprivate = 0;
+
+        $stmt = $db->prepare('Select [Comment].Message, [Comment].Created, Username, PictureLink
+                              From [Comment] left join [User] on [Comment].UserId = [User].UserId
+                              where [Comment].UserFile_UserFileId = :fileid
+                              order by Created DESC');
+
+        $stmt->bindParam(':fileid', $fileid);
+
+        $stmt->execute();
+
+        $results = $stmt->fetchAll();
+
+        if ($stmt->columnCount() >= 1)
+        {
+            return $results;
+        }
+    }
+
     private function GetFileLink($fileid) {
 
         global $db;
@@ -121,7 +143,9 @@ class FileRepository
         global $db;
         $isprivate = 0;
 
-        $stmt = $db->prepare('Select [UserFile].*, Username, PictureLink, (Select count(Commentid) From Comment where UserFile_UserFileId = [Userfile].UserFileId) as CommentCount
+        $stmt = $db->prepare('Select [UserFile].UserFileId, [UserFile].Name, [UserFile].Description,
+                              [UserFile].Uploaded, [UserFile].IsPrivate,
+                              Username, PictureLink, (Select count(Commentid) From Comment where UserFile_UserFileId = [Userfile].UserFileId) as CommentCount
                               from [UserFile] left join [User] on [UserFile].UserId = [User].UserId
                               where (IsPrivate = :ispriv or [UserFile].UserId = :id) and [User].Username LIKE :user
                               and Name LIKE :file order by ' . $order . ' DESC, Name');
@@ -137,10 +161,6 @@ class FileRepository
         $stmt->execute();
 
         $results = $stmt->fetchAll();
-
-        for ($i = 0; $i < count($results); ++$i) {
-            $results[$i]['Uploaded'] = date("d.m.Y H:i", strtotime($results[$i]['Uploaded']));
-        }
 
         if ($stmt->columnCount() >= 1) {
             return $results;

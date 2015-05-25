@@ -63,6 +63,10 @@ class FilesModel extends BaseModel
 
             $this->viewModel->set("model", $file);
 
+            $comments = $fileRepo->GetComments($fileid);
+
+            $this->viewModel->set("comments", $comments);
+
         } catch (Exception $e) {
             $this->viewModel->set("error", $e->getMessage());
         }
