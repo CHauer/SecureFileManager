@@ -49,7 +49,10 @@ class ForumRepository {
 
         $stmt = $db->prepare('select
             [Title],
-            [Description]
+            [Description],
+            [UserId],
+            [Created],
+            [IsDeleted]
            from [dbo].[ForumThread]
            where [ForumThreadId]=:threadid');
 
@@ -68,6 +71,9 @@ class ForumRepository {
         $thread->ForumThreadId = $threadId;
         $thread->Title = $result["Title"];
         $thread->Description = $result["Description"];
+        $thread->UserId = $result["UserId"];
+        $thread->Created = $result["Created"];
+        $thread->IsDeleted = $result["IsDeleted"];
 
         return $thread;
     }
