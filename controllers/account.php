@@ -40,7 +40,6 @@ class AccountController extends BaseController
                 $user->Firstname = $_POST["Firstname"];
                 $user->Lastname = $_POST["Lastname"];
 
-                $user->Description = ($_POST["Description"]);
                 $user->Password = $_POST["Password"];
 
                 try

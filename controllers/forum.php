@@ -44,18 +44,37 @@ class ForumController extends BaseController
         }
         else
         {
-            try {
+            if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST') {
+                // Post entry
+                $entry = new Entry();
+                // TODO: check if message is not empty
+                // TODO: error handling if entry could not be added
+                // TODO: show success message if entry has been added
+                $entry->Message = $_POST["Message"];
+                $entry->ForumThreadId = $id;
+                $entry->UserId = $_SESSION["userid"];
+
                 $forumrepo = new ForumRepository();
+                $forumrepo->PostEntryToThread($entry);
+
                 $thread = $forumrepo->GetForumThreadById($id);
-                if(!$thread->IsDeleted) {
-                    $viewModel->set("thread", $forumrepo->GetForumThreadById($id));
-                } else {
-                    $_SESSION['redirectError'] = "The requested thread doesn't exist.";
-                    RedirectAction("forum", "index");
-                    return;
+                $viewModel->set("thread", $thread);
+                $viewModel->set("entries", $forumrepo->GetEntriesForThread($thread->ForumThreadId));
+            } else {
+                try {
+                    $forumrepo = new ForumRepository();
+                    $thread = $forumrepo->GetForumThreadById($id);
+                    if (!$thread->IsDeleted) {
+                        $viewModel->set("thread", $thread);
+                        $viewModel->set("entries", $forumrepo->GetEntriesForThread($thread->ForumThreadId));
+                    } else {
+                        $_SESSION['redirectError'] = "The requested thread doesn't exist.";
+                        RedirectAction("forum", "index");
+                        return;
+                    }
+                } catch (InvalidArgumentException $e) {
+                    $viewModel->set("error", $e->getMessage());
                 }
-            } catch(InvalidArgumentException $e) {
-                $viewModel->set("error", $e->getMessage());
             }
         }
         $this->view->output($viewModel);

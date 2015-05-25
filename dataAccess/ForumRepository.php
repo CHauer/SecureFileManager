@@ -78,6 +78,30 @@ class ForumRepository {
         return $thread;
     }
 
+    public function GetEntriesForThread($threadId)
+    {
+        global $db;
+
+        $stmt = $db->prepare('SELECT [EntryId], [Message], [Created], [Entry].[UserId], [Username]
+                                FROM [Entry] JOIN [User] ON [Entry].[UserId] = [User].[UserId]
+                                WHERE [IsDeleted] = 0
+                                ORDER BY [Created] DESC');
+
+        $stmt->execute();
+
+        $results = $stmt->fetchAll();
+
+        for ($i = 0; $i < count($results); ++$i) {
+            $results[$i]['Created'] = date("d.m.Y H:i", strtotime($results[$i]['Created']));
+        }
+
+        if ($stmt->columnCount() >= 1) {
+            return $results;
+        } else {
+            return null;
+        }
+    }
+
     public function GetNotDeletedThreads()
     {
         global $db;
@@ -100,8 +124,35 @@ class ForumRepository {
         }
     }
 
+    public function PostEntryToThread($entry)
+    {
+        global $db;
+
+        $stmt = $db->prepare("INSERT INTO [dbo].[Entry]
+           ([Message]
+           ,[ForumThreadId]
+           ,[UserId])
+     VALUES
+           (:Message,
+           :ForumThreadId,
+           :UserId)");
+        $stmt->bindParam(":Message", $entry->Message);
+        $stmt->bindParam(":ForumThreadId", $entry->ForumThreadId);
+        $stmt->bindParam(":UserId", $entry->UserId);
+
+        $stmt->execute();
+
+        if ($stmt->rowCount() == 1)
+        {
+            return $db->lastInsertId();
+        }
+
+        return false;
+    }
+
     /**
      * @param int $forumThreadId
+     * @return bool
      */
     public function DeleteById($forumThreadId)
     {
