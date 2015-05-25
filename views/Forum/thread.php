@@ -23,5 +23,7 @@
         }
     }
     ?>
-
+    <div class="col-lg-6 text-right">
+        <button class="btn-u" href="forum/index">Return to forum</button>
+    </div>
 </div>
