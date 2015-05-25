@@ -21,7 +21,7 @@
     ?>
 
     <h1>Forum!</h1>
-    <div class="panel panel-yellow margin-bottom-40">
+    <div class="panel panel-light-green margin-bottom-40">
         <div class="panel-heading
             <h3 class="panel-title"><i class="fa fa-tasks"></i> Threads</h3>
         </div>
