@@ -142,18 +142,7 @@ class FilesController extends BaseController
 
     protected function delete()
     {
-        if (!isFileOwner($_SESSION["userid"])) {
-            RedirectAction("files", "index");
-            return;
-        }
-
-        $urlValues = $_GET;
-        foreach ($urlValues as $s) {
-            echo $s . '/n';
-        }
-        echo $urlValues[2];
-
-        $id = 4;
+        $id = $this->urlValues['id'];
 
         if (!isset($id))
         {
