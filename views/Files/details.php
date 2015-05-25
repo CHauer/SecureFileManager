@@ -71,7 +71,7 @@ if($viewModel->exists("comments"))
                                         <div class="media-body">
                                             <h4 class="media-heading">
                                                 <strong><?php echo $data['Username'] ?></strong>
-                                                <small><?php echo $data['Created'] ?></small>
+                                                <small><?php echo ModelDateTimeValue($data['Created']) ?></small>
                                             </h4>
                                             <p><?php echo $data['Message'] ?></p>
                                         </div>
