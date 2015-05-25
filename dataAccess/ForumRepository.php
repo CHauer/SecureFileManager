@@ -42,6 +42,38 @@ class ForumRepository {
     /**
      * @param int $userId
      */
+    public function GetForumThreadById(int $threadId)
+    {
+        global $db;
+
+        $stmt = $db->prepare('select
+            [Title],
+            [Description]
+           from [dbo].[ForumThread]
+           where [ForumThreadId]=:threadid');
+
+        $stmt->bindParam(":threadid", $threadId);
+        $stmt->execute();
+
+        $result = $stmt->fetch();
+
+        if ($result == false)
+        {
+            throw new InvalidArgumentException("The given thread ID does not exist!");
+        }
+
+        $thread = new ForumThread();
+
+        $thread->ForumThreadId = $threadId;
+        $thread->Title = $result["Title"];
+        $thread->Description = $result["Description"];
+
+        return $thread;
+    }
+
+    /**
+     * @param int $userId
+     */
     public function GetForumThreadForUser(int $userId)
     {
         global $db;

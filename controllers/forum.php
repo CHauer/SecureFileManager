@@ -25,6 +25,24 @@ class ForumController extends BaseController
         $this->view->output($this->model->index());
     }
 
+    protected function thread()
+    {
+        ConfirmUserIsLoggedOn();
+        $viewModel = $this->model->thread();
+
+        $id = $this->urlValues['id'];
+
+        if (!isset($id) || empty($id))
+        {
+            $viewModel->set("error", "Something went wrong - please try again!");
+        } else
+        {
+            $forumrepo = new ForumRepository();
+            $viewModel->set("thread", $forumrepo->GetForumThreadById($id));
+        }
+        $this->view->output($viewModel);
+    }
+
     protected function newThread()
     {
         $viewModel = $this->model->newThread();
