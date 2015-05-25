@@ -114,12 +114,30 @@ class FilesController extends BaseController
         {
             $dname = basename($_FILES[$postFileName]["name"]);
 
+            switch ($_FILES[$postFileName]['error']) {
+                case UPLOAD_ERR_OK:
+                    break;
+                case UPLOAD_ERR_NO_FILE:
+                    throw new RuntimeException('No file sent.');
+                case UPLOAD_ERR_INI_SIZE:
+                case UPLOAD_ERR_FORM_SIZE:
+                    throw new RuntimeException('Exceeded filesize limit.');
+                default:
+                    throw new RuntimeException('Unknown errors.');
+            }
+
             if ($_FILES[$postFileName]["size"] > 0)
             {
                 $filename = uniqid() . '_' . $dname;
                 $filepath = '/upload/files/' . $_SESSION["userid"] . '/' . $filename;
 
-                //copy($_FILES[$postFileName]["tmp_name"], $filepath);
+                copy(, $filepath);
+
+                if (!move_uploaded_file($_FILES[$postFileName]["tmp_name"],
+                        $filepath))
+                {
+                    throw new RuntimeException('Failed to move uploaded file.');
+                }
 
                 return $filepath;
             }
