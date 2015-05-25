@@ -89,26 +89,21 @@
 
         if ($user->Role->WriteForum) {
         ?>
-        <div class="panel panel-aqua margin-bottom-20">
-            <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-tasks"></i> Answers</h3>
+        <form class="reg-page" action="" method="post">
+            <div class="reg-header">
+                <h2>Post a new answer</h2>
             </div>
-            <form class="reg-page" action="" method="post">
-                <div class="reg-header">
-                    <h2>Post a new answer</h2>
-                </div>
 
-                <div class="form-group <? ValidationErrorClass("Message", $viewModel) ?> ">
-                    <label>Message <span class="color-red">*</span></label>
-                    <input type="text" name="Message" class="form-control margin-bottom-20" maxlength="200">
-                    <? ValidationErrorMessage("Message", $viewModel) ?>
-                </div>
+            <div class="form-group <? ValidationErrorClass("Message", $viewModel) ?> ">
+                <label>Message <span class="color-red">*</span></label>
+                <input type="text" name="Message" class="form-control margin-bottom-20" maxlength="200">
+                <? ValidationErrorMessage("Message", $viewModel) ?>
+            </div>
 
-                <div class="col-lg-6 text-right">
-                    <button class="btn-u" type="submit">Post answer</button>
-                </div>
-            </form>
-        </div>
+            <div class="col-lg-6 text-right">
+                <button class="btn-u" type="submit">Post answer</button>
+            </div>
+        </form>
 
     <?
         }
