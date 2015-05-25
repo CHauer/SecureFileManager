@@ -39,6 +39,10 @@ if($viewModel->exists("comments"))
                 <label class="margin-bottom-20" ><?php echo $model->Name ?></label>
             </div>
 
+            <div class="overflow-h">
+                <label class="control-label" >File Name: </label><br/>
+                <label class="margin-bottom-20" style="word-wrap: break-word"><?php echo $model->Description ?></label>
+            </div>
         </div>
         <!--End Left Sidebar-->
 
@@ -86,6 +90,28 @@ if($viewModel->exists("comments"))
             }
             ?>
         </div>
+        <?
+        if(IsPremiumUser()) {
+            ?>
+            <form class="reg-page" action="/files/comment" method="post">
+                <div class="col-md-9">
+                    <div class="margin-left-5">
+
+                        <div class="reg-header">
+                            <h2>Comment a file</h2>
+                        </div>
+
+                        <div class="form-group <? ValidationErrorClass("Message", $viewModel) ?> ">
+                            <label class="control-label">Message <span class="color-green">*</span></label>
+                            <input type="text" name="Message" class="form-control margin-bottom-20">
+                            <? ValidationErrorMessage("Message", $viewModel) ?>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        <?
+        }
+        ?>
     </div>
 </div><!--/container-->
 <!--=== End Content Part ===-->
