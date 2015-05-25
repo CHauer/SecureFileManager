@@ -40,7 +40,7 @@
                 foreach ($threads as $data) {
                     ?>
                     <tr>
-                        <td><? echo '<a href="/forum/thread/' . $data["ForumThreadId"] . '>' .  $data["Title"] . '</a>' ?></td>
+                        <td><? echo '<a href="/forum/thread/' . $data["ForumThreadId"] . '">' .  $data["Title"] . '</a>' ?></td>
                         <td><? echo $data["Description"] ?></td>
                         <td><? echo $data["Created"] . " by " . $data["Username"] ?></td>
                         <td><? echo $data["EntryCount"] ?></td>
