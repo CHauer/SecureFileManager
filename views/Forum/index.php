@@ -1,3 +1,16 @@
+<!--=== Breadcrumbs ===-->
+<div class="breadcrumbs">
+    <div class="container">
+        <h1 class="pull-left">Forum</h1>
+        <ul class="pull-right breadcrumb">
+            <li class="active">Forum</li>
+        </ul>
+    </div>
+    <!--/container-->
+</div><!--/breadcrumbs-->
+<!--=== End Breadcrumbs ===-->
+
+<!--=== Content Part ===-->
 <div class="container content">
     <?
     if($viewModel->exists("error")){
@@ -19,52 +32,40 @@
         $threads = $viewModel->get("threads");
     }
     ?>
-
-    <h1>Forum!</h1>
-    <div class="panel panel-light-green margin-bottom-40">
-        <div class="panel-heading
-            <h3 class="panel-title"><i class="fa fa-tasks"></i> Threads</h3>
-        </div>
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Created</th>
-                <th>Answers</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?
-            if (!is_null($threads)) {
-                foreach ($threads as $data) {
-                    ?>
-                    <tr>
-                        <td><? echo '<a href="/forum/thread/' . $data["ForumThreadId"] . '">' .  $data["Title"] . '</a>' ?></td>
-                        <td><? echo $data["Description"] ?></td>
-                        <td><? echo $data["Created"] . " by " . $data["Username"] ?></td>
-                        <td><? echo $data["EntryCount"] ?></td>
-                    </tr>
+    <div class="row md-margin-bottom-30">
+        <h1>Forum!</h1>
+        <div class="panel panel-light-green margin-bottom-40">
+            <div class="panel-heading
+                <h3 class="panel-title"><i class="fa fa-tasks"></i> Threads</h3>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Created</th>
+                    <th>Answers</th>
+                </tr>
+                </thead>
+                <tbody>
                 <?
+                if (!is_null($threads)) {
+                    foreach ($threads as $data) {
+                        ?>
+                        <tr>
+                            <td><? echo '<a href="/forum/thread/' . $data["ForumThreadId"] . '">' .  $data["Title"] . '</a>' ?></td>
+                            <td><? echo $data["Description"] ?></td>
+                            <td><? echo $data["Created"] . " by " . $data["Username"] ?></td>
+                            <td><? echo $data["EntryCount"] ?></td>
+                        </tr>
+                    <?
+                    }
                 }
-            }
-            ?>
-            </tbody>
-        </table>
+                ?>
+                </tbody>
+            </table>
+        </div>
     </div>
-
-
-
-
-
-
-
-
-
-    <?
-
-    ?>
-    <p>A forum is  gonna be here soon!</p>
 
     <div class="row md-margin-bottom-30">
         <h4>Start a new thread.</h4>
