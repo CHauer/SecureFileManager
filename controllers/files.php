@@ -112,7 +112,7 @@ class FilesController extends BaseController
     {
         if (isset($_FILES[$postFileName]))
         {
-            $dname = explode(".", $_FILES[$postFileName]["name"]);
+            $dname = basename($_FILES[$postFileName]["name"]);
 
             if ($_FILES[$postFileName]["size"] > 0)
             {
