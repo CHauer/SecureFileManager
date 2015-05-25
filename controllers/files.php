@@ -150,9 +150,7 @@ class FilesController extends BaseController
 
         if (!isset($id) || empty($id))
         {
-            $viewModel = $this->model->index();
-            $viewModel->set("error", "Something went wrong - please try again!");
-            $this->view->output($viewModel);
+            RedirectAction("files", "index");
             return;
         }
 
