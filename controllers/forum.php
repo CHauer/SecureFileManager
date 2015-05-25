@@ -27,9 +27,22 @@ class ForumController extends BaseController
 
     protected function newThread()
     {
+        $viewModel = $this->model->newThread();
+
         ConfirmUserIsLoggedOn();
 
-        $viewModel = $this->model->newThread();
+        $userrepo = new UserRepository();
+        $rolerepo = new RoleRepository();
+
+        $user = $userrepo->GetUser(intval($_SESSION['userid']));
+        $user->Role = $rolerepo->GetRole($user->RoleId);
+
+
+        if (!$user->Role->WriteForum) {
+            #$_SESSION['redirectError'] = "You don't have permissions to start a new thread.";
+            #RedirectAction("forum", "index");
+            #return;
+        }
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
         {
@@ -66,6 +79,7 @@ class ForumController extends BaseController
             //no error
             if(!$viewModel->exists("error"))
             {
+                // TODO: redirect to new created forum thread -> create action for existing threads
                 RedirectAction("forum", "index");
                 return;
             }

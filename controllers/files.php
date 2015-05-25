@@ -127,12 +127,14 @@ class FilesController extends BaseController
     {
         $ok = true;
 
-        if (!isset($_POST["Name"]) || $_POST["Name"] == '') {
+        if (!isset($_POST["Name"]) || $_POST["Name"] == '')
+        {
             $viewModel->setFieldError("Name", "Name has to be entered!");
             $ok = false;
         }
 
-        if (empty($_FILES['FileLink']['name'])) {
+        if (empty($_FILES['FileLink']['name']))
+        {
             $viewModel->setFieldError("FileLink", "File Link has to be entered!");
             $ok = false;
         }
@@ -142,20 +144,11 @@ class FilesController extends BaseController
 
     protected function delete()
     {
-        if (!isFileOwner($_SESSION["userid"])) {
-            RedirectAction("files", "index");
-            return;
-        }
+        ConfirmUserIsLoggedOn();
 
-        $urlValues = $_GET;
-        foreach ($urlValues as $s) {
-            echo $s . '/n';
-        }
-        echo $urlValues[2];
+        $id = $this->urlValues['id'];
 
-        $id = 4;
-
-        if (!isset($id))
+        if (!isset($id) || empty($id))
         {
             $viewModel = $this->model->index();
             $viewModel->set("error", "Something went wrong - please try again!");
