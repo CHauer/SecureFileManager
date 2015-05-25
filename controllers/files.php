@@ -132,8 +132,6 @@ class FilesController extends BaseController
             if (!file_exists($path))
             {
                 mkdir($path, 0777, true);
-            } else {
-                throw new RuntimeException('Test da');
             }
 
             if ($_FILES[$postFileName]["size"] > 0)
