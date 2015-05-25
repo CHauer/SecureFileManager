@@ -61,9 +61,9 @@ class FilesModel extends BaseModel
             $file = $fileRepo->GetFile($fileid);
             $this->viewModel->set("model", $file);
 
-            $commRepo = new CommentRepository();
+           /* $commRepo = new CommentRepository();
             $comments = $commRepo->GetComments($fileid);
-            $this->viewModel->set("comments", $comments);
+            $this->viewModel->set("comments", $comments);*/
 
         } catch (Exception $e) {
             $this->viewModel->set("error", $e->getMessage());
