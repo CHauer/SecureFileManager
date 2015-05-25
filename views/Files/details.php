@@ -34,14 +34,14 @@ if($viewModel->exists("comments"))
         <!--Left Sidebar-->
         <div class="col-md-3 md-margin-bottom-40">
 
-            <div class="form-group">
+            <div class="overflow-h">
                 <label class="control-label" >File Name: </label><br/>
-                <label class="margin-bottom-20 control-label" style="white-space: pre-line"><?php echo $model->Name ?></label>
+                <label class="margin-bottom-20" ><?php echo $model->Name ?></label>
             </div>
 
-            <div class="form-group">
+            <div class="overflow-h">
                 <label class="control-label" >File Description: </label><br/>
-                <label class="margin-bottom-20 control-label" style="white-space: pre-line" ><?php echo $model->Description ?></label>
+                <label class="margin-bottom-20" ><?php echo $model->Description ?></label>
             </div>
 
         </div>
