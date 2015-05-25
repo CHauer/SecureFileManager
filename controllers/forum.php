@@ -66,7 +66,7 @@ class ForumController extends BaseController
 
                 $forumrepo->PostEntryToThread($entry);
 
-                $_SESSION["createdEntry"] = "Answer successfully created";
+                $_SESSION["redirectSuccess"] = "Answer successfully created.";
 
                 $thread = $forumrepo->GetForumThreadById($id);
                 $viewModel->set("thread", $thread);
@@ -186,7 +186,7 @@ class ForumController extends BaseController
             //no error
             if(!$viewModel->exists("error"))
             {
-                $_SESSION["createdThread"] = "Thread successfully created!";
+                $_SESSION["redirectSuccess"] = "Thread successfully created!";
                 RedirectAction("forum", "thread", $threadId);
                 return;
             }
