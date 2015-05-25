@@ -61,8 +61,22 @@
         </table>
     </div>
 
-    <div class="md-margin-bottom-30">
-        <h4>Start a new thread.</h4>
-        <p><a class="color-green" href="/forum/newThread">click here</a> to start a new thread.</p>
-    </div>
+    <?
+    $userrepo = new UserRepository();
+    $rolerepo = new RoleRepository();
+
+    $user = $userrepo->GetUser(intval($_SESSION['userid']));
+    $user->Role = $rolerepo->GetRole($user->RoleId);
+
+
+    if ($user->Role->WriteForum) {
+    ?>
+        <div class="md-margin-bottom-30">
+            <h4>Start a new thread.</h4>
+
+            <p><a class="color-green" href="/forum/newThread">click here</a> to start a new thread.</p>
+        </div>
+    <?
+    }
+    ?>
 </div>
