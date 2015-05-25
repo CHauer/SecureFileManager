@@ -28,9 +28,9 @@ class FileRepository
             :Description,
             :IsPrivate,
             :UserId)");
-        $stmt->bindParam(":Name", $file->Name);
+        $stmt->bindParam(":Name", htmlspecialchars($file->Name));
         $stmt->bindParam(":FileLink", $file->FileLink);
-        $stmt->bindParam(":Description", $file->Description);
+        $stmt->bindParam(":Description", htmlspecialchars($file->Description));
         $stmt->bindParam(":IsPrivate", $file->IsPrivate);
         $stmt->bindParam(":UserId", $file->UserId);
 
@@ -72,13 +72,9 @@ class FileRepository
         return $file;
     }
 
-    public function DeleteFile($fileid)
-    {
-        global $db;
+    private function GetFileLink($fileid) {
 
-        $stmt = $db->prepare('delete from [Comment] where UserFile_UserFileId = :fileid');
-        $stmt->bindParam(':fileid', $fileid);
-        $stmt->execute();
+        global $db;
 
         $stmt = $db->prepare('Select FileLink from [UserFile] where UserFileId = :fileid');
         $stmt->bindParam(':fileid', $fileid);
@@ -91,7 +87,18 @@ class FileRepository
             throw new InvalidArgumentException("The given fileid does not exist!");
         }
 
-        $path = $result["FileLink"];
+        return $result["FileLink"];
+    }
+
+    public function DeleteFile($fileid)
+    {
+        global $db;
+
+        $stmt = $db->prepare('delete from [Comment] where UserFile_UserFileId = :fileid');
+        $stmt->bindParam(':fileid', $fileid);
+        $stmt->execute();
+
+        $path = GetFileLink($fileid);
 
         if (file_exists($path))
         {
@@ -137,6 +144,25 @@ class FileRepository
 
         if ($stmt->columnCount() >= 1) {
             return $results;
+        }
+    }
+
+    public function DownloadFile($fileid)
+    {
+        $path = GetFileLink($fileid);
+
+        if (file_exists($path))
+        {
+            header('Content-Description: File Transfer');
+            header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename='.basename($path));
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate');
+            header('Pragma: public');
+            header('Content-Length: ' . filesize($path));
+            ob_clean();
+            flush();
+            readfile($path);
         }
     }
 }

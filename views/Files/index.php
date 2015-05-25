@@ -48,7 +48,7 @@ if($viewModel->exists("model"))
         ?>
         <?
         if(isset($_SESSION["deleteFile"])){
-            echo '<h3 class="color-red">' . $_SESSION["deleteFile"] . '</h3>';
+            echo '<h3 class="color-green">' . $_SESSION["deleteFile"] . '</h3>';
             $_SESSION["deleteFile"] = null;
         }
         ?>

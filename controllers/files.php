@@ -184,6 +184,42 @@ class FilesController extends BaseController
         $this->view->output($viewModel);
 
     }
+
+    protected function download()
+    {
+        ConfirmUserIsLoggedOn();
+
+        $viewModel = $this->model->index();
+
+        $id = $this->urlValues['id'];
+
+        if (!isset($id) || empty($id)) {
+            $_SESSION['error'] = "Something went wrong - please try again!";
+            RedirectAction("files", "index");
+            return;
+        }
+
+        try {
+            $fileRepo = new FileRepository();
+
+            if (!$fileRepo->DownloadFile($id)) {
+                $viewModel->set("error", "Something went wrong - please try again!");
+            }
+
+        } catch (Exception $e) {
+            $viewModel->set("error", $e->getMessage());
+        }
+
+        /*//no error
+        if (!$viewModel->exists("error")) {
+            $_SESSION["deleteFile"] = "File successfully deleted!";
+            RedirectAction("files", "index");
+            return;
+        }*/
+
+        $this->view->output($viewModel);
+
+    }
 }
 
 ?>
