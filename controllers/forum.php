@@ -35,10 +35,15 @@ class ForumController extends BaseController
         if (!isset($id) || empty($id))
         {
             $viewModel->set("error", "Something went wrong - please try again!");
-        } else
+        }
+        else
         {
-            $forumrepo = new ForumRepository();
-            $viewModel->set("thread", $forumrepo->GetForumThreadById($id));
+            try {
+                $forumrepo = new ForumRepository();
+                $viewModel->set("thread", $forumrepo->GetForumThreadById($id));
+            } catch(InvalidArgumentException $e) {
+                $viewModel->set("error", $e->getMessage());
+            }
         }
         $this->view->output($viewModel);
     }
