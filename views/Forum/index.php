@@ -21,7 +21,7 @@
     ?>
 
     <h1>Forum!</h1>
-    <div class="panel panel-yellow margin-bottom-40">
+    <div class="panel panel-light-green margin-bottom-40">
         <div class="panel-heading
             <h3 class="panel-title"><i class="fa fa-tasks"></i> Threads</h3>
         </div>
@@ -40,9 +40,9 @@
                 foreach ($threads as $data) {
                     ?>
                     <tr>
-                        <td><? echo $data["Title"] ?></td>
+                        <td><? echo '<a href="/forum/thread/' . $data["ForumThreadId"] . '>' .  $data["Title"] . '</a>' ?></td>
                         <td><? echo $data["Description"] ?></td>
-                        <td><? echo $data["Created"] ?></td>
+                        <td><? echo $data["Created"] . " by " . $data["Username"] ?></td>
                         <td><? echo $data["EntryCount"] ?></td>
                     </tr>
                 <?
