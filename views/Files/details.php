@@ -103,7 +103,7 @@ if($viewModel->exists("comment"))
                         <div class="margin-left-5">
 
                             <div class="reg-header">
-                                <h2>Comment a file</h2>
+                                <h2>Comment the file</h2>
                             </div>
 
                             <div class="form-group <? ValidationErrorClass("Message", $viewModel) ?> ">
