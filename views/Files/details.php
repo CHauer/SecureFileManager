@@ -51,12 +51,6 @@ if($viewModel->exists("comments"))
                     <label class="margin-bottom-20 control-label"><?php echo $model->Description ?></label>
                 </div>
 
-                <hr>
-
-                <div class="reg-header">
-                    <h3>User Comments</h3>
-                </div>
-
             <?php
             if (!is_null($comments))
             {
@@ -66,6 +60,9 @@ if($viewModel->exists("comments"))
                     <div class="col-md-9">
                         <div class="profile-body">
                             <div class="panel panel-profile">
+                                <div class="panel-heading overflow-h">
+                                    <h2 class="panel-title heading-sm pull-left"><i class="fa fa-comments"></i>Users Comments</h2>
+                                </div>
                                 <div class="panel-body margin-bottom-50">
                                     <div class="media media-v2">
                                         <a class="pull-left" href="#">
