@@ -39,11 +39,6 @@ if($viewModel->exists("comments"))
                 <label class="margin-bottom-20" ><?php echo $model->Name ?></label>
             </div>
 
-            <div class="overflow-h">
-                <label class="control-label" >File Description: </label><br/>
-                <label class="margin-bottom-20" ><?php echo $model->Description ?></label>
-            </div>
-
         </div>
         <!--End Left Sidebar-->
 
@@ -61,9 +56,8 @@ if($viewModel->exists("comments"))
                     ?>
                     <div class="profile-body">
                         <div class="panel panel-profile">
-                            <div class="panel-heading overflow-h">
-                                <h2 class="panel-title heading-sm pull-left">
-                                    Users Comments</h2>
+                            <div class="reg-header">
+                                <h2>User Comments</h2>
                             </div>
                             <div class="panel-body margin-bottom-10">
                                 <div class="media media-v2">
@@ -75,9 +69,9 @@ if($viewModel->exists("comments"))
                                     <div class="media-body">
                                         <h4 class="media-heading">
                                             <strong><?php echo $data['Username'] ?></strong>
-                                            <small><?php echo ModelDateTimeValue($data['Created']) ?></small>
+                                            <small class="col-md-5"><?php echo ModelDateTimeValue($data['Created']) ?></small>
                                         </h4>
-                                        <p><?php echo $data['Message'] ?></p>
+                                        <p style="word-wrap: break-word"><?php echo $data['Message'] ?></p>
                                     </div>
                                 </div>
                                 <!--/end media media v2-->
