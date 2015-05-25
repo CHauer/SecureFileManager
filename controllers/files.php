@@ -150,6 +150,7 @@ class FilesController extends BaseController
 
         if (!isset($id) || empty($id))
         {
+            $_SESSION['error'] = "Something went wrong - please try again!";
             RedirectAction("files", "index");
             return;
         }
@@ -161,7 +162,8 @@ class FilesController extends BaseController
             try {
                 $fileRepo = new FileRepository();
 
-                if (!$fileRepo->DeleteFile($id)) {
+                if (!$fileRepo->DeleteFile($id))
+                {
                     $viewModel->set("error", "Something went wrong - please try again!");
                 }
 

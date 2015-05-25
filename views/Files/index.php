@@ -40,6 +40,12 @@ if($viewModel->exists("model"))
             echo '<h3 class="color-red">' . $viewModel->get("error") . '</h3>';
         }
         ?>
+        <?
+        if(isset($_SESSION["error"])){
+            echo '<h3 class="color-red">' . $_SESSION["error"] . '</h3>';
+            $_SESSION["error"] = null;
+        }
+        ?>
 
         <form class="page-search-form" action="/files/index" method="post">
             <div class="row margin-bottom-40">
