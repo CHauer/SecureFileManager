@@ -102,7 +102,7 @@ class ForumController extends BaseController
             //no error
             if(!$viewModel->exists("error"))
             {
-                // TODO: show message that thread has been created
+                $_SESSION["success"] = "Thread successfully created!";
                 RedirectAction("forum", "thread", $threadId);
                 return;
             }
