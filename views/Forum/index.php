@@ -1,4 +1,10 @@
 <div class="container content">
+    <?
+    if($viewModel->exists("error")){
+        echo '<h3 class="color-red">' . $viewModel->get("error") . '</h3>';
+    }
+    ?>
+
     <h1>Forum!</h1>
     <p>A forum is  gonna be here soon!</p>
 
