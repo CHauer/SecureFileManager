@@ -40,7 +40,7 @@ class ForumController extends BaseController
         if(!$user->Role->WriteForum)
         {
             $viewModel->set("error", "You don't have permissions to start a new thread.");
-            $this->view->output($this->model->index());
+            RedirectAction("forum", "index");
             return;
         }
 
