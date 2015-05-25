@@ -36,12 +36,12 @@ if($viewModel->exists("comments"))
 
             <div class="form-group">
                 <label class="control-label" >File Name: </label><br/>
-                <label class="margin-bottom-20 control-label" ><?php echo $model->Name ?></label>
+                <label class="margin-bottom-20 control-label" style="white-space: pre-line"><?php echo $model->Name ?></label>
             </div>
 
             <div class="form-group">
                 <label class="control-label" >File Description: </label><br/>
-                <label class="margin-bottom-20 control-label"><?php echo $model->Description ?></label>
+                <label class="margin-bottom-20 control-label" style="white-space: pre-line" ><?php echo $model->Description ?></label>
             </div>
 
         </div>
