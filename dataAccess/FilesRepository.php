@@ -143,9 +143,7 @@ class FileRepository
         global $db;
         $isprivate = 0;
 
-        $stmt = $db->prepare('Select [UserFile].UserFileId, [UserFile].Name, [UserFile].Description,
-                              [UserFile].Uploaded, [UserFile].IsPrivate,
-                              Username, PictureLink, (Select count(Commentid) From Comment where UserFile_UserFileId = [Userfile].UserFileId) as CommentCount
+        $stmt = $db->prepare('Select [UserFile].*, Username, PictureLink, (Select count(Commentid) From Comment where UserFile_UserFileId = [Userfile].UserFileId) as CommentCount
                               from [UserFile] left join [User] on [UserFile].UserId = [User].UserId
                               where (IsPrivate = :ispriv or [UserFile].UserId = :id) and [User].Username LIKE :user
                               and Name LIKE :file order by ' . $order . ' DESC, Name');
