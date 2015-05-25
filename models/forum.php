@@ -21,6 +21,12 @@ class ForumModel extends BaseModel
         return $this->viewModel;
     }
 
+    public function deleteEntry()
+    {
+        $this->viewModel->set("pageTitle", "Delete answer");
+        return $this->viewModel;
+    }
+
     public function newThread()
     {
         $this->viewModel->set("pageTitle", "Start a new thread");

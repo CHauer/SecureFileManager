@@ -70,4 +70,17 @@ function IsThreadOwner($forumThreadId, $userId)
 
     return false;
 }
+
+function IsEntryOwner($entryId, $userId)
+{
+    $forumrepo = new ForumRepository();
+
+    $entry = $forumrepo->GetEntryById($entryId);
+
+    if($entry->UserId == $userId) {
+        return true;
+    }
+
+    return false;
+}
 ?>

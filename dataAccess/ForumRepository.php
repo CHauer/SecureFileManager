@@ -78,6 +78,41 @@ class ForumRepository {
         return $thread;
     }
 
+    public function GetEntryById($entryId)
+    {
+        global $db;
+
+        $stmt = $db->prepare('select
+            [Message],
+            [UserId],
+            [Created],
+            [IsDeleted],
+            [ForumThreadId]
+           from [dbo].[Entry]
+           where [EntryId]=:entryid');
+
+        $stmt->bindParam(":entryid", $entryId);
+        $stmt->execute();
+
+        $result = $stmt->fetch();
+
+        if ($result == false)
+        {
+            throw new InvalidArgumentException("The given entry ID does not exist!");
+        }
+
+        $entry = new Entry();
+
+        $entry->EntryId = $entryId;
+        $entry->Message = $result["Message"];
+        $entry->UserId = $result["UserId"];
+        $entry->Created = $result["Created"];
+        $entry->IsDeleted = $result["IsDeleted"];
+        $entry->ForumThreadId = $result["ForumThreadId"];
+
+        return $entry;
+    }
+
     public function GetEntriesForThread($threadId)
     {
         global $db;
@@ -170,22 +205,21 @@ class ForumRepository {
     }
 
     /**
-     * @param int $userId
+     * @param int $entryId
+     * @return bool
      */
-    public function GetForumThreadForUser(int $userId)
+    public function DeleteEntryById($entryId)
     {
         global $db;
 
-        /*$stmt = $db->prepare('Select RoleId from [Role] where Name = :name');
-        $stmt->bindParam(':name', $name);
-
+        $stmt = $db->prepare('UPDATE [Entry] SET [IsDeleted] = 1 where [EntryId] = :entryid');
+        $stmt->bindParam(':entryid', $entryId);
         $stmt->execute();
 
-        $results = $stmt->fetchAll();
-
-        if ($stmt->columnCount() == 1) {
-            return $results[0]['RoleId'];
-        }*/
+        if ($stmt->rowCount() == 1)
+        {
+            return true;
+        }
+        return false;
     }
-
 }

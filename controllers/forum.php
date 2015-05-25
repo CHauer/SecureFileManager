@@ -45,10 +45,11 @@ class ForumController extends BaseController
         }
         else
         {
-            if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST') {
+            if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
+            {
                 // Post entry
-
-                if(!$this->validateEntryData($viewModel)) {
+                if(!$this->validateEntryData($viewModel))
+                {
                     $thread = $forumrepo->GetForumThreadById($id);
                     $viewModel->set("thread", $thread);
                     $viewModel->set("entries", $forumrepo->GetEntriesForThread($thread->ForumThreadId));
@@ -58,8 +59,7 @@ class ForumController extends BaseController
                 }
 
                 $entry = new Entry();
-                // TODO: error handling if entry could not be added
-                // TODO: show success message if entry has been added
+
                 $entry->Message = PrepareHtml($_POST["Message"]);
                 $entry->ForumThreadId = $id;
                 $entry->UserId = $_SESSION["userid"];
@@ -69,23 +69,65 @@ class ForumController extends BaseController
                 $thread = $forumrepo->GetForumThreadById($id);
                 $viewModel->set("thread", $thread);
                 $viewModel->set("entries", $forumrepo->GetEntriesForThread($thread->ForumThreadId));
-            } else {
-                try {
+            }
+            else
+            {
+                try
+                {
                     $thread = $forumrepo->GetForumThreadById($id);
-                    if (!$thread->IsDeleted) {
+                    if (!$thread->IsDeleted)
+                    {
                         $viewModel->set("thread", $thread);
                         $viewModel->set("entries", $forumrepo->GetEntriesForThread($thread->ForumThreadId));
-                    } else {
+                    }
+                    else
+                    {
                         $_SESSION['redirectError'] = "The requested thread doesn't exist.";
                         RedirectAction("forum", "index");
                         return;
                     }
-                } catch (InvalidArgumentException $e) {
+                }
+                catch (InvalidArgumentException $e)
+                {
                     $viewModel->set("error", $e->getMessage());
                 }
             }
         }
         $this->view->output($viewModel);
+    }
+
+    protected function deleteEntry()
+    {
+        ConfirmUserIsLoggedOn();
+
+        $id = $this->urlValues['id'];
+
+        if (!isset($id) || empty($id))
+        {
+            $_SESSION["redirectError"] = "No answer specified!";
+            RedirectAction("forum", "index");
+            return;
+        }
+        else
+        {
+            $forumrepo = new ForumRepository();
+
+            // TODO: what if entry doesn't exist anymore
+            $entry = $forumrepo->GetEntryById($id);
+
+            if(IsEntryOwner($id, $_SESSION["userid"])) {
+                try {
+                    $forumrepo->DeleteById($id);
+                    $_SESSION["redirectSuccess"] = "Answer successfully deleted.";
+                } catch (Exception $e) {
+                    $_SESSION["redirectError"] = "Something went wrong. Please try again.";
+                }
+            } else {
+                $_SESSION["redirectError"] = "You are not allowed to delete this answer.";
+            }
+            RedirectAction("forum", "thread", $entry->ForumThreadId);
+            return;
+        }
     }
 
     protected function newThread()
@@ -170,7 +212,7 @@ class ForumController extends BaseController
                 $success = $forumrepo->DeleteById($id);
 
                 if ($success) {
-                    $_SESSION["redirectSuccess"] = "Thread deleted.";
+                    $_SESSION["redirectSuccess"] = "Thread successfully deleted.";
                 } else {
                     $_SESSION["redirectError"] = "Thread couldn't be deleted. Please try again.";
                 }

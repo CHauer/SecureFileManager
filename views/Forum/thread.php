@@ -69,7 +69,11 @@
                             <td><? echo $data["Message"] ?></td>
                             <td><? echo $data["Created"] . " by " . $data["Username"] ?></td>
                             <td>
-
+                                <?
+                                if($_SESSION["userid"] == $data["UserId"]) {
+                                    echo '<a href="/forum/deleteEntry/' . $data["EntryId"] . '"><span class="glyphicon glyphicon-remove btn-u-red">Delete</span></a>';
+                                }
+                                ?>
                             </td>
                         </tr>
                     <?
