@@ -114,7 +114,8 @@ class FilesController extends BaseController
         {
             $dname = basename($_FILES[$postFileName]["name"]);
 
-            switch ($_FILES[$postFileName]['error']) {
+            switch ($_FILES[$postFileName]['error'])
+            {
                 case UPLOAD_ERR_OK:
                     break;
                 case UPLOAD_ERR_NO_FILE:
@@ -130,8 +131,6 @@ class FilesController extends BaseController
             {
                 $filename = uniqid() . '_' . $dname;
                 $filepath = '/upload/files/' . $_SESSION["userid"] . '/' . $filename;
-
-                copy(, $filepath);
 
                 if (!move_uploaded_file($_FILES[$postFileName]["tmp_name"],
                         $filepath))
