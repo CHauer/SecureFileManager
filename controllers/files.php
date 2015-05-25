@@ -81,7 +81,9 @@ class FilesController extends BaseController
             #region # Insert File
             try {
                 $filelink = $this->HandleUpload("FileLink");
-                if (is_null($filelink) || $filelink == '') {
+
+                if (is_null($filelink) || $filelink == '')
+                {
                     throw new Exception("Something went wrong during handle the link - please try again!");
                 }
                 $file->FileLink = $filelink;
@@ -114,10 +116,10 @@ class FilesController extends BaseController
 
             if ($_FILES[$postFileName]["size"] > 0)
             {
-                $filename = uniqid() . '_' . $dname[count($dname) - 1];
-                $filepath = 'http://securefile.azurewebsites.net/upload/files/' . $_SESSION["userid"] . '/' . $filename;
+                $filename = uniqid() . '_' . $dname;
+                $filepath = '/upload/files/' . $_SESSION["userid"] . '/' . $filename;
 
-                copy($_FILES[$postFileName]["tmp_name"], $filepath);
+                //copy($_FILES[$postFileName]["tmp_name"], $filepath);
 
                 return $filepath;
             }
