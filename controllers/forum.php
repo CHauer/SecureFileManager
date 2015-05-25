@@ -139,6 +139,8 @@ class ForumController extends BaseController
 
         $forumrepo = new ForumRepository();
         try {
+            echo $id;
+            echo $_SESSION["userid"];
             if (IsThreadOwner($id, $_SESSION["userid"])) {
                 $success = $forumrepo->DeleteById($id);
 
@@ -153,7 +155,7 @@ class ForumController extends BaseController
         } catch(InvalidArgumentException $e) {
             $_SESSION["redirectError"] = $e->getMessage();
         }
-        RedirectAction("forum", "index");
+        #RedirectAction("forum", "index");
     }
 
     private function validateThreadData(ViewModel &$viewModel)
