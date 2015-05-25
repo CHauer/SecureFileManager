@@ -189,8 +189,6 @@ class FilesController extends BaseController
     {
         ConfirmUserIsLoggedOn();
 
-        $viewModel = $this->model->index();
-
         $id = $this->urlValues['id'];
 
         if (!isset($id) || empty($id)) {
@@ -202,23 +200,14 @@ class FilesController extends BaseController
         try {
             $fileRepo = new FileRepository();
 
-            if (!$fileRepo->DownloadFile($id)) {
-                $viewModel->set("error", "Something went wrong - please try again!");
-            }
+            $fileRepo->DownloadFile($id);
 
-        } catch (Exception $e) {
-            $viewModel->set("error", $e->getMessage());
+        } catch (Exception $e)
+        {
+            $_SESSION['error'] = $e->getMessage();
         }
 
-        /*//no error
-        if (!$viewModel->exists("error")) {
-            $_SESSION["deleteFile"] = "File successfully deleted!";
-            RedirectAction("files", "index");
-            return;
-        }*/
-
-        $this->view->output($viewModel);
-
+        RedirectAction("files", "index");
     }
 }
 
