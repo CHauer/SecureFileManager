@@ -257,7 +257,7 @@ class FilesController extends BaseController
             try {
 
                 $commrepo = new CommentRepository();
-                $commid = $commrepo->InsertFile($comment);
+                $commid = $commrepo->InsertComment($comment);
                 if ($commid == false)
                 {
                     throw new Exception("Something went wrong during comment a file - please try again!");
