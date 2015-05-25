@@ -49,12 +49,12 @@ class RoleRepository {
 
         $stmt->execute();
 
-        if ($stmt->rowCount() !== 1)
+        $result = $stmt->fetch();
+
+        if ($result == false)
         {
             return NULL;
         }
-
-        $result = $stmt->fetchAll()[0];
 
         $role = new Role();
 
