@@ -16,7 +16,7 @@
 
     if($viewModel->exists("threads"))
     {
-        $files = $viewModel->get("threads");
+        $threads = $viewModel->get("threads");
     }
     ?>
 
