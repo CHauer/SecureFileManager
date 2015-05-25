@@ -69,7 +69,7 @@
     $user->Role = $rolerepo->GetRole($user->RoleId);
 
 
-    if (!$user->Role->WriteForum) {
+    if ($user->Role->WriteForum) {
     ?>
         <div class="md-margin-bottom-30">
             <h4>Start a new thread.</h4>
