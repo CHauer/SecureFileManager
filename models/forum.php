@@ -15,6 +15,12 @@ class ForumModel extends BaseModel
         return $this->viewModel;
     }
 
+    public function thread()
+    {
+        $this->viewModel->set("pageTitle", "View thread");
+        return $this->viewModel;
+    }
+
     public function newThread()
     {
         $this->viewModel->set("pageTitle", "Start a new thread");

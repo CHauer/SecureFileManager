@@ -25,6 +25,29 @@ class ForumController extends BaseController
         $this->view->output($this->model->index());
     }
 
+    protected function thread()
+    {
+        ConfirmUserIsLoggedOn();
+        $viewModel = $this->model->thread();
+
+        $id = $this->urlValues['id'];
+
+        if (!isset($id) || empty($id))
+        {
+            $viewModel->set("error", "Something went wrong - please try again!");
+        }
+        else
+        {
+            try {
+                $forumrepo = new ForumRepository();
+                $viewModel->set("thread", $forumrepo->GetForumThreadById($id));
+            } catch(InvalidArgumentException $e) {
+                $viewModel->set("error", $e->getMessage());
+            }
+        }
+        $this->view->output($viewModel);
+    }
+
     protected function newThread()
     {
         $viewModel = $this->model->newThread();
@@ -37,8 +60,8 @@ class ForumController extends BaseController
         $user = $userrepo->GetUser(intval($_SESSION['userid']));
         $user->Role = $rolerepo->GetRole($user->RoleId);
 
-        if(!$user->Role->WriteForum)
-        {
+
+        if (!$user->Role->WriteForum) {
             $_SESSION['redirectError'] = "You don't have permissions to start a new thread.";
             RedirectAction("forum", "index");
             return;
@@ -79,8 +102,8 @@ class ForumController extends BaseController
             //no error
             if(!$viewModel->exists("error"))
             {
-                // TODO: redirect to new created forum thread -> create action for existing threads
-                RedirectAction("forum", "index");
+                $_SESSION["createdThread"] = "Thread successfully created!";
+                RedirectAction("forum", "thread", $threadId);
                 return;
             }
         }
