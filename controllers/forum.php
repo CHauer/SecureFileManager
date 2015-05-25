@@ -119,7 +119,7 @@ class ForumController extends BaseController
 
             if(IsEntryOwner($id, $_SESSION["userid"])) {
                 try {
-                    $forumrepo->DeleteById($id);
+                    $forumrepo->DeleteEntryById($id);
                     $_SESSION["redirectSuccess"] = "Answer successfully deleted.";
                 } catch (Exception $e) {
                     $_SESSION["redirectError"] = "Something went wrong. Please try again.";
