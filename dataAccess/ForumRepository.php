@@ -141,7 +141,7 @@ class ForumRepository {
     {
         global $db;
 
-        $stmt = $db->prepare('SELECT [ForumThreadId], [Title], [ForumThread].[Description], [Created], [User].[UserId], [User].[Username], (SELECT count(EntryId) FROM [Entry] WHERE [ForumThreadId] = [ForumThread].[ForumThreadId]) as EntryCount
+        $stmt = $db->prepare('SELECT [ForumThreadId], [Title], [ForumThread].[Description], [Created], [User].[UserId], [User].[Username], (SELECT count(EntryId) FROM [Entry] WHERE [ForumThreadId] = [ForumThread].[ForumThreadId] AND [IsDeleted] = 0) as EntryCount
                                 FROM [ForumThread] JOIN [User] ON [ForumThread].[UserId] = [User].[UserId]
                                 WHERE [IsDeleted] = 0
                                 ORDER BY [Created] DESC');
