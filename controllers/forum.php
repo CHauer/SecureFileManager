@@ -21,8 +21,14 @@ class ForumController extends BaseController
     protected function index()
     {
         ConfirmUserIsLoggedOn();
+        $viewModel = $this->model->index();
 
-        $this->view->output($this->model->index());
+        $forumrepo = new ForumRepository();
+        $threads = $forumrepo->GetNotDeletedThreads();
+
+        $viewModel->set("threads", $threads);
+
+        $this->view->output($viewModel);
     }
 
     protected function thread()

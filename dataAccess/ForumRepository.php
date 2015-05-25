@@ -72,6 +72,28 @@ class ForumRepository {
         return $thread;
     }
 
+    public function GetNotDeletedThreads()
+    {
+        global $db;
+
+        $stmt = $db->prepare('SELECT [ForumThreadId], [Title], [Description], [Created], [UserId], (SELECT count(EntryId) FROM [Entry] WHERE [ForumThreadId] = [ForumThread].[ForumThreadId]) as EntryCount
+                                FROM [ForumThread]
+                                WHERE [IsDeleted] = 0
+                                ORDER BY [Created] DESC');
+
+        $stmt->execute();
+
+        $results = $stmt->fetchAll();
+
+        for ($i = 0; $i < count($results); ++$i) {
+            $results[$i]['Created'] = date("d.m.Y H:i", strtotime($results[$i]['Created']));
+        }
+
+        if ($stmt->columnCount() >= 1) {
+            return $results;
+        }
+    }
+
     /**
      * @param int $userId
      */
