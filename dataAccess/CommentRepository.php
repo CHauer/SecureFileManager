@@ -20,12 +20,11 @@ class CommentRepository
 
         $stmt->bindParam(":Message", PrepareHtml($comment->Name));
         $stmt->bindParam(":UserId", $comment->UserId);
-        $stmt->bindParam(":UserFileId",$comment->UserFile_UserFileId);
+        $stmt->bindParam(":UserFileId", $comment->UserFile_UserFileId);
 
         $stmt->execute();
 
-        if ($stmt->rowCount() == 1)
-        {
+        if ($stmt->rowCount() == 1) {
             return $db->lastInsertId();
         }
 
