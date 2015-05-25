@@ -16,15 +16,12 @@
     if($viewModel->exists("error")){
         echo '<h3 class="color-red">' . $viewModel->get("error") . '</h3>';
     }
-    ?>
-    <?
+
     if(isset($_SESSION["redirectError"])){
         echo '<h3 class="color-red">' . $_SESSION["redirectError"] . '</h3>';
         $_SESSION["redirectError"] = null;
     }
-    ?>
 
-    <?
     $threads = null;
 
     if($viewModel->exists("threads"))
@@ -32,7 +29,7 @@
         $threads = $viewModel->get("threads");
     }
     ?>
-    <div class="panel panel-light-green margin-bottom-40">
+    <div class="panel panel-light-green margin-bottom-20">
         <div class="panel-heading
             <h3 class="panel-title"><i class="fa fa-tasks"></i> Threads</h3>
         </div>
@@ -64,7 +61,7 @@
         </table>
     </div>
 
-    <div class="row md-margin-bottom-30">
+    <div class="md-margin-bottom-30">
         <h4>Start a new thread.</h4>
         <p><a class="color-green" href="/forum/newThread">click here</a> to start a new thread.</p>
     </div>
