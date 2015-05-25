@@ -22,6 +22,11 @@
         $_SESSION["redirectError"] = null;
     }
 
+    if(isset($_SESSION["redirectSuccess"])){
+        echo '<h3 class="color-green">' . $_SESSION["redirectSuccess"] . '</h3>';
+        $_SESSION["redirectSuccess"] = null;
+    }
+
     $threads = null;
 
     if($viewModel->exists("threads"))

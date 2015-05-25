@@ -64,7 +64,7 @@ function IsThreadOwner($forumThreadId, $userId)
 
     $thread = $forumrepo->GetForumThreadById($forumThreadId);
 
-    if($thread->UserId == $userId) {
+    if($thread->UserId === $userId) {
         return true;
     }
 

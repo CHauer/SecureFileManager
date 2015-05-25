@@ -138,14 +138,24 @@ class ForumController extends BaseController
         }
 
         $forumrepo = new ForumRepository();
-        $success = $forumrepo->DeleteById($id);
+        try {
+            echo $id;
+            echo $_SESSION["userid"];
+            if (IsThreadOwner($id, $_SESSION["userid"])) {
+                $success = $forumrepo->DeleteById($id);
 
-        if($success) {
-            $_SESSION["redirectSuccess"] = "Thread deleted!";
-        } else {
-            $_SESSION["redirectError"] = "Thread couldn't be deleted. Please try again.";
+                if ($success) {
+                    $_SESSION["redirectSuccess"] = "Thread deleted.";
+                } else {
+                    $_SESSION["redirectError"] = "Thread couldn't be deleted. Please try again.";
+                }
+            } else {
+                $_SESSION["redirectError"] = "You are not allowed to delete this thread.";
+            }
+        } catch(InvalidArgumentException $e) {
+            $_SESSION["redirectError"] = $e->getMessage();
         }
-        RedirectAction("forum", "index");
+        #RedirectAction("forum", "index");
     }
 
     private function validateThreadData(ViewModel &$viewModel)
