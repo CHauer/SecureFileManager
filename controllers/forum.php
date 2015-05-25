@@ -124,24 +124,7 @@ class ForumController extends BaseController
         $this->view->output($viewModel);
     }
 
-    private function validateThreadData(ViewModel &$viewModel)
-    {
-        $ok = true;
-
-        if(!isset($_POST["Title"]) || $_POST["Title"] == ''){
-            $viewModel->setFieldError("Title", "Title has to be entered!");
-            $ok = false;
-        }
-
-        if(!isset($_POST["Description"]) || $_POST["Description"] == ''){
-            $viewModel->setFieldError("Description", "Description has to be entered!");
-            $ok = false;
-        }
-
-        return $ok;
-    }
-
-    private function delete() {
+    protected function delete() {
         ConfirmUserIsLoggedOn();
         $viewModel = $this->model->thread();
 
@@ -155,7 +138,31 @@ class ForumController extends BaseController
         }
 
         $forumrepo = new ForumRepository();
-        $forumrepo->DeleteById($id);
+        $success = $forumrepo->DeleteById($id);
+
+        if($success) {
+            $_SESSION["redirectSuccess"] = "Thread deleted!";
+        } else {
+            $_SESSION["redirectError"] = "Thread couldn't be deleted. Please try again.";
+        }
+        RedirectAction("forum", "index");
+    }
+
+    private function validateThreadData(ViewModel &$viewModel)
+    {
+        $ok = true;
+
+        if (!isset($_POST["Title"]) || $_POST["Title"] == '') {
+            $viewModel->setFieldError("Title", "Title has to be entered!");
+            $ok = false;
+        }
+
+        if (!isset($_POST["Description"]) || $_POST["Description"] == '') {
+            $viewModel->setFieldError("Description", "Description has to be entered!");
+            $ok = false;
+        }
+
+        return $ok;
     }
 }
 
