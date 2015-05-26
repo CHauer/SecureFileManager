@@ -59,7 +59,7 @@
 
                 <!-- Files -->
                 <li class="dropdown <? CurrentActive("files", "index") ?> <? CurrentActive("files", "myfiles") ?>" >
-                    <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
                         Files
                     </a>
                     <ul class="dropdown-menu">
@@ -83,7 +83,7 @@
                     ?>
 
                     <li class="dropdown <? CurrentActive("admin", "index") ?>">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown" >
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" >
                             Administrator
                         </a>
                         <ul class="dropdown-menu">
