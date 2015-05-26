@@ -40,7 +40,7 @@
             </div>
 
             <div class="row margin-bottom-20">
-                <a class="btn btn-u-green col-md-5" href="/account/logoff">Logoff</a>
+                <a class="btn btn-warning col-md-5" href="/account/logoff">Logoff</a>
                 <p class="col-md-7" >Exit - Bye! ;)</p>
             </div>
 

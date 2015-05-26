@@ -144,7 +144,7 @@
                                     </a>
                                 </div>
                                 <a href="/account/manage" class="btn-u hidden-lg hidden-md hidden-sm col-xs-4" >
-                                    Account Management
+                                    Manage
                                 </a>
                         </div>
                     </div>
