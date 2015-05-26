@@ -134,15 +134,18 @@
                     <i class="search fa fa-user search-btn"></i>
                     <div class="search-open">
                         <div class="input-group animated fadeInDown row " style="width: 300px">
-                                <img class="col-md-4" src="<? echo $viewModel->get('userimage') ?>" />
-                                <div class="col-md-8">
+                                <img class="col-md-4 col-xs-3" src="<? echo $viewModel->get('userimage') ?>" />
+                                <div class="col-md-8 col-xs-5">
                                     <p><a href="/account/showprofile"><? echo $viewModel->get('username') ?></a><br/>
                                     <? echo $viewModel->get('fullname') ?><br/>
                                     <? echo $viewModel->get('email') ?></p>
-                                    <a href="/account/manage" class="btn-u" >
+                                    <a href="/account/manage" class="btn-u hidden-xs" >
                                         Account Management
                                     </a>
                                 </div>
+                                <a href="/account/manage" class="btn-u hidden-lg hidden-md hidden-sm col-xs-4" >
+                                    Account Management
+                                </a>
                         </div>
                     </div>
                 </li>
