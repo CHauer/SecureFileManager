@@ -215,7 +215,7 @@ class AccountController extends BaseController
         ConfirmUserIsLoggedOn();
         $userid = null;
 
-        if(isset($this->urlValues['id']) && is_integer($this->urlValues['id']))
+        if(isset($this->urlValues['id']))
         {
             $userid = intval($this->urlValues['id']);
         }
