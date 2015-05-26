@@ -58,6 +58,12 @@ class AccountModel extends BaseModel
         return $this->viewModel;
     }
 
+    public function changepassword()
+    {
+        $this->viewModel->set("pageTitle","Change Password");
+        return $this->viewModel;
+    }
+
     public function resetpassword()
     {
         $this->viewModel->set("pageTitle","Reset your password");

@@ -73,6 +73,7 @@ if($viewModel->exists("model"))
 
                 <label>Account <span class="color-green">*</span></label>
 
+                <? if($model->Role->Name !== 'Administrator' ){ ?>
                 <div class="row margin-bottom-20">
                     <div class="col-sm-3">
                         <span><input type="radio" value="Standard" <? echo ($model->Role->Name == 'Standard') ? 'checked="checked"' : ''; ?> name="Role" > Standard</span>
@@ -81,19 +82,13 @@ if($viewModel->exists("model"))
                         <span><input type="radio" value="Premium" <? echo ($model->Role->Name == 'Premium') ? 'checked="checked"' : ''; ?> name="Role"  > Premium</span>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="form-group  col-sm-6 <? ValidationErrorClass("Password", $viewModel) ?> ">
-                        <label class="control-label" >Password <span class="color-green">*</span></label>
-                        <input type="Password"  name="Password" class="form-control margin-bottom-20">
-                        <? ValidationErrorMessage("Password", $viewModel) ?>
+                <?}else{ ?>
+                    <div class="row margin-bottom-20">
+                        <div class="col-sm-3">
+                            <span><input type="radio" value="Administrator" checked="checked" name="Role" > Administrator</span>
+                        </div>
                     </div>
-                    <div class="form-group  col-sm-6 <? ValidationErrorClass("PasswordConfirm", $viewModel) ?> ">
-                        <label class="control-label" >Confirm Password <span class="color-green">*</span></label>
-                        <input type="Password" name="PasswordConfirm" class="form-control margin-bottom-20">
-                        <? ValidationErrorMessage("PasswordConfirm", $viewModel) ?>
-                    </div>
-                </div>
+                <?}?>
 
                 <hr>
 

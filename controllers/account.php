@@ -329,6 +329,7 @@ class AccountController extends BaseController
 
     protected function resetpassword(){
 
+        //TODO send mail to user with confirmlink - md5({userid}_{currentpasswordhash})
         /* //Create a new PHPMailer instance
         $mail = new PHPMailer;
 
@@ -368,6 +369,7 @@ class AccountController extends BaseController
 
     protected function confirmresetpassword()
     {
+        //TODO update user password
         $this->view->output($this->model->confirmresetpassword());
     }
 
@@ -379,6 +381,7 @@ class AccountController extends BaseController
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
         {
+            //TODO change user password
         }
 
         $this->view->output($viewModel);
@@ -392,8 +395,8 @@ class AccountController extends BaseController
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
         {
+            //TODO update user picture
         }
-
 
         $this->view->output($viewModel);
     }

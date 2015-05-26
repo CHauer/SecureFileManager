@@ -21,7 +21,7 @@
 
             <div class="row margin-bottom-20 container">
                 <a class="btn btn-default col-md-5" href="/account/editprofile" >Edit Profile</a>
-                <p class="col-md-7" >Here you can edit your Profile, Username, Password, Role and Description.</p>
+                <p class="col-md-7" >Here you can edit your Profile, Username, Role and Description.</p>
             </div>
 
             <div class="row margin-bottom-20 container">
