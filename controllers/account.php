@@ -19,6 +19,8 @@ class AccountController extends BaseController
 
     protected function register()
     {
+        global $log;
+
         $viewModel = $this->model->register();
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
@@ -89,6 +91,9 @@ class AccountController extends BaseController
             //no error
             if(!$viewModel->exists("error"))
             {
+                // log Kontoerstellung
+                $log->LogMessage('User ' . $user->Username . ' created a new account.', LOGGER_INFO);
+
                 //contains inserted userid - user id logged in
                 $_SESSION["userid"] = $userid;
 
@@ -139,7 +144,8 @@ class AccountController extends BaseController
             try {
                 $result = $userrepo->CheckUserCredentials($username, $password);
 
-                if ($userrepo->CheckUserLocked($username)) {
+                if ($userrepo->CheckUserLocked($username))
+                {
                     $errorMessage = "The Account '" . $username . "' is locked - please try again later!";
 
                     $viewModel->set("error", $errorMessage);
@@ -166,7 +172,11 @@ class AccountController extends BaseController
                 $userrepo->ResetUserLockout($result);
 
                 //Reset Lockout (if user was locked out)
-                $userrepo->ResetUserDeactivated($result);
+                if($userrepo->ResetUserDeactivated($result))
+                {
+                    //log Konto-Aktivierung
+                    $log->LogMessage('User ' . $username . ' has re-activated his profile.', LOGGER_INFO);
+                }
 
                 //$result contains userid
                 $_SESSION["userid"] = $result;
@@ -174,6 +184,8 @@ class AccountController extends BaseController
                 //reset access failed counter
                 $userrepo->ResetAccessFailedCounter($result);
 
+                //log Login
+                $log->LogMessage('User ' . $username . ' has logged in successfully.', LOGGER_INFO);
 
                 if($_POST['RememberMe'])
                 {
@@ -207,6 +219,13 @@ class AccountController extends BaseController
 
     protected function logoff()
     {
+        global $log;
+
+        $viewModel = $this->model->manage();
+
+        //log logout
+        $log->LogMessage('User ' . $viewModel->get('username') . ' has logged out.', LOGGER_INFO);
+
         $this->view->output(NULL, '');
     }
 
@@ -232,6 +251,8 @@ class AccountController extends BaseController
 
     protected function editprofile()
     {
+        global $log;
+
         ConfirmUserIsLoggedOn();
 
         $viewModel = $this->model->editprofile();
@@ -278,12 +299,6 @@ class AccountController extends BaseController
 
             try
             {
-                /*if(isset($_POST['Picture']))
-                {
-                    $filelink = HandleFileUpload("Picture", "/upload/UserPictures");
-                    $user->PictureLink = $filelink;
-                }*/
-
                 $roleRepo = new RoleRepository();
                 $roleId = $roleRepo->GetRoleId($_POST["Role"]);
 
@@ -295,9 +310,14 @@ class AccountController extends BaseController
                 if($result == false)
                 {
                     $viewModel->set("error", "Something went wrong during your changes - please try again!");
-                }
+                }else
+                {
 
-                RedirectAction("account", "manage");
+                    //log Kontoänderungen
+                    $log->LogMessage('User ' . $viewModel->get('username') . ' has changed his profile.', LOGGER_INFO);
+
+                    RedirectAction("account", "manage");
+                }
             }
             catch(Exception $e)
             {
@@ -318,87 +338,217 @@ class AccountController extends BaseController
 
     protected function deactivate()
     {
+        global $log;
         ConfirmUserIsLoggedOn();
 
         $userrepo = new UserRepository();
 
         $userrepo->SetUserDeactivated(intval($_SESSION['userid']));
+        $user = $userrepo->GetUser(intval($_SESSION['userid']));
+
+        //log Konto-Deaktivierung
+        $log->LogMessage('User ' . $user->Username . ' has deactivated his profile.', LOGGER_INFO);
 
         RedirectAction('account', 'logoff');
     }
 
     protected function resetpassword(){
 
-        //TODO send mail to user with confirmlink - md5({userid}_{currentpasswordhash})
-        /* //Create a new PHPMailer instance
-        $mail = new PHPMailer;
+        $viewModel = $this->model->resetpassword();
 
-        $mail->isSMTP();  // telling the class to use SMTP
-        $mail->SMTPAuth   = true;                // enable SMTP authentication
-        $mail->Port       = 26;                  // set the SMTP port
-        $mail->Host       = "mail.yourhost.com"; // SMTP server
-        $mail->Username   = "name@yourhost.com"; // SMTP account username
-        $mail->Password   = "your password";     // SMTP account password
+        if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
+        {
+            //TODO send mail to user with confirmlink - &confirm={currentpasswordhash} ???
+            /* //Create a new PHPMailer instance
+            $mail = new PHPMailer;
 
-        //Set who the message is to be sent from
-        $mail->setFrom('secure@securefile.azurewebsites.net', 'Secure Team');
+            $mail->isSMTP();  // telling the class to use SMTP
+            $mail->SMTPAuth   = true;                // enable SMTP authentication
+            $mail->Port       = 26;                  // set the SMTP port
+            $mail->Host       = "mail.yourhost.com"; // SMTP server
+            $mail->Username   = "name@yourhost.com"; // SMTP account username
+            $mail->Password   = "your password";     // SMTP account password
 
-        //Set who the message is to be sent to
-        $mail->addAddress(, 'John Doe');
+            //Set who the message is to be sent from
+            $mail->setFrom('secure@securefile.azurewebsites.net', 'Secure Team');
 
-        //Set the subject line
-        $mail->Subject = 'PHPMailer mail() test';
-        //Read an HTML message body from an external file, convert referenced images to embedded,
-        //convert HTML into a basic plain-text alternative body
-        $mail->msgHTML(file_get_contents('contents.html'), dirname(__FILE__));
-        //Replace the plain text body with one created manually
-        $mail->AltBody = 'This is a plain-text message body';
-        //Attach an image file
-        $mail->addAttachment('images/phpmailer_mini.png');
+            //Set who the message is to be sent to
+            $mail->addAddress($user->EMail, 'John Doe');
 
-        //send the message, check for errors
+            //Set the subject line
+            $mail->Subject = 'SecureFile Manager Password Reset';
+            //Read an HTML message body from an external file, convert referenced images to embedded,
+            //convert HTML into a basic plain-text alternative body
 
-        if (!$mail->send()) {
-            echo "Mailer Error: " . $mail->ErrorInfo;
-        } else {
-            echo "Message sent!";
-        }*/
+            $mail->msgHTML(file_get_contents('contents.html'), dirname(__FILE__));
 
-        $this->view->output($this->model->resetpassword());
+            //Replace the plain text body with one created manually
+            $mail->AltBody = 'This is a plain-text message body';
+
+            //send the message, check for errors
+            if (!$mail->send())
+            {
+                $viewModel->set('error', "Mailer Error: " . $mail->ErrorInfo);
+            } */
+
+        }
+
+        $this->view->output($viewModel);
     }
 
     protected function confirmresetpassword()
     {
+        global $log;
+
         //TODO update user password
-        $this->view->output($this->model->confirmresetpassword());
+        $viewModel = $this->model->confirmresetpassword();
+
+        if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
+        {
+            if(!$this->validatePassword($viewModel)) {
+                $this->view->output($viewModel);
+                return;
+            }
+
+            //change user password
+            $username = $viewModel->get('username');
+
+            $userrepo = new UserRepository();
+
+            if($userrepo->CheckUserCredentials($username, $_POST['CurrentPassword']) !== false)
+            {
+                $userRepo = new UserRepository();
+                $result = $userRepo->ResetUserPassword($viewModel->get('userid'), $_POST['CurrentPassword'],  $_POST['NewPassword']);
+
+                if($result == false )
+                {
+                    $viewModel->set('error', 'Something went wrong during your password change - please try again!');
+                }
+                else
+                {
+                    //log Kontoänderungen
+                    $log->LogMessage('User ' . $viewModel->get('username') . ' has changed his password.', LOGGER_INFO);
+
+                    RedirectAction("account", "manage");
+                }
+            }
+            else
+            {
+                $viewModel->setFieldError('CurrentPassword', 'Your current entered password is not correct!');
+            }
+
+        }
+
+        $this->view->output($viewModel);
     }
 
     protected function changepassword()
     {
+        global $log;
         ConfirmUserIsLoggedOn();
 
         $viewModel = $this->model->changepassword();
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
         {
-            //TODO change user password
-        }
+            if(!$this->validatePassword($viewModel)) {
+                $this->view->output($viewModel);
+                return;
+            }
 
+            //change user password
+            $username = $viewModel->get('username');
+
+            $userrepo = new UserRepository();
+
+            if($userrepo->CheckUserCredentials($username, $_POST['CurrentPassword']) !== false)
+            {
+                $userRepo = new UserRepository();
+                $result = $userRepo->UpdateUserPassword($viewModel->get('userid'), $_POST['CurrentPassword'],  $_POST['NewPassword']);
+
+                if($result == false )
+                {
+                    $viewModel->set('error', 'Something went wrong during your password change - please try again!');
+                }
+                else
+                {
+                    //log Kontoänderungen
+                    $log->LogMessage('User ' . $viewModel->get('username') . ' has changed his password.', LOGGER_INFO);
+
+                    RedirectAction("account", "manage");
+                }
+            }
+            else
+            {
+                $viewModel->setFieldError('CurrentPassword', 'Your current entered password is not correct!');
+            }
+
+        }
         $this->view->output($viewModel);
     }
 
     protected function changeuserpicture()
     {
+        global $log;
         ConfirmUserIsLoggedOn();
 
         $viewModel = $this->model->changeuserpicture();
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
         {
-            //TODO update user picture
+            //update user picture
+            if(isset($_POST['Picture']))
+            {
+                try
+                {
+                    $filelink = HandleFileUpload("Picture", "/upload/UserPictures");
+                    $pictureLink = $filelink;
+
+                    $userRepo = new UserRepository();
+                    $result = $userRepo->UpdateUserPicture($viewModel->get('userid'), $pictureLink);
+
+                    if($result == false )
+                    {
+                        $viewModel->set('error', 'Something went wrong during your file upload - please try again!');
+                    }
+                    else
+                    {
+                        //log Kontoänderungen
+                        $log->LogMessage('User ' . $viewModel->get('username') . ' has changed his profile picture.', LOGGER_INFO);
+
+                        RedirectAction("account", "manage");
+                    }
+                }
+                catch(Exception $ex)
+                {
+                    $viewModel->setFieldError("Picture", $ex->getMessage());
+                }
+            }
         }
 
         $this->view->output($viewModel);
+    }
+
+    private function validatePassword(ViewModel &$viewModel)
+    {
+        $ok = true;
+
+        if (!isset($_POST["NewPassword"])) {
+            $viewModel->setFieldError("NewPassword", "Password has to be entered!");
+            $ok = false;
+        }
+
+        if (strlen($_POST["NewPassword"]) < 5 || !preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z.!@#$%\/]{8,12}$/', $_POST["Password"])) {
+            $viewModel->setFieldError("NewPassword", "Password has to consist of at least 5 letters and has to contain uppercase letter, special char and digits.");
+            $ok = false;
+        }
+
+        if (!($_POST["NewPassword"] == $_POST["PasswordConfirm"])) {
+            $viewModel->setFieldError("NewPassword", "Password and Password Confirm are not equal!");
+            $ok = false;
+        }
+
+        return $ok;
     }
 
     private function validateRegisterData(ViewModel &$viewModel, $checkTerms = true)

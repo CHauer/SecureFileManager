@@ -15,12 +15,12 @@ define('LOGGER_ERROR', 1);
 /*
  * Logging Events
  * ---------------
- * Kontoerstellung
- * Kontoänderungen
- * Konto-Aktivierung
- * Konto-Deaktivierung
- * Login
- * Logout
+ * Kontoerstellung [x]
+ * Kontoänderungen [x]
+ * Konto-Aktivierung [x]
+ * Konto-Deaktivierung [x]
+ * Login [x]
+ * Logout [x]
  * Forum
  * Themenerstellung
  * Löschen eines Themas

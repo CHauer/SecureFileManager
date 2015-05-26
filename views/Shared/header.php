@@ -87,9 +87,8 @@
                             Administrator
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="/admin/index">Public Files</a></li>
-                            <li><a href="/admin/users">My Files</a></li>
-                            <li><a href="/admin/users">My Files</a></li>
+                            <li><a href="/admin/users">Userlist</a></li>
+                            <li><a href="/admin/log">Log</a></li>
                         </ul>
                     </li>
 

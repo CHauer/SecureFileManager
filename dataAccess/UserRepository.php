@@ -105,6 +105,58 @@ class UserRepository{
 
     /**
      * @param $userid
+     * @param $pictureLink
+     * @return bool
+     */
+    public function UpdateUserPicture($userid, $pictureLink){
+        global $db;
+
+        $stmt = $db->prepare("UPDATE [dbo].[User]
+                               SET
+                               ,[PictureLink]=:PictureLink
+                                WHERE [UserId]=:userid");
+
+        $stmt->bindParam(":PictureLink", $pictureLink);
+        $stmt->bindParam(":userid", $userid);
+        $stmt->execute();
+
+        if ($stmt->rowCount() == 1)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $userid
+     * @param $oldpassword
+     * @param $newpassword
+     * @return bool
+     */
+    public function UpdateUserPassword($userid, $oldpassword , $newpassword){
+        global $db;
+
+        $stmt = $db->prepare("UPDATE [dbo].[User]
+                               SET
+                               [Password]=:CONVERT(nvarchar,HASHBYTES('SHA2_256', :NewPassword),2)
+                                WHERE [UserId]=:userid AND Password=CONVERT(nvarchar,HASHBYTES('SHA2_256', :OldPassword),2) ,");
+
+        $stmt->bindParam(":NewPassword", $newpassword);
+        $stmt->bindParam(":OldPassword", $oldpassword);
+        $stmt->bindParam(":userid", $userid);
+        $stmt->execute();
+
+        if ($stmt->rowCount() == 1)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $userid
      * @return User
      */
     public function GetUser($userid){
