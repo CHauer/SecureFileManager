@@ -35,6 +35,24 @@ function ModelDateValue($model, $field)
     }
 }
 
+function EchoModelValue($model, $field)
+{
+    if($model != NULL && isset($model))
+    {
+        echo $model->{$field};
+    }
+}
+
+
+function EchoModelDate($model, $field)
+{
+    if($model != NULL && isset($model))
+    {
+        echo  date_format($model->{$field}, 'd.m.Y');
+    }
+}
+
+
 function ModelDateTimeValue($field)
 {
     return date( 'l, d.m.Y H:i', strtotime($field));

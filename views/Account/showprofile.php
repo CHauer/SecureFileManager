@@ -36,18 +36,18 @@ if($viewModel->exists("model"))
     <div class="row portfolio-item margin-bottom-50">
         <!-- Content Info -->
         <div class="col-md-8 md-margin-bottom-40">
-            <h2><? echo $model->Firstname . ' ' . $model->Lastname ?></h2>
+            <h2><? EchoModelValue($model, 'Firstname') . ' ' . EchoModelValue($model, 'Lastname') ?></h2>
             <div class="row portfolio-item1">
                 <div class="col-xs-6">
                     <ul class="list-unstyled">
-                        <li><i class="fa fa-user color-green"></i>Username:&nbsp;<? echo $model->Username?></li>
-                        <li><i class="fa fa-birthday-cake color-green"></i>Birthdate:&nbsp;<? echo $model->BirthDate?></li>
+                        <li><i class="fa fa-user color-green"></i>Username:&nbsp;<? EchoModelValue($model, 'Username') ?></li>
+                        <li><i class="fa fa-birthday-cake color-green"></i>Birthdate:&nbsp;<? echo EchoModelDate($model, 'BirthDate') ?></li>
                     </ul>
                 </div>
                 <div class="col-xs-6">
                     <ul class="list-unstyled">
-                        <li><i class="fa fa-envelope color-green"></i>EMail:&nbsp;<? echo $model->EMail?></li>
-                        <li><i class="fa fa-circle color-green"></i>Name:&nbsp;<? echo $model->Firstname . ' ' .$model->Lastname ?></li>
+                        <li><i class="fa fa-envelope color-green"></i>EMail:&nbsp;<? echo EchoModelDate($model, 'EMail') ?></li>
+                        <li><i class="fa fa-circle color-green"></i>Name:&nbsp;<? echo EchoModelValue($model, 'Firstname') . ' ' . EchoModelValue($model, 'Lastname') ?></li>
                     </ul>
                 </div>
             </div>
