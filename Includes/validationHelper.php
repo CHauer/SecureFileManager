@@ -54,8 +54,10 @@ function VerifyDate($date)
 
 function PrepareHtml($htmlText)
 {
-    $allowedTags = "<br/><br><a><span><strong><b><p><i><u><strike><h2><h3><h4><h5>";
-    $htmlText = strip_tags($htmlText, $allowedTags);
+    /*$allowedTags = "<br/><br><a><span><strong><b><p><i><u><strike><h2><h3><h4><h5>";
+    $htmlText = strip_tags($htmlText, $allowedTags); */
+
+    $htmlText = htmLawed($htmlText);
 
     return $htmlText;
 }

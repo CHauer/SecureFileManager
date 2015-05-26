@@ -266,7 +266,6 @@ class AccountController extends BaseController
                 {
                     $viewModel->setFieldError("BirthDate", $iex->getMessage());
                 }
-
             }
             catch (Exception $ex){;}
 
@@ -279,9 +278,11 @@ class AccountController extends BaseController
 
             try
             {
-                $filelink = HandleFileUpload("Picture", "/upload/UserPictures");
-
-                $user->PictureLink = $filelink;
+                /*if(isset($_POST['Picture']))
+                {
+                    $filelink = HandleFileUpload("Picture", "/upload/UserPictures");
+                    $user->PictureLink = $filelink;
+                }*/
 
                 $roleRepo = new RoleRepository();
                 $roleId = $roleRepo->GetRoleId($_POST["Role"]);
@@ -289,27 +290,18 @@ class AccountController extends BaseController
                 $user->RoleId = $roleId;
 
                 $userrepo = new UserRepository();
+                $result = $userrepo->UpdateUser($user);
 
-                $userid = $userrepo->InsertUser($user);
-
-                if($userid == false)
+                if($result == false)
                 {
-                    $viewModel->set("error", "Something went wrong during your registration - please try again!");
+                    $viewModel->set("error", "Something went wrong during your changes - please try again!");
                 }
+
+                RedirectAction("account", "manage");
             }
             catch(Exception $e)
             {
                 $viewModel->set("error", $e->getMessage());
-            }
-
-            //no error
-            if(!$viewModel->exists("error"))
-            {
-                //contains inserted userid - user id logged in
-                $_SESSION["userid"] = $userid;
-
-                RedirectAction("home", "index");
-                return;
             }
         }
 
@@ -333,6 +325,77 @@ class AccountController extends BaseController
         $userrepo->SetUserDeactivated(intval($_SESSION['userid']));
 
         RedirectAction('account', 'logoff');
+    }
+
+    protected function resetpassword(){
+
+        /* //Create a new PHPMailer instance
+        $mail = new PHPMailer;
+
+        $mail->isSMTP();  // telling the class to use SMTP
+        $mail->SMTPAuth   = true;                // enable SMTP authentication
+        $mail->Port       = 26;                  // set the SMTP port
+        $mail->Host       = "mail.yourhost.com"; // SMTP server
+        $mail->Username   = "name@yourhost.com"; // SMTP account username
+        $mail->Password   = "your password";     // SMTP account password
+
+        //Set who the message is to be sent from
+        $mail->setFrom('secure@securefile.azurewebsites.net', 'Secure Team');
+
+        //Set who the message is to be sent to
+        $mail->addAddress(, 'John Doe');
+
+        //Set the subject line
+        $mail->Subject = 'PHPMailer mail() test';
+        //Read an HTML message body from an external file, convert referenced images to embedded,
+        //convert HTML into a basic plain-text alternative body
+        $mail->msgHTML(file_get_contents('contents.html'), dirname(__FILE__));
+        //Replace the plain text body with one created manually
+        $mail->AltBody = 'This is a plain-text message body';
+        //Attach an image file
+        $mail->addAttachment('images/phpmailer_mini.png');
+
+        //send the message, check for errors
+
+        if (!$mail->send()) {
+            echo "Mailer Error: " . $mail->ErrorInfo;
+        } else {
+            echo "Message sent!";
+        }*/
+
+        $this->view->output($this->model->resetpassword());
+    }
+
+    protected function confirmresetpassword()
+    {
+        $this->view->output($this->model->confirmresetpassword());
+    }
+
+    protected function changepassword()
+    {
+        ConfirmUserIsLoggedOn();
+
+        $viewModel = $this->model->changepassword();
+
+        if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
+        {
+        }
+
+        $this->view->output($viewModel);
+    }
+
+    protected function changeuserpicture()
+    {
+        ConfirmUserIsLoggedOn();
+
+        $viewModel = $this->model->changeuserpicture();
+
+        if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
+        {
+        }
+
+
+        $this->view->output($viewModel);
     }
 
     private function validateRegisterData(ViewModel &$viewModel, $checkTerms = true)

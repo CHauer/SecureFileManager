@@ -51,6 +51,24 @@ class AccountModel extends BaseModel
         $this->viewModel->set("pageTitle","Account Management");
         return $this->viewModel;
     }
+
+    public function changeuserpicture()
+    {
+        $this->viewModel->set("pageTitle","Change Profile Picture");
+        return $this->viewModel;
+    }
+
+    public function resetpassword()
+    {
+        $this->viewModel->set("pageTitle","Reset your password");
+        return $this->viewModel;
+    }
+
+    public function confirmresetpassword()
+    {
+        $this->viewModel->set("pageTitle","Confirm");
+        return $this->viewModel;
+    }
 }
 
 ?>

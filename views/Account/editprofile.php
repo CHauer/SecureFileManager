@@ -59,12 +59,6 @@ if($viewModel->exists("model"))
                     <? ValidationErrorMessage("EMail", $viewModel) ?>
                 </div>
 
-                <div class="form-group <? ValidationErrorClass("Picture", $viewModel) ?>">
-                    <label class="control-label" >Profile Picture</label>
-                    <input type="file" name="Picture" >
-                    <? ValidationErrorMessage("Picture", $viewModel) ?>
-                </div>
-
                 <div class="form-group <? ValidationErrorClass("BirthDate", $viewModel) ?>">
                     <label class="control-label" >Birth date <span class="color-green">*</span></label>
                     <input type="text" name="BirthDate" class="form-control margin-bottom-20"  <? ModelDateValue($model, 'BirthDate')?> >

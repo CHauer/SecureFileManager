@@ -33,6 +33,7 @@ require("dataAccess/initDataAccess.php");
 require("classes/Logger.php");
 
 //validation/html helper
+require("includes/htmLawed.php");
 require("includes/validationHelper.php");
 require("includes/currentRequestHelper.php");
 require("includes/initLogger.php");
