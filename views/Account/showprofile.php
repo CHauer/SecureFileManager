@@ -46,8 +46,8 @@ if($viewModel->exists("model"))
                 </div>
                 <div class="col-xs-6">
                     <ul class="list-unstyled">
-                        <li><i class="fa fa-envelope color-green"></i>EMail:&nbsp;<? echo EchoModelDate($model, 'EMail') ?></li>
-                        <li><i class="fa fa-circle color-green"></i>Name:&nbsp;<? echo EchoModelValue($model, 'Firstname') . ' ' . EchoModelValue($model, 'Lastname') ?></li>
+                        <li><i class="fa fa-envelope color-green"></i>EMail:&nbsp;<? echo EchoModelValue($model, 'EMail') ?></li>
+                        <li><i class="fa fa-circle color-green"></i>Name:&nbsp;<? echo EchoModelValue($model, 'Firstname') . '&nbsp;' . EchoModelValue($model, 'Lastname') ?></li>
                     </ul>
                 </div>
             </div>
