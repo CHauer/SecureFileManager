@@ -19,27 +19,27 @@
                 <h2>Welcome <? echo $viewModel->get("fullname") ?> to your Account Management Portal!</h2>
             </div>
 
-            <div class="row margin-bottom-20">
+            <div class="row margin-bottom-20 container">
                 <a class="btn btn-default col-md-5" href="/account/editprofile" >Edit Profile</a>
                 <p class="col-md-7" >Here you can edit your Profile, Username, Password, Role and Description.</p>
             </div>
 
-            <div class="row margin-bottom-20">
+            <div class="row margin-bottom-20 container">
                 <a class="btn btn-default col-md-5" href="/account/changeuserpicture" >Change User Picture</a>
                 <p class="col-md-7" >Here you can edit your Profile Picture.</p>
             </div>
 
-            <div class="row margin-bottom-20">
+            <div class="row margin-bottom-20 container">
                 <a class="btn btn-default col-md-5" href="/account/changepassword" >Change Password</a>
                 <p class="col-md-7" >Here you can edit your Password.</p>
             </div>
 
-            <div class="row margin-bottom-20">
+            <div class="row margin-bottom-20 container">
                 <a class="btn btn-danger col-md-5" href="/account/deactivate">Deactivate your Account</a>
                 <p class="col-md-7" >Here you can deactivate your Account. The Account is deactivated until the next login.</p>
             </div>
 
-            <div class="row margin-bottom-20">
+            <div class="row margin-bottom-20 container">
                 <a class="btn btn-warning col-md-5" href="/account/logoff">Logoff</a>
                 <p class="col-md-7" >Exit - Bye! ;)</p>
             </div>
