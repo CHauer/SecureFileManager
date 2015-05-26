@@ -58,13 +58,13 @@
                 <? if(IsUserLoggedOn()){ ?>
 
                 <!-- Files -->
-                <li class="dropdown <? CurrentActive("files", "index") ?> <? CurrentActive("files", "myfiles") ?>">
-                    <a>
+                <li class="dropdown <? CurrentActive("files", "index") ?> <? CurrentActive("files", "myfiles") ?>" >
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown">
                         Files
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a target="" href="/files/index">Public Files</a></li>
-                        <li><a target="" href="/files/myfiles">My Files</a></li>
+                        <li><a href="/files/index">Public Files</a></li>
+                        <li><a href="/files/myfiles">My Files</a></li>
                     </ul>
                 </li>
                 <!-- End Files -->
@@ -82,11 +82,15 @@
                     if(IsUserAdministrator()) {
                     ?>
 
-                    <li class="<? CurrentActive("admin", "index") ?>">
-                        <a href="/admin/index" >
+                    <li class="dropdown <? CurrentActive("admin", "index") ?>">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" >
                             Administrator
                         </a>
-
+                        <ul class="dropdown-menu">
+                            <li><a href="/admin/index">Public Files</a></li>
+                            <li><a href="/admin/users">My Files</a></li>
+                            <li><a href="/admin/users">My Files</a></li>
+                        </ul>
                     </li>
 
                     <?}?>
