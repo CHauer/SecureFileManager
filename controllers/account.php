@@ -210,6 +210,26 @@ class AccountController extends BaseController
         $this->view->output(NULL, '');
     }
 
+    protected function showprofile()
+    {
+        ConfirmUserIsLoggedOn();
+        $userid = null;
+
+        if(isset($this->urlValues['id']) && is_integer($this->urlValues['id']))
+        {
+            $userid = intval($this->urlValues['id']);
+        }
+        else
+        {
+            $userid = intval($_SESSION['userid']);
+        }
+
+        $viewModel = $this->model->showprofile($userid);
+
+        $this->view->output($viewModel);
+
+    }
+
     protected function editprofile()
     {
         ConfirmUserIsLoggedOn();

@@ -21,6 +21,17 @@ class AccountModel extends BaseModel
         return $this->viewModel;
     }
 
+    public function showprofile($userid)
+    {
+        $userrepo = new UserRepository();
+
+        $user = $userrepo->GetUser(intval($userid));
+        $this->viewModel->set("model", $user);
+        $this->viewModel->set("pageTitle",'Profile ' . $user->Username);
+
+        return $this->viewModel;
+    }
+
     public function editprofile()
     {
         $this->viewModel->set("pageTitle","Edit Profile");

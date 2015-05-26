@@ -58,11 +58,14 @@
                 <? if(IsUserLoggedOn()){ ?>
 
                 <!-- Files -->
-                <li class="<? CurrentActive("files", "index") ?>">
-                    <a href="/files/index" >
+                <li class="dropdown <? CurrentActive("files", "index") ?> <? CurrentActive("files", "myfiles") ?>">
+                    <a>
                         Files
                     </a>
-
+                    <ul class="dropdown-menu">
+                        <li><a target="" href="/files/index">Public Files</a></li>
+                        <li><a target="" href="/files/myfiles">My Files</a></li>
+                    </ul>
                 </li>
                 <!-- End Files -->
 
@@ -129,7 +132,7 @@
                         <div class="input-group animated fadeInDown row " style="width: 300px">
                                 <img class="col-md-4" src="<? echo $viewModel->get('userimage') ?>" />
                                 <div class="col-md-8">
-                                    <p><? echo $viewModel->get('username') ?><br/>
+                                    <p><a href="/account/showprofile"><? echo $viewModel->get('username') ?></a><br/>
                                     <? echo $viewModel->get('fullname') ?><br/>
                                     <? echo $viewModel->get('email') ?></p>
                                     <a href="/account/manage" class="btn-u" >
