@@ -52,10 +52,13 @@ function HandlePictureUpload($postFileName, $directory){
         $filename = $uniqid . '.' . $ext;
         $path = $directory;
 
+        try
+        {
         if (!file_exists($path))
         {
             mkdir($path, 0777, true);
         }
+        }catch (Exception $ex){}
 
         if ($_FILES[$postFileName]["size"] > 0 &&
             ($ext == 'jpg' || $ext == 'png' || $ext == 'jpeg'
@@ -63,7 +66,7 @@ function HandlePictureUpload($postFileName, $directory){
         {
             $filepath = $path . '/' . $filename;
 
-            if (!move_uploaded_file($_FILES[$postFileName]["tmp_name"], $filepath))
+            if (!copy($_FILES[$postFileName]["tmp_name"], $filepath))
             {
                 throw new RuntimeException('Failed to move uploaded file.');
             }
