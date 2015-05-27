@@ -4,7 +4,7 @@
         <h1 class="pull-left">File Upload</h1>
         <ul class="pull-right breadcrumb">
             <li><a href="/home/index">Home</a></li>
-            <li><a href="/files/index">Upload List</a></li>
+            <li><a href="/files/index">File List</a></li>
             <li class="active">Upload</li>
         </ul>
     </div><!--/container-->

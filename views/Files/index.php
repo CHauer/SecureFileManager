@@ -97,7 +97,8 @@ if($viewModel->exists("model"))
                                             }
                                          ?>
                                         <li><a href="<? echo '/account/showprofile/' . $data['UserId'] ?>"><?php echo $data['Username']?></a></li>
-                                        <li>Uploaded <?php echo ModelDateTimeValue($data['Uploaded']) ?></li>
+                                        <li>Uploaded <?php echo ModelDateTimeValue($data['Uploaded']) ?>
+                                            <?php echo $data['IsPrivate'] ?></li>
                                         <?php if ($data['IsPrivate'] == '1') { ?>
                                         <li class="color-green">private</li>
                                         <?php } ?>
