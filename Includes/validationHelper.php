@@ -56,8 +56,8 @@ function PrepareHtml($htmlText)
 {
     /*$allowedTags = "<br/><br><a><span><strong><b><p><i><u><strike><h2><h3><h4><h5>";
     $htmlText = strip_tags($htmlText, $allowedTags); */
-
-    $htmlText = htmLawed($htmlText);
+    $config = array('safe'=>1);
+    $htmlText = htmLawed($htmlText, $config);
 
     return $htmlText;
 }
