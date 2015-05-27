@@ -21,8 +21,9 @@ class AdminModel extends BaseModel
 
     public function log()
     {
-        $logRepo = new LogEntryRepository();
-        $logs = $logRepo->GetLogEntries(1000);
+        global $log;
+
+        $logs = $log->GetAllLogMessages(1000);
         $this->viewModel->set("pageTitle","Log");
         $this->viewModel->set("model",$logs);
         return $this->viewModel;

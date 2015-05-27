@@ -33,14 +33,14 @@ class LogEntryRepository{
      * @param $count
      * @return array
      */
-    public function GetLogEntries($count){
+    public function GetLogEntries($count = 1000){
         $entries = Array();
         global $db;
 
-        $stmt = $db->prepare("SELECT TOP :topCount [LogEntryId],[Created],[Message],[Typ]
+        $stmt = $db->prepare("SELECT TOP" . $count ." [LogEntryId],[Created],[Message],[Typ]
                               FROM [dbo].[LogEntry]
                               ORDER BY [Created] DESC");
-        $stmt->bindParam(":topCount", $count);
+
         $stmt->execute();
         $results = $stmt->fetchAll();
 
