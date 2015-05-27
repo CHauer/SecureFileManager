@@ -233,8 +233,7 @@ class UserRepository{
            ,[AuthTokenId]
            ,[Firstname]
            ,[Lastname]
-           from [dbo].[User] U
-           where U.UserId=:userid');
+           from [dbo].[User] U');
 
         $stmt->execute();
 
