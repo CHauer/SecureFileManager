@@ -50,7 +50,7 @@ class LogEntryRepository{
         {
             $tempEntry = new LogEntry();
             $tempEntry->LogEntryId = $resultRow['LogEntryId'];
-            $tempEntry->Created = $resultRow['Created'];
+            $tempEntry->Created = ParseDate($resultRow["Created"]);
             $tempEntry->Message = $resultRow['Message'];
             $tempEntry->Typ = $resultRow['Typ'];
 

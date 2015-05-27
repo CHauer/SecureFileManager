@@ -57,3 +57,18 @@ function ModelDateTimeValue($field)
 {
     return date( 'l, d.m.Y H:i', strtotime($field));
 }
+
+function GetLogTypeName($typ){
+    switch($typ){
+        case LOGGER_ERROR:
+            return "Error";
+        case LOGGER_INFO:
+            return "Info";
+        case LOGGER_WARNING:
+            return "Warning";
+        case LOGGER_DEBUG:
+            return "Debug";
+    }
+
+    return "Undefined";
+}

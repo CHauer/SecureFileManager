@@ -7,10 +7,10 @@
  */
 
 /* LogEntry Typs */
-define('LOGGER_DEBUG', 1);
+define('LOGGER_DEBUG', 0);
 define('LOGGER_INFO', 1);
-define('LOGGER_WARNING', 1);
-define('LOGGER_ERROR', 1);
+define('LOGGER_WARNING', 2);
+define('LOGGER_ERROR', 3);
 
 /*
  * Logging Events
