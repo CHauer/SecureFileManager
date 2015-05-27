@@ -29,7 +29,7 @@ class FileRepository
             :UserId)");
         $stmt->bindParam(":Name", htmlspecialchars($file->Name));
         $stmt->bindParam(":FileLink", $file->FileLink);
-        $stmt->bindParam(":Description", htmlspecialchars($file->Description));
+        $stmt->bindParam(":Description", PrepareHtml($file->Description));
         $stmt->bindParam(":IsPrivate", $file->IsPrivate);
         $stmt->bindParam(":UserId", $file->UserId);
 
