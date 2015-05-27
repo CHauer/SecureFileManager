@@ -59,7 +59,7 @@ class CommentRepository {
             $comment = new Comment();
             $comment->CommentId = $results[$i]['CommentId'];
             $comment->Message = $results[$i]['Message'];
-            $comment->Created= $results[$i]['Created'];
+            $comment->Created= ModelDateTimeValue($results[$i]['Created']);
             $comment->UserId= $results[$i]['UserId'];
             $comment->UserFile_UserFileId = $results[$i]['UserFile_UserFileId'];
             $comment->User = $user;
@@ -67,8 +67,9 @@ class CommentRepository {
             $test[] = $comment;
         }
 
-        if ($stmt->columnCount() >= 1) {
-            return $results;
+        if ($stmt->columnCount() >= 1)
+        {
+            return $test;
         }
         return null;
     }
