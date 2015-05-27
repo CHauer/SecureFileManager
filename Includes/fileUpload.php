@@ -54,15 +54,15 @@ function HandlePictureUpload($postFileName, $directory){
 
         try
         {
-        if (!file_exists($path))
-        {
-            mkdir($path, 0777, true);
-        }
+            if (!file_exists($path))
+            {
+                mkdir($path, 0777, true);
+            }
         }catch (Exception $ex){}
 
-        if ($_FILES[$postFileName]["size"] > 0 &&
-            ($ext == 'jpg' || $ext == 'png' || $ext == 'jpeg'
-                || $ext == 'gif' || $ext == 'bmp'))
+        //max 30mb
+        if ($_FILES[$postFileName]["size"] > 0 && $_FILES[$postFileName]["size"] < 1024 * 1024 * 30 &&
+            ($ext == 'jpg' || $ext == 'png' || $ext == 'jpeg' || $ext == 'gif' || $ext == 'bmp'))
         {
             $filepath = $path . '/' . $filename;
 
