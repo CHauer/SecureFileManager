@@ -61,7 +61,6 @@ class CommentRepository {
             $comment->Message = $results[$i]['Message'];
             $comment->Created= $results[$i]['Created'];
             $comment->UserId= $results[$i]['UserId'];
-            $comment->UserFile= $results[$i]['UserFile'];
             $comment->UserFile_UserFileId = $results[$i]['UserFile_UserFileId'];
             $comment->User = $user;
 
