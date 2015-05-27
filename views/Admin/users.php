@@ -47,15 +47,17 @@ $users = $viewModel->get("model");
                     ?>
                     <tr>
                         <td><img src="<? echo $user->PictureLink ?>" style="width:50px;" /></td>
-                        <td><? echo $user->Username ?></td>
-                        <td><? echo $user->Firstname ?></td>
-                        <td><? echo $user->Lastname ?></td>
-                        <td><? echo $user->BirthDate ?></td>
-                        <td><? echo $user->EMail ?></td>
-                        <td><? echo $user->LockoutEnabled ?></td>
-                        <td><? echo $user->LockoutEndDate ?></td>
-                        <td><? echo $user->Deactivated ?></td>
-                        <td><? echo $user->Role->Name ?></td>
+                        <td><? EchoModelValue($user, 'Username')  ?></td>
+                        <td><? EchoModelValue($user, 'Firstname') ?></td>
+                        <td><? EchoModelValue($user, 'Lastname') ?></td>
+                        <td><? EchoModelDate($user,'BirthDate') ?></td>
+                        <td><? EchoModelValue($user,'EMail') ?></td>
+                        <td><? EchoModelValue($user,'LockoutEnabled') ?></td>
+                        <td><? EchoModelDate($user,'LockoutEndDate') ?></td>
+                        <td><? EchoModelValue($user,'Deactivated') ?></td>
+                        <td><? if($user != null) {
+                                EchoModelValue($user->Role,'Name');
+                            } ?></td>
                     </tr>
                 <?
                 }

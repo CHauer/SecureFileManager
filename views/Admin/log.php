@@ -38,9 +38,9 @@ $logs = $viewModel->get("model");
                 {
                     ?>
                     <tr>
-                        <td><? echo $log->Created ?></td>
-                        <td><? echo $log->Message ?></td>
-                        <td><? echo $log->Typ ?></td>
+                        <td><? echo EchoModelDate($log, 'Created') ?></td>
+                        <td><? echo EchoModelValue($log, 'Message') ?></td>
+                        <td><? echo EchoModelValue($log, 'Typ') ?></td>
                     </tr>
                 <?
                 }
