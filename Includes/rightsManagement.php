@@ -46,7 +46,7 @@ function IsStandardUser()
 function IsPremiumUser()
 {
     $userRepo = new UserRepository();
-    return $userRepo->IsUserInRole("Premium", intval($_SESSION['userid']));
+    return $userRepo->IsUserInRole("Premium", intval($_SESSION['userid'])) || $userRepo->IsUserInRole("Administrator", intval($_SESSION['userid']));;
 }
 
 function isFileOwner($userid)
