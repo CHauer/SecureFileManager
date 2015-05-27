@@ -215,8 +215,9 @@ class UserRepository{
      */
     public function GetAllUsers()
     {
-        $roleRepo = new RoleRepository();
         global $db;
+
+        $roleRepo = new RoleRepository();
 
         $stmt = $db->prepare('select
             [UserId]
@@ -268,7 +269,7 @@ class UserRepository{
             $users[$i++] = $user;
         }
 
-        return $user;
+        return $users;
     }
 
     /**

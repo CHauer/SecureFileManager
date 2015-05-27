@@ -46,7 +46,7 @@ $users = $viewModel->get("model");
                 foreach ($users as $user) {
                     ?>
                     <tr>
-                        <td><img src="<? echo $user->PictureLink ?>" style="width:100px;" /></td>
+                        <td><img src="<? echo $user->PictureLink ?>" style="width:50px;" /></td>
                         <td><? echo $user->Username ?></td>
                         <td><? echo $user->Firstname ?></td>
                         <td><? echo $user->Lastname ?></td>
