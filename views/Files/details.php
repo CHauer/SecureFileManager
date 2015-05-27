@@ -37,7 +37,7 @@ if($viewModel->exists("comment"))
         <? CreateHiddenAntiCSRFTokenField(); ?>
 
         <!--Left Sidebar-->
-        <div class="col-md-4 md-margin-bottom-40">
+        <div class="col-md-3 md-margin-bottom-40">
 
             <div class="overflow-h">
                 <label class="control-label" >File Name: </label><br/>
