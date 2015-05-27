@@ -23,4 +23,5 @@ require("FilesRepository.php");
 require("ForumRepository.php");
 require("LogEntryRepository.php");
 require("AuthTokenRepository.php");
+require("CommentRepository.php");
 ?>

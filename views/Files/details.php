@@ -4,7 +4,7 @@
         <h1 class="pull-left">File Details</h1>
         <ul class="pull-right breadcrumb">
             <li><a href="/home/index">Home</a></li>
-            <li><a href="/files/index">Upload List</a></li>
+            <li><a href="/files/index">File List</a></li>
             <li class="active">File Details</li>
         </ul>
     </div><!--/container-->
@@ -79,7 +79,7 @@ if($viewModel->exists("comment"))
                                     <div class="media-body">
                                         <h4 class="media-heading">
                                             <strong><?php echo $data['Username'] ?>, </strong>
-                                            <small><?php echo ModelDateTimeValue($data['Created']) ?></small>
+                                            <small><?php echo $data['Created'] ?></small>
                                         </h4>
                                         <p style="word-wrap: break-word"><?php echo $data['Message'] ?></p>
                                     </div>
@@ -107,8 +107,8 @@ if($viewModel->exists("comment"))
                             </div>
 
                             <div class="form-group <? ValidationErrorClass("Message", $viewModel) ?> ">
-                                <label class="control-label">Message <span class="color-green">*</span></label>
-                                <input type="text" name="Message" class="form-control margin-bottom-20" <? ModelValue($comment, 'Message')?> maxlength="500">
+                                <label class="control-label">Message <span class="color-red">*</span></label>
+                                <textarea name="Message" class="form-control margin-bottom-20" <? ModelValue($comment, 'Message')?> maxlength="500"></textarea>
                                 <? ValidationErrorMessage("Message", $viewModel) ?>
                             </div>
 

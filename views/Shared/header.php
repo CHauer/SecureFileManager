@@ -63,7 +63,7 @@
                         Files
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="/files/index">Public Files</a></li>
+                        <li><a href="/files/index">All Files</a></li>
                         <li><a href="/files/myfiles">My Files</a></li>
                     </ul>
                 </li>

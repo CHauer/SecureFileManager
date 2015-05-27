@@ -15,13 +15,13 @@ class CommentRepository {
         $stmt = $db->prepare("INSERT INTO [dbo].[Comment]
           ([Message],
           [UserId],
-          [UserFile_UserFileId]
+          [UserFile_UserFileId])
      VALUES
            (:Message,
             :UserId,
             :UserFileId)");
 
-        $stmt->bindParam(":Message", PrepareHtml($comment->Message));
+        $stmt->bindParam(":Message", htmlspecialchars($comment->Message));
         $stmt->bindParam(":UserId", $comment->UserId);
         $stmt->bindParam(":UserFileId", $comment->UserFile_UserFileId);
 
@@ -38,9 +38,8 @@ class CommentRepository {
     public function GetComments($fileid)
     {
         global $db;
-        $isprivate = 0;
 
-        $stmt = $db->prepare('Select [Comment].Message, [Comment].Created, Username, PictureLink
+        $stmt = $db->prepare('Select [Comment].*, Username, PictureLink
                               From [Comment] left join [User] on [Comment].UserId = [User].UserId
                               where [Comment].UserFile_UserFileId = :fileid
                               order by Created DESC');
@@ -51,7 +50,27 @@ class CommentRepository {
 
         $results = $stmt->fetchAll();
 
-        if ($stmt->columnCount() >= 1) {
+        /*$test[] = array();
+
+        for ($i = 0; $i < count($results); ++$i)
+        {
+            $user = new User();
+            $user->Username = $results[$i]['Username'];
+            $user->PictureLink = $results[$i]['PictureLink'];
+
+            $comment = new Comment();
+            $comment->CommentId = $results[$i]['CommentId'];
+            $comment->Message = $results[$i]['Message'];
+            $comment->Created= ModelDateTimeValue($results[$i]['Created']);
+            $comment->UserId= $results[$i]['UserId'];
+            $comment->UserFile_UserFileId = $results[$i]['UserFile_UserFileId'];
+            $comment->User = $user;
+
+            $test[] = $comment;
+        }*/
+
+        if ($stmt->columnCount() >= 1)
+        {
             return $results;
         }
         return null;

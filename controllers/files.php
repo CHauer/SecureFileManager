@@ -61,7 +61,7 @@ class FilesController extends BaseController
                 $viewModel->set("model", $file);
 
                 $file->Name = $_POST["Name"];
-                $file->Description = $_POST["Description"];
+                $file->Description = PrepareHtml($_POST["Description"]);
                 if (isset($_POST["IsPrivate"])) {
                     $file->IsPrivate = '1';
                 } else {
@@ -239,7 +239,7 @@ class FilesController extends BaseController
                 $viewModel->set("comment", $comment);
 
                 $comment->UserFile_UserFileId = $id;
-                $comment->Message = $_POST["Message"];
+                $comment->Message = PrepareHtml($_POST["Message"]);
                 $comment->UserId = $_SESSION["userid"];
 
             } catch (Exception $ex)
