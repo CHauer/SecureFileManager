@@ -49,13 +49,13 @@ class CommentRepository {
         $stmt->execute();
 
         $results = $stmt->fetchAll();
-        $test   = array();
 
         for ($i = 0; $i < count($results); ++$i)
         {
             $user = new User();
             $user->Username = $results[$i]['Username'];
             $user->PictureLink = $results[$i]['PictureLink'];
+
             $comment = new Comment();
             $comment->CommentId = $results[$i]['CommentId'];
             $comment->Message = $results[$i]['Message'];
@@ -65,7 +65,7 @@ class CommentRepository {
             $comment->UserFile_UserFileId = $results[$i]['UserFile_UserFileId'];
             $comment->User = $user;
 
-            $test[] = array( $comment );
+            $test[] = $comment;
         }
 
         if ($stmt->columnCount() >= 1) {
