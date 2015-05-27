@@ -50,7 +50,7 @@ class CommentRepository {
 
         $results = $stmt->fetchAll();
 
-        $test[] = array();
+        /*$test[] = array();
 
         for ($i = 0; $i < count($results); ++$i)
         {
@@ -67,11 +67,11 @@ class CommentRepository {
             $comment->User = $user;
 
             $test[] = $comment;
-        }
+        }*/
 
         if ($stmt->columnCount() >= 1)
         {
-            return $test;
+            return $results;
         }
         return null;
     }
