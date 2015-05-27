@@ -37,7 +37,7 @@ class LogEntryRepository{
         $entries = Array();
         global $db;
 
-        $stmt = $db->prepare("SELECT TOP" . $count ." [LogEntryId],[Created],[Message],[Typ]
+        $stmt = $db->prepare("SELECT TOP " . $count ." [LogEntryId],[Created],[Message],[Typ]
                               FROM [dbo].[LogEntry]
                               ORDER BY [Created] DESC");
 
