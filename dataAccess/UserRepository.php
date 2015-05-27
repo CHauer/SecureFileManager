@@ -113,7 +113,7 @@ class UserRepository{
 
         $stmt = $db->prepare("UPDATE [dbo].[User]
                                SET
-                               ,[PictureLink]=:PictureLink
+                               [PictureLink]=:PictureLink
                                 WHERE [UserId]=:userid");
 
         $stmt->bindParam(":PictureLink", $pictureLink);
