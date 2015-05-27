@@ -50,6 +50,8 @@ class CommentRepository {
 
         $results = $stmt->fetchAll();
 
+        $test[] = array();
+
         for ($i = 0; $i < count($results); ++$i)
         {
             $user = new User();
