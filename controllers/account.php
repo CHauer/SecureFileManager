@@ -68,7 +68,10 @@ class AccountController extends BaseController
                 $uploadHandler = new UploadHandler();
                 $filelink = $uploadHandler->HandlePictureUpload("Picture", "upload/UserPictures");
 
-                $user->PictureLink = $filelink;
+                if($filelink != NULL && $filelink != false)
+                {
+                    $user->PictureLink = '/' . $filelink;
+                }
 
                 $roleRepo = new RoleRepository();
                 $roleId = $roleRepo->GetRoleId($_POST["Role"]);
@@ -502,22 +505,24 @@ class AccountController extends BaseController
             {
                 try
                 {
-                    $uploadHandler = new UploadHandler();
-                    $filelink = $uploadHandler->HandlePictureUpload("Picture", "upload/UserPictures");
+                    $filelink = HandlePictureUpload("Picture", "upload/UserPictures");
 
-                    $userRepo = new UserRepository();
-                    $result = $userRepo->UpdateUserPicture($viewModel->get('userid'), $filelink);
-
-                    if($result == false )
+                    if($filelink != NULL && $filelink != false)
                     {
-                        $viewModel->set('error', 'Something went wrong during your file upload - please try again!');
-                    }
-                    else
-                    {
-                        //log Kontoänderungen
-                        $log->LogMessage('User ' . $viewModel->get('username') . ' has changed his profile picture.', LOGGER_INFO);
+                        $userRepo = new UserRepository();
+                        $result = $userRepo->UpdateUserPicture($viewModel->get('userid'), '/'.  $filelink);
 
-                        RedirectAction("account", "manage");
+                        if ($result == false)
+                        {
+                            $viewModel->set('error', 'Something went wrong during your file upload - please try again!');
+                        }
+                        else
+                        {
+                            //log Kontoänderungen
+                            $log->LogMessage('User ' . $viewModel->get('username') . ' has changed his profile picture.', LOGGER_INFO);
+
+                            RedirectAction("account", "manage");
+                        }
                     }
                 }
                 catch(Exception $ex)

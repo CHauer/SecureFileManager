@@ -34,7 +34,7 @@
         $threads = $viewModel->get("threads");
     }
     ?>
-    <div class="panel panel-light-green margin-bottom-20">
+    <div class="panel panel-u margin-bottom-20">
         <div class="panel-heading
             <h3 class="panel-title"><i class="fa fa-tasks"></i> Threads</h3>
         </div>

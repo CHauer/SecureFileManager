@@ -198,11 +198,73 @@ class UserRepository{
         $user->AccessFailedCount = $result["AccessFailedCount"];
         $user->AuthTokenId = $result["AuthTokenId"];
         $user->EMail = $result["EMail"];
+        $user->Deactivated = $result["Deactivated"];
         $user->Username = $result["Username"];
         $user->PictureLink = $result["PictureLink"];
         $user->LockoutEnabled = $result["LockoutEnabled"];
         $user->LockoutEndDate= $result["LockoutEndDate"];
         $user->RoleId = intval($result["RoleId"]);
+
+        return $user;
+    }
+
+    /**
+     * @param $userid
+     * @return User
+     */
+    public function GetAllUser()
+    {
+        $roleRepo = new RoleRepository();
+        global $db;
+
+        $stmt = $db->prepare('select
+            [UserId]
+            ,[Username]
+           ,convert(varchar, [Birthdate], 104) as [Birthdate]
+           ,[EMail]
+           ,[Description]
+           ,[PictureLink]
+           ,[LockoutEnabled]
+           ,[LockoutEndDate]
+           ,[AccessFailedCount]
+           ,[RoleId]
+           ,[AuthTokenId]
+           ,[Firstname]
+           ,[Lastname]
+           from [dbo].[User] U
+           where U.UserId=:userid');
+
+        $stmt->execute();
+
+        $results = $stmt->fetchAll();
+
+        if($results == NULL){
+            return NULL;
+        }
+
+        $users = Array();
+        $i = 0;
+
+        foreach($results as $result) {
+            $user = new User();
+
+            $user->UserId = $result["UserId"];
+            $user->Description = $result["Description"];
+            $user->Firstname = $result["Firstname"];
+            $user->Lastname = $result["Lastname"];
+            $user->BirthDate = ParseDate($result["Birthdate"]);
+            $user->AccessFailedCount = $result["AccessFailedCount"];
+            $user->AuthTokenId = $result["AuthTokenId"];
+            $user->EMail = $result["EMail"];
+            $user->Deactivated = $result["Deactivated"];
+            $user->Username = $result["Username"];
+            $user->PictureLink = $result["PictureLink"];
+            $user->LockoutEnabled = $result["LockoutEnabled"];
+            $user->LockoutEndDate = $result["LockoutEndDate"];
+            $user->RoleId = intval($result["RoleId"]);
+            $user->Role =$roleRepo->GetRole($user->RoleId);
+            $users[$i++] = $user;
+        }
 
         return $user;
     }

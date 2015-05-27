@@ -11,15 +11,20 @@ class AdminModel extends BaseModel
     //data passed to the bad URL error view
     public function users()
     {
-        //TODO load all users
+        $userRepo = new UserRepository();
+        $users = $userRepo->GetAllUsers();
+
         $this->viewModel->set("pageTitle","Userlist");
+        $this->viewModel->set("model",$users);
         return $this->viewModel;
     }
 
     public function log()
     {
-        //todo load all log entries
+        $logRepo = new LogEntryRepository();
+        $logs = $logRepo->GetLogEntries(1000);
         $this->viewModel->set("pageTitle","Log");
+        $this->viewModel->set("model",$logs);
         return $this->viewModel;
     }
 }
