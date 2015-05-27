@@ -15,7 +15,7 @@ class CommentRepository {
         $stmt = $db->prepare("INSERT INTO [dbo].[Comment]
           ([Message],
           [UserId],
-          [UserFile_UserFileId]
+          [UserFile_UserFileId])
      VALUES
            (:Message,
             :UserId,
