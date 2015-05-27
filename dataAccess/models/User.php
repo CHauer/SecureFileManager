@@ -1,13 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Christoph
- * Date: 14.05.2015
- * Time: 04:03
- */
 
 class User
 {
+
     public $UserId;
 
     public $Username;
@@ -31,6 +26,8 @@ class User
     public $LockoutEndDate;
 
     public $AccessFailedCount;
+
+    public $Deactivated;
 
     public $Role;
 
