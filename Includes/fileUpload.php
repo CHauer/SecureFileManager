@@ -30,18 +30,43 @@ function HandleFileUpload($postFileName, $directory){
 
 function HandlePictureUpload($postFileName, $directory){
 
-    if(isset($_FILES[$postFileName]))
+    if (isset($_FILES[$postFileName]))
     {
         $dname = explode(".", $_FILES[$postFileName]["name"]);
-        $ext = $dname[count($dname) - 1];
+        $ext = strtolower($dname[count($dname) - 1]);
 
-        if ($_FILES[$postFileName]["size"] > 0 && ($ext == "jpg" ||$ext == "png" || $ext == "gif" ))
+        switch ($_FILES[$postFileName]['error'])
         {
-            $uniqid = uniqid();
-            $filename = $uniqid . '.' . $ext;
-            $filepath = $directory . '/' . $filename;
+            case UPLOAD_ERR_OK:
+                break;
+            case UPLOAD_ERR_NO_FILE:
+                throw new RuntimeException('No file sent.');
+            case UPLOAD_ERR_INI_SIZE:
+            case UPLOAD_ERR_FORM_SIZE:
+                throw new RuntimeException('Exceeded filesize limit.');
+            default:
+                throw new RuntimeException('Unknown errors.');
+        }
 
-            copy($_FILES[$postFileName]["tmp_name"], $filepath);
+        $uniqid = uniqid();
+        $filename = $uniqid . '.' . $ext;
+        $path = $directory;
+
+        if (!file_exists($path))
+        {
+            mkdir($path, 0777, true);
+        }
+
+        if ($_FILES[$postFileName]["size"] > 0 &&
+            ($ext == 'jpg' || $ext == 'png' || $ext == 'jpeg'
+                || $ext == 'gif' || $ext == 'bmp'))
+        {
+            $filepath = $path . '/' . $filename;
+
+            if (!move_uploaded_file($_FILES[$postFileName]["tmp_name"], $filepath))
+            {
+                throw new RuntimeException('Failed to move uploaded file.');
+            }
 
             return $filepath;
         }

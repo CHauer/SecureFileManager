@@ -65,7 +65,7 @@ class AccountController extends BaseController
 
             try
             {
-                $filelink = HandleFileUpload("Picture", "/upload/UserPictures");
+                $filelink = HandlePictureUpload("Picture", "/upload/UserPictures");
 
                 $user->PictureLink = $filelink;
 
