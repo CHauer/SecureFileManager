@@ -3,7 +3,7 @@
     <div class="container">
         <h1 class="pull-left">View thread</h1>
         <ul class="pull-right breadcrumb">
-            <li>>Administrator</li>
+            <li>Administrator</li>
             <li class="active">Log</li>
         </ul>
     </div>
