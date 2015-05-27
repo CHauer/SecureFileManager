@@ -497,15 +497,14 @@ class AccountController extends BaseController
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
         {
             //update user picture
-            if(isset($_POST['Picture']))
+            if(isset($_FILES['Picture']))
             {
                 try
                 {
-                    $filelink = HandleFileUpload("Picture", "/upload/UserPictures");
-                    $pictureLink = $filelink;
+                    $filelink = HandlePictureUpload("Picture", "/upload/UserPictures");
 
                     $userRepo = new UserRepository();
-                    $result = $userRepo->UpdateUserPicture($viewModel->get('userid'), $pictureLink);
+                    $result = $userRepo->UpdateUserPicture($viewModel->get('userid'), $filelink);
 
                     if($result == false )
                     {
