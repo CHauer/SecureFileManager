@@ -4,7 +4,7 @@
         <h1 class="pull-left">Upload List</h1>
         <ul class="pull-right breadcrumb">
             <li><a href="index.html">Home</a></li>
-            <li class="active">Upload List</li>
+            <li class="active">All Files</li>
         </ul>
     </div>
     <!--/container-->
@@ -100,7 +100,7 @@ if($viewModel->exists("model"))
                                         <li>Uploaded <?php echo ModelDateTimeValue($data['Uploaded']) ?></li>
                                     </ul>
                                     <h2><a href="/files/details/<?php echo $data['UserFileId']?>"><?php echo $data['Name']?></a></h2>
-                                    <p><?php echo $data['Description']?></p>
+                                    <p style="word-wrap: break-word"><?php echo $data['Description']?></p>
                                 </div>
                                 <ul class="post-shares">
                                     <li>

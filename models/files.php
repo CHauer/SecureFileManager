@@ -11,7 +11,7 @@ class FilesModel extends BaseModel
     //data passed to the home index view
     public function index()
     {
-        $this->viewModel->set("pageTitle","Upload List");
+        $this->viewModel->set("pageTitle","All Files");
 
         try {
             $fileRepo = new FileRepository();
@@ -61,11 +61,9 @@ class FilesModel extends BaseModel
             $file = $fileRepo->GetFile($fileid);
             $this->viewModel->set("model", $file);
 
-            //$commRepo = new CommentRepository();
-
-           /* $commRepo = new CommentRepository();
+            $commRepo = new CommentRepository();
             $comments = $commRepo->GetComments($fileid);
-            $this->viewModel->set("comments", $comments);*/
+            $this->viewModel->set("comments", $comments);
 
         } catch (Exception $e) {
             $this->viewModel->set("error", $e->getMessage());
