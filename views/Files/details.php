@@ -108,7 +108,7 @@ if($viewModel->exists("comment"))
 
                             <div class="form-group <? ValidationErrorClass("Message", $viewModel) ?> ">
                                 <label class="control-label">Message <span class="color-red">*</span></label>
-                                <textarea name="Message" class="form-control margin-bottom-20" <? ModelValue($comment, 'Message')?> maxlength="500">
+                                <textarea name="Message" class="form-control margin-bottom-20" <? ModelValue($comment, 'Message')?> maxlength="500"></textarea>
                                 <? ValidationErrorMessage("Message", $viewModel) ?>
                             </div>
 
