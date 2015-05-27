@@ -213,7 +213,7 @@ class UserRepository{
      * @param $userid
      * @return User
      */
-    public function GetAllUser()
+    public function GetAllUsers()
     {
         $roleRepo = new RoleRepository();
         global $db;
