@@ -171,6 +171,7 @@ class UserRepository{
            ,[LockoutEnabled]
            ,[LockoutEndDate]
            ,[AccessFailedCount]
+           ,[Deactivated]
            ,[RoleId]
            ,[AuthTokenId]
            ,[Firstname]
@@ -226,6 +227,7 @@ class UserRepository{
            ,[PictureLink]
            ,[LockoutEnabled]
            ,[LockoutEndDate]
+           ,[Deactivated]
            ,[AccessFailedCount]
            ,[RoleId]
            ,[AuthTokenId]
@@ -245,7 +247,8 @@ class UserRepository{
         $users = Array();
         $i = 0;
 
-        foreach($results as $result) {
+        foreach($results as $result)
+        {
             $user = new User();
 
             $user->UserId = $result["UserId"];
