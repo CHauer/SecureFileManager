@@ -66,7 +66,7 @@ class AccountController extends BaseController
             try
             {
                 $uploadHandler = new UploadHandler();
-                $filelink = $uploadHandler->HandlePictureUpload("Picture", "/upload/UserPictures");
+                $filelink = $uploadHandler->HandlePictureUpload("Picture", "upload/UserPictures");
 
                 $user->PictureLink = $filelink;
 
@@ -503,7 +503,7 @@ class AccountController extends BaseController
                 try
                 {
                     $uploadHandler = new UploadHandler();
-                    $filelink = $uploadHandler->HandlePictureUpload("Picture", "/upload/UserPictures");
+                    $filelink = $uploadHandler->HandlePictureUpload("Picture", "upload/UserPictures");
 
                     $userRepo = new UserRepository();
                     $result = $userRepo->UpdateUserPicture($viewModel->get('userid'), $filelink);
