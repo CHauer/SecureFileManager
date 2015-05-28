@@ -18,7 +18,7 @@ $logs = $viewModel->get("model");
 <!--=== Content Part ===-->
 <div class="container content">
     <h2>Users</h2>
-    <div class="panel panel-light-green margin-bottom-20">
+    <div class="panel panel-red margin-bottom-20">
         <div class="panel-heading">
             <h3 class="panel-title"><i class="fa fa-user"></i> User</h3>
         </div>

@@ -46,7 +46,7 @@ function EchoModelValue($model, $field)
 
 function EchoModelDate($model, $field)
 {
-    if($model != NULL && isset($model))
+    if($model != NULL && isset($model) && isset($model->{$field}))
     {
         echo  date_format($model->{$field}, 'd.m.Y');
     }
