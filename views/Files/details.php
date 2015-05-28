@@ -44,11 +44,11 @@ if($viewModel->exists("comment"))
                 <label class="margin-bottom-20" ><?php echo $model->Name ?>  </label>
             </div>
 
-            <ul class="post-shares">
+            <ul class="list-inline posted-info post-shares">
                 <li>
-                <a href="/files/download/<?php echo $model->UserFileId?>">
-                    <i class="rounded-x icon-cloud-download"></i>
-                </a>
+                    <a href="/files/download/<?php echo $model->UserFileId?>">
+                        <i class="rounded-x icon-cloud-download"></i>
+                    </a>
                 </li>
                 <?php
                 if (isFileOwner($model->UserId))
