@@ -51,7 +51,7 @@ if($viewModel->exists("comment"))
                 <?php
                 if (isFileOwner($data['UserId']))
                 {?>
-                        <a href="/files/delete/<?php echo $data['UserFileId']?>">
+                        <a href="/files/delete/<?php $model->UserFileId?>">
                             <i class="rounded-x icon-trash"></i>
                         </a>
                 <?}?>
