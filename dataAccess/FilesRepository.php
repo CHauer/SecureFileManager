@@ -170,7 +170,6 @@ class FileRepository
         $stmt->bindParam(':file', $file, PDO::PARAM_STR);
 
         $stmt->execute();
-
         $results = $stmt->fetchAll();
 
         if ($stmt->columnCount() >= 1) {

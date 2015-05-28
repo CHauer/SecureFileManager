@@ -1,10 +1,10 @@
 <!--=== Breadcrumbs ===-->
 <div class="breadcrumbs">
     <div class="container">
-        <h1 class="pull-left">All Files</h1>
+        <h1 class="pull-left">My Files</h1>
         <ul class="pull-right breadcrumb">
             <li><a href="index.html">Home</a></li>
-            <li class="active">All Files</li>
+            <li class="active">My Files</li>
         </ul>
     </div>
     <!--/container-->
@@ -53,7 +53,7 @@ if($viewModel->exists("model"))
         }
         ?>
 
-        <form class="page-search-form" action="/files/index" method="post">
+        <form class="page-search-form" action="/files/myfiles" method="post">
             <div class="row margin-bottom-40">
                 <div class="job-img-inputs">
                     <!-- Serach -->
@@ -63,17 +63,11 @@ if($viewModel->exists("model"))
                             <input type="text" placeholder="What file are you looking for?" class="form-control" name="Name" maxlength="20">
                         </div>
                     </div>
-                    <div class="col-sm-3 md-margin-bottom-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                            <input type="text" placeholder="Which user are you looking for?" class="form-control" name="User" maxlength="20">
-                        </div>
-                    </div>
                     <div class="col-3 md-margin-bottom-10">
                         <label class="select state-success">
                             <select name="SortBy" class="valid">
                                 <option value='Uploaded'>Uploaded</option>
-                                <option value='Username'>Username</option>
+                                <option value='Username'>Private</option>
                             </select>
                         </label>
                     </div>
@@ -96,27 +90,12 @@ if($viewModel->exists("model"))
                             <div class="col-sm-7 news-v3">
                                 <div class="news-v3-in-sm no-padding">
                                     <ul class="list-inline posted-info">
-                                        <?php
-                                            if (!is_null($data['PictureLink']))
-                                            {
-                                                ?>
-                                                <img class="rounded" height="auto" width="40px" src="<?php echo $data['PictureLink'] ?>" alt="">
-                                                <?php
-                                            }
-                                         ?>
-                                        <li><a href="<? echo '/account/showprofile/' . $data['UserId'] ?>"><?php echo $data['Username']?></a></li>
                                         <li>Uploaded <?php echo ModelDateTimeValue($data['Uploaded']) ?></li>
                                         <?php if ($data['IsPrivate'] == '1') { ?>
                                         <li>private</li>
                                         <?php } ?>
                                     </ul>
-                                    <h2><a href="/files/details/<?php echo $data['UserFileId']?>"><?php echo $data['Name']?> </a>
-                                        <?php
-                                        if (isFileOwner($_SESSION["userid"], $data['UserFileId'] ))
-                                        {?>
-                                            <span class="color-green">*</span>
-                                        <?}?>
-                                    </h2>
+                                    <h2><a href="/files/details/<?php echo $data['UserFileId']?>"><?php echo $data['Name']?> </a></h2>
                                     <p style="word-wrap: normal"><?php echo $data['Description']?></p>
                                 </div>
                                 <ul class="post-shares">

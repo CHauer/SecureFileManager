@@ -29,7 +29,6 @@ class FilesModel extends BaseModel
     public function myfiles()
     {
         $this->viewModel->set("pageTitle","My Files");
-
         try
         {
             $fileRepo = new FileRepository();
