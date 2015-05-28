@@ -169,7 +169,7 @@ class UserRepository{
            ,[Description]
            ,[PictureLink]
            ,[LockoutEnabled]
-           ,[LockoutEndDate]
+           , convert(varchar, [LockoutEndDate], 104) as [LockoutEndDate]
            ,[AccessFailedCount]
            ,[Deactivated]
            ,[RoleId]
@@ -203,7 +203,7 @@ class UserRepository{
         $user->Username = $result["Username"];
         $user->PictureLink = $result["PictureLink"];
         $user->LockoutEnabled = $result["LockoutEnabled"];
-        $user->LockoutEndDate= $result["LockoutEndDate"];
+        $user->LockoutEndDate= ParseDate($result["LockoutEndDate"]);
         $user->RoleId = intval($result["RoleId"]);
 
         return $user;
