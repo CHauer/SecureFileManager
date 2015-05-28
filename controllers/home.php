@@ -22,6 +22,11 @@ class HomeController extends BaseController
     {
         $this->view->output($this->model->index());
     }
+
+    protected function faq()
+    {
+        $this->view->output(NULL);
+    }
 }
 
 ?>
