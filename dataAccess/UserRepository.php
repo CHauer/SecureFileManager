@@ -84,8 +84,10 @@ class UserRepository{
                                ,[Lastname]=:Lastname
                                 WHERE [UserId]=:userid");
 
+        $date = date_format($user->BirthDate, 'm.d.Y');
+
         $stmt->bindParam(":Username", htmlspecialchars($user->Username));
-        $stmt->bindParam(":Birthdate", date_format($user->BirthDate, 'm.d.Y'));
+        $stmt->bindParam(":Birthdate", $date);
         $stmt->bindParam(":EMail", htmlspecialchars($user->EMail));
         $stmt->bindParam(":Description", $user->Description);
         $stmt->bindParam(":RoleId", $user->RoleId);
