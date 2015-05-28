@@ -57,6 +57,20 @@ class ForumController extends BaseController
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
         {
+            // check for permissions to write in forum
+            $userrepo = new UserRepository();
+            $rolerepo = new RoleRepository();
+
+            $user = $userrepo->GetUser(intval($_SESSION['userid']));
+            $user->Role = $rolerepo->GetRole($user->RoleId);
+
+
+            if (!$user->Role->WriteForum) {
+                $_SESSION['redirectError'] = "You don't have permissions to write a comment.";
+                RedirectAction("forum", "thread", $id);
+                return;
+            }
+
             // Post entry
             if(!$this->validateEntryData($viewModel))
             {
@@ -71,6 +85,9 @@ class ForumController extends BaseController
             $entry->UserId = $_SESSION["userid"];
 
             $forumrepo->PostEntryToThread($entry);
+
+            // reload viewmodel since data has changed (new entry)
+            $viewModel = $this->model->thread($id);
 
             $_SESSION["redirectSuccess"] = "Answer successfully created.";
         }
@@ -94,17 +111,31 @@ class ForumController extends BaseController
         {
             $forumrepo = new ForumRepository();
 
-            // TODO: what if entry doesn't exist anymore
-            $entry = $forumrepo->GetEntryById($id);
+            try
+            {
+                $entry = $forumrepo->GetEntryById($id);
+            }
+            catch(InvalidArgumentException $e)
+            {
+                $_SESSION["redirectError"] = $e->getMessage();
+                RedirectAction("forum", "index");
+                return;
+            }
 
-            if(IsEntryOwner($id, $_SESSION["userid"])) {
-                try {
+            if(IsEntryOwner($id, $_SESSION["userid"]))
+            {
+                try
+                {
                     $forumrepo->DeleteEntryById($id);
                     $_SESSION["redirectSuccess"] = "Answer successfully deleted.";
-                } catch (Exception $e) {
+                }
+                catch (Exception $e)
+                {
                     $_SESSION["redirectError"] = "Something went wrong. Please try again.";
                 }
-            } else {
+            }
+            else
+            {
                 $_SESSION["redirectError"] = "You are not allowed to delete this answer.";
             }
             RedirectAction("forum", "thread", $entry->ForumThreadId);
@@ -177,13 +208,23 @@ class ForumController extends BaseController
 
     protected function delete() {
         ConfirmUserIsLoggedOn();
-        $viewModel = $this->model->thread();
 
         $id = $this->urlValues['id'];
 
         if (!isset($id) || empty($id))
         {
             $_SESSION["redirectError"] = "No thread id specified";
+            RedirectAction("forum", "index");
+            return;
+        }
+
+        try
+        {
+            $viewModel = $this->model->thread($id);
+        }
+        catch(Exception $e)
+        {
+            $_SESSION["redirectError"] = "The requested thread doesn't exist.";
             RedirectAction("forum", "index");
             return;
         }

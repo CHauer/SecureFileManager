@@ -23,8 +23,8 @@ class ForumModel extends BaseModel
 
         $thread = $forumrepo->GetForumThreadById($threadId);
 
-        $this->$viewModel->set("thread", $thread);
-        $this->$viewModel->set("entries", $forumrepo->GetEntriesForThread($thread->ForumThreadId));
+        $this->viewModel->set("thread", $thread);
+        $this->viewModel->set("entries", $forumrepo->GetEntriesForThread($thread->ForumThreadId));
 
 
         return $this->viewModel;
