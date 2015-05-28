@@ -35,66 +35,46 @@ class ForumController extends BaseController
     {
         ConfirmUserIsLoggedOn();
         $forumrepo = new ForumRepository();
-        $viewModel = $this->model->thread();
 
         $id = $this->urlValues['id'];
 
-        if (!isset($id) || empty($id))
-        {
-            $viewModel->set("error", "Something went wrong - please try again!");
+        if (!isset($id) || empty($id)) {
+            $_SESSION["redirectError"] = "No Thread ID specified";
+            RedirectAction("forum", "index");
+            return;
         }
-        else
+
+        try
         {
-            if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
-            {
-                // Post entry
-                if(!$this->validateEntryData($viewModel))
-                {
-                    $thread = $forumrepo->GetForumThreadById($id);
-                    $viewModel->set("thread", $thread);
-                    $viewModel->set("entries", $forumrepo->GetEntriesForThread($thread->ForumThreadId));
-
-                    $this->view->output($viewModel);
-                    return;
-                }
-
-                $entry = new Entry();
-
-                $entry->Message = PrepareHtml($_POST["Message"]);
-                $entry->ForumThreadId = $id;
-                $entry->UserId = $_SESSION["userid"];
-
-                $forumrepo->PostEntryToThread($entry);
-
-                $_SESSION["redirectSuccess"] = "Answer successfully created.";
-
-                $thread = $forumrepo->GetForumThreadById($id);
-                $viewModel->set("thread", $thread);
-                $viewModel->set("entries", $forumrepo->GetEntriesForThread($thread->ForumThreadId));
-            }
-            else
-            {
-                try
-                {
-                    $thread = $forumrepo->GetForumThreadById($id);
-                    if (!$thread->IsDeleted)
-                    {
-                        $viewModel->set("thread", $thread);
-                        $viewModel->set("entries", $forumrepo->GetEntriesForThread($thread->ForumThreadId));
-                    }
-                    else
-                    {
-                        $_SESSION['redirectError'] = "The requested thread doesn't exist.";
-                        RedirectAction("forum", "index");
-                        return;
-                    }
-                }
-                catch (InvalidArgumentException $e)
-                {
-                    $viewModel->set("error", $e->getMessage());
-                }
-            }
+            $viewModel = $this->model->thread($id);
         }
+        catch(Exception $e)
+        {
+            $_SESSION["redirectError"] = "The requested thread doesn't exist.";
+            RedirectAction("forum", "index");
+            return;
+        }
+
+        if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
+        {
+            // Post entry
+            if(!$this->validateEntryData($viewModel))
+            {
+                $this->view->output($viewModel);
+                return;
+            }
+
+            $entry = new Entry();
+
+            $entry->Message = PrepareHtml($_POST["Message"]);
+            $entry->ForumThreadId = $id;
+            $entry->UserId = $_SESSION["userid"];
+
+            $forumrepo->PostEntryToThread($entry);
+
+            $_SESSION["redirectSuccess"] = "Answer successfully created.";
+        }
+
         $this->view->output($viewModel);
     }
 
