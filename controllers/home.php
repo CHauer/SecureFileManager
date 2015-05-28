@@ -25,7 +25,7 @@ class HomeController extends BaseController
 
     protected function faq()
     {
-        $this->view->output(NULL);
+        $this->view->output($this->model->faq());
     }
 }
 
