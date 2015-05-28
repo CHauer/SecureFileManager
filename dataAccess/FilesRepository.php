@@ -131,7 +131,7 @@ class FileRepository
         $stmt = $db->prepare('Select [UserFile].*, Username, PictureLink, (Select count(Commentid) From Comment where UserFile_UserFileId = [Userfile].UserFileId) as CommentCount
                               from [UserFile] left join [User] on [UserFile].UserId = [User].UserId
                               where (IsPrivate = :ispriv or [UserFile].UserId = :id) and [User].Username LIKE :user
-                              and Name LIKE :file order by ' . $order . ', Name');
+                              and Name LIKE :file order by ' . $order . ', [UserFile].Name');
 
         $user = '%' . $user . '%';
         $file = '%' . $file . '%';
@@ -163,12 +163,13 @@ class FileRepository
 
         $stmt = $db->prepare('Select [UserFile].*, Username, PictureLink,
                               (Select count(Commentid) From Comment where UserFile_UserFileId = [Userfile].UserFileId) as CommentCount
-                              from [UserFile] left join [User] on [UserFile].UserId = [User].UserId');
-                            //  where Name LIKE :file and [UserFile].UserId = :id order by ' . $order . ', Name');
+                              from [UserFile] left join [User] on [UserFile].UserId = [User].UserId
+                              where [UserFile].UserId = :id
+                              order by ' . $order . ', [UserFile].Name');
 
-        $file = '%' . $file . '%';
+        //$file = '%' . $file . '%';
 
-       // $stmt->bindParam(':id', $_SESSION["userid"]);
+        $stmt->bindParam(':id', $_SESSION["userid"]);
         // $stmt->bindParam(':file', $file, PDO::PARAM_STR);
 
         $stmt->execute();
