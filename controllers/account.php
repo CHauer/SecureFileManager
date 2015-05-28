@@ -276,6 +276,8 @@ class AccountController extends BaseController
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
         {
+            $currentUsername = $viewModel->get("username");
+
             //redirects to error/unexpectedError if wrong
             CheckAntiCSRFToken();
 
@@ -293,8 +295,7 @@ class AccountController extends BaseController
                 $user->Firstname = $_POST["Firstname"];
                 $user->Lastname = $_POST["Lastname"];
 
-                $user->Description = ($_POST["Description"]);
-                $user->Password = $_POST["Password"];
+                $user->Description = PrepareHtml($_POST["Description"]);
 
                 try
                 {
@@ -309,7 +310,7 @@ class AccountController extends BaseController
 
             #endregion
 
-            if(!$this->validateRegisterData($viewModel, false. true)) {
+            if(!$this->validateEditData($viewModel, $currentUsername)) {
                 $this->view->output($viewModel);
                 return;
             }
@@ -590,7 +591,7 @@ class AccountController extends BaseController
         return $ok;
     }
 
-    private function validateRegisterData(ViewModel &$viewModel, $checkTerms = true, $checkUsernameChange = false)
+    private function validateRegisterData(ViewModel &$viewModel)
     {
         $ok = true;
 
@@ -609,12 +610,9 @@ class AccountController extends BaseController
             $ok = false;
         }
 
-        if ($checkTerms)
-        {
-            if (!isset($_POST["CheckTerms"]) || $_POST["CheckTerms"] == false) {
-                $viewModel->setFieldError("CheckTerms", "Please accept the terms!");
-                $ok = false;
-            }
+        if (!isset($_POST["CheckTerms"]) || $_POST["CheckTerms"] == false) {
+            $viewModel->setFieldError("CheckTerms", "Please accept the terms!");
+            $ok = false;
         }
 
         if(!($_POST["Role"] == "Standard" || $_POST["Role"] == "Premium")){
@@ -644,19 +642,57 @@ class AccountController extends BaseController
 
         $userrepo = new UserRepository();
 
-        if($checkUsernameChange)
-        {
-            $username = $viewModel->get("username");
+        if ($userrepo->IsUsernameUsed($_POST["Username"])) {
+            $viewModel->setFieldError("Username", "Username is already used!");
+            $ok = false;
+        }
 
-            if ($username != $_POST["Username"])
-            {
-                if ($userrepo->IsUsernameUsed($_POST["Username"])) {
-                    $viewModel->setFieldError("Username", "Username is already used!");
-                    $ok = false;
-                }
+        return $ok;
+    }
+
+    private function validateEditData(ViewModel &$viewModel, $currentUsername)
+    {
+        $ok = true;
+
+        if(!IsUserAdministrator())
+        {
+            if (!($_POST["Role"] == "Standard" || $_POST["Role"] == "Premium")) {
+                $viewModel->set("error", "This role is not valid!");
+                $ok = false;
             }
         }
         else
+        {
+            if (!($_POST["Role"] == "Standard" || $_POST["Role"] == "Premium" ||  $_POST["Role"] == "Administrator" ))
+            {
+                $viewModel->set("error", "This role is not valid!");
+                $ok = false;
+            }
+        }
+
+        if(!isset($_POST["Username"]) || $_POST["Username"] == ''){
+            $viewModel->setFieldError("Username", "Username has to be entered!");
+            $ok = false;
+        }
+
+        if(!isset($_POST["EMail"]) || $_POST["EMail"] == ''){
+            $viewModel->setFieldError("EMail", "EMail has to be entered!");
+            $ok = false;
+        }
+
+        if (! filter_var($_POST["EMail"], FILTER_VALIDATE_EMAIL) ) {
+            $viewModel->setFieldError("EMail", "EMail is invalid!");
+            $ok = false;
+        }
+
+        if (! VerifyDate($_POST["BirthDate"])) {
+            $viewModel->setFieldError("BirthDate", "BirthDate has the wrong format!");
+            $ok = false;
+        }
+
+        $userrepo = new UserRepository();
+
+        if ($currentUsername !== $_POST["Username"])
         {
             if ($userrepo->IsUsernameUsed($_POST["Username"])) {
                 $viewModel->setFieldError("Username", "Username is already used!");
