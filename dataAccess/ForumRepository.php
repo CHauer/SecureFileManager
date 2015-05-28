@@ -54,7 +54,7 @@ class ForumRepository {
             [Created],
             [IsDeleted]
            from [dbo].[ForumThread]
-           where [ForumThreadId]=:threadid');
+           where [ForumThreadId]=:threadid and [IsDeleted] = 0');
 
         $stmt->bindParam(":threadid", $threadId);
         $stmt->execute();

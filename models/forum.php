@@ -15,9 +15,18 @@ class ForumModel extends BaseModel
         return $this->viewModel;
     }
 
-    public function thread()
+    public function thread($threadId)
     {
         $this->viewModel->set("pageTitle", "View thread");
+
+        $forumrepo = new ForumRepository();
+
+        $thread = $forumrepo->GetForumThreadById($threadId);
+
+        $this->$viewModel->set("thread", $thread);
+        $this->$viewModel->set("entries", $forumrepo->GetEntriesForThread($thread->ForumThreadId));
+
+
         return $this->viewModel;
     }
 
