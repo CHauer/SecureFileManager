@@ -57,27 +57,24 @@ if($viewModel->exists("model"))
             <div class="row margin-bottom-40">
                 <div class="job-img-inputs">
                     <!-- Serach -->
-                    <div class="col-sm-4 md-margin-bottom-10">
+                    <div class="col-sm-3 md-margin-bottom-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-tag"></i></span>
                             <input type="text" placeholder="What file are you looking for?" class="form-control" name="Name" maxlength="15">
                         </div>
                     </div>
-                    <div class="col-sm-4 md-margin-bottom-10">
+                    <div class="col-sm-3 md-margin-bottom-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-tag"></i></span>
                             <input type="text" placeholder="Which user are you looking for?" class="form-control" name="User" maxlength="15">
                         </div>
                     </div>
-                    <div class="col-sm-4 md-margin-bottom-10">
+                    <div class="col-sm-2 md-margin-bottom-10">
                         <li class="sort-list-btn">
-                            <h3>Sort By :</h3>
                             <div class="btn-group">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                    Uploaded Date <span class="caret"></span>
-                                </button>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">All</a></li>
+                                    <li><a href="#">Uploaded</a></li>
+                                    <li><a href="#">Username</a></li>
                                 </ul>
                             </div>
                         </li>
