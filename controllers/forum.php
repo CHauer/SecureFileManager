@@ -204,7 +204,16 @@ class ForumController extends BaseController
             return;
         }
 
-        $viewModel = $this->model->thread($id);
+        try
+        {
+            $viewModel = $this->model->thread($id);
+        }
+        catch(Exception $e)
+        {
+            $_SESSION["redirectError"] = "The requested thread doesn't exist.";
+            RedirectAction("forum", "index");
+            return;
+        }
 
         $forumrepo = new ForumRepository();
         try {
