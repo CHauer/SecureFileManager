@@ -119,8 +119,10 @@ class ForumRepository {
 
         $stmt = $db->prepare('SELECT [EntryId], [Message], [Created], [Entry].[UserId], [Username]
                                 FROM [Entry] JOIN [User] ON [Entry].[UserId] = [User].[UserId]
-                                WHERE [IsDeleted] = 0
+                                WHERE [IsDeleted] = 0 AND [ForumThreadId] = :forumthreadid
                                 ORDER BY [Created] DESC');
+
+        $stmt->bindParam(':forumthreadid', $threadId);
 
         $stmt->execute();
 
