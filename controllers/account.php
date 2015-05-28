@@ -402,9 +402,9 @@ class AccountController extends BaseController
                 $email->setFrom("reset-noreply@secure.net");
                 $email->setSubject("Secure - Password Reset");
                 $email->setHtml("
-            Hi<br/>
-            Here is your password reset Link: <a href='" . $link . "'> click here</a>.<br/>
-            Best regards");
+                    Hi<br/>
+                    Here is your password reset Link: <a href='" . $link . "'> click here</a>.<br/>
+                    Best regards");
                 $sendgrid->send($email);
 
                 RedirectAction("home", "index");
