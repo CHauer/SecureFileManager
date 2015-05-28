@@ -37,7 +37,7 @@
 <!--=== Content Part ===-->
 <div class="container content">
     <div class="title-box">
-        <div class="title-box-text">We <span class="color-green">Do</span> Secure!</div>
+        <div class="title-box-text">We <span class="color-green">Do It</span> Secure!</div>
         <p></p>
     </div>
 
@@ -74,7 +74,7 @@
             <i class="icon-info-blocks fa fa-upload"></i>
             <div class="info-blocks-in">
                 <h3>Upload</h3>
-                <p>Upload Private, Public Filess</p>
+                <p>Upload Private, Public Files</p>
             </div>
         </div>
         <div class="col-sm-4 info-blocks">
