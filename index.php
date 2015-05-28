@@ -39,7 +39,7 @@ require("includes/currentRequestHelper.php");
 require("includes/initLogger.php");
 
 //mail support sendgrid
-require("includes/sendgrid/SendGrid.php");
+require("sendgrid-php/sendgrid-php.php");
 
 // CSRF helper functions
 require("includes/antiCrossSiteRequestForgery.php");

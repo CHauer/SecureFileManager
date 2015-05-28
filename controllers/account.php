@@ -374,18 +374,37 @@ class AccountController extends BaseController
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
         {
-            //TODO send mail to user with confirmlink - &confirm={currentpasswordhash} ???
+            if(!isset($_POST["EMail"]) || $_POST["EMail"] == ''){
+                $viewModel->setFieldError("EMail", "EMail has to be entered!");
+                $this->view->output($viewModel);
+                return;
+            }
 
-            $sendgrid = new SendGrid($api_user, $api_key);
-            $email    = new SendGrid\Email();
+            //send mail to user with resetLink
+            $userrepo = new UserRepository();
 
-            $email->addTo("test@sendgrid.com")
-                ->setFrom("you@youremail.com")
-                ->setSubject("Sending with SendGrid is Fun")
-                ->setHtml("and easy to do anywhere, even with PHP");
+            $resetLink = $userrepo->CheckEMailExists($_POST['EMail']);
+
+            if($resetLink != NULL)
+            {
+                $link = "/account/confirmresetpassword?reset=" . $resetLink;
+
+                $sendgrid = new SendGrid('SecureFH', 'qwerASDF12');
+                $email = new SendGrid\Email();
+
+                $email->addTo($_POST['EMail']);
+                $email->setFrom("reset-noreply@secure.net");
+                $email->setSubject("Secure - Password Reset");
+                $email->setHtml("
+            Hi<br/>
+            Here is your password reset Link: <a href='" . $link . "'> click here</a>.<br/>
+            Best regards");
+
+            }
 
             $sendgrid->send($email);
 
+            RedirectAction("home", "index");
         }
 
         $this->view->output($viewModel);
@@ -399,40 +418,52 @@ class AccountController extends BaseController
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
         {
+            $viewModel->set("reset", $_POST["reset"]);
+
             if(!$this->validatePassword($viewModel)) {
                 $this->view->output($viewModel);
                 return;
             }
 
-            //change user password
-            $username = $viewModel->get('username');
-
-            $userrepo = new UserRepository();
-
-            if($userrepo->CheckUserCredentials($username, $_POST['CurrentPassword']) !== false)
+            try
             {
-                $userRepo = new UserRepository();
-                $result = $userRepo->ResetUserPassword($viewModel->get('userid'), $_POST['CurrentPassword'],  $_POST['NewPassword']);
+                //change user password
+                $reset = $_POST["reset"];
+                $username = $_POST['Username'];
+                $email = $_POST['EMail'];
+                $newPassword = $_POST['NewPassword'];
 
-                if($result == false )
-                {
-                    $viewModel->set('error', 'Something went wrong during your password change - please try again!');
+                $userrepo = new UserRepository();
+
+                if ($userrepo->ResetPassword($reset, $newPassword,  $email, $username) !== false) {
+
+                    //log Kontoänderungen
+                    $log->LogMessage('User ' . $username . ' has reseted his password.', LOGGER_INFO);
+
+                    RedirectAction("home", "index");
+
                 }
                 else
                 {
-                    //log Kontoänderungen
-                    $log->LogMessage('User ' . $viewModel->get('username') . ' has changed his password.', LOGGER_INFO);
-
-                    RedirectAction("account", "manage");
+                    $viewModel->set('error', 'Your password reset was not successfully!');
                 }
+            }
+            catch(Exception $ex)
+            {
+                $viewModel->set('error', 'Your password reset was not successfully!');
+            }
+        }
+        else
+        {
+            if(isset($_GET["reset"]))
+            {
+                $viewModel->set("reset", $_GET["reset"]);
             }
             else
             {
-                $viewModel->setFieldError('CurrentPassword', 'Your current entered password is not correct!');
+                RedirectAction("home", "index");
             }
-
         }
-
         $this->view->output($viewModel);
     }
 

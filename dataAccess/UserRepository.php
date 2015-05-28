@@ -139,8 +139,8 @@ class UserRepository{
 
         $stmt = $db->prepare("UPDATE [dbo].[User]
                                SET
-                               [Password]=:CONVERT(nvarchar,HASHBYTES('SHA2_256', :NewPassword),2)
-                                WHERE [UserId]=:userid AND Password=CONVERT(nvarchar,HASHBYTES('SHA2_256', :OldPassword),2) ,");
+                               [Password]= CONVERT(nvarchar,HASHBYTES('SHA2_256', :NewPassword),2)
+                                WHERE [UserId]=:userid AND  [Password]=CONVERT(nvarchar,HASHBYTES('SHA2_256', :OldPassword),2) ");
 
         $stmt->bindParam(":NewPassword", $newpassword);
         $stmt->bindParam(":OldPassword", $oldpassword);
@@ -487,6 +487,42 @@ class UserRepository{
 
         $statement->execute();
         return $statement->rowCount()== 1;
+    }
+
+    public function CheckEMailExists($email)
+    {
+        global $db;
+
+        $statement = $db -> prepare("select convert(nvarchar, Hashbytes('SHA2_256', [Username]) + Hashbytes('SHA2_256', [EMail]), 2) as [Reset]
+                                      from [User]
+                                      WHERE [EMail]=:email");
+        $statement->bindParam(':email', $email);
+
+        $statement->execute();
+        $result = $statement->fetch();
+
+        if($result != NULL) {
+            return $result['Reset'];
+        }
+        return NULL;
+    }
+
+    public function ResetPassword($resetLink, $newPassword, $email, $username)
+    {
+        global $db;
+
+        $statement = $db -> prepare("UPDATE [dbo].[User]
+                                       SET [Password]=CONVERT(nvarchar,HASHBYTES('SHA2_256', :newPassword),2)
+                                        WHERE convert(nvarchar, Hashbytes('SHA2_256', [Username]) + Hashbytes('SHA2_256', [EMail]), 2) = :resetLink
+                                        AND [Username] = :username AND [EMail] = :email");
+        $statement->bindParam(':newPassword', $newPassword);
+        $statement->bindParam(':resetLink', $resetLink);
+        $statement->bindParam(':username', $username);
+        $statement->bindParam(':email', $email);
+
+        $statement->execute();
+
+        return $statement->rowCount() == 1;
     }
 
 }

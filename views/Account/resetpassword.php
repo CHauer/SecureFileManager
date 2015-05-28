@@ -34,12 +34,6 @@ if($viewModel->exists("model"))
                 }
                 ?>
 
-                <div class="form-group <? ValidationErrorClass("Username", $viewModel) ?> ">
-                    <label class="control-label" >Username <span class="color-green">*</span></label>
-                    <input type="text" name="Username" class="form-control margin-bottom-20" <? ModelValue($model, 'Username')?> >
-                    <? ValidationErrorMessage("Username", $viewModel) ?>
-                </div>
-
                 <div class="form-group <? ValidationErrorClass("EMail", $viewModel) ?> ">
                     <label class="control-label" >EMail <span class="color-green">*</span></label>
                     <input type="text" name="EMail" class="form-control margin-bottom-20" <? ModelValue($model, 'EMail')?> >
