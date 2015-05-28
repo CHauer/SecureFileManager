@@ -92,7 +92,7 @@ if($viewModel->exists("model"))
                                             if (!is_null($data['PictureLink']))
                                             {
                                                 ?>
-                                                <img class="rounded-x" src="<?php echo $data['PictureLink'] ?>" alt="">
+                                                <img class="rounded" height="auto" width="40px" src="<?php echo $data['PictureLink'] ?>" alt="">
                                                 <?php
                                             }
                                          ?>
