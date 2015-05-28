@@ -44,11 +44,11 @@
         }
 
         if(!is_null($thread)) {
-            if(IsThreadOwner($thread->ForumThreadId, $_SESSION["userid"])) {
-                echo '<a href="/forum/delete/' . $thread->ForumThreadId . '"><span class="glyphicon glyphicon-remove btn-u-red" style="font-size:18px;">Delete</span></a>';
-            }
             echo "<h1>" . $thread->Title ."</h1>";
             echo '<p class="margin-bottom-30">' . $thread->Description . '</p>';
+            if(IsThreadOwner($thread->ForumThreadId, $_SESSION["userid"])) {
+                echo '<a href="/forum/delete/' . $thread->ForumThreadId . '"><span class="glyphicon glyphicon-remove btn-u-red" style="font-size:18px;">Delete thread</span></a>';
+            }
         }
         ?>
         <div class="panel panel-light-green margin-bottom-20">
