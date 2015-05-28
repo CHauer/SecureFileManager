@@ -72,6 +72,9 @@ class ForumController extends BaseController
 
             $forumrepo->PostEntryToThread($entry);
 
+            // reload viewmodel since data has changed (new entry)
+            $viewModel = $this->model->thread($id);
+
             $_SESSION["redirectSuccess"] = "Answer successfully created.";
         }
 
