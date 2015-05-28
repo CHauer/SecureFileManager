@@ -63,16 +63,14 @@ if($viewModel->exists("model"))
                             <input type="text" placeholder="What file are you looking for?" class="form-control" name="Name" maxlength="20">
                         </div>
                     </div>
-                    <div class="col-sm-3 md-margin-bottom-10">
-                        <div class="input-group">
-                        <label class="select state-success">
-                            <select name="SortBy" class="valid">
-                                <option value='Uploaded'>Uploaded</option>
-                                <option value='Username'>Private</option>
-                            </select>
-                        </label>
-                            </div>
-                    </div>
+<!--                    <div class="col-sm-3 md-margin-bottom-10">-->
+<!--                        <label class="select state-success">-->
+<!--                            <select name="SortBy" class="valid">-->
+<!--                                <option value='Uploaded'>Uploaded</option>-->
+<!--                                <option value='Username'>Private</option>-->
+<!--                            </select>-->
+<!--                        </label>-->
+<!--                    </div>-->
                     <div class="col-sm-3">
                         <button class="btn-u btn-block btn-u-dark" type="submit">Search Files</button>
                     </div>

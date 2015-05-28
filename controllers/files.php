@@ -31,7 +31,7 @@ class FilesController extends BaseController
 
             try {
                 $fileRepo = new FileRepository();
-                $files = $fileRepo->GetPublicAndOwnFiles($_POST["User"], $_POST["Name"], $_POST['SortBy']);
+                $files = $fileRepo->GetPublicAndOwnFiles($_POST["User"], $_POST["Name"]);
 
                 $viewModel->set("model", $files);
 
@@ -62,7 +62,7 @@ class FilesController extends BaseController
             try
             {
                 $fileRepo = new FileRepository();
-                $files = $fileRepo->GetMyFiles($_POST["Name"], $_POST['SortBy']);
+                $files = $fileRepo->GetMyFiles($_POST["Name"]);
 
                 $viewModel->set("model", $files);
 

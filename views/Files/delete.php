@@ -42,7 +42,7 @@ if($viewModel->exists("model"))
 
                 <div class="form-group">
                     <label class="control-label" >File Description: </label><br/>
-                    <label class="margin-bottom-20 control-label">tttt<?php echo $model->Description ?></label>
+                    <label style="word-wrap: break-word" class="margin-bottom-20 control-label">tttt<?php echo $model->Description ?></label>
                 </div>
 
                 <hr>
