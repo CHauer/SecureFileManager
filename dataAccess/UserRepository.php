@@ -54,8 +54,8 @@ class UserRepository{
         $stmt->bindParam(":AccessFailedCount", $user->AccessFailedCount);
         $stmt->bindParam(":RoleId", $user->RoleId);
         $stmt->bindParam(":AuthTokenId", $user->AuthTokenId);
-        $stmt->bindParam(":Firstname", $user->Firstname);
-        $stmt->bindParam(":Lastname", $user->Lastname);
+        $stmt->bindParam(":Firstname", htmlspecialchars($user->Firstname));
+        $stmt->bindParam(":Lastname", htmlspecialchars($user->Lastname));
 
         $stmt->execute();
 
@@ -86,14 +86,14 @@ class UserRepository{
 
         $date = date_format($user->BirthDate, 'm.d.Y');
 
-        $stmt->bindParam(":Username", htmlspecialchars($user->Username));
-        $stmt->bindParam(":Birthdate", $date);
-        $stmt->bindParam(":EMail", htmlspecialchars($user->EMail));
-        $stmt->bindParam(":Description", $user->Description);
-        $stmt->bindParam(":RoleId", $user->RoleId);
-        $stmt->bindParam(":Firstname", htmlspecialchars($user->Firstname));
-        $stmt->bindParam(":Lastname", htmlspecialchars($user->Lastname));
-        $stmt->bindParam(":userid", $user->UserId);
+        $stmt->bindValue(":Username", $user->Username);
+        $stmt->bindValue(":Birthdate", $date);
+        $stmt->bindValue(":EMail", $user->EMail);
+        $stmt->bindValue(":Description", $user->Description);
+        $stmt->bindValue(":RoleId", $user->RoleId);
+        $stmt->bindValue(":Firstname", htmlspecialchars($user->Firstname));
+        $stmt->bindValue(":Lastname", htmlspecialchars($user->Lastname));
+        $stmt->bindValue(":userid", $user->UserId);
 
         $stmt->execute();
 
@@ -144,9 +144,9 @@ class UserRepository{
                                [Password]= CONVERT(nvarchar,HASHBYTES('SHA2_256', :NewPassword),2)
                                 WHERE [UserId]=:userid AND  [Password]=CONVERT(nvarchar,HASHBYTES('SHA2_256', :OldPassword),2) ");
 
-        $stmt->bindParam(":NewPassword", $newpassword);
-        $stmt->bindParam(":OldPassword", $oldpassword);
-        $stmt->bindParam(":userid", $userid);
+        $stmt->bindValue(":NewPassword", $newpassword);
+        $stmt->bindValue(":OldPassword", $oldpassword);
+        $stmt->bindValue(":userid", $userid);
         $stmt->execute();
 
         if ($stmt->rowCount() == 1)
@@ -328,8 +328,8 @@ class UserRepository{
             $statement = $db->prepare("SELECT Top 1 [UserId] FROM [User]
                                       WHERE [Username]=:username
                                       AND [Password]= CONVERT(nvarchar,HASHBYTES('SHA2_256', :password),2)");
-            $statement->bindValue(':username', htmlspecialchars($username));
-            $statement->bindValue(':password', htmlspecialchars($password));
+            $statement->bindValue(':username', $username);
+            $statement->bindValue(':password', $password);
             $statement->execute();
 
             $result = $statement->fetch();
@@ -365,7 +365,7 @@ class UserRepository{
         {
             $statementsel = $db->prepare('Select COALESCE ([AccessFailedCount],0 ) as [AccessFailedCount] from [User]
                                           WHERE [Username]=:username');
-            $statementsel->bindParam(':username', $username);
+            $statementsel->bindValue(':username', $username);
             $statementsel->execute();
 
             $result = $statementsel->fetch();
@@ -395,7 +395,7 @@ class UserRepository{
                                       AND [Username]=:username
                                       AND [LockoutEndDate] is not null
                                       AND [LockoutEndDate] > GetDate()');
-        $statement->bindParam(':username', $username);
+        $statement->bindValue(':username', $username);
         $statement->execute();
 
         // if null user is not locked
@@ -418,7 +418,7 @@ class UserRepository{
         $statement = $db -> prepare('Update [User] set [LockoutEnabled] = 1,
                                       [LockoutEndDate] = DateAdd(Minute, 10, GetDate())
                                        WHERE [Username]=:username');
-        $statement->bindParam(':username', $username);
+        $statement->bindValue(':username', $username);
 
         $statement->execute();
         return $statement->rowCount()== 1;
@@ -434,7 +434,7 @@ class UserRepository{
 
         $statement = $db -> prepare('Update [User] set [Deactivated] = 1
                                        WHERE [UserId]=:userid');
-        $statement->bindParam(':userid', $userid);
+        $statement->bindValue(':userid', $userid);
 
         $statement->execute();
         return $statement->rowCount()== 1;
@@ -450,7 +450,7 @@ class UserRepository{
 
         $statement = $db -> prepare('Update [User] set [Deactivated] = 0
                                        WHERE [UserId]=:userid AND [Deactivated]=1');
-        $statement->bindParam(':userid', $userid);
+        $statement->bindValue(':userid', $userid);
 
         $statement->execute();
         return $statement->rowCount()== 1;
@@ -469,7 +469,7 @@ class UserRepository{
                                           AND [LockoutEnabled] = 1
                                           AND [LockoutEndDate] is not null
                                           AND [LockoutEndDate] < GetDate()');
-        $statement->bindParam(':userid', $userid);
+        $statement->bindValue(':userid', $userid);
 
         $statement->execute();
         return $statement->rowCount()== 1;
@@ -517,10 +517,10 @@ class UserRepository{
                                        SET [Password]=CONVERT(nvarchar,HASHBYTES('SHA2_256', :newPassword),2)
                                         WHERE convert(nvarchar, Hashbytes('SHA2_256', [Username] + [EMail] + [Password]),  2)= :resetLink
                                         AND [Username] = :username AND [EMail] = :email");
-        $statement->bindParam(':newPassword', $newPassword);
-        $statement->bindParam(':resetLink', strtoupper($resetLink));
-        $statement->bindParam(':username', $username);
-        $statement->bindParam(':email', $email);
+        $statement->bindValue(':newPassword', $newPassword);
+        $statement->bindValue(':resetLink', strtoupper($resetLink));
+        $statement->bindValue(':username', $username);
+        $statement->bindValue(':email', $email);
 
         $statement->execute();
 

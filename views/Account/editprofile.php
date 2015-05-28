@@ -73,7 +73,7 @@ if($viewModel->exists("model"))
 
                 <label>Account <span class="color-green">*</span></label>
 
-                <? if($model->Role->Name !== 'Administrator' ){ ?>
+                <? if(!IsUserAdministrator()){ ?>
                 <div class="row margin-bottom-20">
                     <div class="col-sm-3">
                         <span><input type="radio" value="Standard" <? echo ($model->Role->Name == 'Standard') ? 'checked="checked"' : ''; ?> name="Role" > Standard</span>

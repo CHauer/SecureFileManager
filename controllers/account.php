@@ -605,6 +605,11 @@ class AccountController extends BaseController
             $ok = false;
         }
 
+        if (!preg_match('/^[a-zA-Z0-9\_\-.]{5,150}$/', $_POST["Username"])) {
+            $viewModel->setFieldError("Username", "Username has to consist of at least 5 letters, numbers or special characters like ., -, _ )");
+            $ok = false;
+        }
+
         if (!($_POST["Password"] == $_POST["PasswordConfirm"])) {
             $viewModel->setFieldError("Password", "Password and Password Confirm are not equal!");
             $ok = false;
@@ -672,6 +677,11 @@ class AccountController extends BaseController
 
         if(!isset($_POST["Username"]) || $_POST["Username"] == ''){
             $viewModel->setFieldError("Username", "Username has to be entered!");
+            $ok = false;
+        }
+
+        if (!preg_match('/^[a-zA-Z0-9\_\-.]{5,150}$/', $_POST["Username"])) {
+            $viewModel->setFieldError("Username", "Username has to consist of at least 5 letters, numbers or special characters like ., -, _ )");
             $ok = false;
         }
 
