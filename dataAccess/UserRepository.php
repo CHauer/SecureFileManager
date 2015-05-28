@@ -203,7 +203,10 @@ class UserRepository{
         $user->Username = $result["Username"];
         $user->PictureLink = $result["PictureLink"];
         $user->LockoutEnabled = $result["LockoutEnabled"];
-        $user->LockoutEndDate= ParseDate($result["LockoutEndDate"]);
+        if( $result["LockoutEndDate"] != NULL)
+        {
+            $user->LockoutEndDate = ParseDate($result["LockoutEndDate"]);
+        }
         $user->RoleId = intval($result["RoleId"]);
 
         return $user;
