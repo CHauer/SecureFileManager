@@ -48,8 +48,7 @@ class ForumController extends BaseController
         {
             $viewModel = $this->model->thread($id);
         }
-        catch(Exception $e)
-        {
+        catch(Exception $e) {
             $_SESSION["redirectError"] = "The requested thread doesn't exist.";
             RedirectAction("forum", "index");
             return;
@@ -63,7 +62,6 @@ class ForumController extends BaseController
 
             $user = $userrepo->GetUser(intval($_SESSION['userid']));
             $user->Role = $rolerepo->GetRole($user->RoleId);
-
 
             if (!$user->Role->WriteForum) {
                 $_SESSION['redirectError'] = "You don't have permissions to write a comment.";
@@ -197,6 +195,10 @@ class ForumController extends BaseController
             //no error
             if(!$viewModel->exists("error"))
             {
+                global $log;
+
+                $log->LogMessage("Thread " . $threadId . " created by " . $_SESSION["userid"], LOGGER_INFO);
+
                 $_SESSION["redirectSuccess"] = "Thread successfully created!";
                 RedirectAction("forum", "thread", $threadId);
                 return;
