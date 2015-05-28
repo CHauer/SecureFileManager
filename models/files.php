@@ -32,7 +32,7 @@ class FilesModel extends BaseModel
         try
         {
             $fileRepo = new FileRepository();
-            $files = $fileRepo->GetMyFiles('', '');
+            $files = $fileRepo->GetMyFiles('');
 
             $this->viewModel->set("model", $files);
         }
