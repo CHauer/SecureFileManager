@@ -92,7 +92,7 @@ if($viewModel->exists("model"))
                                             if (!is_null($data['PictureLink']))
                                             {
                                                 ?>
-                                                <img class="rounded-x" src="<?php echo $data['PictureLink'] ?>" alt="">
+                                                <img class="rounded" height="auto" width="40px" src="<?php echo $data['PictureLink'] ?>" alt="">
                                                 <?php
                                             }
                                          ?>
@@ -102,7 +102,13 @@ if($viewModel->exists("model"))
                                         <li>private</li>
                                         <?php } ?>
                                     </ul>
-                                    <h2><a href="/files/details/<?php echo $data['UserFileId']?>"><?php echo $data['Name']?></a></h2>
+                                    <h2><a href="/files/details/<?php echo $data['UserFileId']?>"><?php echo $data['Name']?> </a>
+                                        <?php
+                                        if (isFileOwner($data['UserId']))
+                                        {?>
+                                            <span class="color-green">*</span>
+                                        <?}?>
+                                    </h2>
                                     <p style="word-wrap: normal"><?php echo $data['Description']?></p>
                                 </div>
                                 <ul class="post-shares">
