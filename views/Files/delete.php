@@ -4,7 +4,7 @@
         <h1 class="pull-left">Delete File</h1>
         <ul class="pull-right breadcrumb">
             <li><a href="/home/index">Home</a></li>
-            <li><a href="/files/index">File List</a></li>
+            <li><a href="/files/$_SESSION["fileview"]">File List</a></li>
             <li class="active">Delete</li>
         </ul>
     </div><!--/container-->

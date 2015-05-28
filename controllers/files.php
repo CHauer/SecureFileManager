@@ -245,13 +245,13 @@ class FilesController extends BaseController
             // log Fehler Delete File
             $log->LogMessage('Error during delete a file by UserID ' . $_SESSION["userid"] . '. No FileID.', LOGGER_ERROR);
 
-            RedirectAction("files", "index");
+            RedirectAction("files", $_SESSION["fileview"]);
             return;
         }
 
         if (!isFileOwner($_SESSION["userid"], $id))
         {
-            RedirectAction("files", "index");
+            RedirectAction("files", $_SESSION["fileview"]);
             return;
         }
 
@@ -285,7 +285,7 @@ class FilesController extends BaseController
                 $log->LogMessage('File (ID: ' . $id . ') successfully deleted by UserID ' . $_SESSION["userid"] , LOGGER_INFO);
 
                 $_SESSION["deleteFile"] = "File successfully deleted!";
-                RedirectAction("files", "index");
+                RedirectAction("files", $_SESSION["fileview"]);
                 return;
             }
         }
@@ -309,7 +309,7 @@ class FilesController extends BaseController
             // log Fehler Datail File
             $log->LogMessage('Error during show file details by UserID ' . $_SESSION["userid"] . '. No FileID.', LOGGER_ERROR);
 
-            RedirectAction("files", "index");
+            RedirectAction("files", $_SESSION["fileview"]);
             return;
         }
 
@@ -390,7 +390,7 @@ class FilesController extends BaseController
             // log Fehler Download File
             $log->LogMessage('Error during download a file by UserID ' . $_SESSION["userid"] . '. No FileID.', LOGGER_ERROR);
 
-            RedirectAction("files", "index");
+            RedirectAction("files", $_SESSION["fileview"]);
             return;
         }
 
@@ -414,7 +414,7 @@ class FilesController extends BaseController
 
         }
 
-        RedirectAction("files", "index");
+        RedirectAction("files", $_SESSION["fileview"]);
     }
 
     private function validateCommentData(ViewModel &$viewModel)
