@@ -57,13 +57,13 @@ if($viewModel->exists("model"))
             <div class="row margin-bottom-40">
                 <div class="job-img-inputs">
                     <!-- Serach -->
-                    <div class="col-sm-3 md-margin-bottom-10">
+                    <div class="col-sm-4 md-margin-bottom-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-tag"></i></span>
                             <input type="text" placeholder="What file are you looking for?" class="form-control" name="Name" maxlength="20">
                         </div>
                     </div>
-                    <div class="col-3 md-margin-bottom-10">
+                    <div class="col-sm-3 md-margin-bottom-10">
                         <label class="select state-success">
                             <select name="SortBy" class="valid">
                                 <option value='Uploaded'>Uploaded</option>
@@ -71,7 +71,7 @@ if($viewModel->exists("model"))
                             </select>
                         </label>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-3">
                         <button class="btn-u btn-block btn-u-dark" type="submit">Search Files</button>
                     </div>
                 </div>
