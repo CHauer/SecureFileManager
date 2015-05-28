@@ -368,7 +368,13 @@ class AccountController extends BaseController
         RedirectAction('account', 'logoff');
     }
 
-    protected function resetpassword(){
+    protected function resetpassword()
+    {
+
+        if(IsUserLoggedOn())
+        {
+            RedirectAction("home", "index");
+        }
 
         $viewModel = $this->model->resetpassword();
 
@@ -412,6 +418,11 @@ class AccountController extends BaseController
 
     protected function confirmresetpassword()
     {
+        if(IsUserLoggedOn())
+        {
+            RedirectAction("home", "index");
+        }
+
         global $log;
 
         $viewModel = $this->model->confirmresetpassword();
@@ -441,7 +452,6 @@ class AccountController extends BaseController
                     $log->LogMessage('User ' . $username . ' has reseted his password.', LOGGER_INFO);
 
                     RedirectAction("home", "index");
-
                 }
                 else
                 {

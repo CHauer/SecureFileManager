@@ -493,7 +493,7 @@ class UserRepository{
     {
         global $db;
 
-        $statement = $db -> prepare("select convert(nvarchar, Hashbytes('SHA2_256', [Username]) + Hashbytes('SHA2_256', [EMail]), 2) as [Reset]
+        $statement = $db -> prepare("select convert(nvarchar, Hashbytes('SHA2_256', [Username] + [EMail] + [Password]),  2) as [Reset]
                                       from [User]
                                       WHERE [EMail]=:email");
         $statement->bindParam(':email', $email);
@@ -513,10 +513,10 @@ class UserRepository{
 
         $statement = $db -> prepare("UPDATE [dbo].[User]
                                        SET [Password]=CONVERT(nvarchar,HASHBYTES('SHA2_256', :newPassword),2)
-                                        WHERE convert(nvarchar, Hashbytes('SHA2_256', [Username]) + Hashbytes('SHA2_256', [EMail]), 2) = :resetLink
+                                        WHERE convert(nvarchar, Hashbytes('SHA2_256', [Username] + [EMail] + [Password]),  2)= :resetLink
                                         AND [Username] = :username AND [EMail] = :email");
         $statement->bindParam(':newPassword', $newPassword);
-        $statement->bindParam(':resetLink', $resetLink);
+        $statement->bindParam(':resetLink', strtoupper($resetLink));
         $statement->bindParam(':username', $username);
         $statement->bindParam(':email', $email);
 
