@@ -18,7 +18,7 @@
             </div>
             <div class="col-md-3 btn-buy animated fadeInRight">
                 <a href="/account/login" class="btn-u btn-u-lg"><i class="fa fa-user"></i> Login</a>
-                <a href="/account/login" class="btn-u btn-u-lg"><i class="fa fa-bolt"></i> Register</a>
+                <a href="/account/register" class="btn-u btn-u-lg"><i class="fa fa-bolt"></i> Register</a>
             </div>
         </div>
     </div>

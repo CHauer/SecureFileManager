@@ -71,6 +71,9 @@ class AccountController extends BaseController
                 if($filelink != NULL && $filelink != false)
                 {
                     $user->PictureLink = '/' . $filelink;
+                }else
+                {
+                    $user->PictureLink = '/assets/img/standard_user.jpg';
                 }
 
                 $roleRepo = new RoleRepository();
