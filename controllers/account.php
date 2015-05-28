@@ -67,15 +67,20 @@ class AccountController extends BaseController
             {
                 $filelink = NULL;
 
-                if(isset($_FILES["Picture"]))
+                try
                 {
                     $filelink = HandlePictureUpload("Picture", "upload/UserPictures");
                 }
+                catch (Exception $ex)
+                {
+                    $filelink = NULL;
+                }
 
-                if($filelink != NULL && $filelink != false)
+                if($filelink != NULL)
                 {
                     $user->PictureLink = '/' . $filelink;
-                }else
+                }
+                else
                 {
                     $user->PictureLink = '/assets/img/standard_user.jpg';
                 }

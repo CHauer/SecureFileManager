@@ -79,6 +79,7 @@ function HandlePictureUpload($postFileName, $directory)
                 mkdir($path, 0777, true);
             }
         } catch (Exception $ex) {
+            return NULL;
         }
 
         //max 30mb
