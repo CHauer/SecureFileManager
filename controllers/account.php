@@ -65,8 +65,7 @@ class AccountController extends BaseController
 
             try
             {
-                $uploadHandler = new UploadHandler();
-                $filelink = $uploadHandler->HandlePictureUpload("Picture", "upload/UserPictures");
+                $filelink = HandlePictureUpload("Picture", "upload/UserPictures");
 
                 if($filelink != NULL && $filelink != false)
                 {
@@ -407,7 +406,6 @@ class AccountController extends BaseController
     {
         global $log;
 
-        //TODO update user password
         $viewModel = $this->model->confirmresetpassword();
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
