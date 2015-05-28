@@ -125,7 +125,7 @@ class FileRepository
 
         if ($order == 'Uploaded')
         {
-            $order = $order . ' DESC';
+            $order = 'Uploaded DESC';
         }
 
         $stmt = $db->prepare('Select [UserFile].*, Username, PictureLink, (Select count(Commentid) From Comment where UserFile_UserFileId = [Userfile].UserFileId) as CommentCount
@@ -158,14 +158,14 @@ class FileRepository
 
         if ($order == 'Uploaded')
         {
-            $order = $order . ' DESC';
+            $order = 'Uploaded DESC';
         }
 
         $stmt = $db->prepare('Select [UserFile].*, Username, PictureLink,
                               (Select count(Commentid) From Comment where UserFile_UserFileId = [Userfile].UserFileId) as CommentCount
                               from [UserFile] left join [User] on [UserFile].UserId = [User].UserId
-                              where Name LIKE :file and [UserFile].UserId = :id');
-                             // order by ' . $order . ', [UserFile].Name');
+                              where Name LIKE :file and [UserFile].UserId = :id
+                              order by ' . $order . ', [UserFile].Name');
 
         $file = '%' . $file . '%';
 
