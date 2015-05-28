@@ -60,16 +60,16 @@ if($viewModel->exists("model"))
                     <div class="col-sm-3 md-margin-bottom-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                            <input type="text" placeholder="What file are you looking for?" class="form-control" name="Name" maxlength="15">
+                            <input type="text" placeholder="What file are you looking for?" class="form-control" name="Name" maxlength="20">
                         </div>
                     </div>
                     <div class="col-sm-3 md-margin-bottom-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-tag"></i></span>
-                            <input type="text" placeholder="Which user are you looking for?" class="form-control" name="User" maxlength="15">
+                            <input type="text" placeholder="Which user are you looking for?" class="form-control" name="User" maxlength="20">
                         </div>
                     </div>
-                    <div class="col-sm-2 md-margin-bottom-10">
+                    <div class="col-3 md-margin-bottom-10">
                         <label class="select state-success">
                             <select name="SortBy" class="valid">
                                 <option value='Uploaded'>Uploaded</option>
