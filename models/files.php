@@ -26,6 +26,25 @@ class FilesModel extends BaseModel
         return $this->viewModel;
     }
 
+    public function myfiles()
+    {
+        $this->viewModel->set("pageTitle","My Files");
+
+        try
+        {
+            $fileRepo = new FileRepository();
+            $files = $fileRepo->GetMyFiles('', '');
+
+            $this->viewModel->set("model", $files);
+        }
+        catch (Exception $e)
+        {
+            $this->viewModel->set("error", $e->getMessage());
+        }
+
+        return $this->viewModel;
+    }
+
     //data passed to the home index view
     public function upload()
     {

@@ -151,6 +151,35 @@ class FileRepository
         return null;
     }
 
+    public function GetMyFiles($file, $order = 'Uploaded')
+    {
+        global $db;
+
+        if ($order == 'Uploaded')
+        {
+            $order = $order . ' DESC';
+        }
+
+        $stmt = $db->prepare('Select [UserFile].*, Username, PictureLink, (Select count(Commentid) From Comment where UserFile_UserFileId = [Userfile].UserFileId) as CommentCount
+                              from [UserFile] left join [User] on [UserFile].UserId = [User].UserId
+                              where Name LIKE :file and [UserFile].UserId = :id order by ' . $order . ', Name');
+
+        $file = '%' . $file . '%';
+
+        $stmt->bindParam(':id', $_SESSION["userid"]);
+        $stmt->bindParam(':file', $file, PDO::PARAM_STR);
+
+        $stmt->execute();
+
+        $results = $stmt->fetchAll();
+
+        if ($stmt->columnCount() >= 1) {
+            return $results;
+        }
+
+        return null;
+    }
+
     public function DownloadFile($fileid)
     {
         $path = $this->GetFileLink($fileid);
