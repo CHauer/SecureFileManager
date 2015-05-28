@@ -47,15 +47,15 @@ if($viewModel->exists("comment"))
             <ul class="list-inline">
                 <li>
                     <a href="/files/download/<?php echo $model->UserFileId?>">
-                        <i class="rounded-x icon-cloud-download"></i>
+                        <i class="rounded-2x icon-cloud-download"></i>
                     </a>
                 </li>
                 <?php
                 if (isFileOwner($model->UserId))
                 {?>
                     </li>
-                        <a href="/files/delete/<?php $model->UserFileId?>">
-                            <i class="rounded-x icon-trash"></i>
+                        <a href="/files/delete/<?php echo $model->UserFileId?>">
+                            <i class="rounded-2x icon-trash"></i>
                         </a>
                     </li>
                 <?}?>
