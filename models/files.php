@@ -36,7 +36,6 @@ class FilesModel extends BaseModel
             $files = $fileRepo->GetMyFiles('', '');
 
             $this->viewModel->set("model", $files);
-
         }
         catch (Exception $e)
         {
