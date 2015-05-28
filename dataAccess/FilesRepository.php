@@ -106,7 +106,8 @@ class FileRepository
             unlink($path);
         }
 
-        $stmt = $db->prepare('Delete From [UserFile] where UserFileId = :fileid');
+        $stmt = $db->prepare('Delete From [UserFile]
+                              where UserFileId = :fileid');
         $stmt->bindParam(':fileid', $fileid);
         $stmt->execute();
 
@@ -124,13 +125,13 @@ class FileRepository
 
         if ($order == 'Uploaded')
         {
-            $order = $order . ' DESC';
+            $order = 'Uploaded DESC';
         }
 
         $stmt = $db->prepare('Select [UserFile].*, Username, PictureLink, (Select count(Commentid) From Comment where UserFile_UserFileId = [Userfile].UserFileId) as CommentCount
                               from [UserFile] left join [User] on [UserFile].UserId = [User].UserId
                               where (IsPrivate = :ispriv or [UserFile].UserId = :id) and [User].Username LIKE :user
-                              and Name LIKE :file order by ' . $order . ', Name');
+                              and Name LIKE :file order by ' . $order . ', [UserFile].Name');
 
         $user = '%' . $user . '%';
         $file = '%' . $file . '%';
@@ -142,6 +143,36 @@ class FileRepository
 
         $stmt->execute();
 
+        $results = $stmt->fetchAll();
+
+        if ($stmt->columnCount() >= 1) {
+            return $results;
+        }
+
+        return null;
+    }
+
+    public function GetMyFiles($file, $order = 'Uploaded')
+    {
+        global $db;
+
+        if ($order == 'Uploaded')
+        {
+            $order = 'Uploaded DESC';
+        }
+
+        $stmt = $db->prepare('Select [UserFile].*, Username, PictureLink,
+                              (Select count(Commentid) From Comment where UserFile_UserFileId = [Userfile].UserFileId) as CommentCount
+                              from [UserFile] left join [User] on [UserFile].UserId = [User].UserId
+                              where Name LIKE :file and [UserFile].UserId = :id
+                              order by ' . $order . ', [UserFile].Name');
+
+        $file = '%' . $file . '%';
+
+        $stmt->bindParam(':file', $file, PDO::PARAM_STR);
+        $stmt->bindParam(':id', $_SESSION["userid"]);
+
+        $stmt->execute();
         $results = $stmt->fetchAll();
 
         if ($stmt->columnCount() >= 1) {

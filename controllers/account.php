@@ -287,6 +287,7 @@ class AccountController extends BaseController
                 $user = new User();
                 $viewModel->set("model", $user);
 
+                $user->UserId = $viewModel->get("userid");
                 $user->Username = $_POST["Username"];
 
                 $user->Description = PrepareHtml($_POST["Description"]);
@@ -328,9 +329,9 @@ class AccountController extends BaseController
                 if($result == false)
                 {
                     $viewModel->set("error", "Something went wrong during your changes - please try again!");
-                }else
+                }
+                else
                 {
-
                     //log Kontoänderungen
                     $log->LogMessage('User ' . $viewModel->get('username') . ' has changed his profile.', LOGGER_INFO);
 
@@ -605,6 +606,11 @@ class AccountController extends BaseController
             $ok = false;
         }
 
+        if (!preg_match('/^[a-zA-Z0-9\_\-.]{5,150}$/', $_POST["Username"])) {
+            $viewModel->setFieldError("Username", "Username has to consist of at least 5 letters, numbers or special characters like ., -, _ )");
+            $ok = false;
+        }
+
         if (!($_POST["Password"] == $_POST["PasswordConfirm"])) {
             $viewModel->setFieldError("Password", "Password and Password Confirm are not equal!");
             $ok = false;
@@ -672,6 +678,11 @@ class AccountController extends BaseController
 
         if(!isset($_POST["Username"]) || $_POST["Username"] == ''){
             $viewModel->setFieldError("Username", "Username has to be entered!");
+            $ok = false;
+        }
+
+        if (!preg_match('/^[a-zA-Z0-9\_\-.]{5,150}$/', $_POST["Username"])) {
+            $viewModel->setFieldError("Username", "Username has to consist of at least 5 letters, numbers or special characters like ., -, _ )");
             $ok = false;
         }
 

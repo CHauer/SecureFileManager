@@ -35,7 +35,41 @@ class FilesController extends BaseController
 
                 $viewModel->set("model", $files);
 
-            } catch (Exception $e) {
+            } catch (Exception $e)
+            {
+                // log Fehler Read files
+                $log->LogMessage('Error during loading files by UserID ' . $_SESSION["userid"] . '.', LOGGER_ERROR);
+                $viewModel->set("error", $e->getMessage());
+            }
+
+        }
+
+        $this->view->output($viewModel);
+    }
+
+    //default method
+    protected function myfiles()
+    {
+        global $log;
+
+        ConfirmUserIsLoggedOn();
+
+        $viewModel = $this->model->myfiles();
+
+        if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
+        {
+
+            try
+            {
+                $fileRepo = new FileRepository();
+                $files = $fileRepo->GetMyFiles($_POST["Name"], $_POST['SortBy']);
+
+                $viewModel->set("model", $files);
+
+            } catch (Exception $e)
+            {
+                // log Fehler Read files
+                $log->LogMessage('Error during loading files by UserID ' . $_SESSION["userid"] . '.', LOGGER_ERROR);
                 $viewModel->set("error", $e->getMessage());
             }
 
@@ -46,9 +80,12 @@ class FilesController extends BaseController
 
     protected function upload()
     {
+        global $log;
+
         ConfirmUserIsLoggedOn();
 
-        if (!IsPremiumUser()) {
+        if (!IsPremiumUser())
+        {
             RedirectAction("files", "index");
             return;
         }
@@ -73,10 +110,17 @@ class FilesController extends BaseController
                 #endregion
             } catch (Exception $ex) {
                 ;
+
+                // log Fehler File Upload
+                $log->LogMessage('Error during file upload by UserID ' . $file->UserId . '. Create UserFile Object.', LOGGER_ERROR);
             }
 
             if (!$this->validateFileData($viewModel)) {
                 $this->view->output($viewModel);
+
+                // log Fehler File Upload
+                $log->LogMessage('Error during file upload by UserID ' . $file->UserId . '. Validate File Data', LOGGER_ERROR);
+
                 return;
             }
 
@@ -87,16 +131,21 @@ class FilesController extends BaseController
                 if (is_null($filelink) || $filelink == '')
                 {
                     throw new Exception("Something went wrong during handle the link - please try again!");
+
                 }
                 $file->FileLink = $filelink;
 
                 $filesrepo = new FileRepository();
                 $fileid = $filesrepo->InsertFile($file);
-                if ($fileid == false) {
+                if ($fileid == false)
+                {
                     throw new Exception("Something went wrong during upload a file - please try again!");
+
                 }
             } catch (Exception $e) {
                 $viewModel->set("error", $e->getMessage());
+                // log Fehler File Upload
+                $log->LogMessage('Error during file upload by UserID ' . $file->UserId . '.', LOGGER_ERROR);
             }
             #endregion
 
@@ -188,6 +237,10 @@ class FilesController extends BaseController
         if (!isset($id) || empty($id))
         {
             $_SESSION['error'] = "Something went wrong - please try again!";
+
+            // log Fehler Delete File
+            $log->LogMessage('Error during delete a file by UserID ' . $_SESSION["userid"] . '. No FileID.', LOGGER_ERROR);
+
             RedirectAction("files", "index");
             return;
         }
@@ -207,12 +260,18 @@ class FilesController extends BaseController
 
                 if (!$fileRepo->DeleteFile($id))
                 {
+                    // log Fehler delete file
+                    $log->LogMessage('Error during delete a file (ID: ' . $id . ' by UserID ' . $_SESSION["userid"] . '. Delete DB Record.', LOGGER_ERROR);
+
                     $viewModel->set("error", "Something went wrong - please try again!");
                 }
 
             } catch (Exception $e)
             {
                 $viewModel->set("error", $e->getMessage());
+                // log Fehler delete file
+                $log->LogMessage('Error during delete a file (ID: ' . $id . ' by UserID ' . $_SESSION["userid"] . '.', LOGGER_ERROR);
+
             }
 
             //no error
@@ -242,6 +301,10 @@ class FilesController extends BaseController
         if (!isset($id) || empty($id))
         {
             $_SESSION['error'] = "Something went wrong - please try again!";
+
+            // log Fehler Datail File
+            $log->LogMessage('Error during show file details by UserID ' . $_SESSION["userid"] . '. No FileID.', LOGGER_ERROR);
+
             RedirectAction("files", "index");
             return;
         }
@@ -264,11 +327,17 @@ class FilesController extends BaseController
             } catch (Exception $ex)
             {
                 ;
+                // log Fehler Datail File
+                $log->LogMessage('Error during insert a comment (FileID: ' . $comment->UserFile_UserFileId . ') by UserID ' . $_SESSION["userid"] . '. Create Comment Object.', LOGGER_ERROR);
             }
             #endregion
 
             if (!$this->validateCommentData($viewModel)) {
                 $this->view->output($viewModel);
+
+                // log Fehler Datail File
+                $log->LogMessage('Error during insert a comment (FileID: ' . $comment->UserFile_UserFileId . ') by UserID ' . $_SESSION["userid"] . '. Validate Comment Data.', LOGGER_ERROR);
+
                 return;
             }
 
@@ -283,6 +352,10 @@ class FilesController extends BaseController
                 }
             } catch (Exception $e) {
                 $viewModel->set("error", $e->getMessage());
+
+                // log Fehler Datail File
+                $log->LogMessage('Error during insert a comment (FileID: ' . $comment->UserFile_UserFileId . ') by UserID ' . $_SESSION["userid"] . '.', LOGGER_ERROR);
+
             }
             #endregion
 
@@ -309,6 +382,10 @@ class FilesController extends BaseController
 
         if (!isset($id) || empty($id)) {
             $_SESSION['error'] = "Something went wrong - please try again!";
+
+            // log Fehler Download File
+            $log->LogMessage('Error during download a file by UserID ' . $_SESSION["userid"] . '. No FileID.', LOGGER_ERROR);
+
             RedirectAction("files", "index");
             return;
         }
@@ -328,6 +405,9 @@ class FilesController extends BaseController
         } catch (Exception $e)
         {
             $_SESSION['error'] = $e->getMessage();
+            // log Fehler Download File
+            $log->LogMessage('Error during download a file by UserID ' . $_SESSION["userid"] . '.', LOGGER_ERROR);
+
         }
 
         RedirectAction("files", "index");
