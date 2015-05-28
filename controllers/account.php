@@ -405,12 +405,13 @@ class AccountController extends BaseController
             Hi<br/>
             Here is your password reset Link: <a href='" . $link . "'> click here</a>.<br/>
             Best regards");
+                $sendgrid->send($email);
 
+                RedirectAction("home", "index");
+            }else{
+                $viewModel->set("error", "Something went wrong - please try again!");
             }
 
-            $sendgrid->send($email);
-
-            RedirectAction("home", "index");
         }
 
         $this->view->output($viewModel);
