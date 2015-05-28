@@ -45,7 +45,7 @@
 
         if(!is_null($thread)) {
             echo "<h1>" . $thread->Title ."</h1>";
-            echo "<p>" . $thread->Description . "</p>";
+            echo '<p class="margin-bottom-30">' . $thread->Description . '</p>';
         }
         ?>
         <div class="panel panel-light-green margin-bottom-20">
@@ -67,7 +67,7 @@
                         ?>
                         <tr>
                             <td><? echo $data["Message"] ?></td>
-                            <td><? echo $data["Created"] . " by " . $data["Username"] ?></td>
+                            <td><? echo $data["Created"] . ' by <a href="/account/showprofile/' . $data["UserId"] . '">' . $data["Username"] . '</a>' ?></td>
                             <td>
                                 <?
                                 if($_SESSION["userid"] == $data["UserId"]) {
