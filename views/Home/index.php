@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-9 animated fadeInLeft">
-                <span class="margin-top-20"><?
+                <span style="margin-top: 30px;"><?
                     if(!IsUserLoggedOn()) {
                         ?>
                         Welcome to Secure File Manager!
