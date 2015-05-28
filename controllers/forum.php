@@ -57,6 +57,20 @@ class ForumController extends BaseController
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
         {
+            // check for permissions to write in forum
+            $userrepo = new UserRepository();
+            $rolerepo = new RoleRepository();
+
+            $user = $userrepo->GetUser(intval($_SESSION['userid']));
+            $user->Role = $rolerepo->GetRole($user->RoleId);
+
+
+            if (!$user->Role->WriteForum) {
+                $_SESSION['redirectError'] = "You don't have permissions to write a comment.";
+                RedirectAction("forum", "thread", $id);
+                return;
+            }
+
             // Post entry
             if(!$this->validateEntryData($viewModel))
             {
