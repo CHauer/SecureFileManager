@@ -1,24 +1,22 @@
 <link rel="stylesheet" href="assets/plugins/flexslider/flexslider.css">
 <link rel="stylesheet" href="assets/plugins/parallax-slider/css/parallax-slider.css">
 
-<div class="container content">
-<?
-if(!IsUserLoggedOn()) {
-    ?>
-    <h1>Welcome to Secure File Manager!</h1>
-<?
-}else{
-?>
-    <h1>Hi <? echo $viewModel->get("username") ?>! Welcome to Secure File Manager!</h1>
-<?
-}
-?>
-
     <!--=== Slider ===-->
     <div class="slider-inner">
         <div id="da-slider" class="da-slider">
             <div class="da-slide">
-                <h2><i>CLEAN &amp; FRESH</i> <br /> <i>FULLY RESPONSIVE</i> <br /> <i>DESIGN</i></h2>
+
+                <?
+                if(!IsUserLoggedOn()) {
+                    ?>
+                    <h2>Welcome to Secure File Manager!</h2>
+                <?
+                }else{
+                    ?>
+                    <h2>Hi <? echo $viewModel->get("username") ?>! Welcome to Secure File Manager!</h2>
+                <?
+                }
+                ?>
                 <p><i>Lorem ipsum dolor amet</i> <br /> <i>tempor incididunt ut</i> <br /> <i>veniam omnis </i></p>
                 <div class="da-img"><img class="img-responsive" src="assets/plugins/parallax-slider/img/1.png" alt=""></div>
             </div>
