@@ -49,7 +49,7 @@ if($viewModel->exists("comment"))
                     <i class="rounded-x icon-cloud-download"></i>
                 </a>
                 <?php
-                if (isFileOwner($data['UserId']))
+                if (isFileOwner($model->UserId))
                 {?>
                         <a href="/files/delete/<?php $model->UserFileId?>">
                             <i class="rounded-x icon-trash"></i>

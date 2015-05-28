@@ -49,6 +49,7 @@ class FileRepository
             [Description]
             ,[UserFileId]
            ,[Name]
+           ,[UserId]
            from [dbo].[UserFile]
            where UserFileId=:fileid');
 
@@ -67,6 +68,7 @@ class FileRepository
         $file->UserFileId = $fileid;
         $file->Description = $result["Description"];
         $file->Name = $result["Name"];
+        $file->UserId = $result["UserId"];
 
         return $file;
     }
