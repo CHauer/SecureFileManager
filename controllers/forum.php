@@ -82,12 +82,24 @@ class ForumController extends BaseController
             $entry->ForumThreadId = $id;
             $entry->UserId = $_SESSION["userid"];
 
-            $forumrepo->PostEntryToThread($entry);
+            $entryId = $forumrepo->PostEntryToThread($entry);
 
-            // reload viewmodel since data has changed (new entry)
-            $viewModel = $this->model->thread($id);
+            if($entryId == false)
+            {
+                $viewModel->set("error", "Something went wrong - please try again!");
+            }
+            else
+            {
+                // reload viewmodel since data has changed (new entry)
+                $viewModel = $this->model->thread($id);
 
-            $_SESSION["redirectSuccess"] = "Answer successfully created.";
+                global $log;
+
+                // log creation of entry
+                $log->LogMessage("Entry " . $entryId . " created in Thread " . $id . " by user with ID " . $_SESSION["userid"], LOGGER_INFO);
+
+                $_SESSION["redirectSuccess"] = "Answer successfully created.";
+            }
         }
 
         $this->view->output($viewModel);
@@ -125,6 +137,12 @@ class ForumController extends BaseController
                 try
                 {
                     $forumrepo->DeleteEntryById($id);
+
+                    global $log;
+
+                    // log deletion of thread
+                    $log->LogMessage("Entry " . $id . " deleted by user with ID " . $_SESSION["userid"], LOGGER_INFO);
+
                     $_SESSION["redirectSuccess"] = "Answer successfully deleted.";
                 }
                 catch (Exception $e)
@@ -197,7 +215,8 @@ class ForumController extends BaseController
             {
                 global $log;
 
-                $log->LogMessage("Thread " . $threadId . " created by " . $_SESSION["userid"], LOGGER_INFO);
+                // log creation of thread
+                $log->LogMessage("Thread " . $threadId . " created by user with ID " . $_SESSION["userid"], LOGGER_INFO);
 
                 $_SESSION["redirectSuccess"] = "Thread successfully created!";
                 RedirectAction("forum", "thread", $threadId);
@@ -237,6 +256,11 @@ class ForumController extends BaseController
                 $success = $forumrepo->DeleteById($id);
 
                 if ($success) {
+                    global $log;
+
+                    // log deletion of thread
+                    $log->LogMessage("Thread " . $id . " deleted by user with ID " . $_SESSION["userid"], LOGGER_INFO);
+
                     $_SESSION["redirectSuccess"] = "Thread successfully deleted.";
                 } else {
                     $_SESSION["redirectError"] = "Thread couldn't be deleted. Please try again.";
