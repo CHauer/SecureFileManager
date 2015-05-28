@@ -69,6 +69,19 @@ if($viewModel->exists("model"))
                             <input type="text" placeholder="Which user are you looking for?" class="form-control" name="User" maxlength="15">
                         </div>
                     </div>
+                    <div class="col-sm-4 md-margin-bottom-10">
+                        <li class="sort-list-btn">
+                            <h3>Sort By :</h3>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    Uploaded Date <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">All</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </div>
                     <div class="col-sm-3">
                         <button class="btn-u btn-block btn-u-dark" type="submit">Search Files</button>
                     </div>
@@ -104,7 +117,7 @@ if($viewModel->exists("model"))
                                     </ul>
                                     <h2><a href="/files/details/<?php echo $data['UserFileId']?>"><?php echo $data['Name']?> </a>
                                         <?php
-                                        if (isFileOwner($data['UserId']))
+                                        if (isFileOwner($data['UserId'], $data['UserFileId'] ))
                                         {?>
                                             <span class="color-green">*</span>
                                         <?}?>
@@ -124,7 +137,7 @@ if($viewModel->exists("model"))
                                         </a>
                                     </li>
                                     <?php
-                                    if (isFileOwner($data['UserId']))
+                                    if (isFileOwner($data['UserId'], $data['UserFileId'] ))
                                     {?>
                                     <li>
                                         <a href="/files/delete/<?php echo $data['UserFileId']?>">

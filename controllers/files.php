@@ -184,6 +184,12 @@ class FilesController extends BaseController
             return;
         }
 
+        if (!isFileOwner($_SESSION["userid"], $id))
+        {
+            RedirectAction("files", "index");
+            return;
+        }
+
         $viewModel = $this->model->delete($id);
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST') {
