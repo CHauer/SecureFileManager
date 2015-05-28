@@ -14,6 +14,11 @@ class HomeModel extends BaseModel
         $this->viewModel->set("pageTitle","Home");
         return $this->viewModel;
     }
+
+    public function faq(){
+        $this->viewModel->set("pageTitle","Get HELP!?!");
+        return $this->viewModel;
+    }
 }
 
 ?>
