@@ -21,6 +21,8 @@ class FilesController extends BaseController
     //default method
     protected function index()
     {
+        $_SESSION["fileview"] = "index";
+
         global $log;
 
         ConfirmUserIsLoggedOn();
@@ -50,6 +52,8 @@ class FilesController extends BaseController
     //default method
     protected function myfiles()
     {
+        $_SESSION["fileview"] = "myfiles";
+
         global $log;
 
         ConfirmUserIsLoggedOn();
@@ -86,7 +90,7 @@ class FilesController extends BaseController
 
         if (!IsPremiumUser())
         {
-            RedirectAction("files", "index");
+            RedirectAction("files", $_SESSION["fileview"]);
             return;
         }
 
@@ -155,7 +159,7 @@ class FilesController extends BaseController
                 // log File Upload
                 $log->LogMessage('Uploaded the file ' . $file->Name . ' (ID: ' . $file->UserFileId . ') by UserID ' . $file->UserId, LOGGER_INFO);
 
-                RedirectAction("files", "index");
+                RedirectAction("files", $_SESSION["fileview"]);
                 return;
             }
         }
