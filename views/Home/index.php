@@ -16,10 +16,19 @@
                     }
                     ?></span>
             </div>
+            <?
+            if(!IsUserLoggedOn()) {
+            ?>
             <div class="col-md-3 btn-buy animated fadeInRight">
                 <a href="/account/login" class="btn-u btn-u-lg"><i class="fa fa-user"></i> Login</a>
                 <a href="/account/register" class="btn-u btn-u-lg"><i class="fa fa-bolt"></i> Register</a>
             </div>
+            <? } else { ?>
+                <div class="col-md-3 btn-buy animated fadeInRight">
+                    <a href="/files/index" class="btn-u btn-u-lg"><i class="fa fa-file"></i> Files</a>
+                    <a href="/forum/index" class="btn-u btn-u-lg"><i class="fa fa-users"></i> Forum</a>
+                </div>
+            <? } ?>
         </div>
     </div>
 </div><!--/row-->
