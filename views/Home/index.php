@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="assets/plugins/flexslider/flexslider.css">
+<link rel="stylesheet" href="assets/plugins/parallax-slider/css/parallax-slider.css">
+
 <div class="container content">
 <?
 if(!IsUserLoggedOn()) {
@@ -10,26 +13,106 @@ if(!IsUserLoggedOn()) {
 <?
 }
 ?>
-    
-<p><strong>TODO - Change Text</strong><br/> Welcome to what is probably one of the most basic PHP MVC frameworks you'll find. The current view you're seeing exists in /views/home/index.php.</p>
-<p>The idea of Nathan MVC (I honestly couldn't think of a better name) is for PHP developers not necessarily versed on the basics of the Model View Controller pattern to have a framework clean of clutter and unnecessary addons, so they can focus on exploring the fundamentals of the pattern while having a working example from the very first step.</p>
-<p>Nathan MVC comes with a .htaccess file built to allow /controller/action/id style URL requests, error and home controller and model classes which act as examples, and a basic main template file. There are also four classes and index.php, which form the underlying structure of the framework.</p>
-<p>This framework is based on a series of articles I wrote for my portfolio website <a href="http://www.nathandavison.com">www.nathandavison.com</a>.</p>
-<h2>Tips</h2>
-<ul>
-    <li>Check out how HomeController and ErrorController are coded to understand how the MVC components of this framework tie together - pay particular note to how they extend from BaseController, and how they interact with the view object ($this->view).</li>
-    <li>All controllers should be class files contained in the controller directory, and share the same filename as the controller used in the URL, with a PHP extension e.g. controllers/home.php. The actual class name of a controller should be NameController e.g. HomeController, ErrorController, etc.</li>
-    <li>All controllers must extend from the BaseController class. Controllers which don't will produce an error.</li>
-    <li>All directories under /views should share the name of the controller class, with an upper case first letter, and minus the 'Controller' part, e.g. Home, Error, etc (upper case first letter is important on Linux).</li>
-    <li>If you want any view to be shown without using a main template, pass a boolean false as the second argument in the $this->view->output() call of your controller methods (where the first argument is the data being send to the view).</li>
-    <li>If you define a string as $this->view->output()'s second argument, it will look for that string as /views/stringvalue.php for that view's template. "maintemplate" is the default value and hence views/maintemplate.php is the default template file.</li>
-    <li>If you extend a model class from BaseModel, it will have access to the ViewModel object via $this->viewModel, which has a method, set(), that allows you to dynamically add properties to the $this->viewModel object. E.g. $this->viewModel->set('pageTitle', 'Home') would store the string 'Home' in $this->viewModel->pageTitle; .</li>
-    <li>In general, the framework is designed for models to extend from BaseModel and populate $this->viewModel with the data you want passed to the view. As such, after populating $this->viewModel, model methods should return $this->viewModel. However, the framework does not impose any requirements on how you handle your models, this is just a guideline.</li>
-    <li>Whatever you pass as the first argument of $this->view->output() is available as the variable $viewModel in templates and views. If the variable being passed in is of type ViewModel as talked about in the point above, then in your views and templates you can retrieve values using $viewModel->get('name'), where 'name' is the name of the property. For instance, in the above example where the property 'pageTitle' was set, retrieving this would be done as $viewModel->get('pageTitle'). </li>
-</ul>
-<h2>Where to now</h2>
-<p>If you intend to expand on this framework, your first step is to probably think about where you'll store images, css files and js files (/content and /js ?), and to modify the maintemplate.php file under /views. From there, you can start creating controllers and models appropriately, making sure to extend from the base classes for each (see the existing home and error controllers and models for examples). Then you'll want to match your controller structure in the views directory, and create a view file for each of your controller's actions/methods (again, home and error can be used as an example).</p>
-<p>With this all done, any controller, action and view setup you create should be viewable via /controller/action.</p>
-<p>If you want to extend the capability of your models, such as including the ability for them to interact with a database, your best bet would be to establish your extensions in the BaseModel class's construct method. Since any model should extend from this class, they would therefore inherit any functionality you add. Other than a database connection, other examples include functionality for generating, validating, and sanitizing.</p>
 
-</div>
+    <!--=== Slider ===-->
+    <div class="slider-inner">
+        <div id="da-slider" class="da-slider">
+            <div class="da-slide">
+                <h2><i>CLEAN &amp; FRESH</i> <br /> <i>FULLY RESPONSIVE</i> <br /> <i>DESIGN</i></h2>
+                <p><i>Lorem ipsum dolor amet</i> <br /> <i>tempor incididunt ut</i> <br /> <i>veniam omnis </i></p>
+                <div class="da-img"><img class="img-responsive" src="assets/plugins/parallax-slider/img/1.png" alt=""></div>
+            </div>
+            <div class="da-slide">
+                <h2><i>RESPONSIVE VIDEO</i> <br /> <i>SUPPORT AND</i> <br /> <i>MANY MORE</i></h2>
+                <p><i>Lorem ipsum dolor amet</i> <br /> <i>tempor incididunt ut</i></p>
+                <div class="da-img">
+                    <iframe src="http://player.vimeo.com/video/47911018" width="530" height="300" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+                </div>
+            </div>
+            <div class="da-slide">
+                <h2><i>USING BEST WEB</i> <br /> <i>SOLUTIONS WITH</i> <br /> <i>HTML5/CSS3</i></h2>
+                <p><i>Lorem ipsum dolor amet</i> <br /> <i>tempor incididunt ut</i> <br /> <i>veniam omnis </i></p>
+                <div class="da-img"><img src="assets/plugins/parallax-slider/img/html5andcss3.png" alt="image01" /></div>
+            </div>
+            <div class="da-arrows">
+                <span class="da-arrows-prev"></span>
+                <span class="da-arrows-next"></span>
+            </div>
+        </div>
+    </div><!--/slider-->
+    <!--=== End Slider ===-->
+
+    <!--=== Purchase Block ===-->
+    <div class="purchase">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 animated fadeInLeft">
+                    <span>Unify is a clean and fully responsive incredible Template.</span>
+                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi  vehicula sem ut volutpat. Ut non libero magna fusce condimentum eleifend enim a feugiat corrupti quos.</p>
+                </div>
+                <div class="col-md-3 btn-buy animated fadeInRight">
+                    <a href="#" class="btn-u btn-u-lg"><i class="fa fa-cloud-download"></i> Download Now</a>
+                </div>
+            </div>
+        </div>
+    </div><!--/row-->
+    <!-- End Purchase Block -->
+
+    <!--=== Content Part ===-->
+    <div class="container content">
+        <div class="title-box">
+            <div class="title-box-text">We <span class="color-green">Do</span> Awesome Design</div>
+            <p>Creative freedom matters user experience, we minimize the gap between technology and its audience.</p>
+        </div>
+
+        <div class="margin-bottom-40"></div>
+
+        <!-- Info Blocks -->
+        <div class="row">
+            <div class="col-sm-4 info-blocks">
+                <i class="icon-info-blocks fa fa-bell-o"></i>
+                <div class="info-blocks-in">
+                    <h3>FREE Updates</h3>
+                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum animi..</p>
+                </div>
+            </div>
+            <div class="col-sm-4 info-blocks">
+                <i class="icon-info-blocks fa fa-hdd-o"></i>
+                <div class="info-blocks-in">
+                    <h3>1000+ Icons</h3>
+                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum animi..</p>
+                </div>
+            </div>
+            <div class="col-sm-4 info-blocks">
+                <i class="icon-info-blocks fa fa-lightbulb-o"></i>
+                <div class="info-blocks-in">
+                    <h3>Creative Ideas</h3>
+                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum animi..</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row margin-bottom-60">
+            <div class="col-sm-4 info-blocks">
+                <i class="icon-info-blocks fa fa-code"></i>
+                <div class="info-blocks-in">
+                    <h3>SEO Ready</h3>
+                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum animi..</p>
+                </div>
+            </div>
+            <div class="col-sm-4 info-blocks">
+                <i class="icon-info-blocks fa fa-compress"></i>
+                <div class="info-blocks-in">
+                    <h3>Fully Responsive</h3>
+                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum animi..</p>
+                </div>
+            </div>
+            <div class="col-sm-4 info-blocks">
+                <i class="icon-info-blocks fa fa-html5"></i>
+                <div class="info-blocks-in">
+                    <h3>CSS3 + HTML5</h3>
+                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum animi..</p>
+                </div>
+            </div>
+        </div>
+        <!-- End Info Blocks -->
