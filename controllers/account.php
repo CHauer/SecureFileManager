@@ -254,7 +254,8 @@ class AccountController extends BaseController
         {
             $userid = intval($this->urlValues['id']);
         }
-        else
+
+        if ($userid == null || $userid == false)
         {
             $userid = intval($_SESSION['userid']);
         }
