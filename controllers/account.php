@@ -65,7 +65,12 @@ class AccountController extends BaseController
 
             try
             {
-                $filelink = HandlePictureUpload("Picture", "upload/UserPictures");
+                $filelink = NULL;
+
+                if(isset($_FILES["Picture"]))
+                {
+                    $filelink = HandlePictureUpload("Picture", "upload/UserPictures");
+                }
 
                 if($filelink != NULL && $filelink != false)
                 {
