@@ -94,17 +94,31 @@ class ForumController extends BaseController
         {
             $forumrepo = new ForumRepository();
 
-            // TODO: what if entry doesn't exist anymore
-            $entry = $forumrepo->GetEntryById($id);
+            try
+            {
+                $entry = $forumrepo->GetEntryById($id);
+            }
+            catch(InvalidArgumentException $e)
+            {
+                $_SESSION["redirectError"] = $e->getMessage();
+                RedirectAction("forum", "index");
+                return;
+            }
 
-            if(IsEntryOwner($id, $_SESSION["userid"])) {
-                try {
+            if(IsEntryOwner($id, $_SESSION["userid"]))
+            {
+                try
+                {
                     $forumrepo->DeleteEntryById($id);
                     $_SESSION["redirectSuccess"] = "Answer successfully deleted.";
-                } catch (Exception $e) {
+                }
+                catch (Exception $e)
+                {
                     $_SESSION["redirectError"] = "Something went wrong. Please try again.";
                 }
-            } else {
+            }
+            else
+            {
                 $_SESSION["redirectError"] = "You are not allowed to delete this answer.";
             }
             RedirectAction("forum", "thread", $entry->ForumThreadId);
@@ -177,7 +191,6 @@ class ForumController extends BaseController
 
     protected function delete() {
         ConfirmUserIsLoggedOn();
-        $viewModel = $this->model->thread();
 
         $id = $this->urlValues['id'];
 
@@ -187,6 +200,8 @@ class ForumController extends BaseController
             RedirectAction("forum", "index");
             return;
         }
+
+        $viewModel = $this->model->thread($id);
 
         $forumrepo = new ForumRepository();
         try {
