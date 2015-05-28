@@ -85,6 +85,12 @@ if($viewModel->exists("model"))
                 <?}else{ ?>
                     <div class="row margin-bottom-20">
                         <div class="col-sm-3">
+                            <span><input type="radio" value="Standard" name="Role" > Standard</span>
+                        </div>
+                        <div class="col-sm-3">
+                            <span><input type="radio" value="Premium"  name="Role"  > Premium</span>
+                        </div>
+                        <div class="col-sm-3">
                             <span><input type="radio" value="Administrator" checked="checked" name="Role" > Administrator</span>
                         </div>
                     </div>
