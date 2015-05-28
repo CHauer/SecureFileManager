@@ -70,16 +70,12 @@ if($viewModel->exists("model"))
                         </div>
                     </div>
                     <div class="col-sm-2 md-margin-bottom-10">
-                        <li class="sort-list-btn">
-                            <div class="btn-group">
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">Uploaded</a></li>
-                                    <li><a href="#">Username</a></li>
-                                </ul>
-                            </div>
-                        </li>
+                        <select size="1" name="Sort by">
+                            <option value='Uploaded' selected="true">Uploaded</option>
+                            <option value='Username'>Username</option>
+                        </select>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-2">
                         <button class="btn-u btn-block btn-u-dark" type="submit">Search Files</button>
                     </div>
                 </div>
