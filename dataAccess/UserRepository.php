@@ -230,7 +230,7 @@ class UserRepository{
            ,[Description]
            ,[PictureLink]
            ,[LockoutEnabled]
-           ,[LockoutEndDate]
+           ,convert(varchar, [LockoutEndDate], 104) as [LockoutEndDate]
            ,[Deactivated]
            ,[AccessFailedCount]
            ,[RoleId]
