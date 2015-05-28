@@ -56,7 +56,7 @@
                     <tr>
                         <td><? echo $data["Title"] ?></td>
                         <td><? echo $data["Description"] ?></td>
-                        <td><? echo $data["Created"] . " by " . $data["Username"] ?></td>
+                        <td><? echo $data["Created"] . ' by <a href="/account/showprofile/' . $data["UserId"] . '">' . $data["Username"] . '</a>' ?></td>
                         <td><? echo $data["EntryCount"] ?></td>
                         <td>
                             <?
