@@ -447,7 +447,7 @@ class UserRepository{
         global $db;
 
         $statement = $db -> prepare('Update [User] set [Deactivated] = 0
-                                       WHERE [UserId]=:userid');
+                                       WHERE [UserId]=:userid AND [Deactivated]=1');
         $statement->bindParam(':userid', $userid);
 
         $statement->execute();
