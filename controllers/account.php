@@ -375,37 +375,16 @@ class AccountController extends BaseController
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
         {
             //TODO send mail to user with confirmlink - &confirm={currentpasswordhash} ???
-            /* //Create a new PHPMailer instance
-            $mail = new PHPMailer;
 
-            $mail->isSMTP();  // telling the class to use SMTP
-            $mail->SMTPAuth   = true;                // enable SMTP authentication
-            $mail->Port       = 26;                  // set the SMTP port
-            $mail->Host       = "mail.yourhost.com"; // SMTP server
-            $mail->Username   = "name@yourhost.com"; // SMTP account username
-            $mail->Password   = "your password";     // SMTP account password
+            $sendgrid = new SendGrid($api_user, $api_key);
+            $email    = new SendGrid\Email();
 
-            //Set who the message is to be sent from
-            $mail->setFrom('secure@securefile.azurewebsites.net', 'Secure Team');
+            $email->addTo("test@sendgrid.com")
+                ->setFrom("you@youremail.com")
+                ->setSubject("Sending with SendGrid is Fun")
+                ->setHtml("and easy to do anywhere, even with PHP");
 
-            //Set who the message is to be sent to
-            $mail->addAddress($user->EMail, 'John Doe');
-
-            //Set the subject line
-            $mail->Subject = 'SecureFile Manager Password Reset';
-            //Read an HTML message body from an external file, convert referenced images to embedded,
-            //convert HTML into a basic plain-text alternative body
-
-            $mail->msgHTML(file_get_contents('contents.html'), dirname(__FILE__));
-
-            //Replace the plain text body with one created manually
-            $mail->AltBody = 'This is a plain-text message body';
-
-            //send the message, check for errors
-            if (!$mail->send())
-            {
-                $viewModel->set('error', "Mailer Error: " . $mail->ErrorInfo);
-            } */
+            $sendgrid->send($email);
 
         }
 

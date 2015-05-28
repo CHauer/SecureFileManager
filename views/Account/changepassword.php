@@ -35,19 +35,19 @@ if($viewModel->exists("model"))
                 }
                 ?>
 
-                <div class="form-group  col-sm-6 <? ValidationErrorClass("CurrentPassword", $viewModel) ?> ">
+                <div class="form-group col-md-12  col-sm-12 <? ValidationErrorClass("CurrentPassword", $viewModel) ?> ">
                     <label class="control-label" >Current Password <span class="color-green">*</span></label>
                     <input type="Password"  name="CurrentPassword" class="form-control margin-bottom-20">
                     <? ValidationErrorMessage("CurrentPassword", $viewModel) ?>
                 </div>
 
                 <div class="row">
-                    <div class="form-group  col-sm-6 <? ValidationErrorClass("NewPassword", $viewModel) ?> ">
+                    <div class="form-group col-md-6  col-sm-6 <? ValidationErrorClass("NewPassword", $viewModel) ?> ">
                         <label class="control-label" >New Password <span class="color-green">*</span></label>
                         <input type="Password"  name="NewPassword" class="form-control margin-bottom-20">
                         <? ValidationErrorMessage("NewPassword", $viewModel) ?>
                     </div>
-                    <div class="form-group  col-sm-6 <? ValidationErrorClass("PasswordConfirm", $viewModel) ?> ">
+                    <div class="form-group col-md-6  col-sm-6 <? ValidationErrorClass("PasswordConfirm", $viewModel) ?> ">
                         <label class="control-label" >Confirm New Password <span class="color-green">*</span></label>
                         <input type="Password" name="PasswordConfirm" class="form-control margin-bottom-20">
                         <? ValidationErrorMessage("PasswordConfirm", $viewModel) ?>
