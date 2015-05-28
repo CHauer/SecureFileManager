@@ -3,8 +3,8 @@
 <div class="purchase">
     <div class="container">
         <div class="row">
-            <div class="col-md-6 animated fadeInLeft">
-                <span><?
+            <div class="col-md-9 animated fadeInLeft">
+                <span class="margin-top-20"><?
                     if(!IsUserLoggedOn()) {
                         ?>
                         Welcome to Secure File Manager!
@@ -18,8 +18,6 @@
             </div>
             <div class="col-md-3 btn-buy animated fadeInRight">
                 <a href="/account/login" class="btn-u btn-u-lg"><i class="fa fa-user"></i> Login</a>
-            </div>
-            <div class="col-md-3 btn-buy animated fadeInRight">
                 <a href="/account/login" class="btn-u btn-u-lg"><i class="fa fa-bolt"></i> Register</a>
             </div>
         </div>
