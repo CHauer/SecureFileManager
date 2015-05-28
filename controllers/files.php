@@ -38,7 +38,7 @@ class FilesController extends BaseController
             } catch (Exception $e)
             {
                 // log Fehler Read files
-                $log->LogMessage('Error during load files by UserID ' . $_SESSION["userid"] . '.', LOGGER_ERROR);
+                $log->LogMessage('Error during loading files by UserID ' . $_SESSION["userid"] . '.', LOGGER_ERROR);
                 $viewModel->set("error", $e->getMessage());
             }
 
@@ -69,7 +69,7 @@ class FilesController extends BaseController
             } catch (Exception $e)
             {
                 // log Fehler Read files
-                $log->LogMessage('Error during load files by UserID ' . $_SESSION["userid"] . '.', LOGGER_ERROR);
+                $log->LogMessage('Error during loading files by UserID ' . $_SESSION["userid"] . '.', LOGGER_ERROR);
                 $viewModel->set("error", $e->getMessage());
             }
 
