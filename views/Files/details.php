@@ -51,7 +51,7 @@ if($viewModel->exists("comment"))
                     </a>
                 </li>
                 <?php
-                if (isFileOwner($model->UserId, $model->UserFileId))
+                if (isFileOwner($_SESSION["userid"], $model->UserFileId))
                 {?>
                     </li>
                         <a href="/files/delete/<?php echo $model->UserFileId?>">

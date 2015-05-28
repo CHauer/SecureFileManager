@@ -55,7 +55,8 @@ function isFileOwner($userid, $fileid)
 
     $thread = $filerepo->GetFile($fileid);
 
-    if($thread->UserId == $userid) {
+    if($thread->UserId == $userid)
+    {
         return true;
     }
 

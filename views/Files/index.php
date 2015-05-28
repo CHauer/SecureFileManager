@@ -117,7 +117,7 @@ if($viewModel->exists("model"))
                                     </ul>
                                     <h2><a href="/files/details/<?php echo $data['UserFileId']?>"><?php echo $data['Name']?> </a>
                                         <?php
-                                        if (isFileOwner($data['UserId'], $data['UserFileId'] ))
+                                        if (isFileOwner($_SESSION["userid"], $data['UserFileId'] ))
                                         {?>
                                             <span class="color-green">*</span>
                                         <?}?>
@@ -137,7 +137,7 @@ if($viewModel->exists("model"))
                                         </a>
                                     </li>
                                     <?php
-                                    if (isFileOwner($data['UserId'], $data['UserFileId'] ))
+                                    if (isFileOwner($_SESSION["userid"], $data['UserFileId'] ))
                                     {?>
                                     <li>
                                         <a href="/files/delete/<?php echo $data['UserFileId']?>">
