@@ -4,7 +4,7 @@
         <h1 class="pull-left">File Details</h1>
         <ul class="pull-right breadcrumb">
             <li><a href="/home/index">Home</a></li>
-            <li><a href="/files/"<?php echo $_SESSION["fileview"] ?>>File List</a></li>
+            <li><a href="/files/<?php echo $_SESSION["fileview"] ?>">File List</a></li>
             <li class="active">File Details</li>
         </ul>
     </div><!--/container-->
