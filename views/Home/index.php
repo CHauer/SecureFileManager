@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="assets/plugins/flexslider/flexslider.css">
-<link rel="stylesheet" href="assets/plugins/parallax-slider/css/parallax-slider.css">
+<link rel="stylesheet" href="/assets/plugins/flexslider/flexslider.css">
+<link rel="stylesheet" href="/assets/plugins/parallax-slider/css/parallax-slider.css">
 
     <!--=== Slider ===-->
     <div class="slider-inner">
