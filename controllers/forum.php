@@ -96,7 +96,7 @@ class ForumController extends BaseController
                 global $log;
 
                 // log creation of entry
-                $log->LogMessage("Entry " . $entry . " created by user with ID " . $_SESSION["userid"], LOGGER_INFO);
+                $log->LogMessage("Entry " . $entryId . " created by user with ID " . $_SESSION["userid"], LOGGER_INFO);
 
                 $_SESSION["redirectSuccess"] = "Answer successfully created.";
             }
