@@ -36,6 +36,38 @@ class FilesController extends BaseController
                 $viewModel->set("model", $files);
 
             } catch (Exception $e) {
+                // log Fehler Read files
+                $log->LogMessage('Error during load files by UserID ' . $file->UserId . '.', LOGGER_ERROR);
+                $viewModel->set("error", $e->getMessage());
+            }
+
+        }
+
+        $this->view->output($viewModel);
+    }
+
+    //default method
+    protected function myfiles()
+    {
+        global $log;
+
+        ConfirmUserIsLoggedOn();
+
+        $viewModel = $this->model->myfiles();
+
+        if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
+        {
+
+            try {
+                $fileRepo = new FileRepository();
+                $files = $fileRepo->GetPublicAndOwnFiles($_POST["Name"], $_POST['SortBy']);
+
+                $viewModel->set("model", $files);
+
+            } catch (Exception $e)
+            {
+                // log Fehler Read files
+                $log->LogMessage('Error during load files by UserID ' . $file->UserId . '.', LOGGER_ERROR);
                 $viewModel->set("error", $e->getMessage());
             }
 
