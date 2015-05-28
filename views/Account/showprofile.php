@@ -61,7 +61,7 @@ if($viewModel->exists("model"))
 
         <!-- user picture -->
         <div class="col-md-4">
-            <img alt="Picture Link" src="<? echo $model->PictureLink ?>">
+            <img alt="Picture Link" src="<? echo $model->PictureLink ?>" style="max-width:200px" >
         </div>
         <!-- End picture -->
     </div><!--/row-->

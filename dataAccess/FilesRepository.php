@@ -122,10 +122,15 @@ class FileRepository
         global $db;
         $isprivate = 0;
 
+        if ($order == 'Uploaded')
+        {
+            $order = $order . ' DESC';
+        }
+
         $stmt = $db->prepare('Select [UserFile].*, Username, PictureLink, (Select count(Commentid) From Comment where UserFile_UserFileId = [Userfile].UserFileId) as CommentCount
                               from [UserFile] left join [User] on [UserFile].UserId = [User].UserId
                               where (IsPrivate = :ispriv or [UserFile].UserId = :id) and [User].Username LIKE :user
-                              and Name LIKE :file order by ' . $order . ' DESC, Name');
+                              and Name LIKE :file order by ' . $order . ', Name');
 
         $user = '%' . $user . '%';
         $file = '%' . $file . '%';
