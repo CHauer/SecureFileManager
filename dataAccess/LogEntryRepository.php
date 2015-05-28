@@ -38,7 +38,7 @@ class LogEntryRepository{
         global $db;
 
         $stmt = $db->prepare("SELECT TOP " . $count ." [LogEntryId],
-                                convert(varchar, [Created], 104) as [Created],
+                                convert(nvarchar, [Created], 104) as [Created],
                                 [Message],
                                 [Typ]
                               FROM [dbo].[LogEntry]
