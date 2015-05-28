@@ -287,6 +287,7 @@ class AccountController extends BaseController
                 $user = new User();
                 $viewModel->set("model", $user);
 
+                $user->UseriD = $viewModel->get("userid");
                 $user->Username = $_POST["Username"];
 
                 $user->Description = PrepareHtml($_POST["Description"]);
@@ -328,9 +329,9 @@ class AccountController extends BaseController
                 if($result == false)
                 {
                     $viewModel->set("error", "Something went wrong during your changes - please try again!");
-                }else
+                }
+                else
                 {
-
                     //log Kontoänderungen
                     $log->LogMessage('User ' . $viewModel->get('username') . ' has changed his profile.', LOGGER_INFO);
 
