@@ -44,7 +44,7 @@ if($viewModel->exists("comment"))
                 <label class="margin-bottom-20" ><?php echo $model->Name ?>  </label>
             </div>
 
-            <ul class="list-inline posted-info post-shares">
+            <ul class="list-inline">
                 <li>
                     <a href="/files/download/<?php echo $model->UserFileId?>">
                         <i class="rounded-x icon-cloud-download"></i>
@@ -89,7 +89,7 @@ if($viewModel->exists("comment"))
                             <div class="panel-body margin-bottom-10">
                                 <div class="media media-v2">
                                     <a class="pull-left">
-                                        <img class="media-object rounded-x" src="<?php echo $data['PictureLink'] ?>"
+                                        <img class="media-object rounded-x" height="auto" width="40px" src="<?php echo $data['PictureLink'] ?>"
                                              alt="">
                                     </a>
 
