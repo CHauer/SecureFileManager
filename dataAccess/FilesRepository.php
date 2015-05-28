@@ -169,8 +169,8 @@ class FileRepository
 
         $file = '%' . $file . '%';
 
-        $stmt->bindParam(':id', $_SESSION["userid"]);
         $stmt->bindParam(':file', $file, PDO::PARAM_STR);
+        $stmt->bindParam(':id', $_SESSION["userid"]);
 
         $stmt->execute();
         $results = $stmt->fetchAll();
