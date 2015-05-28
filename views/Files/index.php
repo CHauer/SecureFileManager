@@ -70,7 +70,7 @@ if($viewModel->exists("model"))
                         </div>
                     </div>
                     <div class="col-sm-2 md-margin-bottom-10">
-                        <select size="1" name="Sort by">
+                        <select size="1" name="SortBy" class="select">
                             <option value='Uploaded' selected="true">Uploaded</option>
                             <option value='Username'>Username</option>
                         </select>

@@ -21,6 +21,8 @@ class FilesController extends BaseController
     //default method
     protected function index()
     {
+        global $log;
+
         ConfirmUserIsLoggedOn();
 
         $viewModel = $this->model->index();
@@ -29,7 +31,7 @@ class FilesController extends BaseController
 
             try {
                 $fileRepo = new FileRepository();
-                $files = $fileRepo->GetPublicAndOwnFiles($_POST["User"], $_POST["Name"]);
+                $files = $fileRepo->GetPublicAndOwnFiles($_POST["User"], $_POST["Name"], $_POST['SortBy']);
 
                 $viewModel->set("model", $files);
 
@@ -99,7 +101,11 @@ class FilesController extends BaseController
             #endregion
 
             //no error
-            if (!$viewModel->exists("error")) {
+            if (!$viewModel->exists("error"))
+            {
+                // log File Upload
+                $log->LogMessage('Uploaded the file ' . $file->Name . ' (ID: ' . $file->UserFileId . ') by UserID ' . $file->UserId, LOGGER_INFO);
+
                 RedirectAction("files", "index");
                 return;
             }
@@ -173,6 +179,8 @@ class FilesController extends BaseController
 
     protected function delete()
     {
+        global $log;
+
         ConfirmUserIsLoggedOn();
 
         $id = $this->urlValues['id'];
@@ -210,6 +218,9 @@ class FilesController extends BaseController
             //no error
             if (!$viewModel->exists("error"))
             {
+                // log delete file
+                $log->LogMessage('File (ID: ' . $id . ') successfully deleted by UserID ' . $_SESSION["userid"] , LOGGER_INFO);
+
                 $_SESSION["deleteFile"] = "File successfully deleted!";
                 RedirectAction("files", "index");
                 return;
@@ -222,6 +233,8 @@ class FilesController extends BaseController
 
     protected function details()
     {
+        global $log;
+
         ConfirmUserIsLoggedOn();
 
         $id = $this->urlValues['id'];
@@ -275,6 +288,9 @@ class FilesController extends BaseController
 
             //no error
             if (!$viewModel->exists("error")) {
+
+                $log->LogMessage('File (ID: ' . $comment->UserFile_UserFileId . ') has been commented by UserID ' . $_SESSION["userid"] , LOGGER_INFO);
+
                 RedirectAction("files", "details", $id);
                 return;
             }
@@ -286,6 +302,7 @@ class FilesController extends BaseController
 
     protected function download()
     {
+        global $log;
         ConfirmUserIsLoggedOn();
 
         $id = $this->urlValues['id'];
@@ -303,6 +320,9 @@ class FilesController extends BaseController
             if (!$fileRepo->DownloadFile($id))
             {
                 $_SESSION['error'] = "File couldn't be downloaded - please try again!";
+            } else
+            {
+                $log->LogMessage('File (ID: ' . $id . ') has been downloaded by UserID ' . $_SESSION["userid"] , LOGGER_INFO);
             }
 
         } catch (Exception $e)

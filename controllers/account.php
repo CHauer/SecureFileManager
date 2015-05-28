@@ -308,7 +308,7 @@ class AccountController extends BaseController
 
             #endregion
 
-            if(!$this->validateRegisterData($viewModel, false)) {
+            if(!$this->validateRegisterData($viewModel, false. true)) {
                 $this->view->output($viewModel);
                 return;
             }
@@ -589,7 +589,7 @@ class AccountController extends BaseController
         return $ok;
     }
 
-    private function validateRegisterData(ViewModel &$viewModel, $checkTerms = true)
+    private function validateRegisterData(ViewModel &$viewModel, $checkTerms = true, $checkUsernameChange = false)
     {
         $ok = true;
 
@@ -643,10 +643,24 @@ class AccountController extends BaseController
 
         $userrepo = new UserRepository();
 
-        if($userrepo->IsUsernameUsed($_POST["Username"]))
+        if($checkUsernameChange)
         {
-            $viewModel->setFieldError("Username", "Username is already used!");
-            $ok = false;
+            $username = $viewModel->get("username");
+
+            if ($username != $_POST["Username"])
+            {
+                if ($userrepo->IsUsernameUsed($_POST["Username"])) {
+                    $viewModel->setFieldError("Username", "Username is already used!");
+                    $ok = false;
+                }
+            }
+        }
+        else
+        {
+            if ($userrepo->IsUsernameUsed($_POST["Username"])) {
+                $viewModel->setFieldError("Username", "Username is already used!");
+                $ok = false;
+            }
         }
 
         return $ok;
