@@ -106,7 +106,8 @@ class FileRepository
             unlink($path);
         }
 
-        $stmt = $db->prepare('Delete From [UserFile] where UserFileId = :fileid');
+        $stmt = $db->prepare('Delete From [UserFile]
+                              where UserFileId = :fileid');
         $stmt->bindParam(':fileid', $fileid);
         $stmt->execute();
 
@@ -160,7 +161,8 @@ class FileRepository
             $order = $order . ' DESC';
         }
 
-        $stmt = $db->prepare('Select [UserFile].*, Username, PictureLink, (Select count(Commentid) From Comment where UserFile_UserFileId = [Userfile].UserFileId) as CommentCount
+        $stmt = $db->prepare('Select [UserFile].*, Username, PictureLink,
+                              (Select count(Commentid) From Comment where UserFile_UserFileId = [Userfile].UserFileId) as CommentCount
                               from [UserFile] left join [User] on [UserFile].UserId = [User].UserId
                               where Name LIKE :file and [UserFile].UserId = :id order by ' . $order . ', Name');
 
