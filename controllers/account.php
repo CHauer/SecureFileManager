@@ -287,7 +287,7 @@ class AccountController extends BaseController
                 $user = new User();
                 $viewModel->set("model", $user);
 
-                $user->UseriD = $viewModel->get("userid");
+                $user->UserId = $viewModel->get("userid");
                 $user->Username = $_POST["Username"];
 
                 $user->Description = PrepareHtml($_POST["Description"]);
