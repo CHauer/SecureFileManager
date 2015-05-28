@@ -57,19 +57,25 @@ if($viewModel->exists("model"))
             <div class="row margin-bottom-40">
                 <div class="job-img-inputs">
                     <!-- Serach -->
-                    <div class="col-sm-4 md-margin-bottom-10">
+                    <div class="col-sm-3 md-margin-bottom-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-tag"></i></span>
                             <input type="text" placeholder="What file are you looking for?" class="form-control" name="Name" maxlength="15">
                         </div>
                     </div>
-                    <div class="col-sm-4 md-margin-bottom-10">
+                    <div class="col-sm-3 md-margin-bottom-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-tag"></i></span>
                             <input type="text" placeholder="Which user are you looking for?" class="form-control" name="User" maxlength="15">
                         </div>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-2 md-margin-bottom-10">
+                        <select size="1" name="Sort by">
+                            <option value='Uploaded' selected="true">Uploaded</option>
+                            <option value='Username'>Username</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
                         <button class="btn-u btn-block btn-u-dark" type="submit">Search Files</button>
                     </div>
                 </div>
@@ -104,7 +110,7 @@ if($viewModel->exists("model"))
                                     </ul>
                                     <h2><a href="/files/details/<?php echo $data['UserFileId']?>"><?php echo $data['Name']?> </a>
                                         <?php
-                                        if (isFileOwner($data['UserId']))
+                                        if (isFileOwner($_SESSION["userid"], $data['UserFileId'] ))
                                         {?>
                                             <span class="color-green">*</span>
                                         <?}?>
@@ -124,7 +130,7 @@ if($viewModel->exists("model"))
                                         </a>
                                     </li>
                                     <?php
-                                    if (isFileOwner($data['UserId']))
+                                    if (isFileOwner($_SESSION["userid"], $data['UserFileId'] ))
                                     {?>
                                     <li>
                                         <a href="/files/delete/<?php echo $data['UserFileId']?>">
