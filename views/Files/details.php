@@ -41,8 +41,8 @@ if($viewModel->exists("comment"))
 
             <div class="overflow-h">
                 <label class="control-label" >File Name: </label><br/>
-                <label class="margin-bottom-20" ><?php echo $model->Name ?></label>
-                <a href="/files/download/<?php echo $model->UserFileId?>">
+                <label class="margin-bottom-20" ><?php echo $model->Name ?>  </label>
+                <a class="post-shares" href="/files/download/<?php echo $model->UserFileId?>">
                     <i class="rounded-x icon-cloud-download"></i>
                 </a>
             </div>
