@@ -387,7 +387,7 @@ class AccountController extends BaseController
 
             if($resetLink != NULL)
             {
-                $link = "/account/confirmresetpassword?reset=" . $resetLink;
+                $link = $_SERVER[HTTP_HOST] . "/account/confirmresetpassword?reset=" . $resetLink;
 
                 $sendgrid = new SendGrid('SecureFH', 'qwerASDF12');
                 $email = new SendGrid\Email();
