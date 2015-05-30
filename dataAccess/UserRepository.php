@@ -513,12 +513,12 @@ class UserRepository{
     {
         global $db;
 
-        $statement = $db -> prepare("UPDATE [dbo].[User]
+        $statement = $db -> prepare("UPDATE [User]
                                        SET [Password]=CONVERT(nvarchar,HASHBYTES('SHA2_256', :newPassword),2)
-                                        WHERE convert(nvarchar, Hashbytes('SHA2_256', [Username] + [EMail] + [Password]),  2)= :resetLink
+                                        WHERE convert(nvarchar, Hashbytes('SHA2_256', [Username] + [EMail] + [Password]),  2)=:resetLink
                                         AND [Username] = :username AND [EMail] = :email");
         $statement->bindValue(':newPassword', $newPassword);
-        $statement->bindValue(':resetLink', strtoupper($resetLink));
+        $statement->bindValue(':resetLink', $resetLink, PDO::PARAM_STR);
         $statement->bindValue(':username', $username);
         $statement->bindValue(':email', $email);
 

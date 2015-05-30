@@ -73,7 +73,7 @@ if($viewModel->exists("model"))
 
                 <div class="form-group <? ValidationErrorClass("Description", $viewModel) ?>">
                     <label class="control-label" >Description</label>
-                    <textarea name="Description" class="form-control margin-bottom-20">  <? EchoModelValue($model, 'Description')?> > </textarea>
+                    <textarea name="Description" class="form-control margin-bottom-20">  <? EchoModelValue($model, 'Description') ?> > </textarea>
                     <? ValidationErrorMessage("Description", $viewModel) ?>
                 </div>
 

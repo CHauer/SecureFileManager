@@ -39,7 +39,7 @@ function EchoModelValue($model, $field)
 {
     if($model != NULL && isset($model))
     {
-        echo $model->{$field};
+        echo ''.$model->{$field};
     }
 }
 

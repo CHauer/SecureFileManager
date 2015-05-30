@@ -443,7 +443,7 @@ class AccountController extends BaseController
             try
             {
                 //change user password
-                $reset = $_POST["reset"];
+                $reset = $_POST['reset'];
                 $username = $_POST['Username'];
                 $email = $_POST['EMail'];
                 $newPassword = $_POST['NewPassword'];
@@ -469,7 +469,7 @@ class AccountController extends BaseController
         }
         else
         {
-            if(isset($_GET["reset"]))
+            if(isset($_GET['reset']))
             {
                 $viewModel->set("reset", $_GET["reset"]);
             }
@@ -579,7 +579,7 @@ class AccountController extends BaseController
             $ok = false;
         }
 
-        if (strlen($_POST["NewPassword"]) < 5 || !preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z.!@#$%\/]{8,12}$/', $_POST["Password"])) {
+        if (strlen($_POST["NewPassword"]) < 5 || !preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z.!@#$%\/]{8,12}$/', $_POST["NewPassword"])) {
             $viewModel->setFieldError("NewPassword", "Password has to consist of at least 5 letters and has to contain uppercase letter, special char and digits.");
             $ok = false;
         }

@@ -121,7 +121,7 @@ if($viewModel->exists("model"))
                                 </div>
                                 <ul class="post-shares">
                                     <li>
-                                        <a href="#">
+                                        <a href="/files/details/<?php echo $data['UserFileId']?>">
                                             <i class="rounded-x icon-speech"></i>
                                             <span><?php echo $data['CommentCount']?></span>
                                         </a>
