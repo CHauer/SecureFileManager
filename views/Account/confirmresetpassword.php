@@ -14,7 +14,7 @@
 <div class="container content">
     <div class="row">
         <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-            <form class="reg-page" action="/account/resetpassword" method="post" >
+            <form class="reg-page" action="/account/confirmresetpassword" method="post" >
                 <? CreateHiddenAntiCSRFTokenField(); ?>
 
                 <div class="reg-header">
