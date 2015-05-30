@@ -46,7 +46,7 @@ class Logger
     {
         $tempEntry = new LogEntry();
         $tempEntry->Message = $message;
-        $typ = LOGGER_DEBUG;
+        $tempEntry->Typ = LOGGER_DEBUG;
 
         return $this->logRepository->InsertLogEntry($tempEntry);
     }
@@ -55,7 +55,7 @@ class Logger
     {
         $tempEntry = new LogEntry();
         $tempEntry->Message = $message;
-        $typ = $typ;
+        $tempEntry->Typ = $typ;
 
         return $this->logRepository->InsertLogEntry($tempEntry);
     }
