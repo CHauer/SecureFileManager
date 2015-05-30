@@ -503,7 +503,8 @@ class UserRepository{
         $statement->execute();
         $result = $statement->fetch();
 
-        if($result != NULL) {
+        if($result != NULL)
+        {
             return $result['Reset'];
         }
         return NULL;
@@ -515,8 +516,8 @@ class UserRepository{
 
         $statement = $db -> prepare("UPDATE [User]
                                        SET [Password]=CONVERT(nvarchar,HASHBYTES('SHA2_256', :newPassword),2)
-                                        WHERE convert(nvarchar, Hashbytes('SHA2_256', [Username] + [EMail] + [Password]),  2)=:resetLink
-                                        AND [Username] = :username AND [EMail] = :email");
+                                        WHERE [Username]=:username AND [EMail]=:email
+                                        AND convert(nvarchar, Hashbytes('SHA2_256', [Username] + [EMail] + [Password]), 2)=:resetLink");
         $statement->bindValue(':newPassword', $newPassword);
         $statement->bindValue(':resetLink', $resetLink, PDO::PARAM_STR);
         $statement->bindValue(':username', $username);
