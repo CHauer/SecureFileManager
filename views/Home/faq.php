@@ -10,6 +10,6 @@
 
 <div class="container" style="height: 550px;">
     <div class="row text-center margin-top-20">
-    <img src="/assets/img/Hello-IT-Have.jpg" />
+    <img src="/assets/img/Hello-IT-Have.jpg" class="col-md-12 col-xs-12" />
         </div>
 </div>
