@@ -37,7 +37,7 @@ function ModelDateValue($model, $field)
 
 function EchoModelValue($model, $field)
 {
-    if($model != NULL && isset($model))
+    if($model !== NULL && isset($model))
     {
         echo ''.$model->{$field};
     }
