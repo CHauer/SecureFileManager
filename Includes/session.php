@@ -3,7 +3,7 @@ sec_session_start();
 
 function sec_session_start() {
     $session_name = 'sec_session_id';   // vergib einen Sessionnamen
-    $secure = SECURE;
+    $secure = false;
 
     // Damit wird verhindert, dass JavaScript auf die session id zugreifen kann.
     $httponly = true;
