@@ -194,6 +194,8 @@ class AccountController extends BaseController
                     $log->LogMessage('User ' . $username . ' has re-activated his profile.', LOGGER_INFO);
                 }
 
+                sec_session_start();
+
                 //$result contains userid
                 $_SESSION["userid"] = $result;
 
