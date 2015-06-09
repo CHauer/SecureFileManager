@@ -227,6 +227,24 @@ class FilesController extends BaseController
             $ok = false;
         }
 
+        $dname = explode(".", $_FILES["FileLink"]["name"]);
+        $ext = strtolower($dname[count($dname) - 1]);
+
+        //max 100Mb
+        if (!($_FILES["FileLink"]["size"] > 0 && $_FILES["FileLink"]["size"] < 1024 * 1024 * 100))
+        {
+            $viewModel->setFieldError("FileLink", "File is to big (max. 100MB)!");
+            $ok = false;
+        }
+
+        $ext=strtolower($ext);
+
+        if($ext == 'php' || $ext == 'js' || $ext == 'htm' || $ext == 'html')
+        {
+            $viewModel->setFieldError("FileLink", "File has invalid type!");
+            $ok = false;
+        }
+
         return $ok;
     }
 
