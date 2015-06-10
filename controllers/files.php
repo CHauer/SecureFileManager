@@ -422,6 +422,7 @@ class FilesController extends BaseController
             if($file->IsPrivate && $file->UserId !== $_SESSION['userid'])
             {
                 $_SESSION['error'] = "File couldn't be downloaded!";
+                RedirectAction("files", $_SESSION["fileview"]);
             }
 
             if (!$fileRepo->DownloadFile($id))
