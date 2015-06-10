@@ -50,6 +50,7 @@ class FileRepository
             ,[UserFileId]
            ,[Name]
            ,[UserId]
+           ,[IsPrivate]
            from [dbo].[UserFile]
            where UserFileId=:fileid');
 
