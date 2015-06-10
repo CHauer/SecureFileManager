@@ -416,6 +416,14 @@ class FilesController extends BaseController
         {
             $fileRepo = new FileRepository();
 
+            $file = $fileRepo->GetFile($id);
+
+            //file is private and not my file
+            if($file->IsPrivate && $file->UserId !== $_SESSION['userid'])
+            {
+                $_SESSION['error'] = "File couldn't be downloaded!";
+            }
+
             if (!$fileRepo->DownloadFile($id))
             {
                 $_SESSION['error'] = "File couldn't be downloaded - please try again!";

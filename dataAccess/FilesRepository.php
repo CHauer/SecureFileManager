@@ -69,6 +69,7 @@ class FileRepository
         $file->Description = $result["Description"];
         $file->Name = $result["Name"];
         $file->UserId = $result["UserId"];
+        $file->IsPrivate = $result["IsPrivate"];
 
         return $file;
     }
