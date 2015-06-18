@@ -43,7 +43,6 @@ class AccountController extends BaseController
                 $user->Lastname = $_POST["Lastname"];
 
                 $user->Password = $_POST["Password"];
-
                 try
                 {
                     $user->BirthDate = ParseDate($_POST["BirthDate"]);
@@ -116,6 +115,10 @@ class AccountController extends BaseController
                 RedirectAction("home", "index");
                 return;
             }
+        }else
+        {
+            $user = new User();
+            $viewModel->set("model", $user);
         }
 
         $this->view->output($viewModel);
