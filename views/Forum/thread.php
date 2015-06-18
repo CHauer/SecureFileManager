@@ -57,13 +57,13 @@
                 foreach ($entries as $data) {
                 ?>
                 <li>
-                    <time class="cbp_tmtime" datetime=""><? echo $data["Created"] ?></time>
+                    <time class="cbp_tmtime" datetime=""><span style="padding-top: 8px;"><? echo $data["Created"] ?></span></time>
                     <i class="cbp_tmicon rounded-x hidden-xs"></i>
                     <div class="cbp_tmlabel">
                         <h2><? echo '<a href="/account/showprofile/' . $data["UserId"] . '">' . $data["Username"] . '</a>'; ?></h2>
                         <div class="row">
                             <div class="col-md-3">
-                                <img class="img-responsive" src="<? $data["PictureLink"] ?>" alt="userimage" style="max-width: 150px;">
+                                <img class="img-responsive" src="<? echo $data["PictureLink"] ?>" alt="userimage" style="max-width: 150px;">
                                 <div class="md-margin-bottom-20"></div>
                             </div>
                             <div class="col-md-9">
