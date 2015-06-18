@@ -52,49 +52,38 @@
         }
         ?>
         <ul class="timeline-v2">
-            <li>
-                <time class="cbp_tmtime" datetime=""><span>4/1/08</span> <span>January</span></time>
-                <i class="cbp_tmicon rounded-x hidden-xs"></i>
-                <div class="cbp_tmlabel">
-                    <h2>Our first step</h2>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <img class="img-responsive" src="assets/img/main/img1.jpg" alt="">
-                            <div class="md-margin-bottom-20"></div>
+            <?
+            if (!is_null($entries)) {
+                foreach ($entries as $data) {
+                ?>
+                <li>
+                    <time class="cbp_tmtime" datetime=""><? echo $data["Created"] ?></time>
+                    <i class="cbp_tmicon rounded-x hidden-xs"></i>
+                    <div class="cbp_tmlabel">
+                        <h2><? echo '<a href="/account/showprofile/' . $data["UserId"] . '">' . $data["Username"] . '</a>'; ?></h2>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img class="img-responsive" src="<? $data["PictureLink"] ?>" alt="userimage" style="max-width: 150px;">
+                                <div class="md-margin-bottom-20"></div>
+                            </div>
+                            <div class="col-md-9">
+                                <p><? echo $data["Message"] ?></p>
+                            </div>
                         </div>
-                        <div class="col-md-8">
-                            <p>Winter purslane courgette pumpkin quandong komatsuna fennel green bean cucumber watercress. Pea sprouts wattle seed rutabaga okra yarrow cress avocado grape.</p>
-                            <p>Cabbage lentil cucumber chickpea sorrel gram garbanzo plantain lotus root bok choy squash cress potato.</p>
-                        </div>
+                        <?
+                        if($_SESSION["userid"] == $data["UserId"]) { ?>
+                            <div class="row">
+                            <? echo '<a href="/forum/deleteEntry/' . $data["EntryId"] . '"><span class="glyphicon glyphicon-remove btn-u-red">Delete</span></a>'; ?>
+                            </div>
+                            <?
+                        }
+                        ?>
                     </div>
-                </div>
-            </li>
-            <li>
-                <time class="cbp_tmtime" datetime=""><span>7/2/09</span> <span>February</span></time>
-                <i class="cbp_tmicon rounded-x hidden-xs"></i>
-                <div class="cbp_tmlabel">
-                    <h2>First achievements</h2>
-                    <p>Caulie dandelion maize lentil collard greens radish arugula sweet pepper water spinach kombu courgette lettuce. Celery coriander bitterleaf epazote radicchio shallot winter purslane collard greens spring onion squash lentil. Artichoke salad bamboo shoot black-eyed pea brussels sprout garlic kohlrabi.</p>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <ul class="list-unstyled">
-                                <li><i class="fa fa-check color-green"></i> Donec id elit non mi porta gravida</li>
-                                <li><i class="fa fa-check color-green"></i> Corporate and Creative</li>
-                                <li><i class="fa fa-check color-green"></i> Responsive Bootstrap Template</li>
-                                <li><i class="fa fa-check color-green"></i> Corporate and Creative</li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-6">
-                            <ul class="list-unstyled">
-                                <li><i class="fa fa-check color-green"></i> Donec id elit non mi porta gravida</li>
-                                <li><i class="fa fa-check color-green"></i> Corporate and Creative</li>
-                                <li><i class="fa fa-check color-green"></i> Responsive Bootstrap Template</li>
-                                <li><i class="fa fa-check color-green"></i> Corporate and Creative</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </li>
+                </li>
+                <?
+                }
+            }
+            ?>
         </ul>
         <div class="panel panel-light-green margin-bottom-20">
             <div class="panel-heading">
@@ -125,8 +114,8 @@
                             </td>
                         </tr>
                     <?
-                    }
-                }
+            }
+            }
                 ?>
                 </tbody>
             </table>

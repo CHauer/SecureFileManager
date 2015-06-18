@@ -117,7 +117,7 @@ class ForumRepository {
     {
         global $db;
 
-        $stmt = $db->prepare('SELECT [EntryId], [Message], [Created], [Entry].[UserId], [Username]
+        $stmt = $db->prepare('SELECT [EntryId], [Message], [Created], [Entry].[UserId], [Username], [PictureLink]
                                 FROM [Entry] JOIN [User] ON [Entry].[UserId] = [User].[UserId]
                                 WHERE [IsDeleted] = 0 AND [ForumThreadId] = :forumthreadid
                                 ORDER BY [Created] DESC');
