@@ -63,7 +63,7 @@
                         <h2><? echo '<a href="/account/showprofile/' . $data["UserId"] . '">' . $data["Username"] . '</a>'; ?></h2>
                         <div class="row">
                             <div class="col-md-3">
-                                <img class="img-responsive" src="<? echo $data["PictureLink"] ?>" alt="userimage" style="max-width: 150px;">
+                                <img class="img-responsive" src="<? echo $data["PictureLink"] ?>" alt="userimage" style="max-width: 50px;">
                                 <div class="md-margin-bottom-20"></div>
                             </div>
                             <div class="col-md-9">
@@ -72,8 +72,9 @@
                         </div>
                         <?
                         if($_SESSION["userid"] == $data["UserId"]) { ?>
+                            <hr/>
                             <div class="row">
-                            <? echo '<a href="/forum/deleteEntry/' . $data["EntryId"] . '"><span class="glyphicon glyphicon-remove btn-u-red">Delete</span></a>'; ?>
+                            <? echo '<a href="/forum/deleteEntry/' . $data["EntryId"] . '"><span class="glyphicon glyphicon-remove color-red" >Delete</span></a>'; ?>
                             </div>
                             <?
                         }
@@ -84,8 +85,7 @@
                 }
             }
             ?>
-        </ul>
-        <div class="panel panel-light-green margin-bottom-20">
+        <? /* <div class="panel panel-light-green margin-bottom-20">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-tasks"></i> Answers</h3>
             </div>
@@ -119,7 +119,7 @@
                 ?>
                 </tbody>
             </table>
-        </div>
+        </div> */ ?>
         <?
         $userrepo = new UserRepository();
         $rolerepo = new RoleRepository();
