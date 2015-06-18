@@ -32,6 +32,9 @@
     <link rel="stylesheet" href="/assets/plugins/owl-carousel/owl-carousel/owl.carousel.css">
     <link rel="stylesheet" href="/assets/plugins/layer-slider/layerslider/css/layerslider.css">
 
+    <!-- CSS Page Style -->
+    <link rel="stylesheet" href="/assets/css/pages/shortcode_timeline2.css">
+
     <!-- CSS Customization -->
     <link rel="stylesheet" href="/assets/css/custom.css">
 </head>
