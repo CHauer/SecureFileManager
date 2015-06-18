@@ -85,6 +85,8 @@
                 }
             }
             ?>
+        </ul>
+
         <? /* <div class="panel panel-light-green margin-bottom-20">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-tasks"></i> Answers</h3>
@@ -120,6 +122,7 @@
                 </tbody>
             </table>
         </div> */ ?>
+
         <?
         $userrepo = new UserRepository();
         $rolerepo = new RoleRepository();
