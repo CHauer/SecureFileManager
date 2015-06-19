@@ -433,6 +433,7 @@ class FilesController extends BaseController
             {
                 $log->LogMessage('File (ID: ' . $id . ') has been downloaded by UserID ' . $_SESSION["userid"] , LOGGER_INFO);
             }
+            return;
 
         } catch (Exception $e)
         {
