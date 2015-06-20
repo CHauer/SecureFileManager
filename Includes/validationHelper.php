@@ -23,6 +23,14 @@ function ValidationErrorMessage($field, ViewModel $viewModel)
     }
 }
 
+function CleanInput($value){
+    return preg_replace('/[^A-Za-z0-9\_\-.]/', '', $value); // Removes special chars.
+}
+
+function CleanEMailInput($value){
+    return preg_replace('/[^A-Za-z0-9\_\-.\#\~\!\$\&\\\'\(\)\*\+\,\;\=\:]/', '', $value); // Removes special chars.
+}
+
 function ParseDate($date)
 {
     $value = NULL;

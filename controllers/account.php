@@ -39,8 +39,8 @@ class AccountController extends BaseController
                 $user->Description = PrepareHtml($_POST["Description"]);
                 $user->EMail = $_POST["EMail"];
 
-                $user->Firstname = $_POST["Firstname"];
-                $user->Lastname = $_POST["Lastname"];
+                $user->Firstname = CleanInput($_POST["Firstname"]);
+                $user->Lastname = CleanInput($_POST["Lastname"]);
 
                 $user->Password = $_POST["Password"];
                 try
@@ -58,6 +58,11 @@ class AccountController extends BaseController
             #endregion
 
             if(!$this->validateRegisterData($viewModel)) {
+
+                $user->Username = CleanInput($_POST["Username"]);
+                $user->EMail = CleanEMailInput($_POST["EMail"]);
+                $user->Password = null;
+
                 $this->view->output($viewModel);
                 return;
             }
@@ -156,7 +161,7 @@ class AccountController extends BaseController
                 $password = $_POST['Password'];
             }
 
-            $viewModel->set("model", $username);
+            $viewModel->set("model",CleanInput($username));
 
             $userrepo = new UserRepository();
 
@@ -293,13 +298,13 @@ class AccountController extends BaseController
                 $viewModel->set("model", $user);
 
                 $user->UserId = $viewModel->get("userid");
-                $user->Username = $_POST["Username"];
+                $user->Username = CleanInput($_POST["Username"]);
 
                 $user->Description = PrepareHtml($_POST["Description"]);
-                $user->EMail = $_POST["EMail"];
+                $user->EMail = CleanEMailInput($_POST["EMail"]);
 
-                $user->Firstname = $_POST["Firstname"];
-                $user->Lastname = $_POST["Lastname"];
+                $user->Firstname = CleanInput($_POST["Firstname"]);
+                $user->Lastname = CleanInput($_POST["Lastname"]);
 
                 $user->Description = PrepareHtml($_POST["Description"]);
 
