@@ -9,12 +9,12 @@
 class HomeController extends BaseController
 {
     //add to the parent constructor
-    public function __construct($action, $urlValues) {
-        parent::__construct($action, $urlValues);
+    public function __construct($action, $urlValues, $db) {
+        parent::__construct($action, $urlValues, $db);
         
         //create the model object
         require("models/home.php");
-        $this->model = new HomeModel();
+        $this->model = new HomeModel($db);
     }
     
     //default method

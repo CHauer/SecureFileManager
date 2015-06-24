@@ -25,7 +25,7 @@ function ConfirmUserIsAdmin() {
         header ("Location: /account/login");
     }
 
-    if (!IsUserAdmin())
+    if (!IsUserAdministrator())
     {
         header ("Location: /home/index");
     }
@@ -33,25 +33,25 @@ function ConfirmUserIsAdmin() {
 
 function IsUserAdministrator()
 {
-    $userRepo = new UserRepository();
+    $userRepo = new UserRepository(CreateDatabaseAccess());
     return $userRepo->IsUserInRole("Administrator", intval($_SESSION['userid']));
 }
 
 function IsStandardUser()
 {
-    $userRepo = new UserRepository();
+    $userRepo = new UserRepository(CreateDatabaseAccess());
     return $userRepo->IsUserInRole("Standard", intval($_SESSION['userid']));
 }
 
 function IsPremiumUser()
 {
-    $userRepo = new UserRepository();
-    return $userRepo->IsUserInRole("Premium", intval($_SESSION['userid'])) || $userRepo->IsUserInRole("Administrator", intval($_SESSION['userid']));;
+    $userRepo = new UserRepository(CreateDatabaseAccess());
+    return $userRepo->IsUserInRole("Premium", intval($_SESSION['userid'])) || $userRepo->IsUserInRole("Administrator", intval($_SESSION['userid']));
 }
 
 function isFileOwner($userid, $fileid)
 {
-    $filerepo = new FileRepository();
+    $filerepo = new FileRepository(CreateDatabaseAccess());
 
     $thread = $filerepo->GetFile($fileid);
 
@@ -65,7 +65,7 @@ function isFileOwner($userid, $fileid)
 
 function IsThreadOwner($forumThreadId, $userId)
 {
-    $forumrepo = new ForumRepository();
+    $forumrepo = new ForumRepository(CreateDatabaseAccess());
 
     $thread = $forumrepo->GetForumThreadById($forumThreadId);
 
@@ -78,7 +78,7 @@ function IsThreadOwner($forumThreadId, $userId)
 
 function IsEntryOwner($entryId, $userId)
 {
-    $forumrepo = new ForumRepository();
+    $forumrepo = new ForumRepository(CreateDatabaseAccess());
 
     $entry = $forumrepo->GetEntryById($entryId);
 

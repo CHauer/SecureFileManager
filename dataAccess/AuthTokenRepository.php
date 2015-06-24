@@ -6,16 +6,18 @@
  * Time: 04:02
  */
 
-class AuthTokenRepository
+class AuthTokenRepository extends BaseRepository
 {
+    public function __construct($db)
+    {
+        parent::__construct($db);
+    }
 
     /**
      * @param $userid
      * @return AuthToken|null
      */
     public function CreateAuthToken($userid){
-        global $db;
-
         $token = strtoupper(bin2hex(openssl_random_pseudo_bytes(16)));
 
         $selector = rand(100, 999) . 'sel' . $userid;
@@ -27,7 +29,7 @@ class AuthTokenRepository
             $this->DeleteAuthToken($userid);
         }
 
-        $stmt = $db->prepare("INSERT INTO [dbo].[AuthToken] ([UserId],[Expires],[Selector],[Token])
+        $stmt = $this->db->prepare("INSERT INTO [dbo].[AuthToken] ([UserId],[Expires],[Selector],[Token])
                              VALUES (:userid, DateAdd(Month, 1, GETDATE()),
                               :selector, CONVERT(nvarchar,HASHBYTES('SHA2_256', :token),2))");
         $stmt->bindParam(":userid", intval($userid));
@@ -41,9 +43,9 @@ class AuthTokenRepository
             return NULL;
         }
 
-        $authTokenId =  $db->lastInsertId();
+        $authTokenId =  $this->db->lastInsertId();
 
-        $stmtUptUser = $db->prepare("UPDATE [dbo].[User] SET [AuthTokenId]=:authTokenId WHERE [UserId]=:userid");
+        $stmtUptUser = $this->db->prepare("UPDATE [dbo].[User] SET [AuthTokenId]=:authTokenId WHERE [UserId]=:userid");
         $stmtUptUser->bindParam(":authTokenId", intval($authTokenId));
         $stmtUptUser->bindParam(":userid", intval($userid));
 
@@ -64,9 +66,7 @@ class AuthTokenRepository
 
     public function CheckAuthTokenExists($userid)
     {
-        global $db;
-
-        $stmt = $db->prepare("SELECT TOP 1 [UserId] FROM [dbo].[AuthToken]
+        $stmt = $this->db->prepare("SELECT TOP 1 [UserId] FROM [dbo].[AuthToken]
                                    WHERE [UserId]=:userid");
 
         $stmt->bindParam(":userid", $userid);
@@ -81,9 +81,7 @@ class AuthTokenRepository
 
     public function DeleteAuthToken($userid)
     {
-        global $db;
-
-        $stmtUptUser = $db->prepare("UPDATE [dbo].[User] SET [AuthTokenId]=null WHERE [UserId]=:userid");
+        $stmtUptUser = $this->db->prepare("UPDATE [dbo].[User] SET [AuthTokenId]=null WHERE [UserId]=:userid");
         $stmtUptUser->bindParam(":userid", intval($userid));
 
         $stmtUptUser->execute();
@@ -93,7 +91,7 @@ class AuthTokenRepository
             return;
         }
 
-        $stmt = $db->prepare("DELETE FROM [dbo].[AuthToken]
+        $stmt = $this->db->prepare("DELETE FROM [dbo].[AuthToken]
                                    WHERE [UserId]=:userid");
 
         $stmt->bindParam(":userid", intval($userid));
@@ -102,9 +100,7 @@ class AuthTokenRepository
 
     public function GetAuthToken($selector, $token)
     {
-        global $db;
-
-        $stmt = $db->prepare("SELECT TOP 1 [UserId],[Expires],[Selector],[Token]
+        $stmt = $this->db->prepare("SELECT TOP 1 [UserId],[Expires],[Selector],[Token]
                               FROM [dbo].[AuthToken]
                               WHERE [Selector]=:selector
                               AND [Expires] > GETDATE()

@@ -9,12 +9,12 @@
 class ErrorController extends BaseController
 {    
     //add to the parent constructor
-    public function __construct($action, $urlValues) {
-        parent::__construct($action, $urlValues);
+    public function __construct($action, $urlValues, $db) {
+        parent::__construct($action, $urlValues, $db);
         
         //create the model object
         require("models/error.php");
-        $this->model = new ErrorModel();
+        $this->model = new ErrorModel($db);
     }
     
     //bad URL request error

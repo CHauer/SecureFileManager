@@ -8,6 +8,11 @@
 
 class ForumModel extends BaseModel
 {
+    public function __construct($db)
+    {
+        parent::__construct($db);
+    }
+
     //data passed to the home index view
     public function index()
     {
@@ -19,7 +24,7 @@ class ForumModel extends BaseModel
     {
         $this->viewModel->set("pageTitle", "View thread");
 
-        $forumrepo = new ForumRepository();
+        $forumrepo = new ForumRepository($this->db);
 
         $thread = $forumrepo->GetForumThreadById($threadId);
 

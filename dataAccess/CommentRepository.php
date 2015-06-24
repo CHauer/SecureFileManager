@@ -6,13 +6,16 @@
  * Time: 23:56
  */
 
-class CommentRepository {
+class CommentRepository extends BaseRepository {
+
+    public function __construct($db)
+    {
+        parent::__construct($db);
+    }
 
     public function InsertComment(Comment $comment)
     {
-        global $db;
-
-        $stmt = $db->prepare("INSERT INTO [dbo].[Comment]
+        $stmt = $this->db->prepare("INSERT INTO [dbo].[Comment]
           ([Message],
           [UserId],
           [UserFile_UserFileId])
@@ -29,7 +32,7 @@ class CommentRepository {
 
         if ($stmt->rowCount() == 1)
         {
-            return $db->lastInsertId();
+            return $this->db->lastInsertId();
         }
 
         return false;
@@ -37,9 +40,7 @@ class CommentRepository {
 
     public function GetComments($fileid)
     {
-        global $db;
-
-        $stmt = $db->prepare('Select [Comment].*, Username, PictureLink
+        $stmt = $this->db->prepare('Select [Comment].*, Username, PictureLink
                               From [Comment] left join [User] on [Comment].UserId = [User].UserId
                               where [Comment].UserFile_UserFileId = :fileid
                               order by Created DESC');

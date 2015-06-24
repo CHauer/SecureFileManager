@@ -9,17 +9,17 @@
 class AccountController extends BaseController
 {
     //add to the parent constructor
-    public function __construct($action, $urlValues) {
-        parent::__construct($action, $urlValues);
+    public function __construct($action, $urlValues, $db) {
+        parent::__construct($action, $urlValues, $db);
 
         //create the model object
         require("models/account.php");
-        $this->model = new AccountModel();
+        $this->model = new AccountModel($db);
     }
 
     protected function register()
     {
-        global $log;
+
 
         $viewModel = $this->model->register();
 
@@ -89,12 +89,12 @@ class AccountController extends BaseController
                     $user->PictureLink = '/assets/img/standard_user.jpg';
                 }
 
-                $roleRepo = new RoleRepository();
+                $roleRepo = new RoleRepository($this->db);
                 $roleId = $roleRepo->GetRoleId($_POST["Role"]);
 
                 $user->RoleId = $roleId;
 
-                $userrepo = new UserRepository();
+                $userrepo = new UserRepository($this->db);
 
                 $userid = $userrepo->InsertUser($user);
 
@@ -112,7 +112,7 @@ class AccountController extends BaseController
             if(!$viewModel->exists("error"))
             {
                 // log Kontoerstellung
-                $log->LogMessage('User ' . $user->Username . ' created a new account.', LOGGER_INFO);
+                $this->log->LogMessage('User ' . $user->Username . ' created a new account.', LOGGER_INFO);
 
                 //contains inserted userid - user id logged in
                 $_SESSION["userid"] = $userid;
@@ -132,7 +132,7 @@ class AccountController extends BaseController
 
     protected function login()
     {
-        global $log;
+
 
         $viewModel = $this->model->login();
 
@@ -163,7 +163,7 @@ class AccountController extends BaseController
 
             $viewModel->set("model",CleanInput($username));
 
-            $userrepo = new UserRepository();
+            $userrepo = new UserRepository($this->db);
 
             try {
                 $result = $userrepo->CheckUserCredentials($username, $password);
@@ -174,7 +174,7 @@ class AccountController extends BaseController
 
                     $viewModel->set("error", $errorMessage);
 
-                    $log->LogMessage($errorMessage, LOGGER_INFO);
+                    $this->log->LogMessage($errorMessage, LOGGER_INFO);
 
                     $this->view->output($viewModel);
                     return;
@@ -199,7 +199,7 @@ class AccountController extends BaseController
                 if($userrepo->ResetUserDeactivated($result))
                 {
                     //log Konto-Aktivierung
-                    $log->LogMessage('User ' . $username . ' has re-activated his profile.', LOGGER_INFO);
+                    $this->log->LogMessage('User ' . $username . ' has re-activated his profile.', LOGGER_INFO);
                 }
 
                 sec_session_start();
@@ -211,11 +211,11 @@ class AccountController extends BaseController
                 $userrepo->ResetAccessFailedCounter($result);
 
                 //log Login
-                $log->LogMessage('User ' . $username . ' has logged in successfully.', LOGGER_INFO);
+                $this->log->LogMessage('User ' . $username . ' has logged in successfully.', LOGGER_INFO);
 
                 if($_POST['RememberMe'])
                 {
-                    $authRepo = new AuthTokenRepository();
+                    $authRepo = new AuthTokenRepository($this->db);
                     $authToken = $authRepo->CreateAuthToken(intval($_SESSION["userid"]));
 
                     $month = time() + 3600 * 24 * 31; // a month
@@ -245,12 +245,12 @@ class AccountController extends BaseController
 
     protected function logoff()
     {
-        global $log;
+
 
         $viewModel = $this->model->manage();
 
         //log logout
-        $log->LogMessage('User ' . $viewModel->get('username') . ' has logged out.', LOGGER_INFO);
+        $this->log->LogMessage('User ' . $viewModel->get('username') . ' has logged out.', LOGGER_INFO);
 
         $this->view->output(NULL, '');
     }
@@ -278,7 +278,7 @@ class AccountController extends BaseController
 
     protected function editprofile()
     {
-        global $log;
+
 
         ConfirmUserIsLoggedOn();
 
@@ -328,12 +328,12 @@ class AccountController extends BaseController
 
             try
             {
-                $roleRepo = new RoleRepository();
+                $roleRepo = new RoleRepository($this->db);
                 $roleId = $roleRepo->GetRoleId($_POST["Role"]);
 
                 $user->RoleId = $roleId;
 
-                $userrepo = new UserRepository();
+                $userrepo = new UserRepository($this->db);
                 $result = $userrepo->UpdateUser($user);
 
                 if($result == false)
@@ -343,7 +343,7 @@ class AccountController extends BaseController
                 else
                 {
                     //log Kontoänderungen
-                    $log->LogMessage('User ' . $viewModel->get('username') . ' has changed his profile.', LOGGER_INFO);
+                    $this->log->LogMessage('User ' . $viewModel->get('username') . ' has changed his profile.', LOGGER_INFO);
 
                     RedirectAction("account", "manage");
                 }
@@ -367,16 +367,16 @@ class AccountController extends BaseController
 
     protected function deactivate()
     {
-        global $log;
+
         ConfirmUserIsLoggedOn();
 
-        $userrepo = new UserRepository();
+        $userrepo = new UserRepository($this->db);
 
         $userrepo->SetUserDeactivated(intval($_SESSION['userid']));
         $user = $userrepo->GetUser(intval($_SESSION['userid']));
 
         //log Konto-Deaktivierung
-        $log->LogMessage('User ' . $user->Username . ' has deactivated his profile.', LOGGER_INFO);
+        $this->log->LogMessage('User ' . $user->Username . ' has deactivated his profile.', LOGGER_INFO);
 
         RedirectAction('account', 'logoff');
     }
@@ -400,7 +400,7 @@ class AccountController extends BaseController
             }
 
             //send mail to user with resetLink
-            $userrepo = new UserRepository();
+            $userrepo = new UserRepository($this->db);
 
             $resetLink = $userrepo->CheckEMailExists($_POST['EMail']);
 
@@ -437,7 +437,7 @@ class AccountController extends BaseController
             RedirectAction("home", "index");
         }
 
-        global $log;
+
 
         $viewModel = $this->model->confirmresetpassword();
 
@@ -458,12 +458,12 @@ class AccountController extends BaseController
                 $email = $_POST['EMail'];
                 $newPassword = $_POST['NewPassword'];
 
-                $userrepo = new UserRepository();
+                $userrepo = new UserRepository($this->db);
 
                 if ($userrepo->ResetPassword($reset, $newPassword,  $email, $username) !== false) {
 
                     //log Kontoänderungen
-                    $log->LogMessage('User ' . $username . ' has reseted his password.', LOGGER_INFO);
+                    $this->log->LogMessage('User ' . $username . ' has reseted his password.', LOGGER_INFO);
 
                     RedirectAction("home", "index");
                 }
@@ -493,7 +493,7 @@ class AccountController extends BaseController
 
     protected function changepassword()
     {
-        global $log;
+
         ConfirmUserIsLoggedOn();
 
         $viewModel = $this->model->changepassword();
@@ -508,11 +508,11 @@ class AccountController extends BaseController
             //change user password
             $username = $viewModel->get('username');
 
-            $userrepo = new UserRepository();
+            $userrepo = new UserRepository($this->db);
 
             if($userrepo->CheckUserCredentials($username, $_POST['CurrentPassword']) !== false)
             {
-                $userRepo = new UserRepository();
+                $userRepo = new UserRepository($this->db);
                 $result = $userRepo->UpdateUserPassword($viewModel->get('userid'), $_POST['CurrentPassword'],  $_POST['NewPassword']);
 
                 if($result == false )
@@ -522,7 +522,7 @@ class AccountController extends BaseController
                 else
                 {
                     //log Kontoänderungen
-                    $log->LogMessage('User ' . $viewModel->get('username') . ' has changed his password.', LOGGER_INFO);
+                    $this->log->LogMessage('User ' . $viewModel->get('username') . ' has changed his password.', LOGGER_INFO);
 
                     RedirectAction("account", "manage");
                 }
@@ -538,7 +538,7 @@ class AccountController extends BaseController
 
     protected function changeuserpicture()
     {
-        global $log;
+
         ConfirmUserIsLoggedOn();
 
         $viewModel = $this->model->changeuserpicture();
@@ -554,7 +554,7 @@ class AccountController extends BaseController
 
                     if($filelink != NULL && $filelink != false)
                     {
-                        $userRepo = new UserRepository();
+                        $userRepo = new UserRepository($this->db);
                         $result = $userRepo->UpdateUserPicture($viewModel->get('userid'), '/'.  $filelink);
 
                         if ($result == false)
@@ -564,7 +564,7 @@ class AccountController extends BaseController
                         else
                         {
                             //log Kontoänderungen
-                            $log->LogMessage('User ' . $viewModel->get('username') . ' has changed his profile picture.', LOGGER_INFO);
+                            $this->log->LogMessage('User ' . $viewModel->get('username') . ' has changed his profile picture.', LOGGER_INFO);
 
                             RedirectAction("account", "manage");
                         }
@@ -656,7 +656,7 @@ class AccountController extends BaseController
             $ok = false;
         }
 
-        $userrepo = new UserRepository();
+        $userrepo = new UserRepository($this->db);
 
         if ($userrepo->IsUsernameUsed($_POST["Username"])) {
             $viewModel->setFieldError("Username", "Username is already used!");
@@ -711,7 +711,7 @@ class AccountController extends BaseController
             $ok = false;
         }
 
-        $userrepo = new UserRepository();
+        $userrepo = new UserRepository($this->db);
 
         if ($currentUsername !== $_POST["Username"])
         {

@@ -6,15 +6,20 @@
  * Time: 04:50
  */
 
-class ForumRepository {
-
+class ForumRepository  extends  BaseRepository
+{
+    public function __construct($db)
+    {
+        parent::__construct($db);
+    }
+    
     /**
      * @param ForumThread $thread
      * @return bool
      */
     public function InsertThread(ForumThread $thread){
-        global $db;
-        $stmt = $db->prepare('INSERT INTO [dbo].[ForumThread]
+
+        $stmt = $this->db->prepare('INSERT INTO [dbo].[ForumThread]
           ([Title],
           [Description],
           [IsDeleted],
@@ -33,7 +38,7 @@ class ForumRepository {
 
         if ($stmt->rowCount() == 1)
         {
-            return $db->lastInsertId();
+            return $this->db->lastInsertId();
         }
 
         return false;
@@ -45,9 +50,9 @@ class ForumRepository {
      */
     public function GetForumThreadById($threadId)
     {
-        global $db;
 
-        $stmt = $db->prepare('select
+
+        $stmt = $this->db->prepare('select
             [Title],
             [Description],
             [UserId],
@@ -80,9 +85,9 @@ class ForumRepository {
 
     public function GetEntryById($entryId)
     {
-        global $db;
 
-        $stmt = $db->prepare('select
+
+        $stmt = $this->db->prepare('select
             [Message],
             [UserId],
             [Created],
@@ -115,9 +120,7 @@ class ForumRepository {
 
     public function GetEntriesForThread($threadId)
     {
-        global $db;
-
-        $stmt = $db->prepare('SELECT [EntryId], [Message], [Created], [Entry].[UserId], [Username], [PictureLink]
+        $stmt = $this->db->prepare('SELECT [EntryId], [Message], [Created], [Entry].[UserId], [Username], [PictureLink]
                                 FROM [Entry] JOIN [User] ON [Entry].[UserId] = [User].[UserId]
                                 WHERE [IsDeleted] = 0 AND [ForumThreadId] = :forumthreadid
                                 ORDER BY [Created] DESC');
@@ -141,9 +144,7 @@ class ForumRepository {
 
     public function GetNotDeletedThreads()
     {
-        global $db;
-
-        $stmt = $db->prepare('SELECT [ForumThreadId], [Title], [ForumThread].[Description], [Created], [User].[UserId], [User].[Username], (SELECT count(EntryId) FROM [Entry] WHERE [ForumThreadId] = [ForumThread].[ForumThreadId] AND [IsDeleted] = 0) as EntryCount
+        $stmt = $this->db->prepare('SELECT [ForumThreadId], [Title], [ForumThread].[Description], [Created], [User].[UserId], [User].[Username], (SELECT count(EntryId) FROM [Entry] WHERE [ForumThreadId] = [ForumThread].[ForumThreadId] AND [IsDeleted] = 0) as EntryCount
                                 FROM [ForumThread] JOIN [User] ON [ForumThread].[UserId] = [User].[UserId]
                                 WHERE [IsDeleted] = 0
                                 ORDER BY [Created] DESC');
@@ -163,9 +164,7 @@ class ForumRepository {
 
     public function PostEntryToThread($entry)
     {
-        global $db;
-
-        $stmt = $db->prepare("INSERT INTO [dbo].[Entry]
+        $stmt = $this->db->prepare("INSERT INTO [dbo].[Entry]
            ([Message]
            ,[ForumThreadId]
            ,[UserId])
@@ -181,7 +180,7 @@ class ForumRepository {
 
         if ($stmt->rowCount() == 1)
         {
-            return $db->lastInsertId();
+            return $this->db->lastInsertId();
         }
 
         return false;
@@ -193,9 +192,7 @@ class ForumRepository {
      */
     public function DeleteById($forumThreadId)
     {
-        global $db;
-
-        $stmt = $db->prepare('UPDATE [ForumThread] SET [IsDeleted] = 1 where [ForumThreadid] = :threadid');
+        $stmt = $this->db->prepare('UPDATE [ForumThread] SET [IsDeleted] = 1 where [ForumThreadid] = :threadid');
         $stmt->bindParam(':threadid', $forumThreadId);
         $stmt->execute();
 
@@ -213,9 +210,7 @@ class ForumRepository {
     public function DeleteEntryById($entryId)
     {
         // TODO: return error if entry doesn't exist?
-        global $db;
-
-        $stmt = $db->prepare('UPDATE [Entry] SET [IsDeleted] = 1 where [EntryId] = :entryid');
+        $stmt = $this->db->prepare('UPDATE [Entry] SET [IsDeleted] = 1 where [EntryId] = :entryid');
         $stmt->bindParam(':entryid', $entryId);
         $stmt->execute();
 

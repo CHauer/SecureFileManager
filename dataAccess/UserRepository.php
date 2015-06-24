@@ -6,16 +6,22 @@
  * Time: 04:02
  */
 
-class UserRepository{
+class UserRepository extends BaseRepository
+{
+    public function __construct($db)
+    {
+        parent::__construct($db);
+    }
+
 
     /**
      * @param User $user
      * @return bool
      */
     public function InsertUser(User $user){
-        global $db;
 
-        $stmt = $db->prepare("INSERT INTO [dbo].[User]
+
+        $stmt = $this->db->prepare("INSERT INTO [dbo].[User]
            ([Username]
            ,[Password]
            ,[Birthdate]
@@ -61,7 +67,7 @@ class UserRepository{
 
         if ($stmt->rowCount() == 1)
         {
-            return $db->lastInsertId();
+            return $this->db->lastInsertId();
         }
 
         return false;
@@ -72,9 +78,9 @@ class UserRepository{
      * @return bool
      */
     public function UpdateUser(User $user){
-        global $db;
 
-        $stmt = $db->prepare("UPDATE [dbo].[User]
+
+        $stmt = $this->db->prepare("UPDATE [dbo].[User]
                                SET [Username]=:Username
                                ,[Birthdate]=:Birthdate
                                ,[EMail]=:EMail
@@ -111,9 +117,9 @@ class UserRepository{
      * @return bool
      */
     public function UpdateUserPicture($userid, $pictureLink){
-        global $db;
 
-        $stmt = $db->prepare("UPDATE [dbo].[User]
+
+        $stmt = $this->db->prepare("UPDATE [dbo].[User]
                                SET
                                [PictureLink]=:PictureLink
                                 WHERE [UserId]=:userid");
@@ -137,9 +143,9 @@ class UserRepository{
      * @return bool
      */
     public function UpdateUserPassword($userid, $oldpassword , $newpassword){
-        global $db;
 
-        $stmt = $db->prepare("UPDATE [dbo].[User]
+
+        $stmt = $this->db->prepare("UPDATE [dbo].[User]
                                SET
                                [Password]= CONVERT(nvarchar,HASHBYTES('SHA2_256', :NewPassword),2)
                                 WHERE [UserId]=:userid AND  [Password]=CONVERT(nvarchar,HASHBYTES('SHA2_256', :OldPassword),2) ");
@@ -162,9 +168,9 @@ class UserRepository{
      * @return User
      */
     public function GetUser($userid){
-        global $db;
 
-        $stmt = $db->prepare('select top 1
+
+        $stmt = $this->db->prepare('select top 1
             [Username]
            ,convert(varchar, [Birthdate], 104) as [Birthdate]
            ,[EMail]
@@ -220,11 +226,9 @@ class UserRepository{
      */
     public function GetAllUsers()
     {
-        global $db;
+        $roleRepo = new RoleRepository($this->db);
 
-        $roleRepo = new RoleRepository();
-
-        $stmt = $db->prepare('select
+        $stmt = $this->db->prepare('select
             [UserId]
             ,[Username]
            ,convert(varchar, [Birthdate], 104) as [Birthdate]
@@ -284,14 +288,12 @@ class UserRepository{
      * @return bool
      */
     public function IsUserInRole($roleName, $userid){
-        $roleRepo = new RoleRepository();
+        $roleRepo = new RoleRepository($this->db);
         $roleId = $roleRepo->GetRoleId($roleName);
-
-        global $db;
 
         $query = "SELECT Top(1) UserId FROM [User] U
                   WHERE U.RoleId=:roleId AND U.UserId=:id";
-        $statement = $db->prepare($query);
+        $statement = $this->db->prepare($query);
         $statement->bindValue(':id', $userid);
         $statement->bindValue(':roleId', $roleId);
         $statement->execute();
@@ -304,11 +306,11 @@ class UserRepository{
      * @return bool
      */
     public function IsUsernameUsed($username){
-        global $db;
+
 
         $query = "SELECT Top(1) [UserId] FROM [User]
                   WHERE [Username]=:username";
-        $statement = $db->prepare($query);
+        $statement = $this->db->prepare($query);
         $statement->bindValue(':username', htmlspecialchars($username));
         $statement->execute();
         return ($statement->fetch() !== false);
@@ -321,11 +323,11 @@ class UserRepository{
      */
     public function CheckUserCredentials($username,  $password)
     {
-        global $db;
+
 
         try
         {
-            $statement = $db->prepare("SELECT Top 1 [UserId] FROM [User]
+            $statement = $this->db->prepare("SELECT Top 1 [UserId] FROM [User]
                                       WHERE [Username]=:username
                                       AND [Password]= CONVERT(nvarchar,HASHBYTES('SHA2_256', :password),2)");
             $statement->bindValue(':username', $username);
@@ -354,16 +356,16 @@ class UserRepository{
      */
     public function UpdateAccessFailedCounter($username)
     {
-        global $db;
 
-        $statement = $db -> prepare('Update [User] set [AccessFailedCount] = COALESCE([AccessFailedCount],0) + 1
+
+        $statement = $this->db -> prepare('Update [User] set [AccessFailedCount] = COALESCE([AccessFailedCount],0) + 1
                                       WHERE [Username]=:username');
         $statement->bindParam(':username', $username);
         $statement->execute();
 
         if($statement->rowCount() == 1)
         {
-            $statementsel = $db->prepare('Select COALESCE ([AccessFailedCount],0 ) as [AccessFailedCount] from [User]
+            $statementsel = $this->db->prepare('Select COALESCE ([AccessFailedCount],0 ) as [AccessFailedCount] from [User]
                                           WHERE [Username]=:username');
             $statementsel->bindValue(':username', $username);
             $statementsel->execute();
@@ -388,9 +390,9 @@ class UserRepository{
      */
     public function CheckUserLocked($username)
     {
-        global $db;
 
-        $statement = $db -> prepare('Select Top 1 [UserId] from [User]
+
+        $statement = $this->db -> prepare('Select Top 1 [UserId] from [User]
                                       WHERE [LockoutEnabled] = 1
                                       AND [Username]=:username
                                       AND [LockoutEndDate] is not null
@@ -413,9 +415,9 @@ class UserRepository{
      */
     public function SetUserLockout($username)
     {
-        global $db;
 
-        $statement = $db -> prepare('Update [User] set [LockoutEnabled] = 1,
+
+        $statement = $this->db -> prepare('Update [User] set [LockoutEnabled] = 1,
                                       [LockoutEndDate] = DateAdd(Minute, 10, GetDate())
                                        WHERE [Username]=:username');
         $statement->bindValue(':username', $username);
@@ -430,9 +432,9 @@ class UserRepository{
      */
     public function SetUserDeactivated($userid)
     {
-        global $db;
 
-        $statement = $db -> prepare('Update [User] set [Deactivated] = 1
+
+        $statement = $this->db -> prepare('Update [User] set [Deactivated] = 1
                                        WHERE [UserId]=:userid');
         $statement->bindValue(':userid', $userid);
 
@@ -446,9 +448,9 @@ class UserRepository{
      */
     public function ResetUserDeactivated($userid)
     {
-        global $db;
 
-        $statement = $db -> prepare('Update [User] set [Deactivated] = 0
+
+        $statement = $this->db -> prepare('Update [User] set [Deactivated] = 0
                                        WHERE [UserId]=:userid AND [Deactivated]=1');
         $statement->bindValue(':userid', $userid);
 
@@ -462,9 +464,9 @@ class UserRepository{
      */
     public function ResetUserLockout($userid)
     {
-        global $db;
 
-        $statement = $db -> prepare('UPDATE [User] SET [LockoutEnabled] = 0, [LockoutEndDate] = null
+
+        $statement = $this->db -> prepare('UPDATE [User] SET [LockoutEnabled] = 0, [LockoutEndDate] = null
                                           WHERE [UserId]=:userid
                                           AND [LockoutEnabled] = 1
                                           AND [LockoutEndDate] is not null
@@ -481,9 +483,9 @@ class UserRepository{
      */
     public function ResetAccessFailedCounter($userid)
     {
-        global $db;
 
-        $statement = $db -> prepare('Update [User] set [AccessFailedCount] = 0
+
+        $statement = $this->db -> prepare('Update [User] set [AccessFailedCount] = 0
                                       WHERE [UserId]=:userid AND [LockoutEnabled] = 0');
         $statement->bindParam(':userid', $userid);
 
@@ -493,9 +495,9 @@ class UserRepository{
 
     public function CheckEMailExists($email)
     {
-        global $db;
 
-        $statement = $db -> prepare("select convert(nvarchar, Hashbytes('SHA2_256', [Username] + [EMail] + [Password]),  2) as [Reset]
+
+        $statement = $this->db -> prepare("select convert(nvarchar, Hashbytes('SHA2_256', [Username] + [EMail] + [Password]),  2) as [Reset]
                                       from [User]
                                       WHERE [EMail]=:email");
         $statement->bindParam(':email', $email);
@@ -512,9 +514,9 @@ class UserRepository{
 
     public function ResetPassword($resetLink, $newPassword, $email, $username)
     {
-        global $db;
 
-        $statement = $db -> prepare("UPDATE [User]
+
+        $statement = $this->db -> prepare("UPDATE [User]
                                        SET [Password]=CONVERT(nvarchar,HASHBYTES('SHA2_256', :newPassword),2)
                                         WHERE [Username]=:username AND [EMail]=:email
                                         AND convert(nvarchar, Hashbytes('SHA2_256', [Username] + [EMail] + [Password]), 2)=:resetLink");

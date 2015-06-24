@@ -6,8 +6,13 @@
  * Author: Nathan Davison
  */
 
-class HomeModel extends BaseModel
+class HomeModel  extends BaseModel
 {
+    public function __construct($db)
+    {
+        parent::__construct($db);
+    }
+
     //data passed to the home index view
     public function index()
     {   

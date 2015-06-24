@@ -18,7 +18,6 @@ ini_set("session.hash_function", "sha512");
 require("Includes/session.php");
 
 // init database
-require("Includes/configDB.php");
 require("Includes/connectDB.php");
 require("Includes/rightsManagement.php");
 
@@ -27,7 +26,8 @@ require("includes/redirectLogic.php");
 require("includes/fileUpload.php");
 
 //load the required classes mvc
-require("classes/basecontroller.php");  
+require("classes/basecontroller.php");
+require("classes/baseRepository.php");
 require("classes/basemodel.php");
 require("classes/view.php");
 require("classes/viewmodel.php");
@@ -39,7 +39,6 @@ require("classes/Logger.php");
 require("includes/htmLawed.php");
 require("includes/validationHelper.php");
 require("includes/currentRequestHelper.php");
-require("includes/initLogger.php");
 
 //mail support sendgrid
 require("sendgrid/sendgrid.php");

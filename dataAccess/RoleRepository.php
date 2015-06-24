@@ -6,16 +6,19 @@
  * Time: 04:50
  */
 
-class RoleRepository {
+class RoleRepository extends  BaseRepository
+{
+    public function __construct($db)
+    {
+        parent::__construct($db);
+    }
 
     /**
      * @param $name
      */
     public function GetRoleId($name)
     {
-        global $db;
-
-        $stmt = $db->prepare('Select RoleId from [Role] where Name = :name');
+        $stmt = $this->db->prepare('Select RoleId from [Role] where Name = :name');
         $stmt->bindParam(':name', $name);
 
         $stmt->execute();
@@ -33,9 +36,9 @@ class RoleRepository {
      */
     public function GetRole($roleid)
     {
-        global $db;
 
-        $stmt = $db->prepare('SELECT [RoleId]
+
+        $stmt = $this->db->prepare('SELECT [RoleId]
                               ,[Name]
                               ,[FileDownload]
                               ,[ReadForum]

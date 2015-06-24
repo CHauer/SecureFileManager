@@ -20,7 +20,7 @@ function CheckRememberMeLogin()
             $token = $parts[1];
         }
 
-        $authRepo = new AuthTokenRepository();
+        $authRepo = new AuthTokenRepository(CreateDatabaseAccess());
         $authToken = $authRepo->GetAuthToken($selector, $token);
 
         if($authToken !== NULL)

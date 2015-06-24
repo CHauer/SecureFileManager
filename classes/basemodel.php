@@ -9,10 +9,15 @@
 class BaseModel {
     
     protected $viewModel;
+    /**
+     * @var PDO
+     */
+    protected $db;
 
     //create the base and utility objects available to all models on model creation
-    public function __construct()
+    public function __construct($db)
     {
+        $this->db = $db;
         $this->viewModel = new ViewModel();
 	    $this->commonViewData();
     }
@@ -22,7 +27,7 @@ class BaseModel {
     {
         if(IsUserLoggedOn())
         {
-            $repo = new UserRepository();
+            $repo = new UserRepository($this->db);
             $currentuser = $repo->GetUser(intval($_SESSION["userid"]));
 
             $this->viewModel->set("userid", $_SESSION["userid"]);

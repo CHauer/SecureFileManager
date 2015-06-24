@@ -8,6 +8,11 @@
 
 class AccountModel extends BaseModel
 {
+    public function __construct($db)
+    {
+        parent::__construct($db);
+    }
+
     //data passed to the home index view
     public function register()
     {   
@@ -23,7 +28,7 @@ class AccountModel extends BaseModel
 
     public function showprofile($userid)
     {
-        $userrepo = new UserRepository();
+        $userrepo = new UserRepository($this->db);
 
         $user = $userrepo->GetUser(intval($userid));
         $this->viewModel->set("model", $user);
@@ -36,8 +41,8 @@ class AccountModel extends BaseModel
     {
         $this->viewModel->set("pageTitle","Edit Profile");
 
-        $userrepo = new UserRepository();
-        $rolerepo = new RoleRepository();
+        $userrepo = new UserRepository($this->db);
+        $rolerepo = new RoleRepository($this->db);
 
         $user = $userrepo->GetUser(intval($_SESSION['userid']));
         $user->Role = $rolerepo->GetRole($user->RoleId);

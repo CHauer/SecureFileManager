@@ -9,12 +9,12 @@
 class ForumController extends BaseController
 {
     //add to the parent constructor
-    public function __construct($action, $urlValues) {
-        parent::__construct($action, $urlValues);
+    public function __construct($action, $urlValues, $db) {
+        parent::__construct($action, $urlValues, $db);
 
         //create the model object
         require("models/forum.php");
-        $this->model = new ForumModel();
+        $this->model = new ForumModel($db);
     }
 
     //default method
@@ -23,7 +23,7 @@ class ForumController extends BaseController
         ConfirmUserIsLoggedOn();
         $viewModel = $this->model->index();
 
-        $forumrepo = new ForumRepository();
+        $forumrepo = new ForumRepository($this->db);
         $threads = $forumrepo->GetNotDeletedThreads();
 
         $viewModel->set("threads", $threads);
@@ -34,7 +34,7 @@ class ForumController extends BaseController
     protected function thread()
     {
         ConfirmUserIsLoggedOn();
-        $forumrepo = new ForumRepository();
+        $forumrepo = new ForumRepository($this->db);
 
         $id = $this->urlValues['id'];
 
@@ -57,8 +57,8 @@ class ForumController extends BaseController
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
         {
             // check for permissions to write in forum
-            $userrepo = new UserRepository();
-            $rolerepo = new RoleRepository();
+            $userrepo = new UserRepository($this->db);
+            $rolerepo = new RoleRepository($this->db);
 
             $user = $userrepo->GetUser(intval($_SESSION['userid']));
             $user->Role = $rolerepo->GetRole($user->RoleId);
@@ -93,10 +93,10 @@ class ForumController extends BaseController
                 // reload viewmodel since data has changed (new entry)
                 $viewModel = $this->model->thread($id);
 
-                global $log;
+
 
                 // log creation of entry
-                $log->LogMessage("Entry " . $entryId . " created in Thread " . $id . " by user with ID " . $_SESSION["userid"], LOGGER_INFO);
+                $this->log->LogMessage("Entry " . $entryId . " created in Thread " . $id . " by user with ID " . $_SESSION["userid"], LOGGER_INFO);
 
                 $_SESSION["redirectSuccess"] = "Answer successfully created.";
             }
@@ -119,7 +119,7 @@ class ForumController extends BaseController
         }
         else
         {
-            $forumrepo = new ForumRepository();
+            $forumrepo = new ForumRepository($this->db);
 
             try
             {
@@ -138,10 +138,10 @@ class ForumController extends BaseController
                 {
                     $forumrepo->DeleteEntryById($id);
 
-                    global $log;
+
 
                     // log deletion of thread
-                    $log->LogMessage("Entry " . $id . " deleted by user with ID " . $_SESSION["userid"], LOGGER_INFO);
+                    $this->log->LogMessage("Entry " . $id . " deleted by user with ID " . $_SESSION["userid"], LOGGER_INFO);
 
                     $_SESSION["redirectSuccess"] = "Answer successfully deleted.";
                 }
@@ -165,8 +165,8 @@ class ForumController extends BaseController
 
         ConfirmUserIsLoggedOn();
 
-        $userrepo = new UserRepository();
-        $rolerepo = new RoleRepository();
+        $userrepo = new UserRepository($this->db);
+        $rolerepo = new RoleRepository($this->db);
 
         $user = $userrepo->GetUser(intval($_SESSION['userid']));
         $user->Role = $rolerepo->GetRole($user->RoleId);
@@ -196,7 +196,7 @@ class ForumController extends BaseController
             #region # Insert Thread
             try
             {
-                $forumRepository = new ForumRepository();
+                $forumRepository = new ForumRepository($this->db);
                 $threadId = $forumRepository->InsertThread($thread);
 
                 if($threadId == false)
@@ -213,10 +213,10 @@ class ForumController extends BaseController
             //no error
             if(!$viewModel->exists("error"))
             {
-                global $log;
+
 
                 // log creation of thread
-                $log->LogMessage("Thread " . $threadId . " created by user with ID " . $_SESSION["userid"], LOGGER_INFO);
+                $this->log->LogMessage("Thread " . $threadId . " created by user with ID " . $_SESSION["userid"], LOGGER_INFO);
 
                 $_SESSION["redirectSuccess"] = "Thread successfully created!";
                 RedirectAction("forum", "thread", $threadId);
@@ -250,16 +250,16 @@ class ForumController extends BaseController
             return;
         }
 
-        $forumrepo = new ForumRepository();
+        $forumrepo = new ForumRepository($this->db);
         try {
             if (IsThreadOwner($id, $_SESSION["userid"])) {
                 $success = $forumrepo->DeleteById($id);
 
                 if ($success) {
-                    global $log;
+
 
                     // log deletion of thread
-                    $log->LogMessage("Thread " . $id . " deleted by user with ID " . $_SESSION["userid"], LOGGER_INFO);
+                    $this->log->LogMessage("Thread " . $id . " deleted by user with ID " . $_SESSION["userid"], LOGGER_INFO);
 
                     $_SESSION["redirectSuccess"] = "Thread successfully deleted.";
                 } else {

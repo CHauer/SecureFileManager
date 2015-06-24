@@ -8,13 +8,18 @@
 
 class FilesModel extends BaseModel
 {
+    public function __construct($db)
+    {
+        parent::__construct($db);
+    }
+
     //data passed to the home index view
     public function index()
     {
         $this->viewModel->set("pageTitle","All Files");
 
         try {
-            $fileRepo = new FileRepository();
+            $fileRepo = new FileRepository($this->db);
             $files = $fileRepo->GetPublicAndOwnFiles('', '');
 
             $this->viewModel->set("model", $files);
@@ -31,7 +36,7 @@ class FilesModel extends BaseModel
         $this->viewModel->set("pageTitle","My Files");
         try
         {
-            $fileRepo = new FileRepository();
+            $fileRepo = new FileRepository($this->db);
             $files = $fileRepo->GetMyFiles('');
 
             $this->viewModel->set("model", $files);
@@ -56,7 +61,7 @@ class FilesModel extends BaseModel
         $this->viewModel->set("pageTitle","Delete File");
 
         try {
-        $fileRepo = new FileRepository();
+        $fileRepo = new FileRepository($this->db);
 
         $file = $fileRepo->GetFile($fileid);
 
@@ -75,11 +80,11 @@ class FilesModel extends BaseModel
 
         try
         {
-            $fileRepo = new FileRepository();
+            $fileRepo = new FileRepository($this->db);
             $file = $fileRepo->GetFile($fileid);
             $this->viewModel->set("model", $file);
 
-            $commRepo = new CommentRepository();
+            $commRepo = new CommentRepository($this->db);
             $comments = $commRepo->GetComments($fileid);
             $this->viewModel->set("comments", $comments);
 

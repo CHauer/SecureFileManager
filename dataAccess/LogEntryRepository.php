@@ -6,16 +6,21 @@
  * Time: 04:02
  */
 
-class LogEntryRepository{
+class LogEntryRepository extends  BaseRepository
+{
+    public function __construct($db)
+    {
+        parent::__construct($db);
+    }
 
     /**
      * @param LogEntry $logEntry
      * @return bool
      */
     public function InsertLogEntry(LogEntry $logEntry){
-        global $db;
 
-        $stmt = $db->prepare("INSERT INTO [dbo].[LogEntry] ([Message],[Typ]) VALUES (:message, :typ)");
+
+        $stmt = $this->db->prepare("INSERT INTO [dbo].[LogEntry] ([Message],[Typ]) VALUES (:message, :typ)");
         $stmt->bindParam(":message", $logEntry->Message);
         $stmt->bindParam(":typ", $logEntry->Typ);
 
@@ -35,9 +40,9 @@ class LogEntryRepository{
      */
     public function GetLogEntries($count = 1000){
         $entries = Array();
-        global $db;
 
-        $stmt = $db->prepare("SELECT TOP " . $count ." [LogEntryId],
+
+        $stmt = $this->db->prepare("SELECT TOP " . $count ." [LogEntryId],
                                 convert(nvarchar, [Created], 104) + ' ' + convert(nvarchar, [Created], 114)  as [CreatedFormat],
                                 [Message],
                                 [Typ]

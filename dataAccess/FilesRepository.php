@@ -6,16 +6,21 @@
  * Time: 04:02
  */
 
-class FileRepository
+class FileRepository extends  BaseRepository
 {
+    public function __construct($db)
+    {
+        parent::__construct($db);
+    }
+
     /**
      * @param UserFile $file
      * @return bool
      */
     public function InsertFile(UserFile $file)
     {
-        global $db;
-        $stmt = $db->prepare("INSERT INTO [dbo].[UserFile]
+
+        $stmt = $this->db->prepare("INSERT INTO [dbo].[UserFile]
           ([Name],
           [FileLink],
           [Description],
@@ -36,16 +41,16 @@ class FileRepository
         $stmt->execute();
 
         if ($stmt->rowCount() == 1) {
-            return $db->lastInsertId();
+            return $this->db->lastInsertId();
         }
         return false;
     }
 
     public function GetFile($fileid)
     {
-        global $db;
 
-        $stmt = $db->prepare('select top 1
+
+        $stmt = $this->db->prepare('select top 1
             [Description]
             ,[UserFileId]
            ,[Name]
@@ -77,9 +82,9 @@ class FileRepository
 
     private function GetFileLink($fileid) {
 
-        global $db;
 
-        $stmt = $db->prepare('Select FileLink from [UserFile] where UserFileId = :fileid');
+
+        $stmt = $this->db->prepare('Select FileLink from [UserFile] where UserFileId = :fileid');
         $stmt->bindParam(':fileid', $fileid);
         $stmt->execute();
 
@@ -95,9 +100,9 @@ class FileRepository
 
     public function DeleteFile($fileid)
     {
-        global $db;
 
-        $stmt = $db->prepare('delete from [Comment] where UserFile_UserFileId = :fileid');
+
+        $stmt = $this->db->prepare('delete from [Comment] where UserFile_UserFileId = :fileid');
         $stmt->bindParam(':fileid', $fileid);
         $stmt->execute();
 
@@ -108,7 +113,7 @@ class FileRepository
             unlink($path);
         }
 
-        $stmt = $db->prepare('Delete From [UserFile]
+        $stmt = $this->db->prepare('Delete From [UserFile]
                               where UserFileId = :fileid');
         $stmt->bindParam(':fileid', $fileid);
         $stmt->execute();
@@ -122,7 +127,7 @@ class FileRepository
 
     public function GetPublicAndOwnFiles($user, $file, $order = 'Uploaded')
     {
-        global $db;
+
         $isprivate = 0;
 
         if ($order == 'Uploaded')
@@ -130,7 +135,7 @@ class FileRepository
             $order = 'Uploaded DESC';
         }
 
-        $stmt = $db->prepare('Select [UserFile].*, Username, PictureLink, (Select count(Commentid) From Comment where UserFile_UserFileId = [Userfile].UserFileId) as CommentCount
+        $stmt = $this->db->prepare('Select [UserFile].*, Username, PictureLink, (Select count(Commentid) From Comment where UserFile_UserFileId = [Userfile].UserFileId) as CommentCount
                               from [UserFile] left join [User] on [UserFile].UserId = [User].UserId
                               where (IsPrivate = :ispriv or [UserFile].UserId = :id) and [User].Username LIKE :user
                               and Name LIKE :file order by ' . $order . ', [UserFile].Name');
@@ -156,14 +161,14 @@ class FileRepository
 
     public function GetMyFiles($file, $order = 'Uploaded')
     {
-        global $db;
+
 
         if ($order == 'Uploaded')
         {
             $order = 'Uploaded DESC';
         }
 
-        $stmt = $db->prepare('Select [UserFile].*, Username, PictureLink,
+        $stmt = $this->db->prepare('Select [UserFile].*, Username, PictureLink,
                               (Select count(Commentid) From Comment where UserFile_UserFileId = [Userfile].UserFileId) as CommentCount
                               from [UserFile] left join [User] on [UserFile].UserId = [User].UserId
                               where Name LIKE :file and [UserFile].UserId = :id

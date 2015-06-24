@@ -36,10 +36,12 @@ define('LOGGER_ERROR', 3);
 class Logger
 {
     private $logRepository;
+    private $db;
 
-    public function __construct()
+    public function __construct($db)
     {
-        $this->logRepository = new LogEntryRepository();
+        $this->logRepository = new LogEntryRepository($db);
+        $this->db = $db;
     }
 
     public function LogDebugMessage($message)

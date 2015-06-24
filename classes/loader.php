@@ -12,11 +12,17 @@ class Loader {
     private $controllerClass;
     private $action;
     private $urlValues;
+    private $db;
+    private $log;
     
     //store the URL request values on object creation
     public function __construct() {
         $this->urlValues = $_GET;
-        
+
+        //create database connection object
+        $this->db = CreateDatabaseAccess();
+        $this->log = new Logger($this->db);
+
         if ($this->urlValues['controller'] == "") {
             $this->controllerName = "home";
             $this->controllerClass = "HomeController";
@@ -34,12 +40,13 @@ class Loader {
                   
     //factory method which establishes the requested controller as an object
     public function createController() {
+
         //check our requested controller's class file exists and require it if so
         if (file_exists("controllers/" . $this->controllerName . ".php")) {
             require("controllers/" . $this->controllerName . ".php");
         } else {
             require("controllers/error.php");
-            return new ErrorController("badurl",$this->urlValues);
+            return new ErrorController("badurl",$this->urlValues, $this->db);
         }
                 
         //does the class exist?
@@ -51,21 +58,21 @@ class Loader {
                 //does the requested class contain the requested action as a method?
                 if (method_exists($this->controllerClass,$this->action))
                 {
-                    return new $this->controllerClass($this->action,$this->urlValues);
+                    return new $this->controllerClass($this->action,$this->urlValues, $this->db);
                 } else {
                     //bad action/method error
                     require("controllers/error.php");
-                    return new ErrorController("badurl",$this->urlValues);
+                    return new ErrorController("badurl",$this->urlValues, $this->db);
                 }
             } else {
                 //bad controller error
                 require("controllers/error.php");
-                return new ErrorController("badurl",$this->urlValues);
+                return new ErrorController("badurl",$this->urlValues, $this->db);
             }
         } else {
             //bad controller error
             require("controllers/error.php");
-            return new ErrorController("badurl",$this->urlValues);
+            return new ErrorController("badurl",$this->urlValues, $this->db);
         }
     }
 
@@ -77,6 +84,11 @@ class Loader {
     public function getCurrentAction()
     {
         return $this->action;
+    }
+
+    public function getLogger()
+    {
+        return $this->log;
     }
 
 }
