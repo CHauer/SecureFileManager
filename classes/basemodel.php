@@ -54,6 +54,14 @@ class BaseModel {
             }
 
             $this->viewModel->set("email", $currentuser->EMail);
+
+            try{
+                $rolerepo = new RoleRepository($this->db);
+                $role = $rolerepo->GetRole($currentuser->RoleId);
+
+                $this->viewModel->set("role", $role);
+            }
+            catch (Exception $ex){;}
         }
 
         //e.g. $this->viewModel->set("mainMenu",array("Home" => "/home", "Help" => "/help"));

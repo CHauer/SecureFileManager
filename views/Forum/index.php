@@ -75,15 +75,11 @@
         </table>
     </div>
 
-    <?
-    $userrepo = new UserRepository();
-    $rolerepo = new RoleRepository();
+  <?
+    $role = $viewModel->get("role");
 
-    $user = $userrepo->GetUser(intval($_SESSION['userid']));
-    $user->Role = $rolerepo->GetRole($user->RoleId);
-
-
-    if ($user->Role->WriteForum) {
+    if($role->WriteForum)
+    {
     ?>
         <div class="md-margin-bottom-30">
             <h4>Start a new thread.</h4>

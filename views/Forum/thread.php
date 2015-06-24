@@ -124,15 +124,11 @@
         </div> */ ?>
 
         <?
-        $userrepo = new UserRepository();
-        $rolerepo = new RoleRepository();
+        $role = $viewModel->get("role");
 
-        $user = $userrepo->GetUser(intval($_SESSION['userid']));
-        $user->Role = $rolerepo->GetRole($user->RoleId);
-
-
-        if ($user->Role->WriteForum) {
-        ?>
+        if($role->WriteForum)
+        {
+            ?>
         <form class="reg-page" action="" method="post">
             <div class="reg-header">
                 <h2>Post a new answer</h2>

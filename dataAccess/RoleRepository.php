@@ -36,8 +36,6 @@ class RoleRepository extends  BaseRepository
      */
     public function GetRole($roleid)
     {
-
-
         $stmt = $this->db->prepare('SELECT [RoleId]
                               ,[Name]
                               ,[FileDownload]

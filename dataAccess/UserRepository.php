@@ -13,7 +13,6 @@ class UserRepository extends BaseRepository
         parent::__construct($db);
     }
 
-
     /**
      * @param User $user
      * @return bool
@@ -168,8 +167,6 @@ class UserRepository extends BaseRepository
      * @return User
      */
     public function GetUser($userid){
-
-
         $stmt = $this->db->prepare('select top 1
             [Username]
            ,convert(varchar, [Birthdate], 104) as [Birthdate]

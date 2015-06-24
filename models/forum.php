@@ -31,7 +31,6 @@ class ForumModel extends BaseModel
         $this->viewModel->set("thread", $thread);
         $this->viewModel->set("entries", $forumrepo->GetEntriesForThread($thread->ForumThreadId));
 
-
         return $this->viewModel;
     }
 
