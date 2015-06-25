@@ -27,8 +27,8 @@ class FilesController extends BaseController
 
         $viewModel = $this->model->index();
 
-        if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST') {
-
+        if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
+        {
             try {
                 $fileRepo = new FileRepository($this->db);
                 $files = $fileRepo->GetPublicAndOwnFiles($_POST["User"], $_POST["Name"]);
@@ -58,7 +58,6 @@ class FilesController extends BaseController
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
         {
-
             try
             {
                 $fileRepo = new FileRepository($this->db);
@@ -90,7 +89,9 @@ class FilesController extends BaseController
 
         $viewModel = $this->model->upload();
 
-        if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST') {
+        if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
+        {
+            CheckAntiCSRFToken();
 
             try {
                 #region # Create File
@@ -244,8 +245,6 @@ class FilesController extends BaseController
 
     protected function delete()
     {
-
-
         ConfirmUserIsLoggedOn();
 
         $id = $this->urlValues['id'];
@@ -269,8 +268,8 @@ class FilesController extends BaseController
 
         $viewModel = $this->model->delete($id);
 
-        if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST') {
-
+        if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
+        {
             try {
                 $fileRepo = new FileRepository($this->db);
 
@@ -308,8 +307,6 @@ class FilesController extends BaseController
 
     protected function details()
     {
-
-
         ConfirmUserIsLoggedOn();
 
         $id = $this->urlValues['id'];
@@ -329,6 +326,8 @@ class FilesController extends BaseController
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
         {
+            CheckAntiCSRFToken();
+
             #region # Create Comment
             try {
 

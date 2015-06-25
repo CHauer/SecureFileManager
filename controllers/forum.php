@@ -56,6 +56,8 @@ class ForumController extends BaseController
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
         {
+            CheckAntiCSRFToken();
+
             // check for permissions to write in forum
             $userrepo = new UserRepository($this->db);
             $rolerepo = new RoleRepository($this->db);
@@ -138,8 +140,6 @@ class ForumController extends BaseController
                 {
                     $forumrepo->DeleteEntryById($id);
 
-
-
                     // log deletion of thread
                     $this->log->LogMessage("Entry " . $id . " deleted by user with ID " . $_SESSION["userid"], LOGGER_INFO);
 
@@ -180,6 +180,8 @@ class ForumController extends BaseController
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
         {
+            CheckAntiCSRFToken();
+
             if(!$this->validateThreadData($viewModel)) {
                 $this->view->output($viewModel);
                 return;
@@ -213,8 +215,6 @@ class ForumController extends BaseController
             //no error
             if(!$viewModel->exists("error"))
             {
-
-
                 // log creation of thread
                 $this->log->LogMessage("Thread " . $threadId . " created by user with ID " . $_SESSION["userid"], LOGGER_INFO);
 

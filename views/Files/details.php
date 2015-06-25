@@ -34,8 +34,6 @@ if($viewModel->exists("comment"))
 <div class="container content profile">
     <div class="row">
 
-        <? CreateHiddenAntiCSRFTokenField(); ?>
-
         <!--Left Sidebar-->
         <div class="col-md-3 md-margin-bottom-40">
 
@@ -116,6 +114,9 @@ if($viewModel->exists("comment"))
             if(IsPremiumUser()) {
                 ?>
                 <form class="reg-page" action="/files/details/<?php echo $model->UserFileId ?>" method="post">
+
+                    <? CreateHiddenAntiCSRFTokenField(); ?>
+
                     <div class="col-md-9">
                         <div class="margin-left-5">
 

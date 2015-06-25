@@ -19,8 +19,6 @@ class AccountController extends BaseController
 
     protected function register()
     {
-
-
         $viewModel = $this->model->register();
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
@@ -132,8 +130,6 @@ class AccountController extends BaseController
 
     protected function login()
     {
-
-
         $viewModel = $this->model->login();
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
@@ -245,8 +241,6 @@ class AccountController extends BaseController
 
     protected function logoff()
     {
-
-
         $viewModel = $this->model->manage();
 
         //log logout
@@ -278,8 +272,6 @@ class AccountController extends BaseController
 
     protected function editprofile()
     {
-
-
         ConfirmUserIsLoggedOn();
 
         $viewModel = $this->model->editprofile();
@@ -367,7 +359,6 @@ class AccountController extends BaseController
 
     protected function deactivate()
     {
-
         ConfirmUserIsLoggedOn();
 
         $userrepo = new UserRepository($this->db);
@@ -383,7 +374,6 @@ class AccountController extends BaseController
 
     protected function resetpassword()
     {
-
         if(IsUserLoggedOn())
         {
             RedirectAction("home", "index");
@@ -393,6 +383,8 @@ class AccountController extends BaseController
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
         {
+            CheckAntiCSRFToken();
+
             if(!isset($_POST["EMail"]) || $_POST["EMail"] == ''){
                 $viewModel->setFieldError("EMail", "EMail has to be entered!");
                 $this->view->output($viewModel);
@@ -436,8 +428,6 @@ class AccountController extends BaseController
         {
             RedirectAction("home", "index");
         }
-
-
 
         $viewModel = $this->model->confirmresetpassword();
 
@@ -493,13 +483,14 @@ class AccountController extends BaseController
 
     protected function changepassword()
     {
-
         ConfirmUserIsLoggedOn();
 
         $viewModel = $this->model->changepassword();
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
         {
+            CheckAntiCSRFToken();
+
             if(!$this->validatePassword($viewModel)) {
                 $this->view->output($viewModel);
                 return;
@@ -538,13 +529,14 @@ class AccountController extends BaseController
 
     protected function changeuserpicture()
     {
-
         ConfirmUserIsLoggedOn();
 
         $viewModel = $this->model->changeuserpicture();
 
         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
         {
+            CheckAntiCSRFToken();
+
             //update user picture
             if(isset($_FILES['Picture']))
             {

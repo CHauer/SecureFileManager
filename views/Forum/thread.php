@@ -130,6 +130,9 @@
         {
             ?>
         <form class="reg-page" action="" method="post">
+
+            <? CreateHiddenAntiCSRFTokenField(); ?>
+
             <div class="reg-header">
                 <h2>Post a new answer</h2>
             </div>
