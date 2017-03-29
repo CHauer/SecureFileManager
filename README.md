@@ -4,12 +4,12 @@ FH Wiener Neustadt
 
 A simple PHP Webplattform for
 * File Management
-- (Up & Download)
-- Comments (HTML)
+  * (Up & Download)
+  * Comments (HTML)
 * Forum
-- HTML Posts
+  * HTML Posts
 * Simple Profiles
-- RememberMe Function
+  * RememberMe Function
 
 Typical vulnerabilities were considered during development. (OWASP TOP 10)
 
