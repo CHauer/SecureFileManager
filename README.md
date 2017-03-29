@@ -13,8 +13,7 @@ A simple PHP Webplattform for
 
 Typical vulnerabilities were considered during development. (OWASP TOP 10)
 
-Website hosted on: 
-http://securefile.azurewebsites.net
+~Website hosted on: http://securefile.azurewebsites.net~
 
 Project on Github:
 https://github.com/CHauer/SecureFileManager
